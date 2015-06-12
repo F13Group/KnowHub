@@ -1,0 +1,38 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>ua.f13group</groupId>
+  <artifactId>KnowHub</artifactId>
+  <packaging>war</packaging>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>KnowHub Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+  <build>
+    <finalName>KnowHub</finalName>
+    <plugins>
+    	<plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <!--<server>myserver</server>-->
+                    <username>admin</username>
+                    <password>p@ssw0rd</password>
+                    <update>true</update>
+                    <url>http://epuakyiw1793t6.kyiv.epam.com:8085/manager/text</url>
+                    
+                    <path>/knowhub</path>
+                </configuration>
+            </plugin>
+    
+  	</plugins>
+  </build>
+</project>
