@@ -15,6 +15,7 @@
     
     <context:component-scan base-package="ua.f13group.KnowHub.domain"/>
     <context:component-scan base-package="ua.f13group.KnowHub.service"/>
+        <context:component-scan base-package="ua.f13group.KnowHub.service.simpleImplementation"/>
     <context:component-scan base-package="ua.f13group.KnowHub.repository"/>  
                   
 </beans>

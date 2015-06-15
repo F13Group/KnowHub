@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import ua.f13group.KnowHub.domain.Category;
 import ua.f13group.KnowHub.service.CategoryService;
 
-@Service
+@Service(value= "categoryService")
 public class CategoryServiceSimpleImplementation implements CategoryService {
 
 	@Override
