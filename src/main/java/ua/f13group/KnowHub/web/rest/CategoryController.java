@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import ua.f13group.KnowHub.domain.Category;
+import ua.f13group.KnowHub.service.CategoryService;
+
 @RestController(value="/category")
 public class CategoryController {
 	
