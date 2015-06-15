@@ -3,7 +3,7 @@ package ua.f13group.KnowHub.domain;
 import java.time.LocalDateTime;
 
 public class Question {
-	Long id;
+	Long id;//וךשהשהש
 	String value;
 	LocalDateTime loadDate;
 	Long rating;
