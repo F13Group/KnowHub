@@ -1,0 +1,8 @@
+$ cat .gitignore
+.classpath
+.project
+.settings
+.metadata
+.directory
+/target/
+*~
