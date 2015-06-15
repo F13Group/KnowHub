@@ -226,7 +226,7 @@
                     <update>true</update>
                     <url>http://epuakyiw1793t6.kyiv.epam.com:8085/manager/text</url>
                     
-                    <path>/knowhub2</path>
+                    <path>/knowhub</path>
                 </configuration>
             </plugin>
     
