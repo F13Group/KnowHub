@@ -1,0 +1,47 @@
+body {
+	background-color:#B5B5B5;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 100%;
+	line-height: 1em;
+} 
+
+.divTable{
+  display:table;         
+  width:auto;         
+  background-color:black;         
+  border:1px solid  black;         
+  border-spacing:2px;/*cellspacing:poor IE support for  this*/
+}
+.divRow{
+  display:table-row;
+  width:auto;
+  clear:both;
+}
+.divCell_header{
+  font-weight:bold;
+  float:left;
+  display:table-column;         
+  width:200px; 
+  height:30px;
+  padding:10px;       
+  background-color:#ccc;  
+}	
+.divCell_2{
+  float:left;
+  display:table-column;         
+  width:200px; 
+  height:30px;
+  padding:10px;       
+  background-color:white;  
+}
+.divCell_3{
+  float:left;
+  display:table-column;         
+  width:200px; 
+  height:30px;
+  padding:10px;       
+  background-color:#E8E8E8;  
+}
+.divQuestionColor{
+	color:#1874CD;
+}
