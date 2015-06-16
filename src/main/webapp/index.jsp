@@ -43,7 +43,9 @@
 			<input class="categoriesMenuButton" type="button"
 				value="Automatic Testing(AT)"><br />
 		</div>
-
+		<div class="categoriesMenuItem">
+			<input class="categoriesMenuButton" type="button" value="Others"><br />
+		</div>
 	</div>
 
 
