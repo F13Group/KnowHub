@@ -23,7 +23,7 @@ public class QuestionController {
 	    public List<Question> getAllQuestions() {
 	        return questionService.findAll();
 	    }
-	 
+	 //too early
 	 @RequestMapping(value = "/{category}",method = RequestMethod.GET)
 	    public List<Question> getAllQuestions(@PathVariable Category category) {
 	        return questionService.findAll(/*category*/);

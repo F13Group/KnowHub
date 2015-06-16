@@ -13,7 +13,7 @@ import ua.f13group.KnowHub.service.CategoryService;
 
 @RestController
 @RequestMapping(value="/category")
-@ImportResource("classpath:SpringConfig.xml")
+//@ImportResource("classpath:SpringConfig.xml")
 public class CategoryController {
 	
 	@Autowired
