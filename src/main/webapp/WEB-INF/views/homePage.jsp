@@ -70,4 +70,4 @@
    <div id="footer">&copy; F13 team</div>
   </div> 
  </body>
-</html>
+</html> 

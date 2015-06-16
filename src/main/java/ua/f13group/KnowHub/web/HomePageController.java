@@ -13,5 +13,5 @@ public class HomePageController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String homePageAll(Map<String, Object> model) {
 		return "homePage";
-	}
+	} 
 }
