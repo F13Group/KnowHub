@@ -190,7 +190,6 @@
 		<!-- <dependency> <groupId>org.springframework</groupId> <artifactId>spring-test</artifactId> 
 			<version>4.1.5.RELEASE</version> <scope>test</scope> </dependency> -->
 
-<<<<<<< HEAD
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-config</artifactId>
@@ -201,7 +200,7 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-taglibs</artifactId>
             <version>3.2.0.RELEASE</version>
-        </dependency> -->
+        </dependency>
   </dependencies>
   <build>
     <finalName>KnowHub</finalName>
@@ -223,8 +222,7 @@
                     <username>admin</username>
                     <password>p@ssw0rd</password>
                     <update>true</update>
-                    <url>http://epuakyiw1793t6.kyiv.epam.com:8085/manager/text</url>
-                    
+                    <url>http://epuakyiw1793t6.kyiv.epam.com:8085/manager/text</url>           
                     <path>/knowhub</path>
                 </configuration>
             </plugin>
@@ -232,43 +230,5 @@
   	</plugins>
   </build>
 </project>
-=======
-		<!--<dependency> <groupId>org.springframework.security</groupId> <artifactId>spring-security-core</artifactId> 
-			<version>3.2.0.RELEASE</version> </dependency> <dependency> <groupId>org.springframework.security</groupId> 
-			<artifactId>spring-security-web</artifactId> <version>3.2.0.RELEASE</version> 
-			</dependency> <dependency> <groupId>org.springframework.security</groupId> 
-			<artifactId>spring-security-config</artifactId> <version>3.2.0.RELEASE</version> 
-			</dependency> <dependency> <groupId>org.springframework.security</groupId> 
-			<artifactId>spring-security-taglibs</artifactId> <version>3.2.0.RELEASE</version> 
-			</dependency> -->
-	</dependencies>
-	<build>
-		<finalName>KnowHub</finalName>
-		<plugins>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
-				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.tomcat.maven</groupId>
-				<artifactId>tomcat7-maven-plugin</artifactId>
-				<version>2.2</version>
-				<configuration>
-					<!--<server>myserver</server> -->
-					<username>admin</username>
-					<password>p@ssw0rd</password>
-					<update>true</update>
-					<url>http://epuakyiw1793t6.kyiv.epam.com:8085/manager/text</url>
+	
 
-					<path>/knowhub2</path>
-				</configuration>
-			</plugin>
-
-		</plugins>
-	</build>
-</project>
->>>>>>> refs/heads/IgorBranch
