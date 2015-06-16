@@ -5,6 +5,47 @@ body {
 	line-height: 1em;
 } 
 
+a{	padding:10px;}
+
+input{	padding: 5px;}
+
+.loginLinks{
+	margin:10px;
+}
+.loginLinksItem{
+	margin:10px;
+}
+
+.filtersMenu{
+}
+
+
+.categoriesMenu{
+	margin-top:50px;
+	float:left;
+	width:200px;
+}
+.categoriesMenuItem{
+	margin:1px;
+	width:200px;
+}
+.categoriesMenuButton{
+	margin:1px;
+	width:200px;
+	text-align: left;
+	border-color: black;
+}
+.categoriesMenuButtonActive{
+	margin:1px;
+	width:200px;
+	text-align: left;
+	background-color:white; 
+	border-color: black;
+	border-right-color: white;
+}
+
+
+
 .divTable{
   display:table;         
   width:auto;         
@@ -22,7 +63,7 @@ body {
   float:left;
   display:table-column;         
   width:200px; 
-  height:30px;
+  height:20px;
   padding:10px;       
   background-color:#ccc;  
 }	
@@ -30,7 +71,7 @@ body {
   float:left;
   display:table-column;         
   width:200px; 
-  height:30px;
+  height:20px;
   padding:10px;       
   background-color:white;  
 }
@@ -38,10 +79,13 @@ body {
   float:left;
   display:table-column;         
   width:200px; 
-  height:30px;
+  height:20px;
   padding:10px;       
   background-color:#E8E8E8;  
 }
 .divQuestionColor{
 	color:#1874CD;
+}
+.checkedPage{
+	color:red;
 }
