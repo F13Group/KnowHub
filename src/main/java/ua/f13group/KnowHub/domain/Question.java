@@ -1,13 +1,21 @@
 package ua.f13group.KnowHub.domain;
 
 import java.time.LocalDateTime;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "questions")
+@NamedQueries({
+    @NamedQuery(name = "Question.findAll", query = "SELECT q FROM Question q")
+})
 public class Question {
-	Long id;//וךשהשהש
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	Long id;
 	String value;
 	LocalDateTime loadDate;
 	Long rating;
-	Long postId;
+	Long userId;
 	
 	public Question() {}
 	
@@ -36,9 +44,9 @@ public class Question {
 		this.rating = rating;
 	}
 	public Long getPostId() {
-		return postId;
+		return userId;
 	}
-	public void setPostId(Long postId) {
-		this.postId = postId;
+	public void setPostId(Long userId) {
+		this.userId = userId;
 	}
 }

@@ -21,7 +21,10 @@ public class CategoryController {
 	
 	 @RequestMapping(method = RequestMethod.GET)
 	 public List<Category> getAllCategories() {
-	        return categoryService.findAll();
+	      System.out.println("HELLO!~");
+	        for(Category c:categoryService.findAll())
+	        	System.out.println(c);
+	        	  return categoryService.findAll();
 	    }
 	 
 

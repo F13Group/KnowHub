@@ -1,9 +1,15 @@
 package ua.f13group.KnowHub.domain;
 
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "tags")
 public class Tag {
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long id;
 	String value;
-	Long questionId;
 	
 	public Tag() {}
 
@@ -22,12 +28,5 @@ public class Tag {
 	public void setValue(String value) {
 		this.value = value;
 	}
-
-	public Long getQuestionId() {
-		return questionId;
-	}
-
-	public void setQuestionId(Long questionId) {
-		this.questionId = questionId;
-	}
 }
+

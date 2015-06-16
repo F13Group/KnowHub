@@ -1,9 +1,25 @@
 package ua.f13group.KnowHub.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "categories")
+@NamedQueries({
+    @NamedQuery(name = "Category.findAll", query = "SELECT c FROM Category c")
+})
 public class Category {
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="category_id")
 	Long id;
 	String value;
-	Long postId;
 	
 	public Category() {}
 
@@ -19,15 +35,12 @@ public class Category {
 		return value;
 	}
 
+	@Override
+	public String toString() {
+		return "Category [id=" + id + ", value=" + value + "]";
+	}
+
 	public void setValue(String value) {
 		this.value = value;
-	}
-
-	public Long getPostId() {
-		return postId;
-	}
-
-	public void setPostId(Long postId) {
-		this.postId = postId;
 	}
 }

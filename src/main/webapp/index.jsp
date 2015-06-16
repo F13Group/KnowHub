@@ -23,7 +23,7 @@ img {
 		$.getJSON(url, function(data) {
 			var items = [];
 			$.each(data, function(index, value) {				
-				items.push('<li>' + value.id + "- " + value.value + "- " + value.postId + '</li>');
+				items.push('<li>' + value.id + "- " + value.value + "- "  + '</li>');
 			});
 			$('<ul/>', {			
 				'class': 'my-new-list',
