@@ -14,8 +14,10 @@ public class Question {
 	@Column(name="question_id")
 	Long id;
 	String value;
+	@Column(name="load_date")
 	LocalDateTime loadDate;
 	Long rating;
+	@Column(name="user_id")
 	Long userId;
 	
 	public Question() {}
