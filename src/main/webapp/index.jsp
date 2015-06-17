@@ -2,7 +2,8 @@
 <head>
 <link rel="stylesheet" href="resources/style/css/style.css"
 	type="text/css" />
-
+	<link href="${pageContext.request.contextPath}/resources/css/style.css" rel="stylesheet" /> 
+	
 <title>Test page</title>
 </head>
 <body>
@@ -58,55 +59,55 @@
 				<div class="divCell_header">Rate</div>
 			</div>
 			<div class="divRow">
-				<div class="divCell_2">
+				<div class="divCell_bright">
 					<div class="divQuestionColor">Question1</div>
 				</div>
-				<div class="divCell_2">Java</div>
-				<div class="divCell_2">10/06/15</div>
-				<div class="divCell_2">0</div>
+				<div class="divCell_bright">Java</div>
+				<div class="divCell_bright">10/06/15</div>
+				<div class="divCell_bright">0</div>
 			</div>
 			<div class="divRow">
-				<div class="divCell_3">
+				<div class="divCell_dark">
 					<div class="divQuestionColor">Question2</div>
 				</div>
-				<div class="divCell_3">QA</div>
-				<div class="divCell_3">09/06/15</div>
-				<div class="divCell_3">0</div>
+				<div class="divCell_dark">QA</div>
+				<div class="divCell_dark">09/06/15</div>
+				<div class="divCell_dark">0</div>
 			</div>
 			<div class="divRow">
-				<div class="divCell_2">
+				<div class="divCell_bright">
 					<div class="divQuestionColor">Question3</div>
 				</div>
-				<div class="divCell_2">NET</div>
-				<div class="divCell_2">08/06/15</div>
-				<div class="divCell_2">1</div>
+				<div class="divCell_bright">NET</div>
+				<div class="divCell_bright">08/06/15</div>
+				<div class="divCell_bright">1</div>
 			</div>
 			<div class="divRow">
-				<div class="divCell_3">
+				<div class="divCell_dark">
 					<div class="divQuestionColor">Question4</div>
 				</div>
-				<div class="divCell_3">QA</div>
-				<div class="divCell_3">07/06/15</div>
-				<div class="divCell_3">0</div>
+				<div class="divCell_dark">QA</div>
+				<div class="divCell_dark">07/06/15</div>
+				<div class="divCell_dark">0</div>
 			</div>
 			<div class="divRow">
-				<div class="divCell_2">
+				<div class="divCell_bright">
 					<div class="divQuestionColor">Question5</div>
 				</div>
-				<div class="divCell_2">NET</div>
-				<div class="divCell_2">06/06/15</div>
-				<div class="divCell_2">3</div>
+				<div class="divCell_bright">NET</div>
+				<div class="divCell_bright">06/06/15</div>
+				<div class="divCell_bright">3</div>
 			</div>
 			<div class="divRow">
-				<div class="divCell_3">
+				<div class="divCell_dark">
 					<div class="divQuestionColor">Question6</div>
 				</div>
-				<div class="divCell_3">NET</div>
-				<div class="divCell_3">05/06/15</div>
-				<div class="divCell_3">2</div>
+				<div class="divCell_dark">NET</div>
+				<div class="divCell_dark">05/06/15</div>
+				<div class="divCell_dark">2</div>
 			</div>
 			<div class="divRow">
-				<div class="divCell_2" align="right">
+				<div class="divCell_bright" align="right">
 					SHOW 
 					<select>
 						<option>6</option>
@@ -114,9 +115,9 @@
 						<option>14</option>
 					</select>
 				</div>
-				<div class="divCell_2"></div>
-				<div class="divCell_2">&lt;&lt; &lt;   <span class="checkedPage">1</span> 2 3 4 5 6 7  &gt; &gt;&gt;</div>
-				<div class="divCell_2"></div>
+				<div class="divCell_bright"></div>
+				<div class="divCell_bright">&lt;&lt; &lt;   <span class="checkedPage">1</span> 2 3 4 5 6 7  &gt; &gt;&gt;</div>
+				<div class="divCell_bright"></div>
 			</div>
 		</div>
 	</form>

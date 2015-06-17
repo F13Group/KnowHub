@@ -67,7 +67,7 @@ input{	padding: 5px;}
   padding:10px;       
   background-color:#ccc;  
 }	
-.divCell_2{
+.divCell_bright{
   float:left;
   display:table-column;         
   width:200px; 
@@ -75,7 +75,7 @@ input{	padding: 5px;}
   padding:10px;       
   background-color:white;  
 }
-.divCell_3{
+.divCell_dark{
   float:left;
   display:table-column;         
   width:200px; 

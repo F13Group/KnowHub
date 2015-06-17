@@ -21,8 +21,8 @@
     <context:component-scan base-package="ua.f13group.KnowHub.service"/>
     <context:component-scan base-package="ua.f13group.KnowHub.repository"/>  
      
-   <!-- Used to serve static resources like css, images and javascript files 
-	<mvc:resources mapping="/resources/**" location="/resources/style/" />-->
+   <!-- Used to serve static resources like css, images and javascript files -->
+	<mvc:resources mapping="/resources/**" location="/resources/style/" />
 
                   
 </beans>
