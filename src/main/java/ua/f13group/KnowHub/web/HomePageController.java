@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class HomePageController {
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public String homePageAll(Map<String, Object> model) {
+	//public String homePageAll(Map<String, Object> model) {  
+	public String homePageAll() {
 		return "homePage";
 	}  
 }
