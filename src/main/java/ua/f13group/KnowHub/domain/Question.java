@@ -11,6 +11,7 @@ import javax.persistence.*;
 public class Question {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="question_id")
 	Long id;
 	String value;
 	LocalDateTime loadDate;
