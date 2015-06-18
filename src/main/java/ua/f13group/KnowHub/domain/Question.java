@@ -1,7 +1,6 @@
 package ua.f13group.KnowHub.domain;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.io.Serializable;
 
 import javax.persistence.Column;

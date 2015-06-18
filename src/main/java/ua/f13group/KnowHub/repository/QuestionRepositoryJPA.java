@@ -8,7 +8,6 @@ import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 
-import ua.f13group.KnowHub.domain.Category;
 import ua.f13group.KnowHub.domain.Question;
 
 @Repository("questionRepository")
