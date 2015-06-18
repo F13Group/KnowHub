@@ -39,10 +39,9 @@
 				<div class="divCell_header">Rate</div>
 
 			</div>					
-			
-
-			</div>
-			<div class="divRow">
+		</div>
+		
+	<!-- 		<div class="divRow">
 				<div class="divCell_bright">
 					<div class="divQuestionColor">Question1</div>
 				</div>
@@ -103,12 +102,9 @@
 				<div class="divCell_bright">&lt;&lt; &lt;   <span class="checkedPage">1</span> 2 3 4 5 6 7  &gt; &gt;&gt;</div>
 				<div class="divCell_bright"></div>
 			</div>
+ -->
+		
 
-		</div>
-	</form>
-
-</body>
-</html>
 
 
 <script>
@@ -123,14 +119,22 @@
 			});			
 		});
 		
+		
 		$.getJSON(questionUrl, function(data) {
 			var items = [];
 			$.each(data, function(index, value) {
 				var date = new Date(value.loadDate);
-				$("#questionsList").append("<div class=divRow><div class=divCell_2><div class=divQuestionColor>" + value.value + "</div></div><div class=divCell_2>N/A</div><div class=divCell_2>" + date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getFullYear() +"</div><div class=divCell_2>" + value.rating + "</div></div>");
+				$("#questionsList").append("<div class=divRow><div class=divCell_bright><div class=divQuestionColor>" + value.value + "</div></div><div class=divCell_bright>N/A</div><div class=divCell_bright>" + date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getFullYear() +"</div><div class=divCell_bright>" + value.rating + "</div></div>");
 			});
-			$("#questionsList").append("<div class=divRow><div class=divCell_2 align=right>SHOW<select><option>6</option><option>10</option><option>14</option></select></div><div class=divCell_2></div><div class=divCell_2>&lt;&lt; &lt;   <span class=checkedPage>1</span> 2 3 4 5 6 7  &gt; &gt;&gt;</div><div class=divCell_2></div></div>");
+			$("#questionsList").append("<div class=divRow><div class=divCell_bright align=right>SHOW<select><option>6</option><option>10</option><option>14</option></select></div><div class=divCell_bright></div><div class=divCell_bright>&lt;&lt; &lt;   <span class=checkedPage>1</span> 2 3 4 5 6 7  &gt; &gt;&gt;</div><div class=divCell_bright></div></div>");
 		});
 
 	});
+	
 </script>
+
+
+	</form>
+
+</body>
+</html>
