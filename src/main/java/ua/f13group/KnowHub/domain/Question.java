@@ -1,21 +1,34 @@
 package ua.f13group.KnowHub.domain;
 
-import java.time.LocalDateTime;
-import javax.persistence.*;
+import java.sql.Timestamp;
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "questions")
 @NamedQueries({
     @NamedQuery(name = "Question.findAll", query = "SELECT q FROM Question q")
 })
-public class Question {
+public class Question implements Serializable{
+	
+	
+	private static final long serialVersionUID = 1L;
+	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="question_id")
 	Long id;
 	String value;
 	@Column(name="load_date")
-	LocalDateTime loadDate;
+	Timestamp loadDate;
 	Long rating;
 	@Column(name="user_id")
 	Long userId;
@@ -34,10 +47,10 @@ public class Question {
 	public void setValue(String value) {
 		this.value = value;
 	}
-	public LocalDateTime getLoadDate() {
+	public Timestamp getLoadDate() {
 		return loadDate;
 	}
-	public void setLoadDate(LocalDateTime loadDate) {
+	public void setLoadDate(Timestamp loadDate) {
 		this.loadDate = loadDate;
 	}
 	public Long getRating() {

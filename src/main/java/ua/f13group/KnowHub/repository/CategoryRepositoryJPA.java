@@ -6,12 +6,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-import org.springframework.context.annotation.ImportResource;
 import org.springframework.stereotype.Repository;
 
 import ua.f13group.KnowHub.domain.*;
 
-//@ImportResource("classpath:spring/spring-config.xml")
 @Repository("categoryRepository")
 public class CategoryRepositoryJPA implements CategoryRepository {
 

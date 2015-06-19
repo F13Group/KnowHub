@@ -23,103 +23,22 @@
 	</div>
 
 
-	<div class="categoriesMenu">
+	<div id="categoriesMenu" class="categoriesMenu">
 		<div class="categoriesMenuItem">
 			<input class="categoriesMenuButtonActive" type="button" value="ALL"><br />
-		</div>
-		<div class="categoriesMenuItem">
-			<input class="categoriesMenuButton" type="button" value="Java"><br />
-		</div>
-		<div class="categoriesMenuItem">
-			<input class="categoriesMenuButton" type="button" value="Net"><br />
-		</div>
-		<div class="categoriesMenuItem">
-			<input class="categoriesMenuButton" type="button"
-				value="Busness Intelligents(BI)"><br />
-		</div>
-		<div class="categoriesMenuItem">
-			<input class="categoriesMenuButton" type="button"
-				value="Functional Testing(FT)"><br />
-		</div>
-		<div class="categoriesMenuItem">
-			<input class="categoriesMenuButton" type="button"
-				value="Automatic Testing(AT)"><br />
-		</div>
-		<div class="categoriesMenuItem">
-			<input class="categoriesMenuButton" type="button" value="Others"><br />
-		</div>
+		</div>		
 	</div>
 
 
 	<form id="form1">
-		<div class="divTable">
+		<div id="questionsList" class="divTable">
 			<div class="headRow">
 				<div class="divCell_header">Question</div>
 				<div class="divCell_header">Category</div>
 				<div class="divCell_header">Date</div>
 				<div class="divCell_header">Rate</div>
-			</div>
-			<div class="divRow">
-				<div class="divCell_2">
-					<div class="divQuestionColor">Question1</div>
-				</div>
-				<div class="divCell_2">Java</div>
-				<div class="divCell_2">10/06/15</div>
-				<div class="divCell_2">0</div>
-			</div>
-			<div class="divRow">
-				<div class="divCell_3">
-					<div class="divQuestionColor">Question2</div>
-				</div>
-				<div class="divCell_3">QA</div>
-				<div class="divCell_3">09/06/15</div>
-				<div class="divCell_3">0</div>
-			</div>
-			<div class="divRow">
-				<div class="divCell_2">
-					<div class="divQuestionColor">Question3</div>
-				</div>
-				<div class="divCell_2">NET</div>
-				<div class="divCell_2">08/06/15</div>
-				<div class="divCell_2">1</div>
-			</div>
-			<div class="divRow">
-				<div class="divCell_3">
-					<div class="divQuestionColor">Question4</div>
-				</div>
-				<div class="divCell_3">QA</div>
-				<div class="divCell_3">07/06/15</div>
-				<div class="divCell_3">0</div>
-			</div>
-			<div class="divRow">
-				<div class="divCell_2">
-					<div class="divQuestionColor">Question5</div>
-				</div>
-				<div class="divCell_2">NET</div>
-				<div class="divCell_2">06/06/15</div>
-				<div class="divCell_2">3</div>
-			</div>
-			<div class="divRow">
-				<div class="divCell_3">
-					<div class="divQuestionColor">Question6</div>
-				</div>
-				<div class="divCell_3">NET</div>
-				<div class="divCell_3">05/06/15</div>
-				<div class="divCell_3">2</div>
-			</div>
-			<div class="divRow">
-				<div class="divCell_2" align="right">
-					SHOW 
-					<select>
-						<option>6</option>
-						<option>10</option>
-						<option>14</option>
-					</select>
-				</div>
-				<div class="divCell_2"></div>
-				<div class="divCell_2">&lt;&lt; &lt;   <span class="checkedPage">1</span> 2 3 4 5 6 7  &gt; &gt;&gt;</div>
-				<div class="divCell_2"></div>
-			</div>
+			</div>					
+			
 		</div>
 	</form>
 
@@ -135,23 +54,17 @@
 		$.getJSON(categoryUrl, function(data) {
 			var items = [];
 			$.each(data, function(index, value) {				
-				items.push('<li>' + value.id + "- " + value.value + "- "  + '</li>');
-			});
-			$('<ul/>', {			
-				'class': 'my-new-list',
-				 html: items.join('')
-				 }).appendTo('body');
+				$("#categoriesMenu").append("<div class=categoriesMenuItem><input class=categoriesMenuButton type=button value=" + value.value + "><br /></div>");
+			});			
 		});
 		
 		$.getJSON(questionUrl, function(data) {
 			var items = [];
-			$.each(data, function(index, value) {				
-				items.push('<li>' + value.id + "- " + value.value + "- "  + '</li>');
+			$.each(data, function(index, value) {
+				var date = new Date(value.loadDate);
+				$("#questionsList").append("<div class=divRow><div class=divCell_2><div class=divQuestionColor>" + value.value + "</div></div><div class=divCell_2>N/A</div><div class=divCell_2>" + date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getFullYear() +"</div><div class=divCell_2>" + value.rating + "</div></div>");
 			});
-			$('<ul/>', {			
-				'class': 'my-new-list',
-				 html: items.join('')
-				 }).appendTo('body');
+			$("#questionsList").append("<div class=divRow><div class=divCell_2 align=right>SHOW<select><option>6</option><option>10</option><option>14</option></select></div><div class=divCell_2></div><div class=divCell_2>&lt;&lt; &lt;   <span class=checkedPage>1</span> 2 3 4 5 6 7  &gt; &gt;&gt;</div><div class=divCell_2></div></div>");
 		});
 
 	});

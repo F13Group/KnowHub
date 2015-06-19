@@ -3,8 +3,6 @@ package ua.f13group.KnowHub.service.simpleImplementation;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
 import ua.f13group.KnowHub.domain.Question;
 import ua.f13group.KnowHub.service.QuestionService;
 
