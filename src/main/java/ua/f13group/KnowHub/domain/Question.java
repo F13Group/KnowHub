@@ -15,7 +15,11 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "questions")
 @NamedQueries({
-    @NamedQuery(name = "Question.findAll", query = "SELECT q FROM Question q")
+    @NamedQuery(name = "Question.findAll", query = "SELECT q FROM Question q"),
+  //  @NamedQuery(name = "Question.getPage", query = "SELECT q FROM Question q"),
+  //  @NamedQuery(name = "Question.getPagesCount", query = "SELECT Count(q) FROM Question q"),
+    @NamedQuery(name = "Question.findAll", query = "SELECT q FROM Question q WHERE q.category = :category"),
+    
 })
 public class Question implements Serializable{
 	

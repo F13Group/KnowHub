@@ -5,4 +5,5 @@ import ua.f13group.KnowHub.domain.Category;
 
 public interface CategoryRepository {
 	public List<Category> findAll();
+	
 }
