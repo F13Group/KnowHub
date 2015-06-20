@@ -4,12 +4,12 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 import javax.persistence.TypedQuery;
 
-import org.springframework.context.annotation.ImportResource;
 import org.springframework.stereotype.Repository;
 
-import ua.f13group.KnowHub.domain.*;
+import ua.f13group.KnowHub.domain.Category;
 
 //@ImportResource("classpath:spring/spring-config.xml")
 @Repository("categoryRepository")
