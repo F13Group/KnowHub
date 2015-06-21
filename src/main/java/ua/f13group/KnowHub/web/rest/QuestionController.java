@@ -31,9 +31,10 @@ public class QuestionController {
 	// return questionService.findByCategory(category);
 	// }
 
-	@RequestMapping(value = "/category/{category}", method = RequestMethod.GET)
+	@RequestMapping(value = "/category/{categoryId}", method = RequestMethod.GET)
 	public List<Question> getAllQuestionsFilterCategory2(
 			@PathVariable Long categoryId) {
+//		Long categoryId=1l;
 		Category category = new Category();
 		category.setId(categoryId);
 		return questionService.findByCategory(category);

@@ -27,8 +27,7 @@ public class QuestionRepositoryJPA implements QuestionRepository {
 	@Override
 	public List<Question> findByCategory(Category category) {
 		TypedQuery<Question> query = entityManager.createNamedQuery("Question.findByCategory", Question.class);
-		query.setParameter("category", category);
-		
+		query.setParameter("category", category.getId());
 		return query.getResultList();
 	}
 
