@@ -17,69 +17,72 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 @Table(name = "questions")
 @NamedQueries({
-    @NamedQuery(name = "Question.findAll", query = "SELECT q FROM Question q"),
-  //  @NamedQuery(name = "Question.getPage", query = "SELECT q FROM Question q"),
-  //  @NamedQuery(name = "Question.getPagesCount", query = "SELECT Count(q) FROM Question q"),
-    @NamedQuery(name = "Question.findByCategory", query = "SELECT q FROM Question q INNER JOIN q.categories c WHERE c.id IN (:category)"),
-    
+		@NamedQuery(name = "Question.findAll", query = "SELECT q FROM Question q"),
+		// @NamedQuery(name = "Question.getPage", query =
+		// "SELECT q FROM Question q"),
+		// @NamedQuery(name = "Question.getPagesCount", query =
+		// "SELECT Count(q) FROM Question q"),
+		@NamedQuery(name = "Question.findByCategory", query = "SELECT q FROM Question q INNER JOIN q.categories c WHERE c.id IN (:category)"),
+
 })
-public class Question implements Serializable{
-	
-	
+public class Question implements Serializable {
+
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="question_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "question_id")
 	Long id;
 	String value;
-	@Column(name="load_date")
+	@Column(name = "load_date")
 	Timestamp loadDate;
 	Long rating;
-	@Column(name="user_id")
+	@Column(name = "user_id")
 	Long userId;
-	
-	@ManyToMany(fetch=FetchType.EAGER)
-	//@LazyCollection(LazyCollectionOption.FALSE)
-	@JoinTable(name="question_categories",
-			joinColumns={@JoinColumn(name="question_id")},
-			inverseJoinColumns={@JoinColumn(name="category_id")})
+
+	@ManyToMany(fetch = FetchType.EAGER)
+	// @LazyCollection(LazyCollectionOption.FALSE)
+	@JoinTable(name = "question_categories", joinColumns = { @JoinColumn(name = "question_id") }, inverseJoinColumns = { @JoinColumn(name = "category_id") })
 	private List<Category> categories;
-	
-	@ManyToMany(fetch=FetchType.EAGER)
-	@JoinTable(name="question_tags",
-		joinColumns={@JoinColumn(name="question_id")},
-		inverseJoinColumns={@JoinColumn(name="tag_id")})
+
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "question_tags", joinColumns = { @JoinColumn(name = "question_id") }, inverseJoinColumns = { @JoinColumn(name = "tag_id") })
 	private List<Category> tags;
-	
-	public Question() {}
-	
+
+	public Question() {
+	}
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getValue() {
 		return value;
 	}
+
 	public void setValue(String value) {
 		this.value = value;
 	}
+
 	public Timestamp getLoadDate() {
 		return loadDate;
 	}
+
 	public void setLoadDate(Timestamp loadDate) {
 		this.loadDate = loadDate;
 	}
+
 	public Long getRating() {
 		return rating;
 	}
+
 	public void setRating(Long rating) {
 		this.rating = rating;
 	}
@@ -107,8 +110,7 @@ public class Question implements Serializable{
 	public void setTags(List<Category> tags) {
 		this.tags = tags;
 	}
-	
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -120,8 +122,6 @@ public class Question implements Serializable{
 		result = prime * result + ((value == null) ? 0 : value.hashCode());
 		return result;
 	}
-
-	
 
 	@Override
 	public boolean equals(Object obj) {
@@ -154,7 +154,7 @@ public class Question implements Serializable{
 			return false;
 		return true;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Question [id=" + id + ", value=" + value + ", loadDate="
