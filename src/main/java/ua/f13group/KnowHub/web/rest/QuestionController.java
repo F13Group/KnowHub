@@ -24,15 +24,16 @@ public class QuestionController {
 		return questionService.findAll();
 	}
 
-//	@RequestMapping(method = RequestMethod.GET)
-//	public List<Question> getAllQuestionsFilterCategory(@ReqsuestParam ) {
-//		Category category = new Category();
-//		category.setId(categoryId);
-//		return questionService.findByCategory(category);
-//	}
-	
+	// @RequestMapping(method = RequestMethod.GET)
+	// public List<Question> getAllQuestionsFilterCategory(@ReqsuestParam ) {
+	// Category category = new Category();
+	// category.setId(categoryId);
+	// return questionService.findByCategory(category);
+	// }
+
 	@RequestMapping(value = "/category/{category}", method = RequestMethod.GET)
-	public List<Question> getAllQuestionsFilterCategory2(@PathVariable Long categoryId) {
+	public List<Question> getAllQuestionsFilterCategory2(
+			@PathVariable Long categoryId) {
 		Category category = new Category();
 		category.setId(categoryId);
 		return questionService.findByCategory(category);
