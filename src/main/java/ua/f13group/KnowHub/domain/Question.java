@@ -18,7 +18,7 @@ import javax.persistence.Table;
     @NamedQuery(name = "Question.findAll", query = "SELECT q FROM Question q"),
   //  @NamedQuery(name = "Question.getPage", query = "SELECT q FROM Question q"),
   //  @NamedQuery(name = "Question.getPagesCount", query = "SELECT Count(q) FROM Question q"),
-    @NamedQuery(name = "Question.findByCategory", query = "SELECT q FROM Question q WHERE :category IN q.category "),
+   /* @NamedQuery(name = "Question.findByCategory", query = "SELECT q FROM Question q WHERE :category IN q.category "),*/
     
 })
 public class Question implements Serializable{

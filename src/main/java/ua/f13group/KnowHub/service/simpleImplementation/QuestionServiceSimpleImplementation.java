@@ -3,6 +3,7 @@ package ua.f13group.KnowHub.service.simpleImplementation;
 import java.util.ArrayList;
 import java.util.List;
 
+import ua.f13group.KnowHub.domain.Category;
 import ua.f13group.KnowHub.domain.Question;
 import ua.f13group.KnowHub.service.QuestionService;
 
@@ -28,6 +29,12 @@ public class QuestionServiceSimpleImplementation implements QuestionService {
 		mock.add(q2);
 		
 		return mock;
+	}
+
+	@Override
+	public List<Question> findByCategory(Category category) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
