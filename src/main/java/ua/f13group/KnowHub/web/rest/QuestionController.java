@@ -13,7 +13,7 @@ import ua.f13group.KnowHub.domain.Question;
 import ua.f13group.KnowHub.service.QuestionService;
 
 @RestController
-@RequestMapping(value = "/question")
+@RequestMapping(value = "/questions")
 public class QuestionController {
 
 	@Autowired
@@ -31,7 +31,7 @@ public class QuestionController {
 	// return questionService.findByCategory(category);
 	// }
 
-	@RequestMapping(value = "/category/{categoryId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/categories/{categoryId}", method = RequestMethod.GET)
 	public List<Question> getAllQuestionsFilterCategory2(
 			@PathVariable Long categoryId) {
 		Category category = new Category();
