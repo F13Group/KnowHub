@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "categories")
 @NamedQueries({
-    @NamedQuery(name = "Category.findAll", query = "SELECT c FROM Category c")
+    @NamedQuery(name = "Category.findAll", query = "SELECT c FROM Category c ORDER BY c.value")
 })
 public class Category {
 	@Id
