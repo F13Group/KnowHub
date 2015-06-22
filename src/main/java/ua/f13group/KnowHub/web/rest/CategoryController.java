@@ -12,7 +12,7 @@ import ua.f13group.KnowHub.domain.Category;
 import ua.f13group.KnowHub.service.CategoryService;
 
 @RestController
-@RequestMapping(value = "/category")
+@RequestMapping(value = "/categories")
 @ImportResource("classpath:spring/spring-config.xml")
 public class CategoryController {
 

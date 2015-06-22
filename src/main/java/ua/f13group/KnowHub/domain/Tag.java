@@ -1,5 +1,6 @@
 package ua.f13group.KnowHub.domain;
 
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -7,11 +8,14 @@ import javax.persistence.*;
 @Table(name = "tags")
 public class Tag {
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long id;
 	String value;
-	
-	public Tag() {}
+	@ManyToMany(mappedBy = "tags")
+	private List<Question> questions;
+
+	public Tag() {
+	}
 
 	public Long getId() {
 		return id;
@@ -24,11 +28,8 @@ public class Tag {
 	public String getValue() {
 		return value;
 	}
-	
-	
 
 	public void setValue(String value) {
 		this.value = value;
 	}
 }
-

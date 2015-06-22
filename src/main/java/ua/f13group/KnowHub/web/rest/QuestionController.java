@@ -13,20 +13,30 @@ import ua.f13group.KnowHub.domain.Question;
 import ua.f13group.KnowHub.service.QuestionService;
 
 @RestController
-@RequestMapping(value="/question")
+@RequestMapping(value = "/questions")
 public class QuestionController {
-	
+
 	@Autowired
 	QuestionService questionService;
 
-	 @RequestMapping(method = RequestMethod.GET)
-	    public List<Question> getAllQuestions() {
-	        return questionService.findAll();
-	    }
-	 //too early
-	 @RequestMapping(value = "/{category}",method = RequestMethod.GET)
-	    public List<Question> getAllQuestions(@PathVariable Category category) {
-	        return questionService.findAll(/*category*/);
-	    }
-	
+	@RequestMapping(method = RequestMethod.GET)
+	public List<Question> getAllQuestions() {
+		return questionService.findAll();
+	}
+
+	// @RequestMapping(method = RequestMethod.GET)
+	// public List<Question> getAllQuestionsFilterCategory(@ReqsuestParam ) {
+	// Category category = new Category();
+	// category.setId(categoryId);
+	// return questionService.findByCategory(category);
+	// }
+
+	@RequestMapping(value = "/categories/{categoryId}", method = RequestMethod.GET)
+	public List<Question> getAllQuestionsFilterCategory2(
+			@PathVariable Long categoryId) {
+		Category category = new Category();
+		category.setId(categoryId);
+		return questionService.findByCategory(category);
+	}
+
 }

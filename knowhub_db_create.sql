@@ -38,7 +38,7 @@ CREATE TABLE authorities(
 
 CREATE TABLE questions(
     question_id bigserial,
-    value text NOT NULL,
+    value varchar (140) NOT NULL,
     load_date timestamp,
     rating bigint,
     user_id bigint,
