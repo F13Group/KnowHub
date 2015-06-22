@@ -1,10 +1,13 @@
+SET datestyle = dmy;
+
 INSERT INTO categories (value) VALUES 
 ('Java'), 
 ('.NET'), 
 ('FT'), 
 ('AT'), 
 ('FE'), 
-('Others');
+('Others'),
+('C#');
 
 INSERT INTO tags (value) VALUES 
 ('tag1'), 
