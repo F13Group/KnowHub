@@ -13,18 +13,18 @@
 <body>
 
 <div class="loginLinks" align="right">
-		<a href="">Sign Up</a> <a href="">Log In</a> <a href="">Help</a>
+		<a href="">Sign up</a> <a href="">Log in</a> <a href="">Help</a>
 	</div>
 
 	<div class="loginLinks" align="right">
 		<span class="loginLinksItem"> <input type="button"
-			value="Questions">
+			value="My Question list" disabled>
 		</span> <span class="loginLinksItem"> <input type="button"
 			value="Tags">
 		</span> <span class="loginLinksItem"> <input type="button"
 			value="My Bookmarks">
 		</span> <span class="loginLinksItem"> <input type="button"
-			value="Add Question">
+			value="Add Question" disabled>
 		</span>
 	</div>
 
@@ -38,9 +38,9 @@
 		<div id="questionsList" class="divTable">
 			<div class="headRow">
 				<div class="divCell_header">Question</div>
-				<div class="divCell_header">Category</div>
-				<div class="divCell_header">Date</div>
-				<div class="divCell_header">Rate</div>
+				<div class="divCell_header">Category &#x21D5;</div>
+				<div class="divCell_header">Date &#x21D5;</div>
+				<div class="divCell_header">Frequently Asked &#x21D5;</div>
 			</div>					
 			
 		</div>
@@ -67,8 +67,20 @@
 		$.getJSON(questionUrl, function(data) {
 			var items = [];
 			$.each(data, function(index, value) {
-				var date = new Date(value.loadDate);
-				$("#questionsList").append("<div class=divRow><div class=divCell_2><div class=divQuestionColor>" + value.value + "</div></div><div class=divCell_2>" + value.categories[0].value + "</div><div class=divCell_2>" + date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getFullYear() +"</div><div class=divCell_2>" + value.rating + "</div></div>");
+				var unformatted_date = new Date(value.loadDate);
+				var dd = unformatted_date.getDate();
+	            var mm = unformatted_date.getMonth() + 1;
+	            var yyyy = unformatted_date.getFullYear();
+	            if(dd < 10)
+	            {
+		            dd = '0'+ dd;
+	            }
+	            if(mm < 10)
+	            {
+		            mm = '0' + mm;
+	            }
+	            var date = dd+'/'+mm+'/'+yyyy;
+				$("#questionsList").append("<div class=divRow><div class=divCell_2><div class=divQuestionColor>" + value.value + "</div></div><div class=divCell_2>" + value.categories[0].value + "</div><div class=divCell_2>" + date +"</div><div class=divCell_2>" + value.rating + "</div></div>");
 			});
 			$("#questionsList").append("<div class=divRow><div class=divCell_2 style=width:20% align=right>SHOW<select><option>6</option><option>10</option><option>14</option></select></div><div class=divCell_2 style=width:75% align=center><input type=button value=&lt;&lt;> <input type=button value=&lt;> <span><input type=button class=checkedPage value=1></span> <input type=button value=2> <input type=button value=3> <input type=button value=4> <input type=button value=5> <input type=button value=6> <input type=button value=7> <input type=button value=&gt;> <input type=button value=&gt;&gt;></div></div>");
 		});
@@ -93,8 +105,20 @@
 				$("#questionsList").append("<div class=divRow><div class=divCell_2 style=width:98% align=center>No questions found for this category</div></div>");
 			} else {
 				$.each(data, function(index, value) {
-					var date = new Date(value.loadDate);
-					$("#questionsList").append("<div class=divRow><div class=divCell_2><div class=divQuestionColor>" + value.value + "</div></div><div class=divCell_2>" + value.categories[0].value + "</div><div class=divCell_2>" + date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getFullYear() +"</div><div class=divCell_2>" + value.rating + "</div></div>");
+					var unformatted_date = new Date(value.loadDate);
+					var dd = unformatted_date.getDate();
+		            var mm = unformatted_date.getMonth() + 1;
+		            var yyyy = unformatted_date.getFullYear();
+		            if(dd < 10)
+		            {
+			            dd = '0'+ dd;
+		            }
+		            if(mm < 10)
+		            {
+			            mm = '0' + mm;
+		            }
+		            var date = dd+'/'+mm+'/'+yyyy;
+					$("#questionsList").append("<div class=divRow><div class=divCell_2><div class=divQuestionColor>" + value.value + "</div></div><div class=divCell_2>" + value.categories[0].value + "</div><div class=divCell_2>" + date +"</div><div class=divCell_2>" + value.rating + "</div></div>");
 				});
 			}
 			$("#questionsList").append("<div class=divRow><div class=divCell_2 style=width:20% align=right>SHOW<select><option>6</option><option>10</option><option>14</option></select></div><div class=divCell_2 style=width:75% align=center><input type=button value=&lt;&lt;> <input type=button value=&lt;> <span><input type=button class=checkedPage value=1></span> <input type=button value=2> <input type=button value=3> <input type=button value=4> <input type=button value=5> <input type=button value=6> <input type=button value=7> <input type=button value=&gt;> <input type=button value=&gt;&gt;></div></div>");			
