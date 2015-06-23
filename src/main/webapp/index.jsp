@@ -56,339 +56,20 @@
 		</div>
 		
     
-        <div class="tab-content col-md-9">
-          <div class="tab-pane active" id="a">
-            <table class="table">
-      <thead>
-        <tr>
-          <th>Question</th>
-          <th>Category</th>
-          <th>Date</th>
-          <th>Rate</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">Question Text</th>
-          <td>Java</td>
-          <td>10/06/15</td>
-          <td>1</td>
-        </tr>
-        <tr>
-          <th scope="row">Question text</th>
-          <td>Java</td>
-          <td>10/06/15</td>
-          <td>1</td>
-        </tr>
-        <tr>
-          <th scope="row">Question text</th>
-          <td>NET</td>
-          <td>10/06/15</td>
-          <td>1</td>
-        </tr>
-        <tr>
-          <th scope="row">Question text</th>
-          <td>NET</td>
-          <td>10/06/15</td>
-          <td>1</td>
-        </tr>
-        <tr>
-          <th scope="row">Question text</th>
-          <td>NET</td>
-          <td>10/06/15</td>
-          <td>1</td>
-        </tr>
-        <tr>
-          <th scope="row">Question text</th>
-          <td>NET</td>
-          <td>10/06/15</td>
-          <td>1</td>
-        </tr>
-        <tr>
-          <th scope="row">Question text</th>
-          <td>NET</td>
-          <td>10/06/15</td>
-          <td>1</td>
-        </tr>
-        <tr>
-          <th scope="row">Question text</th>
-          <td>NET</td>
-          <td>10/06/15</td>
-          <td>1</td>
-        </tr>
-        <tr>
-          <th scope="row">Question text</th>
-          <td>NET</td>
-          <td>10/06/15</td>
-          <td>1</td>
-        </tr>
-
-      </tbody>
-    </table>
-  </div>
-          <div class="tab-pane" id="b">
-            <table class="table">
-      <thead>
-        <tr>
-          <th>Question</th>
-          <th>Category</th>
-          <th>Date</th>
-          <th>Rate</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">Question Text</th>
-          <td>Java</td>
-          <td>10/06/15</td>
-          <td>1</td>
-        </tr>
-        <tr>
-          <th scope="row">Question text</th>
-          <td>Java</td>
-          <td>10/06/15</td>
-          <td>1</td>
-        </tr>
-        <tr>
-          <th scope="row">Question text</th>
-          <td>NET</td>
-          <td>10/06/15</td>
-          <td>1</td>
-        </tr>
-      </tbody>
-    </table>
-          </div>
-          <div class="tab-pane" id="c">
-            <table class="table">
-      <thead>
-        <tr>
-          <th>Question</th>
-          <th>Category</th>
-          <th>Date</th>
-          <th>Rate</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">Question Text</th>
-          <td>Java</td>
-          <td>10/06/15</td>
-          <td>1</td>
-        </tr>
-        <tr>
-          <th scope="row">Question text</th>
-          <td>Java</td>
-          <td>10/06/15</td>
-          <td>1</td>
-        </tr>
-        <tr>
-          <th scope="row">Question text</th>
-          <td>NET</td>
-          <td>10/06/15</td>
-          <td>1</td>
-        </tr>
-      </tbody>
-    </table>
-          </div>
-          <div class="tab-pane" id="d">
-            <table class="table">
-      <thead>
-        <tr>
-          <th>Question</th>
-          <th>Category</th>
-          <th>Date</th>
-          <th>Rate</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">Question Text</th>
-          <td>Java</td>
-          <td>10/06/15</td>
-          <td>1</td>
-        </tr>
-        <tr>
-          <th scope="row">Question text</th>
-          <td>Java</td>
-          <td>10/06/15</td>
-          <td>1</td>
-        </tr>
-        <tr>
-          <th scope="row">Question text</th>
-          <td>NET</td>
-          <td>10/06/15</td>
-          <td>1</td>
-        </tr>
-      </tbody>
-    </table>
-          </div>
-          <div class="tab-pane" id="e">
-            <table class="table">
-      <thead>
-        <tr>
-          <th>Question</th>
-          <th>Category</th>
-          <th>Date</th>
-          <th>Rate</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">Question Text</th>
-          <td>Java</td>
-          <td>10/06/15</td>
-          <td>1</td>
-        </tr>
-        <tr>
-          <th scope="row">Question text</th>
-          <td>Java</td>
-          <td>10/06/15</td>
-          <td>1</td>
-        </tr>
-        <tr>
-          <th scope="row">Question text</th>
-          <td>NET</td>
-          <td>10/06/15</td>
-          <td>1</td>
-        </tr>
-      </tbody>
-    </table>
-          </div>
-          <div class="tab-pane" id="f">
-            <table class="table">
-      <thead>
-        <tr>
-          <th>Question</th>
-          <th>Category</th>
-          <th>Date</th>
-          <th>Rate</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">Question Text</th>
-          <td>Java</td>
-          <td>10/06/15</td>
-          <td>1</td>
-        </tr>
-        <tr>
-          <th scope="row">Question text</th>
-          <td>Java</td>
-          <td>10/06/15</td>
-          <td>1</td>
-        </tr>
-        <tr>
-          <th scope="row">Question text</th>
-          <td>NET</td>
-          <td>10/06/15</td>
-          <td>1</td>
-        </tr>
-      </tbody>
-    </table>
-          </div>
-          <div class="tab-pane" id="g">
-            <table class="table">
-      <thead>
-        <tr>
-          <th>Question</th>
-          <th>Category</th>
-          <th>Date</th>
-          <th>Rate</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">Question Text</th>
-          <td>Java</td>
-          <td>10/06/15</td>
-          <td>1</td>
-        </tr>
-        <tr>
-          <th scope="row">Question text</th>
-          <td>Java</td>
-          <td>10/06/15</td>
-          <td>1</td>
-        </tr>
-        <tr>
-          <th scope="row">Question text</th>
-          <td>NET</td>
-          <td>10/06/15</td>
-          <td>1</td>
-        </tr>
-      </tbody>
-    </table>
-          </div>
-          <div class="tab-pane" id="j">
-            <table class="table">
-      <thead>
-        <tr>
-          <th>Question</th>
-          <th>Category</th>
-          <th>Date</th>
-          <th>Rate</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">Question Text</th>
-          <td>Java</td>
-          <td>10/06/15</td>
-          <td>1</td>
-        </tr>
-        <tr>
-          <th scope="row">Question text</th>
-          <td>Java</td>
-          <td>10/06/15</td>
-          <td>1</td>
-        </tr>
-        <tr>
-          <th scope="row">Question text</th>
-          <td>NET</td>
-          <td>10/06/15</td>
-          <td>1</td>
-        </tr>
-      </tbody>
-    </table>
-           </div>
-          <div class="tab-pane" id="k">
-            <table class="table">
-      <thead>
-        <tr>
-          <th>Question</th>
-          <th>Category</th>
-          <th>Date</th>
-          <th>Rate</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">Question Text</th>
-          <td>Java</td>
-          <td>10/06/15</td>
-          <td>1</td>
-        </tr>
-        <tr>
-          <th scope="row">Question text</th>
-          <td>Java</td>
-          <td>10/06/15</td>
-          <td>1</td>
-        </tr>
-        <tr>
-          <th scope="row">Question text</th>
-          <td>NET</td>
-          <td>10/06/15</td>
-          <td>1</td>
-        </tr>
-      </tbody>
-    </table>
-          </div>
-        </div>
-      </div>
-
-
-
-
-
+    	<form id="form1">
+		<div id="questionsList" class="divTable">
+			<div class="headRow">
+				<div class="divCell_header" width="300px">Question</div>
+				<div class="divCell_header">Category</div>
+				<div class="divCell_header">Date</div>
+				<div class="divCell_header">Frequently asked</div>
+			</div>					
+			
+		</div>
+	</form>
+    
+    
+      <!--   
       <div id="show-more-and-pagination">
           <div id="show">
             SHOW
@@ -409,7 +90,9 @@
             <a href="#">>></a>
           </div>   
       </div>
-
+ -->
+ 
+ 	</div>
       </div><!-- /.container -->
 
     <footer class="footer">
@@ -448,7 +131,7 @@
 			var items = [];
 			$.each(data, function(index, value) {
 				var date = new Date(value.loadDate);
-				$("#questionsList").append("<div class=divRow><div class=divCell_2><div class=divQuestionColor>" + value.value + "</div></div><div class=divCell_2>" + value.categories[0].value + "</div><div class=divCell_2>" + date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getFullYear() +"</div><div class=divCell_2>" + value.rating + "</div></div>");
+				$("#questionsList").append("<div class=divRow><div class=divCell_2><div class=divQuestionColor width:300px>" + value.value + "</div></div><div class=divCell_2>" + value.categories[0].value + "</div><div class=divCell_2>" + date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getFullYear() +"</div><div class=divCell_2>" + value.rating + "</div></div>");
 			});
 			$("#questionsList").append("<div class=divRow><div class=divCell_2 align=right>SHOW<select><option>6</option><option>10</option><option>14</option></select></div><div class=divCell_2></div><div class=divCell_2>&lt;&lt; &lt;   <span class=checkedPage>1</span> 2 3 4 5 6 7  &gt; &gt;&gt;</div><div class=divCell_2></div></div>");
 		});
