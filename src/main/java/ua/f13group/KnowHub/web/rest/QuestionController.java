@@ -13,7 +13,7 @@ import ua.f13group.KnowHub.domain.Question;
 import ua.f13group.KnowHub.service.QuestionService;
 
 @RestController
-@RequestMapping(value = "/questions")
+@RequestMapping(value = "/question")
 public class QuestionController {
 
 	@Autowired
