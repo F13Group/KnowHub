@@ -3,6 +3,7 @@
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<%@ taglib prefix="mycustomtags" tagdir="/WEB-INF/tags"%>
 <link rel="stylesheet" href="resources/style/css/style.css"
 	type="text/css" />
 
