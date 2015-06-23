@@ -1,5 +1,8 @@
+<!DOCTYPE html>
+
 <html>
 <head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link rel="stylesheet" href="resources/style/css/style.css"
 	type="text/css" />
 
@@ -18,6 +21,8 @@
 			value="Questions">
 		</span> <span class="loginLinksItem"> <input type="button"
 			value="Tags">
+		</span> <span class="loginLinksItem"> <input type="button"
+			value="My Bookmarks">
 		</span> <span class="loginLinksItem"> <input type="button"
 			value="Add Question">
 		</span>
@@ -65,7 +70,7 @@
 				var date = new Date(value.loadDate);
 				$("#questionsList").append("<div class=divRow><div class=divCell_2><div class=divQuestionColor>" + value.value + "</div></div><div class=divCell_2>" + value.categories[0].value + "</div><div class=divCell_2>" + date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getFullYear() +"</div><div class=divCell_2>" + value.rating + "</div></div>");
 			});
-			$("#questionsList").append("<div class=divRow><div class=divCell_2 align=right>SHOW<select><option>6</option><option>10</option><option>14</option></select></div><div class=divCell_2></div><div class=divCell_2>&lt;&lt; &lt;   <span class=checkedPage>1</span> 2 3 4 5 6 7  &gt; &gt;&gt;</div><div class=divCell_2></div></div>");
+			$("#questionsList").append("<div class=divRow><div class=divCell_2 style=width:20% align=right>SHOW<select><option>6</option><option>10</option><option>14</option></select></div><div class=divCell_2 style=width:75% align=center><input type=button value=&lt;&lt;> <input type=button value=&lt;> <span><input type=button class=checkedPage value=1></span> <input type=button value=2> <input type=button value=3> <input type=button value=4> <input type=button value=5> <input type=button value=6> <input type=button value=7> <input type=button value=&gt;> <input type=button value=&gt;&gt;></div></div>");
 		});
 	});
 	
@@ -92,7 +97,7 @@
 					$("#questionsList").append("<div class=divRow><div class=divCell_2><div class=divQuestionColor>" + value.value + "</div></div><div class=divCell_2>" + value.categories[0].value + "</div><div class=divCell_2>" + date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getFullYear() +"</div><div class=divCell_2>" + value.rating + "</div></div>");
 				});
 			}
-			$("#questionsList").append("<div class=divRow><div class=divCell_2 align=right>SHOW<select><option>6</option><option>10</option><option>14</option></select></div><div class=divCell_2></div><div class=divCell_2>&lt;&lt; &lt;   <span class=checkedPage>1</span> 2 3 4 5 6 7  &gt; &gt;&gt;</div><div class=divCell_2></div></div>");			
+			$("#questionsList").append("<div class=divRow><div class=divCell_2 style=width:20% align=right>SHOW<select><option>6</option><option>10</option><option>14</option></select></div><div class=divCell_2 style=width:75% align=center><input type=button value=&lt;&lt;> <input type=button value=&lt;> <span><input type=button class=checkedPage value=1></span> <input type=button value=2> <input type=button value=3> <input type=button value=4> <input type=button value=5> <input type=button value=6> <input type=button value=7> <input type=button value=&gt;> <input type=button value=&gt;&gt;></div></div>");			
 		});
 	}
 </script>
