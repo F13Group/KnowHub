@@ -73,7 +73,9 @@ input{	padding: 5px;}
   width:200px; 
   height:20px;
   padding:10px;       
-  background-color:white;  
+  background-color:white;
+  word-wrap:break-word;
+  overflow:hidden;   
 }
 .divCell_dark{
   float:left;

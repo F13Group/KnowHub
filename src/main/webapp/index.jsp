@@ -1,48 +1,433 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<link rel="stylesheet" href="resources/style/css/style.css"
-	type="text/css" />
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="../../favicon.ico">
 
-<title>Test page</title>
-<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-</head>
-<body>
+  <title>KNOW HUB</title>
 
-<div class="loginLinks" align="right">
-		<a href="">Sign Up</a> <a href="">Log In</a> <a href="">Help</a>
-	</div>
+  <!-- Bootstrap core CSS -->
+  <link href="resources/styleBootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-	<div class="loginLinks" align="right">
-		<span class="loginLinksItem"> <input type="button"
-			value="Questions">
-		</span> <span class="loginLinksItem"> <input type="button"
-			value="Tags">
-		</span> <span class="loginLinksItem"> <input type="button"
-			value="Add Question">
-		</span>
-	</div>
+  <!-- Custom styles for this template -->
+  <link href="resources/styleBootstrap/css/custom.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="resources/styleBootstrap/css/bootstrap.vertical-tabs.css">
+
+  <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+  <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+  <script src="resources/styleBootstrap/js/ie-emulation-modes-warning.js"></script>
+
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+      <![endif]-->
+    </head>
+
+    <body>
+    
+      <div id="navLinks">
+        <div id="links">
+          <a href="#">Sign up</a>
+          <a href="#">Log in</a>
+          <a href="#">Help</a>
+        </div>
+      </div>
+ 
+	
+     <div class="buttons">
+       <button type="button" class="btn btn-primary">Questions</button>
+       <button type="button" class="btn btn-primary">Tags</button>
+       <button type="button" class="btn btn-primary">Add Question</button>
+     </div>
 
 
-	<div id="categoriesMenu" class="categoriesMenu">
-				
-	</div>
 
+     <div class="container">
 
-	<form id="form1">
-		<div id="questionsList" class="divTable">
-			<div class="headRow">
-				<div class="divCell_header">Question</div>
-				<div class="divCell_header">Category</div>
-				<div class="divCell_header">Date</div>
-				<div class="divCell_header">Rate</div>
-			</div>					
-			
+      <div class="tabbable">
+      	<div id="categoriesMenu" class="categoriesMenu">
 		</div>
-	</form>
+		
+    
+        <div class="tab-content col-md-9">
+          <div class="tab-pane active" id="a">
+            <table class="table">
+      <thead>
+        <tr>
+          <th>Question</th>
+          <th>Category</th>
+          <th>Date</th>
+          <th>Rate</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Question Text</th>
+          <td>Java</td>
+          <td>10/06/15</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <th scope="row">Question text</th>
+          <td>Java</td>
+          <td>10/06/15</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <th scope="row">Question text</th>
+          <td>NET</td>
+          <td>10/06/15</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <th scope="row">Question text</th>
+          <td>NET</td>
+          <td>10/06/15</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <th scope="row">Question text</th>
+          <td>NET</td>
+          <td>10/06/15</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <th scope="row">Question text</th>
+          <td>NET</td>
+          <td>10/06/15</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <th scope="row">Question text</th>
+          <td>NET</td>
+          <td>10/06/15</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <th scope="row">Question text</th>
+          <td>NET</td>
+          <td>10/06/15</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <th scope="row">Question text</th>
+          <td>NET</td>
+          <td>10/06/15</td>
+          <td>1</td>
+        </tr>
 
-</body>
-</html>
+      </tbody>
+    </table>
+  </div>
+          <div class="tab-pane" id="b">
+            <table class="table">
+      <thead>
+        <tr>
+          <th>Question</th>
+          <th>Category</th>
+          <th>Date</th>
+          <th>Rate</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Question Text</th>
+          <td>Java</td>
+          <td>10/06/15</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <th scope="row">Question text</th>
+          <td>Java</td>
+          <td>10/06/15</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <th scope="row">Question text</th>
+          <td>NET</td>
+          <td>10/06/15</td>
+          <td>1</td>
+        </tr>
+      </tbody>
+    </table>
+          </div>
+          <div class="tab-pane" id="c">
+            <table class="table">
+      <thead>
+        <tr>
+          <th>Question</th>
+          <th>Category</th>
+          <th>Date</th>
+          <th>Rate</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Question Text</th>
+          <td>Java</td>
+          <td>10/06/15</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <th scope="row">Question text</th>
+          <td>Java</td>
+          <td>10/06/15</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <th scope="row">Question text</th>
+          <td>NET</td>
+          <td>10/06/15</td>
+          <td>1</td>
+        </tr>
+      </tbody>
+    </table>
+          </div>
+          <div class="tab-pane" id="d">
+            <table class="table">
+      <thead>
+        <tr>
+          <th>Question</th>
+          <th>Category</th>
+          <th>Date</th>
+          <th>Rate</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Question Text</th>
+          <td>Java</td>
+          <td>10/06/15</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <th scope="row">Question text</th>
+          <td>Java</td>
+          <td>10/06/15</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <th scope="row">Question text</th>
+          <td>NET</td>
+          <td>10/06/15</td>
+          <td>1</td>
+        </tr>
+      </tbody>
+    </table>
+          </div>
+          <div class="tab-pane" id="e">
+            <table class="table">
+      <thead>
+        <tr>
+          <th>Question</th>
+          <th>Category</th>
+          <th>Date</th>
+          <th>Rate</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Question Text</th>
+          <td>Java</td>
+          <td>10/06/15</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <th scope="row">Question text</th>
+          <td>Java</td>
+          <td>10/06/15</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <th scope="row">Question text</th>
+          <td>NET</td>
+          <td>10/06/15</td>
+          <td>1</td>
+        </tr>
+      </tbody>
+    </table>
+          </div>
+          <div class="tab-pane" id="f">
+            <table class="table">
+      <thead>
+        <tr>
+          <th>Question</th>
+          <th>Category</th>
+          <th>Date</th>
+          <th>Rate</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Question Text</th>
+          <td>Java</td>
+          <td>10/06/15</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <th scope="row">Question text</th>
+          <td>Java</td>
+          <td>10/06/15</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <th scope="row">Question text</th>
+          <td>NET</td>
+          <td>10/06/15</td>
+          <td>1</td>
+        </tr>
+      </tbody>
+    </table>
+          </div>
+          <div class="tab-pane" id="g">
+            <table class="table">
+      <thead>
+        <tr>
+          <th>Question</th>
+          <th>Category</th>
+          <th>Date</th>
+          <th>Rate</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Question Text</th>
+          <td>Java</td>
+          <td>10/06/15</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <th scope="row">Question text</th>
+          <td>Java</td>
+          <td>10/06/15</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <th scope="row">Question text</th>
+          <td>NET</td>
+          <td>10/06/15</td>
+          <td>1</td>
+        </tr>
+      </tbody>
+    </table>
+          </div>
+          <div class="tab-pane" id="j">
+            <table class="table">
+      <thead>
+        <tr>
+          <th>Question</th>
+          <th>Category</th>
+          <th>Date</th>
+          <th>Rate</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Question Text</th>
+          <td>Java</td>
+          <td>10/06/15</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <th scope="row">Question text</th>
+          <td>Java</td>
+          <td>10/06/15</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <th scope="row">Question text</th>
+          <td>NET</td>
+          <td>10/06/15</td>
+          <td>1</td>
+        </tr>
+      </tbody>
+    </table>
+           </div>
+          <div class="tab-pane" id="k">
+            <table class="table">
+      <thead>
+        <tr>
+          <th>Question</th>
+          <th>Category</th>
+          <th>Date</th>
+          <th>Rate</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Question Text</th>
+          <td>Java</td>
+          <td>10/06/15</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <th scope="row">Question text</th>
+          <td>Java</td>
+          <td>10/06/15</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <th scope="row">Question text</th>
+          <td>NET</td>
+          <td>10/06/15</td>
+          <td>1</td>
+        </tr>
+      </tbody>
+    </table>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+      <div id="show-more-and-pagination">
+          <div id="show">
+            SHOW
+          </div>  
+          <div id="show-more-button">
+            <button type="button" class="btn btn-default">10</button>
+          </div> 
+          <div id="pagination">
+            <a href="#"><<</a>
+            <a href="#"><</a>
+            <a href="#">1</a>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <a href="#">4</a>
+            <a href="#">5</a>
+            <a href="#">6</a>
+            <a href="#">></a>
+            <a href="#">>></a>
+          </div>   
+      </div>
+
+      </div><!-- /.container -->
+
+    <footer class="footer">
+      <div class="container">
+        <p class="text-muted"></p>
+      </div>
+    </footer>
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="js/ie10-viewport-bug-workaround.js"></script>
+  </body>
+  </html>
 
 
 <script>

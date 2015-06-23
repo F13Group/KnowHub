@@ -1,0 +1,178 @@
+body {
+ padding-top: 0px;
+}
+.starter-template {
+ padding: 40px 15px;
+ text-align: center;
+}
+
+/*MAIN MENU */
+#navLinks {
+/*margin-top: 10px;*/
+width: 100%;
+height: 50px;
+font-size: 16px;
+background-color: #ecf0f1;
+text-align: right;
+padding-right: 10%;
+}
+#navLinks  a{
+color: #2e8dcc;
+margin-right: 15px;
+}
+#navLinks a:hover{
+color: #3498db;
+}
+
+
+#links{
+padding-top: 15px;
+}
+
+/*Buttons under nav menu*/
+
+body .buttons{
+text-align: right;
+margin-right: 10%;
+padding-top: 3%;
+}
+
+.btn_primary{
+margin-right: 1%;
+}
+
+/*CONTAINER SECTION*/
+.container {
+	margin-top: 7%;
+	width: 88%;
+}
+
+/*SHOW MORE AND PAGINATION SECTION*/
+#show-more-and-pagination{
+	text-align: center;
+}
+
+#show-more-and-pagination div{
+	display: inline;
+}
+
+#show {
+	margin-right: 10px;
+}
+
+#pagination {
+	margin-left: 30px;
+}
+
+#pagination a{
+	margin-left: 7px;
+}
+
+.btn-default {
+	background-color: #bdc3c7;
+}
+
+
+/*FOOTER SECTION*/
+.footer {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  height: 100px;
+  background-color: #ecf0f1;
+  margin-bottom: 15px;
+}
+
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+/*added section*/
+.categoriesMenu{
+	margin-top:50px;
+	float:left;
+	width:200px;
+}
+.categoriesMenuItem{
+	margin:1px;
+	width:200px;
+}
+.categoriesMenuButton{
+	height:30px;
+	width:200px;
+	text-align: left;
+	margin:2px;
+	font-size: 14px;
+  	font-weight: 400;
+ 	line-height: 1.42857143;
+ 	color: #fff;
+ 	background-color: #5998d0;
+  	border-color: #5998d0;
+  	border: 1px solid transparent;
+  	border-radius: 4px 0px 0px 4px;
+  	outline:none;
+}
+.categoriesMenuButtonActive{
+	background-color:white; 
+	color:#2e6da4;
+	font-size: 14px;
+	font-weight:bold;
+	margin:2px;
+	height:30px;
+	width:200px;
+	text-align: left;
+	border: 1px solid transparent;
+  	border-radius: 4px 0px 0px 4px;
+	border-right-color: white;
+	border-left-color: #5998d0;
+	border-bottom-color: #5998d0;
+	border-top-color: #5998d0;
+	outline:none;
+}
+
+
+
+.divTable{
+  display:table;         
+  width:auto;         
+  background-color:black;         
+  border:1px solid  black;         
+  border-spacing:2px;/*cellspacing:poor IE support for  this*/
+}
+.divRow{
+  display:table-row;
+  width:auto;
+  clear:both;
+}
+.divCell_header{
+  font-weight:bold;
+  float:left;
+  display:table-column;         
+  width:200px; 
+  height:20px;
+  padding:10px;       
+  background-color:#ccc;  
+}	
+.divCell_2{
+  float:left;
+  display:table-column;         
+  width:200px; 
+  height:20px;
+  padding:10px;       
+  background-color:white;
+  word-wrap:break-word;
+  overflow:hidden;   
+}
+.divCell_dark{
+  float:left;
+  display:table-column;         
+  width:200px; 
+  height:20px;
+  padding:10px;       
+  background-color:#E8E8E8;  
+}
+.divQuestionColor{
+	color:#1874CD;
+}
+
