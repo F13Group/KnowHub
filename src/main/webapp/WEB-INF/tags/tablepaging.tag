@@ -46,7 +46,7 @@
 										onmouseout="this.className='normal'" name="${buttonName}"
 										value="${i + page_number - 2}">
 										<c:out
-											value="${i + page_number - 2}" />
+											value="${i + page_number - 1}" />
 									</button>
 								</li>
 							</c:if>
@@ -56,7 +56,7 @@
 										onmouseout="this.className='normal'" name="${buttonName}"
 										value="${i}">
 										<c:out
-											value="${i}" />
+											value="${i + 1}" />
 									</button>
 								</li>
 							</c:if>
@@ -66,7 +66,7 @@
 										onmouseout="this.className='normal'" name="${buttonName}"
 										value="${i + pages_count - 5}">
 										<c:out
-											value="${i + pages_count - 5}" />
+											value="${i + pages_count - 4}" />
 									</button>
 								</li>
 							</c:if>
@@ -79,7 +79,7 @@
 									onmouseout="this.className='normal'" name="${buttonName}"
 									value="${i}">
 									<c:out
-										value="${i}" />
+										value="${i + 1}" />
 								</button>
 							</li>
 						</c:forEach>

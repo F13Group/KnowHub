@@ -49,7 +49,7 @@ input{	padding: 5px;}
 .divTable{
   display:table;         
   width:auto;         
-  background-color:black;         
+  background-color: black;          
   border:1px solid  black;         
   border-spacing:2px;/*cellspacing:poor IE support for  this*/
 }
@@ -90,4 +90,21 @@ input{	padding: 5px;}
 }
 .checkedPage{
 	color:red;
+}
+
+.normal {
+	background-color: #ffffff
+}
+
+.over {
+	background-color: #f0ffa9
+}
+
+ul.paging {
+	margin: 0;	
+}
+
+ul.paging li {
+	display: inline;
+	padding: 2px;
 }
