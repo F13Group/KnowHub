@@ -5,9 +5,4 @@ $ cat .gitignore
 .metadata
 .directory
 /target/
-<<<<<<< HEAD
-*~
-=======
-*~
-
->>>>>>> branch 'marina' of https://github.com/F13Group/KnowHub.git
+/src/main/resources/spring/jdbc.properties
