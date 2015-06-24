@@ -22,7 +22,7 @@
 		</span> <span class="loginLinksItem"> <input type="button"
 			value="Tags">
 		</span> <span class="loginLinksItem"> <input type="button"
-			value="My Bookmarks">
+			value="My Bookmarks" disabled>
 		</span> <span class="loginLinksItem"> <input type="button"
 			value="Add Question" disabled>
 		</span>
@@ -38,9 +38,9 @@
 		<div id="questionsList" class="divTable">
 			<div class="headRow">
 				<div class="divCell_header">Question</div>
-				<div class="divCell_header">Category &#x21D5;</div>
-				<div class="divCell_header">Date &#x21D5;</div>
-				<div class="divCell_header">Frequently Asked &#x21D5;</div>
+				<div class="divCell_header">Category  <input type="button" value="&#x21D5;"></div>
+				<div class="divCell_header">Date <input type="button" value="&#x21D5;"></div>
+				<div class="divCell_header">Frequently Asked <input type="button" value="&#x21D5;"></div>
 			</div>					
 			
 		</div>
