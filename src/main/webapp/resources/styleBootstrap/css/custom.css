@@ -148,6 +148,9 @@ margin-right: 1%;
   width:auto;
   clear:both;
 }
+
+
+
 .divCell_header{
   font-weight:bold;
   float:left;
@@ -169,6 +172,13 @@ margin-right: 1%;
   overflow:hidden;   
  
 }
+
+.questionsList div:nth-child(2n) {background:#EEE;}
+.questionsList div:nth-child(2n-1) {background:#FFF;}
+/*.divRow div:nth-child(2n) {background:#EEE;}
+.divRow div:nth-child(2n-1) {background:#FFF;}
+ .divCell_2 div:nth-child(2n) {background:#EEE;}
+.divCell_2 div:nth-child(2n-1) {background:#DDD;} */
 
 .divQuestionColor{
 	color:#1874CD;
