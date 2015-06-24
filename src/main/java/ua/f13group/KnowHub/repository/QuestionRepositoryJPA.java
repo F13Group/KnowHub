@@ -1,4 +1,3 @@
-
 package ua.f13group.KnowHub.repository;
 
 import java.util.List;
@@ -27,20 +26,46 @@ public class QuestionRepositoryJPA implements QuestionRepository {
 	@Override
 	public List<Question> findByCategory(Category category) {
 		TypedQuery<Question> query = entityManager.createNamedQuery("Question.findByCategory", Question.class);
-		query.setParameter("category", category.getId());
+		query.setParameter("category", category);
+		
 		return query.getResultList();
 	}
 
-/*	@Override
-	public List<Question> getPage(int pageNumber) {
-		// TODO Auto-generated method stub
-		return null;
+	@Override
+	public List<Question> getQuestionsForPage(int rowsOnPage, int pageNumber) {
+		TypedQuery<Question> query = entityManager.createNamedQuery("Question.findAll", Question.class);
+		
+		query.setFirstResult(((pageNumber-1) * rowsOnPage));
+        query.setMaxResults(rowsOnPage);
+        
+		return  query.getResultList();
 	}
 
 	@Override
+	public List<Question> getQuestionsForPage(Category category, int rowsOnPage, int pageNumber) {
+		TypedQuery<Question> query = entityManager.createNamedQuery("Question.findByCategory", Question.class);
+		query.setParameter("category", category.getId());
+		
+		query.setFirstResult(((pageNumber-1) * rowsOnPage));
+        query.setMaxResults(rowsOnPage);
+		
+		return  query.getResultList();
+	}
+
+	@Override
+	public int getPagesCount( Category category) {
+		TypedQuery<Long> query = entityManager.createNamedQuery("Question.getPagesCountWithCategory", Long.class);
+		query.setParameter("category", category.getId());
+		
+		return query.getSingleResult().intValue();
+	}
+	
+	@Override
 	public int getPagesCount() {
-		 TypedQuery<Long> query = entityManager.createNamedQuery("Question.getPagesCount", Long.class);
-		return 0;
-	}*/
+		TypedQuery<Long> query = entityManager.createNamedQuery("Question.getPagesCount", Long.class);
+		
+		return query.getSingleResult().intValue();
+	}
+
 
 }

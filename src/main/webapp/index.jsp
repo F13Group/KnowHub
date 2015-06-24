@@ -47,15 +47,15 @@
 
 <script>
 	$(document).ready(function() {
-		var categoryUrl = window.location.href.toString() + "category";
-		var questionUrl = window.location.href.toString() + "question";
+		var categoryUrl = window.location.href.toString() + "categories";
+		var questionUrl = window.location.href.toString() + "questions";
 		
 		$("#categoriesMenu").append("<div class=categoriesMenuItem><input id=category-1 class=categoriesMenuButtonActive type=button value=ALL onclick=selectCategory(-1)><br /></div>");
 		
 		$.getJSON(categoryUrl, function(data) {
 			var items = [];
 			$.each(data, function(index, value) {				
-				$("#categoriesMenu").append("<div class=categoriesMenuItem><input id=category" + value.id + " class=categoriesMenuButton type=button value=" + value.value + " onclick=selectCategory(" + value.id + ")><br /></div>");
+				$("#categoriesMenu").append("<div class=categoriesMenuItem><input id=category" + value.id + " class=categoriesMenuButton type=button value='" + value.value + "' onclick=selectCategory(" + value.id + ")><br /></div>");
 			});			
 		});
 		
@@ -75,10 +75,10 @@
 		$("#category"+categoryId).toggleClass('categoriesMenuButton');
 		$("#category"+categoryId).toggleClass('categoriesMenuButtonActive');
 		
-		var questionUrl = window.location.href.toString() + "question";
+		var questionUrl = window.location.href.toString() + "questions";
 		
 		if (categoryId != -1) {
-			questionUrl += "/category/" + categoryId;
+			questionUrl += "/categories/" + categoryId;
 		}
 		
 		$.getJSON(questionUrl, function(data) {
