@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import ua.f13group.KnowHub.domain.Category;
 import ua.f13group.KnowHub.domain.Question;
 import ua.f13group.KnowHub.service.QuestionService;
-import ua.f13group.KnowHub.web.client.ClientManager;
 import ua.f13group.KnowHub.web.dto.QuestionMetadata;
 
 @RestController
@@ -23,44 +22,61 @@ public class QuestionController {
 	@Autowired
 	QuestionService questionService;
 
-	@Autowired
-	ClientManager clientManager;
+	public static final int DEFAULT_ROWS_ON_PAGE_NUMBER = 10;
+	public static final int DEFAULT_CURRENT_PAGE_NUMBER = 1;
+//
+//	@ModelAttribute
+//	public int paginationHolding(
+//			@RequestParam(value = "currentPage", required = false) Integer currentPage) {
+//		return 5;
+//
+//	}
 
-	@ModelAttribute
-	public void paginationHolding(
-			@RequestParam(required = false) Integer currentPage) {
-		if (currentPage != null && currentPage <= clientManager.getPageAmount()
-				&& currentPage > 0)
-			clientManager.setCurrentPage(currentPage);
+	@RequestMapping(method = RequestMethod.POST)
+	public List<Question> getAllQuestions(
+			@RequestParam(value = "currentPageNumber", required = false) Integer currentPageNumber,
+			@RequestParam(value = "rowsOnPageNumber", required = false) Integer rowsOnPageNumber) {
+
+		if (currentPageNumber == null)
+			currentPageNumber = DEFAULT_CURRENT_PAGE_NUMBER;
+		if (rowsOnPageNumber == null)
+			rowsOnPageNumber = DEFAULT_ROWS_ON_PAGE_NUMBER;
+
+		return questionService.getQuestionsForPage(rowsOnPageNumber,
+				currentPageNumber);
 	}
 
-	@RequestMapping(method = RequestMethod.GET)
-	public List<Question> getAllQuestions() {
-		return questionService.getQuestionsForPage(clientManager.getPageSize(),
-				clientManager.getCurrentPage());
-	}
+	@RequestMapping(value = "/categories/{categoryId}", method = RequestMethod.POST)
+	public List<Question> getAllQuestionsFilterCategory(
+			@PathVariable Long categoryId,
+			@RequestParam(value = "currentPageNumber", required = false) Integer currentPageNumber,
+			@RequestParam(value = "rowsOnPageNumber", required = false) Integer rowsOnPageNumber) {
 
-	// @RequestMapping(method = RequestMethod.GET)
-	// public List<Question> getAllQuestionsFilterCategory(@ReqsuestParam ) {
-	// Category category = new Category();
-	// category.setId(categoryId);
-	// return questionService.findByCategory(category);
-	// }
+		if (currentPageNumber == null)
+			currentPageNumber = DEFAULT_CURRENT_PAGE_NUMBER;
+		if (rowsOnPageNumber == null)
+			rowsOnPageNumber = DEFAULT_ROWS_ON_PAGE_NUMBER;
 
-	@RequestMapping(value = "/categories/{categoryId}", method = RequestMethod.GET)
-	public List<Question> getAllQuestionsFilterCategory2(
-			@PathVariable Long categoryId) {
-		clientManager.setPageAmount(questionService.getPagesCount());
-		Category category = new Category();
-		category.setId(categoryId);
-		return questionService.getQuestionsForPage(category,
-				clientManager.getPageSize(), clientManager.getCurrentPage());
+		return questionService.getQuestionsForPage(new Category(categoryId),
+				rowsOnPageNumber, currentPageNumber);
 	}
 
 	@RequestMapping(value = "/metadata", method = RequestMethod.POST)
-	public QuestionMetadata getMetadata(@RequestParam Integer currentPage) {
-		return new QuestionMetadata(clientManager.getCurrentPage(),
-				clientManager.getPageAmount());
+	public QuestionMetadata getMetadata(
+			@RequestParam(value = "rowsOnPageNumber") Integer rowsOnPageNumber) {
+
+		return new QuestionMetadata(
+				questionService.getPagesCount(rowsOnPageNumber));
+	}
+
+	@RequestMapping(value = "/categories/{categoryId}/metadata", method = RequestMethod.POST)
+	public QuestionMetadata getMetadataforCategory(
+			@PathVariable Long categoryId,
+			@RequestParam(value = "rowsOnPageNumber") Integer rowsOnPageNumber) {
+
+		return new QuestionMetadata(questionService.getPagesCount(new Category(
+				categoryId), rowsOnPageNumber));
+
 	}
 
 }
