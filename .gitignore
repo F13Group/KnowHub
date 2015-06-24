@@ -5,5 +5,6 @@ $ cat .gitignore
 .metadata
 .directory
 /target/
+/src/main/resources/spring/jdbc.properties
 *~
 
