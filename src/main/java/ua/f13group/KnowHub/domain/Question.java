@@ -20,12 +20,12 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "questions")
 @NamedQueries({
-		@NamedQuery(name = "Question.findAll", query = "SELECT q FROM Question q"),
+		@NamedQuery(name = "Question.findAll", query = "SELECT q FROM Question q ORDER BY q.loadDate DESC"),
 		// @NamedQuery(name = "Question.getPage", query =
 		// "SELECT q FROM Question q"),
 		// @NamedQuery(name = "Question.getPagesCount", query =
 		// "SELECT Count(q) FROM Question q"),
-		@NamedQuery(name = "Question.findByCategory", query = "SELECT q FROM Question q INNER JOIN q.categories c WHERE c.id IN (:category)"),
+		@NamedQuery(name = "Question.findByCategory", query = "SELECT q FROM Question q INNER JOIN q.categories c WHERE c.id IN (:category) ORDER BY q.loadDate DESC"),
 
 })
 public class Question implements Serializable {

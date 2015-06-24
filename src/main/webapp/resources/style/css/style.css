@@ -75,7 +75,7 @@ input{	padding: 5px;}
   padding:10px;       
   background-color:white;
   word-wrap:break-word;
-  overflow:hidden;   
+  overflow:hidden; 
 }
 .divCell_dark{
   float:left;
