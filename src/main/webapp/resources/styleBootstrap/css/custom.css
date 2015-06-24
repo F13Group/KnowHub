@@ -92,15 +92,15 @@ margin-right: 1%;
 .categoriesMenu{
 	margin-top:40px;
 	float:left;
-	width:200px;
+	width:150px;
 }
 .categoriesMenuItem{
 	margin:1px;
-	width:200px;
+	width:150px;
 }
 .categoriesMenuButton{
 	height:30px;
-	width:200px;
+	width:150px;
 	text-align: left;
 	margin:2px;
 	font-size: 14px;
@@ -120,7 +120,7 @@ margin-right: 1%;
 	font-weight:bold;
 	margin:2px;
 	height:30px;
-	width:200px;
+	width:150px;
 	text-align: left;
 	border: 1px solid transparent;
   	border-radius: 4px 0px 0px 4px;
@@ -134,13 +134,13 @@ margin-right: 1%;
 
 
 .divTable{
-  margin-left:202px;
+  margin-left:152px;
   display:table;         
 /*   width:auto;       */   
   border: 1px solid #ccc;
   border-radius: 4px;
   border-color: #ccc;
-  width: 1000px;
+/*   width: 1003px; */
 }
 
 .divRow{
@@ -175,10 +175,7 @@ margin-right: 1%;
 
 .questionsList div:nth-child(2n) {background:#EEE;}
 .questionsList div:nth-child(2n-1) {background:#FFF;}
-/*.divRow div:nth-child(2n) {background:#EEE;}
-.divRow div:nth-child(2n-1) {background:#FFF;}
- .divCell_2 div:nth-child(2n) {background:#EEE;}
-.divCell_2 div:nth-child(2n-1) {background:#DDD;} */
+
 
 .divQuestionColor{
 	color:#1874CD;
