@@ -45,7 +45,9 @@
 			</div>						
 			
 			<div class="pagingRow">
-				<div class="divCell_2" style="width:840px"><mycustomtags:tablepaging action="question" buttonName="questionPageNumber" pages_count="5" page_number="3" pages_size="10" /></div>
+				<div class="divCell_2" style="width:150px" align=right>SHOW&nbsp;<select><option>5</option><option selected>10</option><option>15</option></select></div>
+				<div class="divCell_2" style="width:520px" align=center><mycustomtags:tablepaging action="question" buttonName="questionPageNumber" pages_count="5" page_number="3" pages_size="10" /></div>
+				<div class="divCell_2" style="width:150px" align=center>Records 1-10 of 10</div>
 			</div>
 		</div>
 	</form>	
