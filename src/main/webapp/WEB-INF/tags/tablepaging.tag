@@ -1,13 +1,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
 <%@ attribute name="action" required="true" type="java.lang.String" description="Name of form action" %>
 <%@ attribute name="buttonName" required="true" type="java.lang.String" description="Name used by buttons" %>
 <%@ attribute name="pages_count" required="true" type="java.lang.Long" description="Total page quantity" %>
 <%@ attribute name="page_number" required="true" type="java.lang.Long" description="Ordinal number of page displayed" %>
 <%@ attribute name="pages_size" required="true" type="java.lang.Long" description="Number of elements per page" %>
-
-<form method="post" action="${action}"
-	accept-charset="UTF-8">
+<form method="post" action="${action}" accept-charset="UTF-8">
 	<table>
 		<tr>
 			<td align="left">

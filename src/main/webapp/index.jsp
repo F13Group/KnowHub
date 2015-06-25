@@ -37,23 +37,25 @@
 
 	<form id="form1">
 		<div id="questionsList" class="divTable">
-			<div class="headRow">
+			<div id="headRow" class="headRow">
 				<div class="divCell_header">Question</div>
 				<div class="divCell_header">Category  <input type="button" class="change_order_sign" value="&#x21D5;"></div>
 				<div class="divCell_header">Date <input type="button" class="change_order_sign" value="&#x21D5;"></div>
 				<div class="divCell_header">Frequently Asked <input type="button" class="change_order_sign" value="&#x21D5;"></div>
-			</div>					
+			</div>						
 			
+			<div class="pagingRow">
+				<div class="divCell_2" style="width:840px"><mycustomtags:tablepaging action="question" buttonName="questionPageNumber" pages_count="5" page_number="3" pages_size="10" /></div>
+			</div>
 		</div>
-	</form>
-	
-	
+	</form>	
 	
 </body>
 </html>
 
 
-<script>
+<script>	
+	
 	$(document).ready(function() {
 		var categoryUrl = window.location.href.toString() + "categories";
 		var questionUrl = window.location.href.toString() + "questions";
@@ -68,8 +70,8 @@
 		});
 		
 		$.getJSON(questionUrl, function(data) {
-			var items = [];
-			$.each(data, function(index, value) {
+			var items = [];			
+			$.each($(data).get().reverse(), function(index, value) {
 				var unformatted_date = new Date(value.loadDate);
 				var dd = unformatted_date.getDate();
 	            var mm = unformatted_date.getMonth() + 1;
@@ -83,11 +85,9 @@
 		            mm = '0' + mm;
 	            }
 	            var date = dd+'/'+mm+'/'+yyyy;
-				$("#questionsList").append("<div class=divRow><div class=divCell_2><div class=divQuestionColor>" + value.value + "</div></div><div class=divCell_2>" + value.categories[0].value + "</div><div class=divCell_2>" + date +"</div><div class=divCell_2>" + value.rating + "</div></div>");
-			});
-			$("#questionsList").append("<div class=divRow><div class=divCell_2 style=width:200px align=right>SHOW&nbsp;<select><option>10</option><option>15</option><option>20</option></select></div><div class=divCell_2 style=width:640px align=center><input type=button value=&lt;&lt;> <input type=button value=&lt;> <span><input type=button class=checkedPage value=1></span> <input type=button value=2> <input type=button value=3> <input type=button value=4> <input type=button value=5> <input type=button value=6> <input type=button value=&gt;> <input type=button value=&gt;&gt;></div></div>");
-		});
-				
+	            $("<div class=divRow><div class=divCell_2><div class=divQuestionColor>" + value.value + "</div></div><div class=divCell_2>" + value.categories[0].value + "</div><div class=divCell_2>" + date +"</div><div class=divCell_2>" + value.rating + "</div></div>").insertAfter("#headRow");
+			});			
+		});				
 	});
 	
 	function selectCategory(categoryId) {
@@ -104,11 +104,11 @@
 		
 		$.getJSON(questionUrl, function(data) {
 			var items = [];
-			$("#questionsList").empty().append("<div class=headRow><div class=divCell_header>Question</div><div class=divCell_header>Category <input type=button class=change_order_sign value=&#x21D5;></div><div class=divCell_header>Date <input type=button class=change_order_sign value=&#x21D5;></div><div class=divCell_header>Frequently Asked <input type=button class=change_order_sign value=&#x21D5;></div></div>");
+			$(".divRow").empty();
 			if (data.length == 0) {
-				$("#questionsList").append("<div class=divRow><div class=divCell_2 style=width:860px align=center>No questions found for this category</div></div>");
+				$("<div class=divRow><div class=divCell_2 style=width:860px align=center>No questions found for this category</div></div>").insertAfter("#headRow");
 			} else {
-				$.each(data, function(index, value) {
+				$.each($(data).get().reverse(), function(index, value) {
 					var unformatted_date = new Date(value.loadDate);
 					var dd = unformatted_date.getDate();
 		            var mm = unformatted_date.getMonth() + 1;
@@ -122,10 +122,9 @@
 			            mm = '0' + mm;
 		            }
 		            var date = dd+'/'+mm+'/'+yyyy;
-					$("#questionsList").append("<div class=divRow><div class=divCell_2><div class=divQuestionColor>" + value.value + "</div></div><div class=divCell_2>" + value.categories[0].value + "</div><div class=divCell_2>" + date +"</div><div class=divCell_2>" + value.rating + "</div></div>");
+		            $("<div class=divRow><div class=divCell_2><div class=divQuestionColor>" + value.value + "</div></div><div class=divCell_2>" + value.categories[0].value + "</div><div class=divCell_2>" + date +"</div><div class=divCell_2>" + value.rating + "</div></div>").insertAfter("#headRow");
 				});
-			}
-			$("#questionsList").append("<div class=divRow><div class=divCell_2 style=width:200px align=right>SHOW&nbsp;<select><option>10</option><option>15</option><option>20</option></select></div><div class=divCell_2 style=width:640px align=center><input type=button value=&lt;&lt;> <input type=button value=&lt;> <span><input type=button class=checkedPage value=1></span> <input type=button value=2> <input type=button value=3> <input type=button value=4> <input type=button value=5> <input type=button value=6> <input type=button value=&gt;> <input type=button value=&gt;&gt;></div></div>");			
+			}						
 		});
 	}
 </script>

@@ -64,6 +64,12 @@ input{
   clear:both;
   border:1px solid  black;
 }
+.pagingRow{
+  display:table-row;
+  width:auto;
+  clear:both;
+  border:1px solid  black;
+}
 .divCell_header{
   font-weight:bold;
   float:left;
