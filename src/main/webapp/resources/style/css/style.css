@@ -7,7 +7,7 @@ body {
 
 a{	padding:10px;}
 
-input{	padding: 5px;
+input{	
 		margin-bottom:3%;
 		cursor:pointer; 
 	 }
@@ -37,6 +37,7 @@ input{	padding: 5px;
 	width:200px;
 	text-align: left;
 	border-color: black;
+	padding: 5px;
 }
 .categoriesMenuButtonActive{
 	margin:1px;
@@ -45,6 +46,7 @@ input{	padding: 5px;
 	background-color:white; 
 	border-color: black;
 	border-right-color: white;
+	padding: 5px;
 }
 
 
