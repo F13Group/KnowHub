@@ -7,7 +7,10 @@ body {
 
 a{	padding:10px;}
 
-input{	padding: 5px;}
+input{	
+		margin-bottom:3%;
+		cursor:pointer; 
+	 }
 
 .loginLinks{
 	margin:10px;
@@ -34,6 +37,7 @@ input{	padding: 5px;}
 	width:200px;
 	text-align: left;
 	border-color: black;
+	padding: 5px;
 }
 .categoriesMenuButtonActive{
 	margin:1px;
@@ -42,6 +46,7 @@ input{	padding: 5px;}
 	background-color:white; 
 	border-color: black;
 	border-right-color: white;
+	padding: 5px;
 }
 
 
@@ -49,14 +54,21 @@ input{	padding: 5px;}
 .divTable{
   display:table;         
   width:auto;         
-  background-color:black;         
+  background-color: white;          
   border:1px solid  black;         
-  border-spacing:2px;/*cellspacing:poor IE support for  this*/
+ /*  border-spacing:2px;cellspacing:poor IE support for  this */
 }
 .divRow{
   display:table-row;
   width:auto;
   clear:both;
+  border:1px solid  black;
+}
+.pagingRow{
+  display:table-row;
+  width:auto;
+  clear:both;
+  border:1px solid  black;
 }
 .divCell_header{
   font-weight:bold;
@@ -75,7 +87,8 @@ input{	padding: 5px;}
   padding:10px;       
   background-color:white;
   word-wrap:break-word;
-  overflow:hidden;  
+  overflow:hidden; 
+  border-top:1px solid  black;
 }
 .divCell_dark{
   float:left;
@@ -88,6 +101,29 @@ input{	padding: 5px;}
 .divQuestionColor{
 	color:#1874CD;
 }
+.change_order_sign{
+	margin-top:0%;
+	padding:0%; 
+}
+
+
 .checkedPage{
 	color:red;
+}
+
+.normal {
+	background-color: #ffffff
+}
+
+.over {
+	background-color: #f0ffa9
+}
+
+ul.paging {
+	margin: 0;	
+}
+
+ul.paging li {
+	display: inline;
+	padding: 2px;
 }
