@@ -45,9 +45,9 @@
 			</div>						
 			
 			<div class="pagingRow">
-				<div class="divCell_2" style="width:150px" align=right>SHOW&nbsp;<select><option>5</option><option selected>10</option><option>15</option></select></div>
-				<div class="divCell_2" style="width:520px" align=center><mycustomtags:tablepaging action="question" buttonName="questionPageNumber" pages_count="5" page_number="3" pages_size="10" /></div>
-				<div class="divCell_2" style="width:150px" align=center>Records 1-10 of 10</div>
+				<div class="divCell_2" id="pageSizeChooser" style="width:150px" align=right>SHOW&nbsp;<select><option>5</option><option selected>10</option><option>15</option></select></div>
+				<div class="divCell_2" id="pagingTag" style="width:520px" align=center><mycustomtags:tablepaging action="question" buttonName="questionPageNumber" pages_count="2" page_number="1" pages_size="1" /></div>
+				<div class="divCell_2" id="pagingInfo" style="width:150px" align=center>Records 1-10 of 10</div>
 			</div>
 		</div>
 	</form>	
@@ -58,28 +58,29 @@
 
 <script>
 
-	function outputQuestions(questionUrl) {
-		$.getJSON(questionUrl, function(data) {
-			var items = [];
-			$(".divRow").empty();
-			if (data.length == 0) {
-				$("<div class=divRow><div class=divCell_2 style=width:860px align=center>No questions found for this category</div></div>").insertAfter("#headRow");
-			} else {
-				$.each($(data).get().reverse(), function(index, value) {
-					var unformatted_date = new Date(value.loadDate);
-					var dd = unformatted_date.getDate();
-		            var mm = unformatted_date.getMonth() + 1;
-		            var yyyy = unformatted_date.getFullYear();
-		            if(dd < 10)
-		            {
-			            dd = '0'+ dd;
-		            }
-		            if(mm < 10)
-		            {
-			            mm = '0' + mm;
-		            }
-		            var date = dd+'/'+mm+'/'+yyyy;
-		            $("<div class=divRow><div class=divCell_2><div class=divQuestionColor>" + value.value + "</div></div><div class=divCell_2>" + value.categories[0].value + "</div><div class=divCell_2>" + date +"</div><div class=divCell_2>" + value.rating + "</div></div>").insertAfter("#headRow");
+	function outputQuestions(questionUrl, cPN, rOPN) {
+		$.post(questionUrl, {currentPageNumber: cPN, rowsOnPageNumber: rOPN })
+			.done(function(data) {
+				var items = [];
+				$(".divRow").empty();
+				if (data.length == 0) {
+					$("<div class=divRow><div class=divCell_2 style=width:860px align=center>No questions found for this category</div></div>").insertAfter("#headRow");
+				} else {
+					$.each($(data).get().reverse(), function(index, value) {
+						var unformatted_date = new Date(value.loadDate);
+						var dd = unformatted_date.getDate();
+		            	var mm = unformatted_date.getMonth() + 1;
+		            	var yyyy = unformatted_date.getFullYear();
+		            	if(dd < 10)
+		            	{
+			            	dd = '0'+ dd;
+		            	}
+		            	if(mm < 10)
+		            	{
+			            	mm = '0' + mm;
+		            	}
+		            	var date = dd+'/'+mm+'/'+yyyy;
+		            	$("<div class=divRow><div class=divCell_2><div class=divQuestionColor>" + value.value + "</div></div><div class=divCell_2>" + value.categories[0].value + "</div><div class=divCell_2>" + date +"</div><div class=divCell_2>" + value.rating + "</div></div>").insertAfter("#headRow");
 				});
 			}						
 		});
@@ -96,9 +97,15 @@
 			$.each(data, function(index, value) {				
 				$("#categoriesMenu").append("<div class=categoriesMenuItem><input id=category" + value.id + " class=categoriesMenuButton type=button value='" + value.value + "' onclick=selectCategory(" + value.id + ")><br /></div>");
 			});			
-		});
+		});				
 		
-		outputQuestions(questionUrl);				
+		outputQuestions(questionUrl, "1", "10");
+		
+		var pT = $("#pagingTag").find("mycustomtags:tablepaging");
+		alert(pT.attr("pages_count"));
+		jQuery.data(pT, "pages_count", "5");
+		jQuery.data(pT, "page_number", "3");
+		jQuery.data(pT, "pages_size", "10");
 	});
 	
 	function selectCategory(categoryId) {
@@ -113,6 +120,6 @@
 			questionUrl += "/categories/" + categoryId;
 		}
 		
-		outputQuestions(questionUrl);
+		outputQuestions(questionUrl, "1", "10");
 	}
 </script>

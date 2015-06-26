@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import ua.f13group.KnowHub.service.CategoryService;
 import ua.f13group.KnowHub.service.QuestionService;
-import ua.f13group.KnowHub.service.Serv;
 
 @Service("QR")
 public class QuestionRunner {
