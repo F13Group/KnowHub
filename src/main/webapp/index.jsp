@@ -101,11 +101,11 @@
 		
 		outputQuestions(questionUrl, "1", "10");
 		
-		var pT = $("#pagingTag").find("mycustomtags:tablepaging");
-		alert(pT.attr("pages_count"));
-		jQuery.data(pT, "pages_count", "5");
-		jQuery.data(pT, "page_number", "3");
-		jQuery.data(pT, "pages_size", "10");
+		var $pT = $("#pagingTag").find('mycustomtags');
+		alert($pT.attr('action'));
+		jQuery.data($pT, "pages_count", "5");
+		jQuery.data($pT, "page_number", "3");
+		jQuery.data($pT, "pages_size", "10");
 	});
 	
 	function selectCategory(categoryId) {
