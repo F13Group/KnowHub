@@ -53,10 +53,10 @@
 
       <div class="tabbable">
       	<div id="categoriesMenu" class="categoriesMenu">
-		</div>
+	  </div>
 		
     
-    	<form id="form1">
+  <!--   	<form id="form1"> -->
 		<div id="questionsList" class="divTable">
 			<div class="headRow">
 				<div class="divCell_header" style="width:400px">Question</div>
@@ -66,7 +66,7 @@
 			</div>					
 			
 		</div>
-	</form>
+<!-- 	</form> -->
     
     
       <!--   
@@ -134,9 +134,9 @@
 				var date = new Date(value.loadDate);
 				counter++;
 				if(counter%2==0){
-					$("#questionsList").append("<div class=divRow style=background:#FFF><div class=divCell_2 style=width:400px;background:#FFF><div class=divQuestionColor >" + value.value + "</div></div><div class=divCell_2 style=background:#FFF>" + value.categories[0].value + "</div><div class=divCell_2 style=background:#FFF>" + date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getFullYear() +"</div><div class=divCell_2 style=background:#FFF>" + value.rating + "</div></div>");
+					$("#questionsList").append("<div class=divRow ><div class=divCell_2 style=width:400px;background:#FFF><div class=divQuestionColor >" + value.value + "</div></div><div class=divCell_2 style=background:#FFF>" + value.categories[0].value + "</div><div class=divCell_2 style=background:#FFF>" + date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getFullYear() +"</div><div class=divCell_2 style=background:#FFF>" + value.rating + "</div></div>");
 				}else{
-					$("#questionsList").append("<div class=divRow style=background:#EEE><div class=divCell_2 style=width:400px;background:#EEE><div class=divQuestionColor >" + value.value + "</div></div><div class=divCell_2  style=background:#EEE>" + value.categories[0].value + "</div><div class=divCell_2 style=background:#EEE>" + date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getFullYear() +"</div><div class=divCell_2 style=background:#EEE>" + value.rating + "</div></div>");
+					$("#questionsList").append("<div class=divRow ><div class=divCell_2 style=width:400px;background:#EEE><div class=divQuestionColor >" + value.value + "</div></div><div class=divCell_2  style=background:#EEE>" + value.categories[0].value + "</div><div class=divCell_2 style=background:#EEE>" + date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getFullYear() +"</div><div class=divCell_2 style=background:#EEE>" + value.rating + "</div></div>");
 				}
 			});
 			
@@ -167,9 +167,9 @@
 					var date = new Date(value.loadDate);
 					counter++;
 					if(counter%2==0){
-						$("#questionsList").append("<div class=divRow style=background:#FFF><div class=divCell_2 style=width:400px;background:#FFF><div class=divQuestionColor >" + value.value + "</div></div><div class=divCell_2 style=background:#FFF>" + value.categories[0].value + "</div><div class=divCell_2 style=background:#FFF>" + date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getFullYear() +"</div><div class=divCell_2 style=background:#FFF>" + value.rating + "</div></div>");
+						$("#questionsList").append("<div class=divRow><div class=divCell_2 style=width:400px;background:#FFF><div class=divQuestionColor >" + value.value + "</div></div><div class=divCell_2 style=background:#FFF>" + value.categories[0].value + "</div><div class=divCell_2 style=background:#FFF>" + date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getFullYear() +"</div><div class=divCell_2 style=background:#FFF>" + value.rating + "</div></div>");
 					}else{
-						$("#questionsList").append("<div class=divRow style=background:#EEE><div class=divCell_2 style=width:400px;background:#EEE><div class=divQuestionColor >" + value.value + "</div></div><div class=divCell_2  style=background:#EEE>" + value.categories[0].value + "</div><div class=divCell_2 style=background:#EEE>" + date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getFullYear() +"</div><div class=divCell_2 style=background:#EEE>" + value.rating + "</div></div>");
+						$("#questionsList").append("<div class=divRow><div class=divCell_2 style=width:400px;background:#EEE><div class=divQuestionColor >" + value.value + "</div></div><div class=divCell_2  style=background:#EEE>" + value.categories[0].value + "</div><div class=divCell_2 style=background:#EEE>" + date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getFullYear() +"</div><div class=divCell_2 style=background:#EEE>" + value.rating + "</div></div>");
 					}
 				});
 			}
