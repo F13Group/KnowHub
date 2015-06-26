@@ -3,6 +3,7 @@
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="mycustomtags" tagdir="/WEB-INF/tags"%>
 <link rel="stylesheet" href="resources/style/css/style.css"
 	type="text/css" />
@@ -46,8 +47,12 @@
 			
 			<div class="pagingRow">
 				<div class="divCell_2" id="pageSizeChooser" style="width:150px" align=right>SHOW&nbsp;<select><option>5</option><option selected>10</option><option>15</option></select></div>
-				<div class="divCell_2" id="pagingTag" style="width:520px" align=center><mycustomtags:tablepaging action="question" buttonName="questionPageNumber" pages_count="2" page_number="1" pages_size="1" /></div>
+				<div class="divCell_2" id="pagingTag" style="width:520px" align=center></div>
 				<div class="divCell_2" id="pagingInfo" style="width:150px" align=center>Records 1-10 of 10</div>
+			</div>
+			
+			<div class="pagingRow">
+				<div class="divCell_2" id="pagingTagDemo" style="width:860px" align=center><mycustomtags:tablepaging action="-" buttonName="-" pages_count="5" page_number="3" pages_size="10" /></div>
 			</div>
 		</div>
 	</form>	
@@ -101,11 +106,8 @@
 		
 		outputQuestions(questionUrl, "1", "10");
 		
-		var $pT = $("#pagingTag").find('mycustomtags');
-		alert($pT.attr('action'));
-		jQuery.data($pT, "pages_count", "5");
-		jQuery.data($pT, "page_number", "3");
-		jQuery.data($pT, "pages_size", "10");
+		pagination("pagingAction", "buttonName", 6, 4, 10);
+				
 	});
 	
 	function selectCategory(categoryId) {
@@ -121,5 +123,43 @@
 		}
 		
 		outputQuestions(questionUrl, "1", "10");
+	}
+	
+	function pagination(actionName, buttonName, pagesCount, pageNumber, pagesSize) {
+		
+		$("#pagingTag").append("<form method=post action=" + actionName + " accept-charset=UTF-8><table><tr><td align=left><ul class=paging>");
+		$(".paging").append('<li><button class="normal" onmouseover="this.className=\'over\'" onmouseout="this.className=\'normal\'" name="' + buttonName + '" value="0">&lt;&lt;</button></li>');
+		if (pageNumber > 0) {
+			$(".paging").append('<li><button class="normal" onmouseover="this.className=\'over\'" onmouseout="this.className=\'normal\'" name="' + buttonName + '" value="' + (pageNumber - 1) + '">&lt;</button></li>');
+		}
+		if (pageNumber == 0) {
+			$(".paging").append('<li><button class="normal" onmouseover="this.className=\'over\'" onmouseout="this.className=\'normal\'" name="' + buttonName + '" value="0">&lt;</button></li>');
+		}
+		if (pagesCount > 5) {
+			for (var i = 0; i < 5; i++) {
+				if ((pageNumber > 2) && ((pagesCount - pageNumber - 1) > 1)) {
+					$(".paging").append('<li><button class="normal" onmouseover="this.className=\'over\'" onmouseout="this.className=\'normal\'" name="' + buttonName + '" value="' + (i + pageNumber - 2) + '">' + (i + pageNumber - 1) + '</button></li>');
+				}
+				if (pageNumber <= 2) {
+					$(".paging").append('<li><button class="normal" onmouseover="this.className=\'over\'" onmouseout="this.className=\'normal\'" name="' + buttonName + '" value="' + i + '">' + (i + 1) + '</button></li>');
+				}
+				if ((pagesCount - pageNumber - 1) <= 1) {
+					$(".paging").append('<li><button class="normal" onmouseover="this.className=\'over\'" onmouseout="this.className=\'normal\'" name="' + buttonName + '" value="' + (i + pagesCount - 5) + '">' + (i + pages_count - 4) + '</button></li>');
+				}
+			}			
+		}
+		if (pagesCount <= 5) {
+			for (var i = 0; i < pagesCount; i++) {
+				$(".paging").append('<li><button class="normal" onmouseover="this.className=\'over\'" onmouseout="this.className=\'normal\'" name="' + buttonName + '" value="' + i + '">' + (i + 1) + '</button></li>');
+			}
+		}
+		if (pageNumber < pagesCount - 1) {
+			$(".paging").append('<li><button class="normal" onmouseover="this.className=\'over\'" onmouseout="this.className=\'normal\'" name="' + buttonName + '" value="' + (pageNumber + 1) + '">&gt;</button></li>');
+		}
+		if (pageNumber == pagesCount - 1) {
+			$(".paging").append('<li><button class="normal" onmouseover="this.className=\'over\'" onmouseout="this.className=\'normal\'" name="' + buttonName + '" value="' + (pagesCount - 1) + '">&gt;</button></li>');
+		}
+		$(".paging").append('<li><button class="normal" onmouseover="this.className=\'over\'" onmouseout="this.className=\'normal\'" name="' + buttonName + '" value="' + (pagesCount - 1) + '">&gt;&gt;</button></li>');
+		$("#pagingTag").append("</ul></td></tr></table></form>");
 	}
 </script>
