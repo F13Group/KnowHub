@@ -56,54 +56,9 @@
 </html>
 
 
-<script>	
-	
-	$(document).ready(function() {
-		var categoryUrl = window.location.href.toString() + "categories";
-		var questionUrl = window.location.href.toString() + "questions";
-		
-		$("#categoriesMenu").append("<div class=categoriesMenuItem><input id=category-1 class=categoriesMenuButtonActive type=button value=All&nbsp;Categories onclick=selectCategory(-1)><br /></div>");
-		
-		$.getJSON(categoryUrl, function(data) {
-			var items = [];
-			$.each(data, function(index, value) {				
-				$("#categoriesMenu").append("<div class=categoriesMenuItem><input id=category" + value.id + " class=categoriesMenuButton type=button value='" + value.value + "' onclick=selectCategory(" + value.id + ")><br /></div>");
-			});			
-		});
-		
-		$.getJSON(questionUrl, function(data) {
-			var items = [];			
-			$.each($(data).get().reverse(), function(index, value) {
-				var unformatted_date = new Date(value.loadDate);
-				var dd = unformatted_date.getDate();
-	            var mm = unformatted_date.getMonth() + 1;
-	            var yyyy = unformatted_date.getFullYear();
-	            if(dd < 10)
-	            {
-		            dd = '0'+ dd;
-	            }
-	            if(mm < 10)
-	            {
-		            mm = '0' + mm;
-	            }
-	            var date = dd+'/'+mm+'/'+yyyy;
-	            $("<div class=divRow><div class=divCell_2><div class=divQuestionColor>" + value.value + "</div></div><div class=divCell_2>" + value.categories[0].value + "</div><div class=divCell_2>" + date +"</div><div class=divCell_2>" + value.rating + "</div></div>").insertAfter("#headRow");
-			});			
-		});				
-	});
-	
-	function selectCategory(categoryId) {
-		$('.categoriesMenuButtonActive').toggleClass('categoriesMenuButtonActive').toggleClass('categoriesMenuButton');
-		
-		$("#category"+categoryId).toggleClass('categoriesMenuButton');
-		$("#category"+categoryId).toggleClass('categoriesMenuButtonActive');
-		
-		var questionUrl = window.location.href.toString() + "questions";
-		
-		if (categoryId != -1) {
-			questionUrl += "/categories/" + categoryId;
-		}
-		
+<script>
+
+	function outputQuestions(questionUrl) {
 		$.getJSON(questionUrl, function(data) {
 			var items = [];
 			$(".divRow").empty();
@@ -128,5 +83,36 @@
 				});
 			}						
 		});
+	};
+	
+	$(document).ready(function() {
+		var categoryUrl = window.location.href.toString() + "categories";
+		var questionUrl = window.location.href.toString() + "questions";
+				
+		$("#categoriesMenu").append("<div class=categoriesMenuItem><input id=category-1 class=categoriesMenuButtonActive type=button value=All&nbsp;Categories onclick=selectCategory(-1)><br /></div>");
+		
+		$.getJSON(categoryUrl, function(data) {
+			var items = [];
+			$.each(data, function(index, value) {				
+				$("#categoriesMenu").append("<div class=categoriesMenuItem><input id=category" + value.id + " class=categoriesMenuButton type=button value='" + value.value + "' onclick=selectCategory(" + value.id + ")><br /></div>");
+			});			
+		});
+		
+		outputQuestions(questionUrl);				
+	});
+	
+	function selectCategory(categoryId) {
+		$('.categoriesMenuButtonActive').toggleClass('categoriesMenuButtonActive').toggleClass('categoriesMenuButton');
+		
+		$("#category"+categoryId).toggleClass('categoriesMenuButton');
+		$("#category"+categoryId).toggleClass('categoriesMenuButtonActive');
+		
+		var questionUrl = window.location.href.toString() + "questions";
+		
+		if (categoryId != -1) {
+			questionUrl += "/categories/" + categoryId;
+		}
+		
+		outputQuestions(questionUrl);
 	}
 </script>
