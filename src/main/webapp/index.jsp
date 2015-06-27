@@ -106,7 +106,7 @@
 		
 		outputQuestions(questionUrl, "1", "10");
 		
-		pagination("pagingAction", "buttonName", 6, 4, 10);
+		pagination("pagingAction", "buttonName", 6, 5, 10);
 				
 	});
 	
@@ -144,7 +144,7 @@
 					$(".paging").append('<li><button class="normal" onmouseover="this.className=\'over\'" onmouseout="this.className=\'normal\'" name="' + buttonName + '" value="' + i + '">' + (i + 1) + '</button></li>');
 				}
 				if ((pagesCount - pageNumber - 1) <= 1) {
-					$(".paging").append('<li><button class="normal" onmouseover="this.className=\'over\'" onmouseout="this.className=\'normal\'" name="' + buttonName + '" value="' + (i + pagesCount - 5) + '">' + (i + pages_count - 4) + '</button></li>');
+					$(".paging").append('<li><button class="normal" onmouseover="this.className=\'over\'" onmouseout="this.className=\'normal\'" name="' + buttonName + '" value="' + (i + pagesCount - 5) + '">' + (i + pagesCount - 4) + '</button></li>');
 				}
 			}			
 		}
