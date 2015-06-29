@@ -58,6 +58,19 @@
 
 <script>
 
+	var selectedCategoryId;
+	
+	function displayPage(questionUrl, questionMetadataUrl, currentPageNumber) {
+		
+		var pageSizeChooser = document.getElementById("pageSizeChooser");
+		var pageSizeChosen = pageSizeChooser.options[pageSizeChooser.selectedIndex].text;
+		
+		$.post(questionMetadataUrl, {rowsOnPageNumber: pageSizeChosen})
+		.done(function(data) {
+			outputQuestions(questionUrl, data.pageCount, currentPageNumber, pageSizeChosen);
+		});
+	}
+
 	function outputQuestions(questionUrl, pC, cPN, rOPN) {
 		$.post(questionUrl, {currentPageNumber: cPN, rowsOnPageNumber: rOPN })
 			.done(function(data) {
@@ -85,14 +98,17 @@
 			}						
 		});
 		
-		pagination("pagingAction", "buttonName", pC, 1, 10);
+		pagination(pC, 1, 10);
 	};
 	
 	$(document).ready(function() {
+		
+		window.selectedCategoryId = -1;
+				
 		var categoryUrl = window.location.href.toString() + "categories";
 		var questionUrl = window.location.href.toString() + "questions";
 		var questionMetadataUrl = questionUrl + "/metadata";
-				
+		
 		$("#categoriesMenu").append("<div class=categoriesMenuItem><input id=category-1 class=categoriesMenuButtonActive type=button value=All&nbsp;Categories onclick=selectCategory(-1)><br /></div>");
 		
 		$.getJSON(categoryUrl, function(data) {
@@ -102,16 +118,13 @@
 			});			
 		});
 		
-		var pageSizeChooser = document.getElementById("pageSizeChooser");
-		var pageSizeChosen = pageSizeChooser.options[pageSizeChooser.selectedIndex].text;
-		
-		$.post(questionMetadataUrl, {rowsOnPageNumber: pageSizeChosen})
-			.done(function(data) {				
-				outputQuestions(questionUrl, data.pageCount, "1", pageSizeChosen);				
-			});
+		displayPage(questionUrl, questionMetadataUrl, "1");
 	});
 	
 	function selectCategory(categoryId) {
+		
+		window.selectedCategoryId = categoryId;
+				
 		$('.categoriesMenuButtonActive').toggleClass('categoriesMenuButtonActive').toggleClass('categoriesMenuButton');
 		
 		$("#category"+categoryId).toggleClass('categoriesMenuButton');
@@ -125,52 +138,46 @@
 		
 		var questionMetadataUrl = questionUrl + "/metadata";
 		
-		var pageSizeChooser = document.getElementById("pageSizeChooser");
-		var pageSizeChosen = pageSizeChooser.options[pageSizeChooser.selectedIndex].text;
-		
-		$.post(questionMetadataUrl, {rowsOnPageNumber: pageSizeChosen})
-			.done(function(data) {
-				outputQuestions(questionUrl, data.pageCount, "1", pageSizeChosen);
-			});
+		displayPage(questionUrl, questionMetadataUrl, "1");
 	}
 	
-	function pagination(actionName, buttonName, pagesCount, pageNumber, pagesSize) {
+	function pagination(pagesCount, pageNumber, pagesSize) {
 		$("#pagingTag").empty();
 		if (pagesCount > 1) {
-			$("#pagingTag").append("<form method=post action=" + actionName + " accept-charset=UTF-8><table><tr><td align=left><ul class=paging>");
-			$(".paging").append('<li><button class="normal" onmouseover="this.className=\'over\'" onmouseout="this.className=\'normal\'" name="' + buttonName + '" value="0">&lt;&lt;</button></li>');
-			if (pageNumber > 0) {
-				$(".paging").append('<li><button class="normal" onmouseover="this.className=\'over\'" onmouseout="this.className=\'normal\'" name="' + buttonName + '" value="' + (pageNumber - 1) + '">&lt;</button></li>');
+			$("#pagingTag").append("<table><tr><td align=left><ul class=paging>");
+			$(".paging").append('<li><button class="normal" onmouseover="this.className=\'over\'" onmouseout="this.className=\'normal\'" value="1">&lt;&lt;</button></li>');
+			if (pageNumber > 1) {
+				$(".paging").append('<li><button class="normal" onmouseover="this.className=\'over\'" onmouseout="this.className=\'normal\'" value="' + (pageNumber - 1) + '">&lt;</button></li>');
 			}
-			if (pageNumber == 0) {
-				$(".paging").append('<li><button class="normal" onmouseover="this.className=\'over\'" onmouseout="this.className=\'normal\'" name="' + buttonName + '" value="0">&lt;</button></li>');
+			if (pageNumber == 1) {
+				$(".paging").append('<li><button class="normal" onmouseover="this.className=\'over\'" onmouseout="this.className=\'normal\'" value="1">&lt;</button></li>');
 			}
 			if (pagesCount > 5) {
-				for (var i = 0; i < 5; i++) {
-					if ((pageNumber > 2) && ((pagesCount - pageNumber - 1) > 1)) {
-						$(".paging").append('<li><button class="normal" onmouseover="this.className=\'over\'" onmouseout="this.className=\'normal\'" name="' + buttonName + '" value="' + (i + pageNumber - 2) + '">' + (i + pageNumber - 1) + '</button></li>');
+				for (var i = 1; i <= 5; i++) {
+					if ((pageNumber > 3) && ((pagesCount - pageNumber - 1) > 1)) {
+						$(".paging").append('<li><button class="normal" onmouseover="this.className=\'over\'" onmouseout="this.className=\'normal\'" value="' + (i + pageNumber - 1) + '">' + (i + pageNumber - 1) + '</button></li>');
 					}
-					if (pageNumber <= 2) {
-						$(".paging").append('<li><button class="normal" onmouseover="this.className=\'over\'" onmouseout="this.className=\'normal\'" name="' + buttonName + '" value="' + i + '">' + (i + 1) + '</button></li>');
+					if (pageNumber <= 3) {
+						$(".paging").append('<li><button class="normal" onmouseover="this.className=\'over\'" onmouseout="this.className=\'normal\'" value="' + i + '">' + i + '</button></li>');
 					}
-					if ((pagesCount - pageNumber - 1) <= 1) {
-						$(".paging").append('<li><button class="normal" onmouseover="this.className=\'over\'" onmouseout="this.className=\'normal\'" name="' + buttonName + '" value="' + (i + pagesCount - 5) + '">' + (i + pagesCount - 4) + '</button></li>');
+					if ((pagesCount - pageNumber) <= 1) {
+						$(".paging").append('<li><button class="normal" onmouseover="this.className=\'over\'" onmouseout="this.className=\'normal\'" value="' + (i + pagesCount - 4) + '">' + (i + pagesCount - 4) + '</button></li>');
 					}
 				}			
 			}
 			if (pagesCount <= 5) {
-				for (var i = 0; i < pagesCount; i++) {
-					$(".paging").append('<li><button class="normal" onmouseover="this.className=\'over\'" onmouseout="this.className=\'normal\'" name="' + buttonName + '" value="' + i + '">' + (i + 1) + '</button></li>');
+				for (var i = 1; i <= pagesCount; i++) {
+					$(".paging").append('<li><button class="normal" onmouseover="this.className=\'over\'" onmouseout="this.className=\'normal\'" value="' + i + '">' + i + '</button></li>');
 				}
 			}
-			if (pageNumber < pagesCount - 1) {
-				$(".paging").append('<li><button class="normal" onmouseover="this.className=\'over\'" onmouseout="this.className=\'normal\'" name="' + buttonName + '" value="' + (pageNumber + 1) + '">&gt;</button></li>');
+			if (pageNumber < pagesCount) {
+				$(".paging").append('<li><button class="normal" onmouseover="this.className=\'over\'" onmouseout="this.className=\'normal\'" value="' + (pageNumber + 1) + '">&gt;</button></li>');
 			}
-			if (pageNumber == pagesCount - 1) {
-				$(".paging").append('<li><button class="normal" onmouseover="this.className=\'over\'" onmouseout="this.className=\'normal\'" name="' + buttonName + '" value="' + (pagesCount - 1) + '">&gt;</button></li>');
+			if (pageNumber == pagesCount) {
+				$(".paging").append('<li><button class="normal" onmouseover="this.className=\'over\'" onmouseout="this.className=\'normal\'" value="' + (pagesCount) + '">&gt;</button></li>');
 			}
-			$(".paging").append('<li><button class="normal" onmouseover="this.className=\'over\'" onmouseout="this.className=\'normal\'" name="' + buttonName + '" value="' + (pagesCount - 1) + '">&gt;&gt;</button></li>');
-			$("#pagingTag").append("</ul></td></tr></table></form>");
+			$(".paging").append('<li><button class="normal" onmouseover="this.className=\'over\'" onmouseout="this.className=\'normal\'" value="' + (pagesCount) + '">&gt;&gt;</button></li>');
+			$("#pagingTag").append("</ul></td></tr></table>");
 		}
 	}
 </script>
