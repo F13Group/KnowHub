@@ -34,6 +34,10 @@ public class Category {
 	
 	public Category() {}
 
+	public Category(Long categoryId) {
+		this.id = categoryId;
+	}
+
 	public Long getId() {
 		return id;
 	}
