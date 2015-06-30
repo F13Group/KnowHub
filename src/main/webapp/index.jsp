@@ -152,47 +152,47 @@
 	
 	function pagination(pagesCount, pageNumber, pagesSize) {
 		$("#pagingTag").empty();
-		if (pagesCount > 1) {
+		if (Number(pagesCount) > 1) {
 			$("#pagingTag").append("<table><tr><td align=left><ul class=paging>");
 			$(".paging").append('<li><button class="normal" onmouseover="this.className=\'over\'" onmouseout="this.className=\'normal\'" onclick="displayPage(\'' + globalQuestionUrl + '\', \'' + globalQuestionMetadataUrl + '\',\'1\')">&lt;&lt;</button></li>');
-			if (pageNumber > 1) {
+			if (Number(pageNumber) > 1) {
 				$(".paging").append('<li><button class="normal" onmouseover="this.className=\'over\'" onmouseout="this.className=\'normal\'" onclick="displayPage(\'' + globalQuestionUrl + '\', \'' + globalQuestionMetadataUrl + '\', ' + (Number(pageNumber) - 1) + ')">&lt;</button></li>');
 			}
-			if (pageNumber == 1) {
+			if (Number(pageNumber) == 1) {
 				$(".paging").append('<li><button class="normal" onmouseover="this.className=\'over\'" onmouseout="this.className=\'normal\'" onclick="displayPage(\'' + globalQuestionUrl + '\', \'' + globalQuestionMetadataUrl + '\',\'1\')">&lt;</button></li>');
 			}
-			if (pagesCount > 5) {
+			if (Number(pagesCount) > 5) {
 				for (var i = 1; i <= 5; i++) {
-					if ((pageNumber > 3) && ((pagesCount - pageNumber - 1) > 1)) {
-						$(".paging").append('<li><button class="normal" onmouseover="this.className=\'over\'" onmouseout="this.className=\'normal\'" id="pagebutton' + (i + pageNumber - 1) + '" onclick="displayPage(\'' + globalQuestionUrl + '\', \'' + globalQuestionMetadataUrl + '\', \'' + (i + pageNumber - 1) + '\')">' + (i + pageNumber - 1) + '</button></li>');
+					if ((Number(pageNumber) > 3) && ((Number(pagesCount) - Number(pageNumber) - 1) > 1)) {
+						$(".paging").append('<li><button class="normal" onmouseover="this.className=\'over\'" onmouseout="this.className=\'normal\'" id="pagebutton' + (i + Number(pageNumber) - 3) + '" onclick="displayPage(\'' + globalQuestionUrl + '\', \'' + globalQuestionMetadataUrl + '\', \'' + (i + Number(pageNumber) - 3) + '\')">' + (i + Number(pageNumber) - 3) + '</button></li>');
 					}
-					if (pageNumber <= 3) {
+					if (Number(pageNumber) <= 3) {
 						$(".paging").append('<li><button class="normal" onmouseover="this.className=\'over\'" onmouseout="this.className=\'normal\'" id="pagebutton' + i + '" onclick="displayPage(\'' + globalQuestionUrl + '\', \'' + globalQuestionMetadataUrl + '\', \'' + i + '\')">' + i + '</button></li>');
 					}
-					if ((pagesCount - pageNumber) <= 1) {
-						$(".paging").append('<li><button class="normal" onmouseover="this.className=\'over\'" onmouseout="this.className=\'normal\'" id="pagebutton' + (i + pagesCount - 4) + '" onclick="displayPage(' + globalQuestionUrl + ', ' + globalQuestionMetadataUrl + ', \'' + (i + pagesCount - 4) + '\')">' + (i + pagesCount - 4) + '</button></li>');
+					if ((Number(pagesCount) - Number(pageNumber)) <= 1) {
+						$(".paging").append('<li><button class="normal" onmouseover="this.className=\'over\'" onmouseout="this.className=\'normal\'" id="pagebutton' + (i + Number(pagesCount) - 4) + '" onclick="displayPage(' + globalQuestionUrl + ', ' + globalQuestionMetadataUrl + ', \'' + (i + Number(pagesCount) - 4) + '\')">' + (i + Number(pagesCount) - 4) + '</button></li>');
 					}
 				}			
 			}
-			if (pagesCount <= 5) {
-				for (var i = 1; i <= pagesCount; i++) {
+			if (Number(pagesCount) <= 5) {
+				for (var i = 1; i <= Number(pagesCount); i++) {
 					$(".paging").append('<li><button class="normal" onmouseover="this.className=\'over\'" onmouseout="this.className=\'normal\'" id="pagebutton' + i + '" onclick="displayPage(\'' + globalQuestionUrl + '\', \'' + globalQuestionMetadataUrl + '\', \'' + i + '\')">' + i + '</button></li>');
 				}
 			}
-			if (pageNumber < pagesCount) {
+			if (Number(pageNumber) < Number(pagesCount)) {
 				$(".paging").append('<li><button class="normal" onmouseover="this.className=\'over\'" onmouseout="this.className=\'normal\'" onclick="displayPage(\'' + globalQuestionUrl + '\', \'' + globalQuestionMetadataUrl + '\', \'' + (Number(pageNumber) + 1) + '\')">&gt;</button></li>');
 			}
-			if (pageNumber == pagesCount) {
-				$(".paging").append('<li><button class="normal" onmouseover="this.className=\'over\'" onmouseout="this.className=\'normal\'" onclick="displayPage(\'' + globalQuestionUrl + '\', \'' + globalQuestionMetadataUrl + '\', \'' + (pagesCount) + '\')">&gt;</button></li>');
+			if (Number(pageNumber) == Number(pagesCount)) {
+				$(".paging").append('<li><button class="normal" onmouseover="this.className=\'over\'" onmouseout="this.className=\'normal\'" onclick="displayPage(\'' + globalQuestionUrl + '\', \'' + globalQuestionMetadataUrl + '\', \'' + Number(pagesCount) + '\')">&gt;</button></li>');
 			}
 
-			$(".paging").append('<li><button class="normal" onmouseover="this.className=\'over\'" onmouseout="this.className=\'normal\'" onclick="displayPage(\'' + globalQuestionUrl + '\', \'' + globalQuestionMetadataUrl + '\', \'' + (pagesCount) + '\')">&gt;&gt;</button></li>');
+			$(".paging").append('<li><button class="normal" onmouseover="this.className=\'over\'" onmouseout="this.className=\'normal\'" onclick="displayPage(\'' + globalQuestionUrl + '\', \'' + globalQuestionMetadataUrl + '\', \'' + Number(pagesCount) + '\')">&gt;&gt;</button></li>');
 			$("#pagingTag").append("</ul></td></tr></table>");
 			
 			var eleToGetColor = $('<div class="checkedPage" style="display: none;">').appendTo('body');
 			var color = eleToGetColor.css('color');
 			eleToGetColor.remove();
-			document.getElementById("pagebutton"+pageNumber).style.color = color;
+			document.getElementById("pagebutton"+Number(pageNumber)).style.color = color;
 		}
 	}
 </script>
