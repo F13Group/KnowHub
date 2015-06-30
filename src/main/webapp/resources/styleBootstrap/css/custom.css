@@ -20,11 +20,11 @@ text-align:right;
 padding-right: 10%;
 }
 #navLinks  a{
-color: #2e8dcc;
+color: #1A9CB0;
 margin-right: 15px;
 }
 #navLinks a:hover{
-color: #3498db;
+color: #39C2D7;
 }
 
 
@@ -117,15 +117,15 @@ margin-right: 1%;
   	font-weight: 400;
  	line-height: 1.42857143;
  	color: #fff;
- 	background-color: #1874CD;
-  	border-color: #1874CD;
+ 	background-color: #39C2D7;
+  	border-color: #1A9CB0;
   	border: 1px solid transparent;
   	border-radius: 4px 0px 0px 4px;
   	outline:none;
 }
 .categoriesMenuButtonActive{
 	background-color:white; 
-	color:#2e6da4;
+	color:#1A9CB0;
 	font-size: 14px;
 	font-weight:bold;
 	margin:2px;
@@ -135,9 +135,12 @@ margin-right: 1%;
 	border: 1px solid transparent;
   	border-radius: 4px 0px 0px 4px;
 	border-right-color: white;
-	border-left-color: #1874CD;
+	border-left-color: #1A9CB0;
+	border-bottom-color: #1A9CB0;
+	border-top-color: #1A9CB0;
+/* 	border-left-color: #1874CD;
 	border-bottom-color: #1874CD;
-	border-top-color: #1874CD;
+	border-top-color: #1874CD; */
 	outline:none;
 }
 
@@ -187,7 +190,8 @@ margin-right: 1%;
 }
 
 .divQuestionColor{
-	color:#1874CD;	
+	color:#0b5286;	
+/* 	color:#1874CD;	 */
 }
 
 
@@ -209,11 +213,12 @@ margin-right: 1%;
     padding: 10px 20px;
     font-size: 20px;
     font-weight: 200;
-    color: #777;
+    color: #39C2D7;
     text-shadow: 0px 1px 0px #FFF;
 }
 .navbar .nav > .active > a, .navbar .nav > .active > a:hover, .navbar .nav > .active > a:focus {
-    color: #555;
+  /*   color: #555; */
+  	color:#464547;
     text-decoration: none;
     background-color: #E5E5E5;
     box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.125) inset;
@@ -221,7 +226,7 @@ margin-right: 1%;
 .navbar .nav > li > a {
     float: left; 
     padding: 10px 15px;
-    color: #777;
+    color: #464547;
     text-decoration: none;
     text-shadow: 0px 1px 0px #FFF;
 }
@@ -233,7 +238,7 @@ a {
     text-decoration: none;
 }
 li {
-    line-height: 20px;
+    line-height: 30px;
 }
 .nav {
     list-style: outside none none;
@@ -241,4 +246,7 @@ li {
 
 .nav-left{
 	text-align: right;
+}
+.nav-left > a{
+	text-shadow: 0px 1px 0px #FFF;
 }
