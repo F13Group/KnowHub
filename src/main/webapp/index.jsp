@@ -72,7 +72,14 @@
 		$.post(questionMetadataUrl, {rowsOnPageNumber: pageSizeChosen})
 		.done(function(data) {
 			outputQuestions(questionUrl, data.pageCount, currentPageNumber, pageSizeChosen);
-			$("#pagingInfo").text("Records " + (pageSizeChosen * (currentPageNumber - 1) + 1) + "-" + (pageSizeChosen * currentPageNumber) + " of " + (pageSizeChosen * data.pageCount));
+			var recordsStart = pageSizeChosen * (currentPageNumber - 1) + 1;
+			var recordsEnd;
+			if (currentPageNumber < data.pageCount) {
+				recordsEnd = pageSizeChosen * currentPageNumber;
+			} else {
+				recordsEnd = data.recordsCount;
+			}
+			$("#pagingInfo").text("Records " + recordsStart + "-" + recordsEnd + " of " + data.recordsCount);
 		});		
 	}
 
