@@ -11,7 +11,7 @@ public interface QuestionRepository {
 	//for pagination
 	public List<Question> getQuestionsForPage(int rowsOnPage, int pageNumber);
 	public List<Question> getQuestionsForPage(Category category, int rowsOnPage, int pageNumber);
-	public int getPagesCount(Category category);
-	public int getPagesCount();
+	public int getRecordsCount(Category category);
+	public int getRecordsCount();
 	
 }

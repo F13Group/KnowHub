@@ -53,7 +53,7 @@ public class QuestionRepositoryJPA implements QuestionRepository {
 	}
 
 	@Override
-	public int getPagesCount( Category category) {
+	public int getRecordsCount( Category category) {
 		TypedQuery<Long> query = entityManager.createNamedQuery("Question.getPagesCountWithCategory", Long.class);
 		query.setParameter("category", category.getId());
 		
@@ -61,7 +61,7 @@ public class QuestionRepositoryJPA implements QuestionRepository {
 	}
 	
 	@Override
-	public int getPagesCount() {
+	public int getRecordsCount() {
 		TypedQuery<Long> query = entityManager.createNamedQuery("Question.getPagesCount", Long.class);
 		
 		return query.getSingleResult().intValue();
