@@ -27,7 +27,7 @@ public class Category {
 	Long id;
 	String value;
 	
-	@ManyToMany(mappedBy="categories",fetch=FetchType.EAGER)
+	@ManyToMany(mappedBy="categories",fetch=FetchType.LAZY)
 	//@LazyCollection(LazyCollectionOption.TRUE)
 	@JsonIgnore
 	private List<Question> questions;
