@@ -41,7 +41,7 @@ public class JpaQuestionService implements QuestionService  {
 
 	@Override
 	public int getPagesCount( Category category, int rowsOnPage) {
-		int  result = questionRep.getPagesCount(category);
+		int  result = questionRep.getRecordsCount(category);
 		if (result % rowsOnPage ==0) 
 			return result/rowsOnPage;
 		else
@@ -50,11 +50,21 @@ public class JpaQuestionService implements QuestionService  {
 	
 	@Override
 	public int getPagesCount(int rowsOnPage) {
-		int  result =  questionRep.getPagesCount();
+		int  result =  questionRep.getRecordsCount();
 		if (result % rowsOnPage ==0) 
 			return result/rowsOnPage;
 		else
 			return result/rowsOnPage+1;
+	}
+
+	@Override
+	public int getRecordsCount() {
+		return questionRep.getRecordsCount();
+	}
+
+	@Override
+	public int getRecordsCount(Category category) {
+		return questionRep.getRecordsCount(category);
 	}
 
 }

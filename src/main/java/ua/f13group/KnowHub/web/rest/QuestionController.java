@@ -65,16 +65,18 @@ public class QuestionController {
 			@RequestParam(value = "rowsOnPageNumber") Integer rowsOnPageNumber) {
 
 		return new QuestionMetadata(
-				questionService.getPagesCount(rowsOnPageNumber));
+				questionService.getPagesCount(rowsOnPageNumber),
+				questionService.getRecordsCount());
 	}
 
 	@RequestMapping(value = "/categories/{categoryId}/metadata", method = RequestMethod.POST)
 	public QuestionMetadata getMetadataforCategory(
 			@PathVariable Long categoryId,
 			@RequestParam(value = "rowsOnPageNumber") Integer rowsOnPageNumber) {
-
-		return new QuestionMetadata(questionService.getPagesCount(new Category(
-				categoryId), rowsOnPageNumber));
+			Category category = new Category(
+					categoryId);
+		return new QuestionMetadata(questionService.getPagesCount(category, rowsOnPageNumber),
+				questionService.getRecordsCount(category));
 
 	}
 
