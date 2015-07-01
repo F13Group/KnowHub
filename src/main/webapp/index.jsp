@@ -30,6 +30,8 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
       <![endif]-->
+      
+
 </head>
 
 <body>
@@ -54,6 +56,15 @@
 
 
 	<div class="container">
+
+	<!-- new table begin  -->
+
+	
+   
+	
+	
+
+	<!-- new table end -->
 
 		<div class="tabbable">
 			<div id="categoriesMenu" class="categoriesMenu"></div>
