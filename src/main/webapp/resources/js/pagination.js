@@ -30,8 +30,10 @@ function outputQuestions(questionUrl, pC, cPN, rOPN) {
 		.done(function(data) {
 			var items = [];
 			$(".divRow").empty();
+			$("#pagingRow").show();
 			if (data.length == 0) {
 				$("<div class=divRow><div class=divCell_2 style=width:860px align=center>No questions found for this category</div></div>").insertAfter("#headRow");
+				$("#pagingRow").hide();
 			} else {
 				$.each($(data).get().reverse(), function(index, value) {
 					var unformatted_date = new Date(value.loadDate);

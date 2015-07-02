@@ -44,8 +44,8 @@
 			<div class="divCell_header">Frequently Asked <input type="button" class="change_order_sign" value="&#x21D5;"></div>
 		</div>						
 			
-		<div class="pagingRow">
-			<div class="divCell_2" style="width:150px" align=right>SHOW&nbsp;<select id="pageSizeChooser" onchange="pageSizeChanged()"><option>5</option><option selected>10</option><option>15</option></select></div>
+		<div id="pagingRow" class="pagingRow">
+			<div class="divCell_2" style="width:150px" align=right>SHOW&nbsp;<select id="pageSizeChooser" onchange="pageSizeChanged()"><option selected>10</option><option>20</option><option>30</option><option>40</option><option>50</option></select></div>
 			<div class="divCell_2" id="pagingTag" style="width:520px" align=center></div>
 			<div class="divCell_2" id="pagingInfo" style="width:150px" align=center>Records 1-10 of 10</div>
 		</div>			
