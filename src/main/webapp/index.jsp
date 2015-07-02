@@ -9,17 +9,15 @@
 <meta name="author" content="">
 <link rel="icon" href="../../favicon.ico">
 
-<title>KNOW HUB</title>
+<title>Know Hub</title>
 
 <!-- Bootstrap core CSS -->
-<link href="resources/styleBootstrap/css/bootstrap.min.css"
-	rel="stylesheet">
+<link href="resources/styleBootstrap/css/bootstrap.min.css"	rel="stylesheet">
 
 <!-- Custom styles for this template -->
 <link href="resources/styleBootstrap/css/custom.css" rel="stylesheet">
 
-<link rel="stylesheet"
-	href="resources/styleBootstrap/css/bootstrap.vertical-tabs.css">
+<link rel="stylesheet"	href="resources/styleBootstrap/css/bootstrap.vertical-tabs.css">
 
 <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
 <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -32,7 +30,8 @@
       <![endif]-->
       
 	<!-- favicon -->
-	 <link rel="shortcut icon" href="resources/styleBootstrap/img/question_shield.png" type="image/png">
+	 <link rel="icon" href="resources/styleBootstrap/img/question_shield.png" type="image/png">
+
 </head>
 
 <body>
@@ -58,16 +57,9 @@
 
 	<div class="container">
 
-	<!-- new table begin  -->
-	
-
-	<!-- new table end -->
-
 		<div class="tabbable">
 			<div id="categoriesMenu" class="categoriesMenu"></div>
 
-
-			<!--   	<form id="form1"> -->
 			<div id="questionsList" class="divTable">
 				<div class="headRow">
 					<div class="divCell_header" style="width: 400px">Question</div>
@@ -75,37 +67,11 @@
 					<div class="divCell_header">Date</div>
 					<div class="divCell_header">Frequently asked</div>
 				</div>
-
 			</div>
-			<!-- 	</form> -->
+	
 
-
-			<!--   
-      <div id="show-more-and-pagination">
-          <div id="show">
-            SHOW
-          </div>  
-          <div id="show-more-button">
-            <button type="button" class="btn btn-default">10</button>
-          </div> 
-          <div id="pagination">
-            <a href="#"><<</a>
-            <a href="#"><</a>
-            <a href="#">1</a>
-            <a href="#">2</a>
-            <a href="#">3</a>
-            <a href="#">4</a>
-            <a href="#">5</a>
-            <a href="#">6</a>
-            <a href="#">></a>
-            <a href="#">>></a>
-          </div>   
-      </div>
- -->
-
-		</div>
-	</div>
-	<!-- /.container -->
+		</div>  	<!-- /.tabbable -->
+	</div>	<!-- /.container -->
 
 	<footer class="footer">
 		<div class="container">
@@ -125,7 +91,7 @@
 
 
 
-</body>
+ </body>
 </html>
 
 
