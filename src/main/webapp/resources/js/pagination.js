@@ -21,7 +21,7 @@ function displayPage(questionUrl, questionMetadataUrl, currentPageNumber) {
 			} else {
 				recordsEnd = data.recordsCount;
 			}
-			$("#pagingInfo").text("Records " + recordsStart + "-" + recordsEnd + " of " + data.recordsCount);
+			$("#pagingInfo").text("Records " + recordsStart + "-" + recordsEnd + " out of " + data.recordsCount);
 	});		
 }
 
