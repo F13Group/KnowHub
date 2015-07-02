@@ -22,9 +22,7 @@ import javax.persistence.Table;
 @Table(name = "questions")
 @NamedQueries({
 		@NamedQuery(name = "Question.getPagesCount", 
-			query = "SELECT Count(q) FROM Question q "),
-		//@NamedQuery(name = "Question.getPagesCountWithCategory", 
-		//	query = "SELECT Count(q) FROM Question q INNER JOIN q.categories c WHERE c.id IN (:category)"),
+			query = "SELECT Count(q) FROM Question q "),		
 		@NamedQuery(name = "Question.getPagesCountWithCategory", 
 			query = "SELECT Count(q) FROM Question q WHERE q.category.id = :category"),
 		
