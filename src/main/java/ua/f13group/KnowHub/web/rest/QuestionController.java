@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ua.f13group.KnowHub.domain.Category;
 import ua.f13group.KnowHub.domain.Question;
+import ua.f13group.KnowHub.domain.QuestionSortConfig;
 import ua.f13group.KnowHub.service.QuestionService;
+import ua.f13group.KnowHub.web.dto.PageMetadata;
 import ua.f13group.KnowHub.web.dto.QuestionMetadata;
 
 @RestController
@@ -78,6 +80,12 @@ public class QuestionController {
 		return new QuestionMetadata(questionService.getPagesCount(category, rowsOnPageNumber),
 				questionService.getRecordsCount(category));
 
+	}
+	
+	@RequestMapping(value = "/pagemetadata", method = RequestMethod.GET)
+	public PageMetadata getMetadata(){
+				
+		return new PageMetadata();
 	}
 
 }
