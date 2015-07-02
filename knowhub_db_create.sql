@@ -1,9 +1,3 @@
-DROP DATABASE IF EXISTS knowhub;
-CREATE DATABASE knowhub
-   WITH OWNER = postgres
-   ENCODING = 'UTF8';  
- 
-
 CREATE TABLE categories (
     category_id bigserial,
     value varchar(250) NOT NULL,
@@ -42,8 +36,10 @@ CREATE TABLE questions(
     load_date timestamp,
     rating bigint,
     user_id bigint,
+    category_id bigserial,
     PRIMARY KEY(question_id),
-    FOREIGN KEY (user_id) REFERENCES users(user_id)
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (category_id) REFERENCES categories (category_id)
 );
 
 
@@ -54,16 +50,6 @@ CREATE TABLE question_tags(
     PRIMARY KEY(question_tag_id),
     FOREIGN KEY (question_id) REFERENCES questions (question_id),
     FOREIGN KEY (tag_id) REFERENCES tags (tag_id)
-);
-
-
-CREATE TABLE question_categories(
-    question_category_id bigserial,
-    question_id bigint,
-    category_id bigint,
-    PRIMARY KEY(question_category_id),
-    FOREIGN KEY (question_id) REFERENCES questions (question_id),
-    FOREIGN KEY (category_id) REFERENCES categories (category_id)
 );
 
 
