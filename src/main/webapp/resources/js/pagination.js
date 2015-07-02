@@ -47,7 +47,7 @@ function outputQuestions(questionUrl, pC, cPN, rOPN) {
 		            	mm = '0' + mm;
 		           	}
 		           	var date = dd+'/'+mm+'/'+yyyy;
-		           	$("<div class=divRow><div class=divCell_2><div class=divQuestionColor>" + value.value + "</div></div><div class=divCell_2>" + value.categories[0].value + "</div><div class=divCell_2>" + date +"</div><div class=divCell_2>" + value.rating + "</div></div>").insertAfter("#headRow");
+		           	$("<div class=divRow><div class=divCell_2><div class=divQuestionColor>" + value.value + "</div></div><div class=divCell_2>" + value.category.value + "</div><div class=divCell_2>" + date +"</div><div class=divCell_2>" + value.rating + "</div></div>").insertAfter("#headRow");
 			});
 		}						
 	});
