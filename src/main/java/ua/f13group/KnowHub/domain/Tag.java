@@ -1,7 +1,5 @@
 package ua.f13group.KnowHub.domain;
 
-import java.util.List;
-
 import javax.persistence.*;
 
 @Entity

@@ -26,7 +26,7 @@ import javax.persistence.Table;
 		//@NamedQuery(name = "Question.getPagesCountWithCategory", 
 		//	query = "SELECT Count(q) FROM Question q INNER JOIN q.categories c WHERE c.id IN (:category)"),
 		@NamedQuery(name = "Question.getPagesCountWithCategory", 
-			query = "SELECT Count(q) FROM Question q WHERE q.category = :category"),
+			query = "SELECT Count(q) FROM Question q WHERE q.category.id = :category"),
 		
 		//@NamedQuery(name = "Question.findByCategory", 
 		//	query = "SELECT q FROM Question q INNER JOIN q.categories c WHERE c.id IN (:category)"),
@@ -38,7 +38,7 @@ import javax.persistence.Table;
 		//@NamedQuery(name = "Question.findByCategory", query = "SELECT q FROM Question q INNER JOIN q.categories c WHERE c.id IN (:category) ORDER BY q.loadDate DESC")
 
 		@NamedQuery(name = "Question.findByCategory", 
-			query = "SELECT q FROM Question q WHERE q.category = :category ORDER BY q.loadDate DESC")
+			query = "SELECT q FROM Question q WHERE q.category.id = :category ORDER BY q.loadDate DESC")
 })
 public class Question implements Serializable {
 
