@@ -31,7 +31,8 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
       <![endif]-->
       
-
+	<!-- favicon -->
+	 <link rel="shortcut icon" href="resources/styleBootstrap/img/question_shield.png" type="image/png">
 </head>
 
 <body>
