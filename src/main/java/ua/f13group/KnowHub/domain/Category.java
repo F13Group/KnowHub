@@ -27,10 +27,10 @@ public class Category {
 	Long id;
 	String value;
 	
-	@ManyToMany(mappedBy="categories",fetch=FetchType.LAZY)
+	//@ManyToMany(mappedBy="categories",fetch=FetchType.LAZY)
 	//@LazyCollection(LazyCollectionOption.TRUE)
-	@JsonIgnore
-	private List<Question> questions;
+	//@JsonIgnore
+	//private List<Question> questions;
 	
 	public Category() {}
 
@@ -59,13 +59,13 @@ public class Category {
 		this.value = value;
 	}
 
-	public List<Question> getQuestions() {
-		return questions;
-	}
+	//public List<Question> getQuestions() {
+	//	return questions;
+	//}
 
-	public void setQuestions(List<Question> questions) {
-		this.questions = questions;
-	}
+	//public void setQuestions(List<Question> questions) {
+	//	this.questions = questions;
+	//}
 
 	@Override
 	public int hashCode() {

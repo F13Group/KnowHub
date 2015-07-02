@@ -56,7 +56,8 @@ public class Question implements Serializable {
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "question_tags", joinColumns = { @JoinColumn(name = "question_id") }, inverseJoinColumns = { @JoinColumn(name = "tag_id") })
-	private List<Category> tags;
+//помоему здесь должны быть “еги, а не категории!!!
+	private List<Tag> tags;
 
 	public Question() {
 	}
@@ -109,11 +110,11 @@ public class Question implements Serializable {
 		this.categories = categories;
 	}
 
-	public List<Category> getTags() {
+	public List<Tag> getTags() {
 		return tags;
 	}
 
-	public void setTags(List<Category> tags) {
+	public void setTags(List<Tag> tags) {
 		this.tags = tags;
 	}
 
