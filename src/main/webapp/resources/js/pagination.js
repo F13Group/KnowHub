@@ -1,16 +1,16 @@
 var globalCategoryUrl = window.location.href.toString() + "categories";
-var globalQuestionUrl, globalQuestionMetadataUrl;
+var globalQuestionUrl, globalQuestionMetadataUrl, globalQuestionPageMetadataUrl;
 	
 var selectedCategoryId;
-	
+
 function pageSizeChanged() {
 	displayPage(globalQuestionUrl, globalQuestionMetadataUrl, "1");		
 }
 	
-function displayPage(questionUrl, questionMetadataUrl, currentPageNumber) {
+function displayPage(questionUrl, questionMetadataUrl, currentPageNumber, questionSortingConfigEnum) {
 	var pageSizeChooser = document.getElementById("pageSizeChooser");
-	var pageSizeChosen = pageSizeChooser.options[pageSizeChooser.selectedIndex].text;
-				
+	var pageSizeChosen = pageSizeChooser.options[pageSizeChooser.selectedIndex].text;	
+	
 	$.post(questionMetadataUrl, {rowsOnPageNumber: pageSizeChosen})
 		.done(function(data) {
 			outputQuestions(questionUrl, data.pageCount, currentPageNumber, pageSizeChosen);
@@ -27,8 +27,7 @@ function displayPage(questionUrl, questionMetadataUrl, currentPageNumber) {
 
 function outputQuestions(questionUrl, pC, cPN, rOPN) {		
 	$.post(questionUrl, {currentPageNumber: cPN, rowsOnPageNumber: rOPN })
-		.done(function(data) {
-			var items = [];
+		.done(function(data) {			
 			$(".divRow").empty();
 			$("#pagingRow").show();
 			if (data.length == 0) {
@@ -60,23 +59,28 @@ function outputQuestions(questionUrl, pC, cPN, rOPN) {
 $(document).ready(function() {
 		
 	window.selectedCategoryId = -1;
+	window.questionSortingConfigEnum = [];		
 				
 	var questionUrl = window.location.href.toString() + "questions";
 	globalQuestionUrl = questionUrl;
 	
 	var questionMetadataUrl = questionUrl + "/metadata";
 	globalQuestionMetadataUrl = questionMetadataUrl;
+	
+	var questionPageMetadataUrl = questionUrl + "/pagemetadata";
+	globalQuestionPageMetadataUrl = questionPageMetadataUrl;
 				
 	$("#categoriesMenu").append("<div class=categoriesMenuItem><input id=category-1 class=categoriesMenuButtonActive type=button value=All&nbsp;Categories onclick=selectCategory(-1)><br /></div>");
 		
-	$.getJSON(globalCategoryUrl, function(data) {
-		var items = [];
+	$.getJSON(globalCategoryUrl, function(data) {		
 		$.each(data, function(index, value) {				
 			$("#categoriesMenu").append("<div class=categoriesMenuItem><input id=category" + value.id + " class=categoriesMenuButton type=button value='" + value.value + "' onclick=selectCategory(" + value.id + ")><br /></div>");
 		});			
 	});
-		
-	displayPage(questionUrl, questionMetadataUrl, "1");				
+	
+	$.getJSON(globalQuestionPageMetadataUrl, function(data) {
+		displayPage(questionUrl, questionMetadataUrl, "1", data.questionSortingConfig);		
+	});					
 });
 	
 function selectCategory(categoryId) {
@@ -98,7 +102,9 @@ function selectCategory(categoryId) {
 	var questionMetadataUrl = questionUrl + "/metadata";
 	globalQuestionMetadataUrl = questionMetadataUrl;		
 		
-	displayPage(questionUrl, questionMetadataUrl, "1");
+	$.getJSON(globalQuestionPageMetadataUrl, function(data) {
+		displayPage(questionUrl, questionMetadataUrl, "1", data.questionSortingConfig);		
+	});
 }
 	
 function pagination(pagesCount, pageNumber, pagesSize) {

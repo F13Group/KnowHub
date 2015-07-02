@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ua.f13group.KnowHub.domain.Category;
 import ua.f13group.KnowHub.domain.Question;
-import ua.f13group.KnowHub.domain.QuestionSortConfig;
 import ua.f13group.KnowHub.service.QuestionService;
 import ua.f13group.KnowHub.web.dto.PageMetadata;
 import ua.f13group.KnowHub.web.dto.QuestionMetadata;
