@@ -58,10 +58,6 @@
 	<div class="container">
 
 	<!-- new table begin  -->
-
-	
-   
-	
 	
 
 	<!-- new table end -->
