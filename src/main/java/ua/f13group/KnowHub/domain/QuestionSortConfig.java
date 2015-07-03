@@ -1,12 +1,12 @@
 package ua.f13group.KnowHub.domain;
 
 public enum QuestionSortConfig {
+	DATE("Date", "loadDate"), 
 	QUESTION("Question","value"), 
-	DATE("Date", "load_date"), 
-	FREQUENCY("Frequently asked", "rating");
+	RATING("Frequently asked", "rating");
 	
 	private final String name;
-	private final String dbName;
+	public final String dbName;
 	
 	private QuestionSortConfig(String s, String db_name) {
 		name = s;

@@ -2,14 +2,19 @@ package ua.f13group.KnowHub.repository;
 
 import java.util.List;
 
+import javax.management.Query;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
 
 import ua.f13group.KnowHub.domain.Category;
 import ua.f13group.KnowHub.domain.Question;
+import ua.f13group.KnowHub.domain.QuestionSortConfig;
 
 @Repository("questionRepository")
 public class QuestionRepositoryJPA implements QuestionRepository {
@@ -65,6 +70,19 @@ public class QuestionRepositoryJPA implements QuestionRepository {
 		TypedQuery<Long> query = entityManager.createNamedQuery("Question.getPagesCount", Long.class);
 		
 		return query.getSingleResult().intValue();
+	}
+	
+	public List<Question> testCriteria(int rowsOnPage, int pageNumber,QuestionSortConfig cfg){
+		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+		
+		CriteriaQuery<Question> criteriaQuery = criteriaBuilder.createQuery(Question.class);
+		Root<Question> questions = criteriaQuery.from(Question.class);
+		criteriaQuery.orderBy(criteriaBuilder.asc(questions.get(cfg.dbName)));
+		
+		TypedQuery<Question> query = entityManager.createQuery(criteriaQuery);
+		query.setFirstResult(((pageNumber-1) * rowsOnPage));
+        query.setMaxResults(rowsOnPage);
+		return query.getResultList();
 	}
 
 

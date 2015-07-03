@@ -23,26 +23,29 @@ public class QuestionController {
 	@Autowired
 	QuestionService questionService;
 
-	public static final int DEFAULT_ROWS_ON_PAGE_NUMBER = 10;
-	public static final int DEFAULT_CURRENT_PAGE_NUMBER = 1;
-//
-//	@ModelAttribute
-//	public int paginationHolding(
-//			@RequestParam(value = "currentPage", required = false) Integer currentPage) {
-//		return 5;
-//
-//	}
+	public static final String DEFAULT_ROWS_ON_PAGE_NUMBER = "7";
+	public static final String DEFAULT_CURRENT_PAGE_NUMBER = "1";
+	public static final String DEFAULT_SORT_COLUMN_INDEX = "1";
+
+	//
+	// @ModelAttribute
+	// public int paginationHolding(
+	// @RequestParam(value = "currentPage", required = false) Integer
+	// currentPage) {
+	// return 5;
+	//
+	// }
 
 	@RequestMapping(method = RequestMethod.POST)
 	public List<Question> getAllQuestions(
-			@RequestParam(value = "currentPageNumber", required = false) Integer currentPageNumber,
-			@RequestParam(value = "rowsOnPageNumber", required = false) Integer rowsOnPageNumber) {
+			@RequestParam(value = "currentPageNumber", required = false, defaultValue = DEFAULT_CURRENT_PAGE_NUMBER) Integer currentPageNumber,
+			@RequestParam(value = "rowsOnPageNumber", required = false, defaultValue = DEFAULT_ROWS_ON_PAGE_NUMBER) Integer rowsOnPageNumber,
+			@RequestParam(value = "sortColumnIndex", required = false, defaultValue = DEFAULT_SORT_COLUMN_INDEX) Integer sortColumnIndex) {
+		if (sortColumnIndex < 0)
+			sortColumnIndex *= -1;
 
-		if (currentPageNumber == null)
-			currentPageNumber = DEFAULT_CURRENT_PAGE_NUMBER;
-		if (rowsOnPageNumber == null)
-			rowsOnPageNumber = DEFAULT_ROWS_ON_PAGE_NUMBER;
-
+		QuestionSortConfig sortColumn = QuestionSortConfig.values()[sortColumnIndex];
+		
 		return questionService.getQuestionsForPage(rowsOnPageNumber,
 				currentPageNumber);
 	}
@@ -50,13 +53,13 @@ public class QuestionController {
 	@RequestMapping(value = "/categories/{categoryId}", method = RequestMethod.POST)
 	public List<Question> getAllQuestionsFilterCategory(
 			@PathVariable Long categoryId,
-			@RequestParam(value = "currentPageNumber", required = false) Integer currentPageNumber,
-			@RequestParam(value = "rowsOnPageNumber", required = false) Integer rowsOnPageNumber) {
+			@RequestParam(value = "currentPageNumber", required = false, defaultValue = DEFAULT_CURRENT_PAGE_NUMBER) Integer currentPageNumber,
+			@RequestParam(value = "rowsOnPageNumber", required = false, defaultValue = DEFAULT_ROWS_ON_PAGE_NUMBER) Integer rowsOnPageNumber,
+			@RequestParam(value = "sortColumnIndex", required = false, defaultValue = DEFAULT_SORT_COLUMN_INDEX) Integer sortColumnIndex) {
+		if (sortColumnIndex < 0)
+			sortColumnIndex *= -1;
 
-		if (currentPageNumber == null)
-			currentPageNumber = DEFAULT_CURRENT_PAGE_NUMBER;
-		if (rowsOnPageNumber == null)
-			rowsOnPageNumber = DEFAULT_ROWS_ON_PAGE_NUMBER;
+		QuestionSortConfig sortColumn = QuestionSortConfig.values()[sortColumnIndex];
 
 		return questionService.getQuestionsForPage(new Category(categoryId),
 				rowsOnPageNumber, currentPageNumber);
@@ -75,16 +78,15 @@ public class QuestionController {
 	public QuestionMetadata getMetadataforCategory(
 			@PathVariable Long categoryId,
 			@RequestParam(value = "rowsOnPageNumber") Integer rowsOnPageNumber) {
-			Category category = new Category(
-					categoryId);
-		return new QuestionMetadata(questionService.getPagesCount(category, rowsOnPageNumber),
-				questionService.getRecordsCount(category));
+		Category category = new Category(categoryId);
+		return new QuestionMetadata(questionService.getPagesCount(category,
+				rowsOnPageNumber), questionService.getRecordsCount(category));
 
 	}
-	
+
 	@RequestMapping(value = "/pagemetadata", method = RequestMethod.GET)
-	public PageMetadata getMetadata(){
-				
+	public PageMetadata getMetadata() {
+
 		return new PageMetadata();
 	}
 

@@ -13,5 +13,6 @@ public interface QuestionRepository {
 	public List<Question> getQuestionsForPage(Category category, int rowsOnPage, int pageNumber);
 	public int getRecordsCount(Category category);
 	public int getRecordsCount();
+	public List<Question> testCriteria(int rowsOnPage, int pageNumber,QuestionSortConfig cfg);
 	
 }
