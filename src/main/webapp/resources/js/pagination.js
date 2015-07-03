@@ -37,7 +37,7 @@ function displayPage(currentPageNumber) {
 	});		
 }
 
-function outputQuestions(pC, cPN, rOPN) {		
+function outputQuestions(pC, cPN, rOPN) {	
 	$.post(globalQuestionUrl, {currentPageNumber: cPN, rowsOnPageNumber: rOPN, sortColumnIndex: globalSortColumnIndex*globalSortDirection })
 		.done(function(data) {			
 			$(".divRow").empty();

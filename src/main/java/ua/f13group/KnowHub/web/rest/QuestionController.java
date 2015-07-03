@@ -44,7 +44,7 @@ public class QuestionController {
 		if (sortColumnIndex < 0)
 			sortColumnIndex *= -1;
 
-		QuestionSortConfig sortColumn = QuestionSortConfig.values()[sortColumnIndex];
+		QuestionSortConfig sortColumn = QuestionSortConfig.values()[sortColumnIndex - 1];
 		
 		return questionService.getQuestionsForPage(rowsOnPageNumber,
 				currentPageNumber);

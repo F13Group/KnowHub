@@ -1,0 +1,277 @@
+body {
+ padding-top: 0px;
+ font-family:/*  "Helvetica Neue",Helvetica,Arial, */sans-serif;
+ font-size: 14px;
+ 
+}
+.starter-template {
+ padding: 40px 15px;
+ text-align: center;
+}
+
+/*MAIN MENU */
+.navbar{
+	text-align: right;
+}
+
+.navbar .brand {
+    display: block;
+    float: left;
+    padding: 10px 20px;
+    font-size: 20px;
+    font-weight: 200;
+    color: #39C2D7;
+    text-shadow: 0px 1px 0px #FFF;
+}
+.navbar .nav > .active > a, .navbar .nav > .active > a:hover, .navbar .nav > .active > a:focus {
+  	color:#464547;
+    text-decoration: none;
+    background-color: #E5E5E5;
+    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.125) inset;
+}
+.navbar .nav > .inactive > a {
+	color: #c0c0c0;
+    pointer-events: none;
+    cursor: default;
+}
+.navbar .nav > li > a {
+    float: left; 
+    padding: 10px 15px;
+    color: #464547;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #FFF;
+}
+.nav > li > a {
+    display: block;
+}
+a {
+    color: #08C;
+    text-decoration: none;
+}
+li {
+    line-height: 30px;
+}
+.nav {
+    list-style: outside none none;
+}
+
+.nav-left{
+	text-align: right;
+}
+.nav-left > a{
+	text-shadow: 0px 1px 0px #FFF;
+}
+
+#navLinks {
+width: 100%;
+height: 50px;
+font-size: 16px;
+background-color: #ecf0f1;
+text-align:right;
+padding-right: 10%;
+}
+#navLinks  a{
+color: #1A9CB0;
+margin-right: 15px;
+}
+#navLinks a:hover{
+color: #39C2D7;
+}
+
+#links{
+padding-top: 15px;
+}
+
+/*Buttons under nav menu*/
+
+body .buttons{
+text-align: right;
+margin-right: 10%;
+padding-top: 3%;
+}
+
+.btn_primary{
+margin-right: 1%;
+}
+
+/*CONTAINER SECTION*/
+.container {
+	margin-top: 3%;
+	width: 96%;
+}
+
+/*SHOW MORE AND PAGINATION SECTION*/
+#show-more-and-pagination{
+	text-align: center;
+}
+
+#show-more-and-pagination div{
+	display: inline;
+}
+
+#show {
+	margin-right: 10px;
+}
+
+#pagination {
+	margin-left: 30px;
+}
+
+#pagination a{
+	margin-left: 7px;
+}
+
+.btn-default {
+	background-color: #bdc3c7;
+}
+
+
+/*FOOTER SECTION*/
+.footer {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  height: 100px;
+  background-color: #ecf0f1;
+  margin-bottom: 15px;
+}
+
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+/*categories view */
+.categoriesMenu{
+	margin-top:40px;
+	float:left;	
+	position:relative;
+ 	width:150px; 	 
+}
+.categoriesMenuItem{
+	margin:1px;
+	position:relative;
+	width:150px; 
+}
+.categoriesMenuButton{
+	height:30px;
+	width:200px;
+	text-align: left;
+	margin-top:4px;
+	font-size: 14px;
+  	font-weight: 400;
+ 	line-height: 1.42857143;
+ 	color: #fff;
+ 	background-color: #39C2D7;;
+  	border-color: #39C2D7;;
+  	border: 1px solid transparent;
+  	border-radius: 4px 0px 0px 4px;
+  	outline:none;
+}
+.categoriesMenuButtonActive{
+	background-color:white; 
+	color:#39C2D7;;
+/* 	color:#39C2D7; */
+	font-size: 14px;
+	font-weight:bold;
+	margin-top:4px;
+	height:30px;
+	width:200px;
+	text-align: left;
+	border: 2px solid transparent;
+  	border-radius: 4px 0px 0px 4px;
+	border-right-color: white;
+	border-left-color: #39C2D7;;
+	border-bottom-color: #39C2D7;;
+	border-top-color: #39C2D7;;
+	outline:none;
+}
+
+/* table view  */
+.divTable{
+  display:table;         
+  border: 2px solid; 
+  border-radius: 4px;
+  border-color: #ccc;
+  min-width: 1004px; 
+  max-width: 4000px;
+  margin-left: 200px;
+  
+}
+
+.divRow{
+  display:table-row;
+  clear:both;
+  border-color: #ccc;
+}
+.pagingRow{
+  display:table-row;
+  width:auto;
+  height:60px;
+  clear:both;
+  border:1px solid  black;
+  border-radius: 4px
+ 
+}
+.divCell_header{
+  display:table-column;   
+  font-weight:bold;
+  float:left;
+  width:200px; 
+  height:40px;
+  padding:10px;       
+  background-color:#ccc;
+  border-color: #ccc; 
+}	
+
+.divCell_2{
+  display:table-column;
+  float:left;
+  width:200px; 
+  height:30px;
+  padding:10px;       
+  background-color:white;
+  word-wrap:break-word;
+  overflow:hidden;   
+  border-color: #ccc;
+}
+
+.divQuestionColor{
+	color:#0b5286;	
+/* 	color:#1874CD;	 */
+}
+
+.change_order_sign{
+	margin-top:0%;
+	padding:0%; 
+	border-radius: 4px;
+	border:1px solid  black;
+	background-color: #ddd;
+}
+
+
+.checkedPage{
+	color:red;
+}
+
+.normal {
+	background-color: #ffffff;
+	border-radius: 4px;
+	border:1px solid #ccc;
+}
+
+
+.over {
+	background-color: #f0ffa9
+}
+
+ul.paging {
+	margin: 0;	
+}
+
+ul.paging li {
+	display: inline;
+	padding: 2px;
+}
+
+
