@@ -39,9 +39,9 @@
 	<div id="questionsList" class="divTable">
 		<div id="headRow" class="headRow">
 			<div class="divCell_header">Question</div>
-			<div class="divCell_header">Category  <input type="button" class="change_order_sign" value="&#x21D5;"></div>
-			<div class="divCell_header">Date <input type="button" class="change_order_sign" value="&#x21D5;"></div>
-			<div class="divCell_header">Frequently Asked <input type="button" class="change_order_sign" value="&#x21D5;"></div>
+			<div class="divCell_header">Category  <input type="button" class="change_order_sign" value="&#x21D5;" onclick="orderedBy(2)"></div>
+			<div class="divCell_header">Date <input type="button" class="change_order_sign" value="&#x21D5;" onclick="orderedBy(-1)"></div>
+			<div class="divCell_header">Frequently Asked <input type="button" class="change_order_sign" value="&#x21D5;" onclick="orderedBy(3)"></div>
 		</div>						
 			
 		<div id="pagingRow" class="pagingRow">

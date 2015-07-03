@@ -1,19 +1,24 @@
 var globalCategoryUrl = window.location.href.toString() + "categories";
-var globalQuestionUrl, globalQuestionMetadataUrl, globalQuestionPageMetadataUrl;
+var globalQuestionUrl, globalQuestionMetadataUrl, globalQuestionPageMetadataUrl, globalSortColumnIndex;
 	
 var selectedCategoryId;
 
+function orderedBy(sortColumnIndex) {
+	globalSortColumnIndex = sortColumnIndex;
+	displayPage(globalQuestionUrl, globalQuestionMetadataUrl, "1", globalSortColumnIndex);
+}
+
 function pageSizeChanged() {
-	displayPage(globalQuestionUrl, globalQuestionMetadataUrl, "1");		
+	displayPage(globalQuestionUrl, globalQuestionMetadataUrl, "1", globalSortColumnIndex);		
 }
 	
-function displayPage(questionUrl, questionMetadataUrl, currentPageNumber, questionSortingConfigEnum) {
+function displayPage(questionUrl, questionMetadataUrl, currentPageNumber, sortColumnIndex) {
 	var pageSizeChooser = document.getElementById("pageSizeChooser");
 	var pageSizeChosen = pageSizeChooser.options[pageSizeChooser.selectedIndex].text;	
 	
 	$.post(questionMetadataUrl, {rowsOnPageNumber: pageSizeChosen})
 		.done(function(data) {
-			outputQuestions(questionUrl, data.pageCount, currentPageNumber, pageSizeChosen);
+			outputQuestions(questionUrl, data.pageCount, currentPageNumber, pageSizeChosen, sortColumnIndex);
 			var recordsStart = pageSizeChosen * (currentPageNumber - 1) + 1;
 			var recordsEnd;
 			if (currentPageNumber < data.pageCount) {
@@ -25,8 +30,8 @@ function displayPage(questionUrl, questionMetadataUrl, currentPageNumber, questi
 	});		
 }
 
-function outputQuestions(questionUrl, pC, cPN, rOPN) {		
-	$.post(questionUrl, {currentPageNumber: cPN, rowsOnPageNumber: rOPN })
+function outputQuestions(questionUrl, pC, cPN, rOPN, sCI) {		
+	$.post(questionUrl, {currentPageNumber: cPN, rowsOnPageNumber: rOPN, sortColumnIndex: sCI })
 		.done(function(data) {			
 			$(".divRow").empty();
 			$("#pagingRow").show();
@@ -59,7 +64,7 @@ function outputQuestions(questionUrl, pC, cPN, rOPN) {
 $(document).ready(function() {
 		
 	window.selectedCategoryId = -1;
-	window.questionSortingConfigEnum = [];		
+	globalSortColumnIndex = -1;	
 				
 	var questionUrl = window.location.href.toString() + "questions";
 	globalQuestionUrl = questionUrl;
@@ -78,14 +83,13 @@ $(document).ready(function() {
 		});			
 	});
 	
-	$.getJSON(globalQuestionPageMetadataUrl, function(data) {
-		displayPage(questionUrl, questionMetadataUrl, "1", data.questionSortingConfig);		
-	});					
+	displayPage(questionUrl, questionMetadataUrl, "1", globalSortColumnIndex);					
 });
 	
 function selectCategory(categoryId) {
 		
 	window.selectedCategoryId = categoryId;
+	globalSortColumnIndex = -1;
 				
 	$('.categoriesMenuButtonActive').toggleClass('categoriesMenuButtonActive').toggleClass('categoriesMenuButton');
 		
@@ -102,9 +106,7 @@ function selectCategory(categoryId) {
 	var questionMetadataUrl = questionUrl + "/metadata";
 	globalQuestionMetadataUrl = questionMetadataUrl;		
 		
-	$.getJSON(globalQuestionPageMetadataUrl, function(data) {
-		displayPage(questionUrl, questionMetadataUrl, "1", data.questionSortingConfig);		
-	});
+	displayPage(questionUrl, questionMetadataUrl, "1", globalSortColumnIndex);	
 }
 	
 function pagination(pagesCount, pageNumber, pagesSize) {
