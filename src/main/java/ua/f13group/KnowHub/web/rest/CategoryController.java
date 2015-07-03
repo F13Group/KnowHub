@@ -3,7 +3,6 @@ package ua.f13group.KnowHub.web.rest;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ImportResource;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,7 +12,7 @@ import ua.f13group.KnowHub.service.CategoryService;
 
 @RestController
 @RequestMapping(value = "/categories")
-@ImportResource("classpath:spring/spring-config.xml")
+//@ImportResource("classpath:spring/spring-config.xml")
 public class CategoryController {
 
 	@Autowired

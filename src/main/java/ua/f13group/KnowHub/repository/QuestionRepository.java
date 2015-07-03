@@ -8,7 +8,10 @@ public interface QuestionRepository {
 	public List<Question> findAll();
 	public List<Question> findByCategory(Category category);
 	
-	/*public List<Question> getPage(int pageNumber);
-	public int getPagesCount();*/
+	//for pagination
+	public List<Question> getQuestionsForPage(int rowsOnPage, int pageNumber);
+	public List<Question> getQuestionsForPage(Category category, int rowsOnPage, int pageNumber);
+	public int getRecordsCount(Category category);
+	public int getRecordsCount();
 	
 }
