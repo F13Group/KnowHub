@@ -21,7 +21,7 @@ public class Serv {
 		ApplicationContext ap = new ClassPathXmlApplicationContext("spring/spring-config.xml");
 		questionRepository = (QuestionRepository) ap.getBean("questionRepository");
 		
-		System.out.println(questionRepository.testCriteria(5,1,QuestionSortConfig.RATING));
+//		System.out.println(questionRepository.testCriteria(5,1,QuestionSortConfig.RATING));
 	}
 
 }

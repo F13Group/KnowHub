@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import ua.f13group.KnowHub.domain.Category;
 import ua.f13group.KnowHub.domain.Question;
+import ua.f13group.KnowHub.domain.QuestionSortConfig;
 import ua.f13group.KnowHub.repository.QuestionRepository;
 import ua.f13group.KnowHub.service.QuestionService;
 
@@ -16,31 +17,31 @@ public class JpaQuestionService implements QuestionService  {
 	@Autowired 
 	private QuestionRepository questionRep; 
 	
-	@Override
-	public List<Question> findAll() {
-		return questionRep.findAll();
-	}
+//	@Override
+//	public List<Question> findAll() {
+//		return questionRep.findAll();
+//	}
+//
+//	@Override
+//	public List<Question> findByCategory(Category category) {
+//		
+//		return questionRep.findByCategory(category);	
+//	}
 
 	@Override
-	public List<Question> findByCategory(Category category) {
+	public List<Question> getQuestionsForPage(int rowsOnPage, int pageNumber,QuestionSortConfig cfg, boolean ascending) {
 		
-		return questionRep.findByCategory(category);	
+		return questionRep.findForPage(rowsOnPage, pageNumber, cfg, ascending);
 	}
 
 	@Override
-	public List<Question> getQuestionsForPage(int rowsOnPage, int pageNumber) {
+	public List<Question> getQuestionsForPage(Category category, int rowsOnPage, int pageNumber,QuestionSortConfig cfg, boolean ascending) {
 		
-		return questionRep.getQuestionsForPage(rowsOnPage, pageNumber);
+		return questionRep.findForPage(category,rowsOnPage, pageNumber, cfg, ascending);
 	}
 
 	@Override
-	public List<Question> getQuestionsForPage(Category category, int rowsOnPage, int pageNumber) {
-		
-		return questionRep.getQuestionsForPage(category, rowsOnPage, pageNumber);
-	}
-
-	@Override
-	public int getPagesCount( Category category, int rowsOnPage) {
+	public int getPagesCount(Category category, int rowsOnPage) {
 		int  result = questionRep.getRecordsCount(category);
 		if (result % rowsOnPage ==0) 
 			return result/rowsOnPage;

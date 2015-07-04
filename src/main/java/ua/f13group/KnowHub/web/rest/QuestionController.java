@@ -41,13 +41,13 @@ public class QuestionController {
 			@RequestParam(value = "currentPageNumber", required = false, defaultValue = DEFAULT_CURRENT_PAGE_NUMBER) Integer currentPageNumber,
 			@RequestParam(value = "rowsOnPageNumber", required = false, defaultValue = DEFAULT_ROWS_ON_PAGE_NUMBER) Integer rowsOnPageNumber,
 			@RequestParam(value = "sortColumnIndex", required = false, defaultValue = DEFAULT_SORT_COLUMN_INDEX) Integer sortColumnIndex) {
-		if (sortColumnIndex < 0)
-			sortColumnIndex *= -1;
 
-		QuestionSortConfig sortColumn = QuestionSortConfig.values()[sortColumnIndex - 1];
-		
-		return questionService.getQuestionsForPage(rowsOnPageNumber,
-				currentPageNumber);
+		return questionService.getQuestionsForPage(
+				rowsOnPageNumber,
+				currentPageNumber,
+				sortConfig(sortColumnIndex),
+				ascending(sortColumnIndex));
+
 	}
 
 	@RequestMapping(value = "/categories/{categoryId}", method = RequestMethod.POST)
@@ -56,13 +56,21 @@ public class QuestionController {
 			@RequestParam(value = "currentPageNumber", required = false, defaultValue = DEFAULT_CURRENT_PAGE_NUMBER) Integer currentPageNumber,
 			@RequestParam(value = "rowsOnPageNumber", required = false, defaultValue = DEFAULT_ROWS_ON_PAGE_NUMBER) Integer rowsOnPageNumber,
 			@RequestParam(value = "sortColumnIndex", required = false, defaultValue = DEFAULT_SORT_COLUMN_INDEX) Integer sortColumnIndex) {
-		if (sortColumnIndex < 0)
-			sortColumnIndex *= -1;
+		
+		return questionService.getQuestionsForPage(
+				new Category(categoryId),
+				rowsOnPageNumber, 
+				currentPageNumber,
+				sortConfig(sortColumnIndex),
+				ascending(sortColumnIndex));
+	}
 
-		QuestionSortConfig sortColumn = QuestionSortConfig.values()[sortColumnIndex];
+	private QuestionSortConfig sortConfig(Integer sortColumnIndex) {
+		return QuestionSortConfig.values()[Math.abs(sortColumnIndex) - 1];
+	}
 
-		return questionService.getQuestionsForPage(new Category(categoryId),
-				rowsOnPageNumber, currentPageNumber);
+	private boolean ascending(Integer sortColumnIndex) {
+		return sortColumnIndex < 0 ? false : true;
 	}
 
 	@RequestMapping(value = "/metadata", method = RequestMethod.POST)
