@@ -56,8 +56,8 @@
 			<div id="categoriesMenu" class="categoriesMenu"></div>
 
 			<div id="questionsList" class="divTable">
-				<div  id="headRow" class="headRow">
-					<div class="divCell_header" style="width: 400px">Question</div>
+				<div  id="headRow" class="headRow" style="width: 860px">
+					<div class="divCell_header">Question</div>
 					<div class="divCell_header">Category  <input type="button" class="change_order_sign" value="&#x21D5;" onclick="orderedBy(2)"></div>
 					<div class="divCell_header">Date  <input type="button" class="change_order_sign" value="&#x21D5;" onclick="orderedBy(1)"></div>
 					<div class="divCell_header">Frequently asked  <input type="button" class="change_order_sign" value="&#x21D5;" onclick="orderedBy(3)"></div>
