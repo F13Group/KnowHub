@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @NamedQueries({
     @NamedQuery(name = "Category.findAll", query = "SELECT c FROM Category c ORDER BY c.value")
 })
-public class Category {
+public class Category  implements Comparable<Category>{
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="category_id")
@@ -84,6 +84,19 @@ public class Category {
 		} else if (!value.equals(other.value))
 			return false;
 		return true;
+	}
+
+	@Override
+	public int compareTo(Category o) {
+		if(this.value.compareTo(o.value) > 0 ){
+			return 1;
+		}
+		if(this.value.compareTo(o.value) < 0 ){
+			return -1;
+		}
+			
+		return 0;
+		
 	}
 	
 	
