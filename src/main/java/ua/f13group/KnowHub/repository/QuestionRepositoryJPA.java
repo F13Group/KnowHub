@@ -2,7 +2,6 @@ package ua.f13group.KnowHub.repository;
 
 import java.util.List;
 
-import javax.management.Query;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
