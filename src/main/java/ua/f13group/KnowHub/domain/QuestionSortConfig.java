@@ -2,7 +2,7 @@ package ua.f13group.KnowHub.domain;
 
 public enum QuestionSortConfig {
 	DATE("Date", "loadDate"), 
-	CATEGORY("Category","category"), 
+	CATEGORY("Category","value"), 
 	RATING("Frequently asked", "rating");
 	
 	private final String name;

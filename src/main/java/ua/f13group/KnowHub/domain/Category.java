@@ -15,12 +15,14 @@ import javax.persistence.Table;
     @NamedQuery(name = "Category.findAll", query = "SELECT c FROM Category c ORDER BY c.value")
 })
 public class Category  implements Comparable<Category>{
+	@Column(name="value")
+	String value;
+	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="category_id")
 	Long id;
-	String value;
-	
+
 	//@ManyToMany(mappedBy="categories",fetch=FetchType.LAZY)
 	//@LazyCollection(LazyCollectionOption.TRUE)
 	//@JsonIgnore
