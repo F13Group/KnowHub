@@ -1,14 +1,14 @@
 SET datestyle = dmy;
 
-INSERT INTO categories (value) VALUES 
-('Java'), 
-('.NET'), 
-('Functional Testing (FT)'), 
-('Automatic Testing (AT)'), 
-('Front End (FE)'), 
-('Other Categories'),
-('DevOps'),
-('Business Intelligence (BI)');
+INSERT INTO categories (value, short_value) VALUES 
+('Java','Java'), 
+('.NET','.NET'), 
+('Functional Testing (FT)','FT'), 
+('Automatic Testing (AT)','AT'), 
+('Front End (FE)','FE'), 
+('Other Categories','Other'),
+('DevOps','DevOps'),
+('Business Intelligence (BI)','BI');
 
 INSERT INTO tags (value) VALUES 
 ('tag1'), 

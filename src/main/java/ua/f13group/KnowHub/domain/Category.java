@@ -11,24 +11,26 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "categories")
-@NamedQueries({
-    @NamedQuery(name = "Category.findAll", query = "SELECT c FROM Category c ORDER BY c.value")
-})
-public class Category  implements Comparable<Category>{
-	@Column(name="value")
-	String value;
-	
+@NamedQueries({ @NamedQuery(name = "Category.findAll", query = "SELECT c FROM Category c ORDER BY c.value") })
+public class Category implements Comparable<Category> {
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="category_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "category_id")
 	Long id;
+	@Column(name = "value")
+	String value;
+	@Column(name = "short_value")
+	String shortValue;
 
-	//@ManyToMany(mappedBy="categories",fetch=FetchType.LAZY)
-	//@LazyCollection(LazyCollectionOption.TRUE)
-	//@JsonIgnore
-	//private List<Question> questions;
-	
-	public Category() {}
+
+
+	// @ManyToMany(mappedBy="categories",fetch=FetchType.LAZY)
+	// @LazyCollection(LazyCollectionOption.TRUE)
+	// @JsonIgnore
+	// private List<Question> questions;
+
+	public Category() {
+	}
 
 	public Category(Long categoryId) {
 		this.id = categoryId;
@@ -54,14 +56,14 @@ public class Category  implements Comparable<Category>{
 	public void setValue(String value) {
 		this.value = value;
 	}
+	
+	public String getShortValue() {
+		return shortValue;
+	}
 
-	//public List<Question> getQuestions() {
-	//	return questions;
-	//}
-
-	//public void setQuestions(List<Question> questions) {
-	//	this.questions = questions;
-	//}
+	public void setShortValue(String shortValue) {
+		this.shortValue = shortValue;
+	}
 
 	@Override
 	public int hashCode() {
@@ -90,16 +92,15 @@ public class Category  implements Comparable<Category>{
 
 	@Override
 	public int compareTo(Category o) {
-		if(this.value.compareTo(o.value) > 0 ){
+		if (this.value.compareTo(o.value) > 0) {
 			return 1;
 		}
-		if(this.value.compareTo(o.value) < 0 ){
+		if (this.value.compareTo(o.value) < 0) {
 			return -1;
 		}
-			
+
 		return 0;
-		
+
 	}
-	
-	
+
 }

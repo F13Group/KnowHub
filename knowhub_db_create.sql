@@ -1,6 +1,7 @@
 CREATE TABLE categories (
     category_id bigserial,
     value varchar(250) NOT NULL,
+    short_value varchar(10) NOT NULL,
     PRIMARY KEY(category_id)
 );
 
