@@ -60,7 +60,7 @@ function outputQuestions(pC, cPN, rOPN) {
 		            	mm = '0' + mm;
 		           	}
 		           	var date = dd+'/'+mm+'/'+yyyy;
-		           	$("<div class=divRow><div class=divCell_2><div class=divQuestionColor>" + value.value + "</div></div><div class=divCell_2>" + value.category.value + "</div><div class=divCell_2>" + date +"</div><div class=divCell_2>" + value.rating + "</div></div>").insertAfter("#headRow");
+		           	$("<div class=divRow><div class=col-lg-6><div class=col-md-6><div class=divQuestionColor><div class=divCell_2>" + value.value + "</div></div></div></div><div class=col-lg-2><div class=col-md-2><div class=divCell_2>" + value.category.value + "</div></div></div><div class=col-lg-2><div class=col-md-2><div class=divCell_2>" + date +"</div></div></div><div class=col-lg-2><div class=col-md-2><div class=divCell_2>" + value.rating + "</div></div></div>").insertAfter("#headRow");
 			});
 		}						
 	});
