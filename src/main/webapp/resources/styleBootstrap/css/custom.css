@@ -144,18 +144,19 @@ margin-right: 1%;
 /*categories view */
 .categoriesMenu{
 	margin-top:40px;
+	padding-right: 0px;
 	float:left;	
 	position:relative;
- 	width:150px; 	 
+/*  	width:150px; 	  */
 }
 .categoriesMenuItem{
 	margin:1px;
 	position:relative;
-	width:150px; 
+/* 	width:150px;  */
 }
 .categoriesMenuButton{
 	height:30px;
-	width:200px;
+ 	width:100%; 
 	text-align: left;
 	margin-top:4px;
 	font-size: 14px;
@@ -176,7 +177,7 @@ margin-right: 1%;
 	font-weight:bold;
 	margin-top:4px;
 	height:30px;
-	width:200px;
+	width:101%;
 	text-align: left;
 	border: 2px solid transparent;
   	border-radius: 4px 0px 0px 4px;
@@ -190,18 +191,20 @@ margin-right: 1%;
 /* table view  */
 .divTable{
   display:table;     
-  width: 87%;    
+/*   width: 87%;     */
   border: 2px solid; 
   border-radius: 4px;
   border-color: #ccc;
 /*   min-width: 1004px; 
   max-width: 4000px; */
-  margin-left: 200px;
+/*   margin-left: 200px; */
   
 }
 
 .divRow{
-  display:table-row;
+/*   display:table-row; */
+  margin-right: 15px;
+  margin-left: 15px;
   clear:both;
   border-color: #ccc;
 }
@@ -237,6 +240,20 @@ margin-right: 1%;
   overflow:hidden;  
   border-color: #ccc;
 }
+
+.divCell_Center{
+/*   display:table-column;  */
+  float:left; 
+/*   width:200px;  */
+  height:30px;
+  padding:10px;       
+  background-color:white;
+  word-wrap:break-word;
+  overflow:hidden;  
+  border-color: #ccc;
+  text-align: center;
+}
+  
 
 .divQuestionColor{
 	color:#0b5286;	
