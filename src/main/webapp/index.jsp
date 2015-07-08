@@ -50,28 +50,34 @@
 		</div>
 	</div>
 
-	<div class="container-fluid">
+	<div class="container">
 
-		<div class="tabbable">
-			<div id="categoriesMenu" class="categoriesMenu"></div>
+<!-- 		<div class="tabbable"> -->
+			<div class="row">
+			<div id="categoriesMenu" class="categoriesMenu col-lg-2 col-md-2 col-sm-2 justified"></div>
 
-			<div id="questionsList" class="divTable row-fluid">
+			<div id="questionsList" class="divTable col-lg-10 col-md-10 col-sm-10 justified">
+				<div class="row">
 				<div  id="headRow" class="headRow" >
-					<div class="divCell_header col-lg-6">Question</div>
-					<div class="divCell_header col-lg-2">Category  <input type="button" class="change_order_sign" value="&#x21D5;" onclick="orderedBy(2)"></div>
-					<div class="divCell_header col-lg-2">Date  <input type="button" class="change_order_sign" value="&#x21D5;" onclick="orderedBy(1)"></div>
-					<div class="divCell_header col-lg-2">Frequently asked  <input type="button" class="change_order_sign" value="&#x21D5;" onclick="orderedBy(3)"></div>
+					<div class="divCell_header col-lg-6 col-md-6 col-sm-6">Question</div>
+					<div class="divCell_header col-lg-2 col-md-2 col-sm-2">Category  <input type="button" class="change_order_sign" value="&#x21D5;" onclick="orderedBy(2)"></div>
+					<div class="divCell_header col-lg-2 col-md-2 col-sm-2">Date  <input type="button" class="change_order_sign" value="&#x21D5;" onclick="orderedBy(1)"></div>
+					<div class="divCell_header col-lg-2 col-md-2 col-sm-2">Frequently asked  <input type="button" class="change_order_sign" value="&#x21D5;" onclick="orderedBy(3)"></div>
+				</div>
 				</div>
 			</div>
+			</div>
 		<div class="row">
-			<div id="pagingRow" class="pagingRow row col-lg-offset-2 col-lg-10 col-md-offset-2 col-md-10">
-			<div class="divCell_2 col-lg-2" style="height:50px" align=right>SHOW&nbsp;<select id="pageSizeChooser" onchange="pageSizeChanged()"><option selected>10</option><option>20</option><option>30</option><option>40</option><option>50</option></select></div>
-			<div class="divCell_2 col-lg-8" id="pagingTag" style="width:520px;height:50px" align=center></div>
-			<div class="divCell_2 col-lg-2" id="pagingInfo" style="height:50px" align=center>Records 1-10 of 10</div>
+			<div id="pagingRow" class="pagingRow col-lg-offset-2 col-lg-10 col-md-offset-2 col-md-10 col-sm-offset-2 col-sm-10">
+				<div class=row>
+					<div class="divCell_2 col-lg-2 col-md-2 col-sm-2" style="height:50px" align=left>SHOW&nbsp;<select id="pageSizeChooser" onchange="pageSizeChanged()"><option selected>10</option><option>20</option><option>30</option><option>40</option><option>50</option></select></div>
+					<div class="divCell_2 col-lg-8 col-md-8 col-sm-8" id="pagingTag" style="height:50px" align=center></div>
+					<div class="divCell_2 col-lg-2 col-md-2 col-sm-2" id="pagingInfo" style="height:50px" align=right>Records 1-10 of 10</div>
+				</div>
 		</div>		
 		</div>	
 			
-		</div>  	<!-- /.tabbable -->
+<!-- 		</div>  	/.tabbable -->
 	</div>	<!-- /.container -->
 	
 	<footer class="footer">
