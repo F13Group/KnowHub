@@ -60,6 +60,9 @@ function outputQuestions(pC, cPN, rOPN) {
 		            	mm = '0' + mm;
 		           	}
 		           	var date = dd+'/'+mm+'/'+yyyy;
+		           	if(value.value.length > 70){
+		           		value.value = value.value.substring(0,70);
+		           	}
 		           	$("<div class='divRow row'><div class='col-lg-6 col-md-6 col-sm-6 divQuestionColor divCell_2'>" + value.value + "</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Center'>" + value.category.value + "</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Center'>" + date +"</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Center'>" + value.rating + "</div></div>").insertAfter("#headRow");
 			});
 		}						
