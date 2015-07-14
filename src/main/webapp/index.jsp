@@ -70,7 +70,7 @@
 		<div class="row">
 			<div id="pagingRow" class="pagingRow col-lg-offset-2 col-lg-10 col-md-offset-2 col-md-10 col-sm-offset-2 col-sm-10">
 				<div class=row>
-					<div class="divCell_2 col-lg-2 col-md-2 col-sm-2" style="height:50px" align=left>SHOW&nbsp;<select id="pageSizeChooser" onchange="pageSizeChanged()"><option selected>10</option><option>20</option><option>30</option><option>40</option><option>50</option></select></div>
+					<div class="divCell_2 col-lg-2 col-md-2 col-sm-2" align=left>SHOW&nbsp;<select id="pageSizeChooser" onchange="pageSizeChanged()"><option selected>15</option><option>30</option><option>45</option><option>60</option></select></div>
 					<div class="divCell_2 col-lg-8 col-md-8 col-sm-8" id="pagingTag" style="height:50px" align=center></div>
 					<div class="divCell_2 col-lg-2 col-md-2 col-sm-2" id="pagingInfo" style="height:50px" align=right>Records 1-10 of 10</div>
 				</div>

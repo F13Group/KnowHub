@@ -20,7 +20,7 @@ body {
     padding: 10px 20px;
     font-size: 20px;
     font-weight: 200;
-    color: #39C2D7;
+    color: #1A9CB0;
     text-shadow: 0px 1px 0px #FFF;
 }
 .navbar .nav > .active > a, .navbar .nav > .active > a:hover, .navbar .nav > .active > a:focus {
@@ -75,7 +75,7 @@ color: #1A9CB0;
 margin-right: 15px;
 }
 #navLinks a:hover{
-color: #39C2D7;
+color: #1A9CB0;
 }
 
 #links{
@@ -163,15 +163,15 @@ margin-right: 1%;
   	font-weight: 400;
  	line-height: 1.42857143;
  	color: #fff;
- 	background-color: #39C2D7;;
-  	border-color: #39C2D7;;
+ 	background-color: #1A9CB0;
+  	border-color: #39C2D7;
   	border: 1px solid transparent;
   	border-radius: 4px 0px 0px 4px;
   	outline:none;
 }
 .categoriesMenuButtonActive{
 	background-color:white; 
-	color:#39C2D7;;
+	color:#1A9CB0;
 /* 	color:#39C2D7; */
 	font-size: 14px;
 	font-weight:bold;
@@ -186,6 +186,21 @@ margin-right: 1%;
 	border-bottom-color: #39C2D7;;
 	border-top-color: #39C2D7;;
 	outline:none;
+}
+.categoriesMenuButtonOver{
+	height:30px;
+ 	width:100%; 
+	text-align: left;
+	margin-top:4px;
+	font-size: 14px;
+  	font-weight: 400;
+ 	line-height: 1.42857143;
+ 	color: #fff;
+ 	background-color: #A3C644;
+  	border-color: #A3C644;
+  	border: 1px solid transparent;
+  	border-radius: 4px 0px 0px 4px;
+  	outline:none;
 }
 
 /* table view  */
@@ -270,7 +285,8 @@ margin-right: 1%;
 
 
 .checkedPage{
-	color:red;
+	color: #B22746;
+	font-weight: bold;		
 }
 
 .normal {
@@ -281,7 +297,9 @@ margin-right: 1%;
 
 
 .over {
-	background-color: #f0ffa9
+	background-color: #A3C644;
+	border-radius: 4px;
+	border:1px solid #ccc;
 }
 
 ul.paging {

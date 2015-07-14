@@ -43,7 +43,7 @@ function outputQuestions(pC, cPN, rOPN) {
 			$(".divRow").empty();
 			$("#pagingRow").show();
 			if (data.length == 0) {
-				$("<div class=divRow><div class=divCell_2 style=width:860px align=center>No questions found for this category</div></div>").insertAfter("#headRow");
+				$("<div class='divRow row'><div class='divCell_2 col-lg-12' align=center>No questions found for this category</div></div>").insertAfter("#headRow");
 				$("#pagingRow").hide();
 			} else {
 				$.each($(data).get().reverse(), function(index, value) {
@@ -87,23 +87,52 @@ $(document).ready(function() {
 	var questionPageMetadataUrl = questionUrl + "/pagemetadata";
 	globalQuestionPageMetadataUrl = questionPageMetadataUrl;
 				
-	$("#categoriesMenu").append("<div class=categoriesMenuItem><input id=category-1 class=categoriesMenuButtonActive type=button value=All&nbsp;Categories onclick=selectCategory(-1)><br /></div>");
+	$("#categoriesMenu").append("<div class=categoriesMenuItem><input id=category-1 class=categoriesMenuButtonActive type=button value=All&nbsp;Categories onclick=selectCategory(-1) onmouseover=switchCategoryButtonOver('-1','true') onmouseout=switchCategoryButtonOver('-1','false')><br /></div>");
 		
 	$.getJSON(globalCategoryUrl, function(data) {		
 		$.each(data, function(index, value) {				
-			$("#categoriesMenu").append("<div class=categoriesMenuItem><input id=category" + value.id + " class=categoriesMenuButton type=button value='" + value.value + "' onclick=selectCategory(" + value.id + ")><br /></div>");
+			$("#categoriesMenu").append("<div class=categoriesMenuItem><input id=category" + value.id + " class=categoriesMenuButton type=button value='" + value.value + "' onclick=selectCategory(" + value.id + ") onmouseover=switchCategoryButtonOver('" + value.id + "','true') onmouseout=switchCategoryButtonOver('" + value.id + "','false')><br /></div>");
 		});			
 	});
 	
 	displayPage("1");					
 });
+
+function switchCategoryButtonOver(categoryId, isMouseOver) {
+	if (Number(categoryId) == window.selectedCategoryId) {
+		if (isMouseOver == "true") {
+			var sample = $('<div class="categoriesMenuButtonOver" style="display: none;">').appendTo('body');
+			var backgroundColor = sample.css('background-color');
+			sample.remove();
+			document.getElementById("category"+categoryId).style.backgroundColor = backgroundColor;
+		} else {
+			var sample = $('<div class="categoriesMenuButtonActive" style="display: none;">').appendTo('body');
+			var backgroundColor = sample.css('background-color');
+			sample.remove();
+			document.getElementById("category"+categoryId).style.backgroundColor = backgroundColor;
+		}
+	} else {
+		if (isMouseOver == "true") {
+			var sample = $('<div class="categoriesMenuButtonOver" style="display: none;">').appendTo('body');
+			var backgroundColor = sample.css('background-color');
+			sample.remove();
+			document.getElementById("category"+categoryId).style.backgroundColor = backgroundColor;
+		} else {
+			var sample = $('<div class="categoriesMenuButton" style="display: none;">').appendTo('body');
+			var backgroundColor = sample.css('background-color');
+			sample.remove();
+			document.getElementById("category"+categoryId).style.backgroundColor = backgroundColor;
+		}
+	}	
+}
 	
 function selectCategory(categoryId) {
-		
+	
 	window.selectedCategoryId = categoryId;
 	globalSortColumnIndex = 1;
 	globalSortDirectionAsc = -1;
-				
+	
+	$('.categoriesMenuButtonActive').removeAttr('style');
 	$('.categoriesMenuButtonActive').toggleClass('categoriesMenuButtonActive').toggleClass('categoriesMenuButton');
 		
 	$("#category"+categoryId).toggleClass('categoriesMenuButton');
@@ -163,7 +192,9 @@ function pagination(pagesCount, pageNumber, pagesSize) {
 			
 		var eleToGetColor = $('<div class="checkedPage" style="display: none;">').appendTo('body');
 		var color = eleToGetColor.css('color');
+		var fontWeight = eleToGetColor.css('font-weight');
 		eleToGetColor.remove();
 		document.getElementById("pagebutton"+Number(pageNumber)).style.color = color;
+		document.getElementById("pagebutton"+Number(pageNumber)).style.fontWeight = fontWeight;
 	}
 }
