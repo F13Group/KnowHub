@@ -8,9 +8,16 @@ var selectedCategoryId;
 function orderedBy(sortColumnIndex) {
 	if (globalSortColumnIndex == sortColumnIndex) {
 		globalSortDirection *= -1;
+		if (globalSortDirection < 0) {
+			$("#buttonOrderBy" + globalSortColumnIndex).prop('value', $("<div>").html('&#x25BC;').text());
+		} else {
+			$("#buttonOrderBy" + globalSortColumnIndex).prop('value', $("<div>").html('&#x25B2;').text());
+		}
 	} else {
 		globalSortDirection = -1;
 		globalSortColumnIndex = sortColumnIndex;
+		$('.change_order_sign').prop('value', $("<div>").html(' &#x25AD; ').text());
+		$("#buttonOrderBy" + globalSortColumnIndex).prop('value', $("<div>").html('&#x25BC;').text());
 	}	
 	displayPage("1");
 }
