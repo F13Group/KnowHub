@@ -16,7 +16,7 @@ function orderedBy(sortColumnIndex) {
 	} else {
 		globalSortDirection = -1;
 		globalSortColumnIndex = sortColumnIndex;
-		$('.change_order_sign').prop('value', $("<div>").html(' &#x25AD; ').text());
+		$('.change_order_sign').prop('value', $("<div>").html('&#x25AD;').text());
 		$("#buttonOrderBy" + globalSortColumnIndex).prop('value', $("<div>").html('&#x25BC;').text());
 	}	
 	displayPage("1");

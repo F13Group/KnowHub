@@ -60,9 +60,9 @@
 				<div class="row">
 				<div  id="headRow" class="headRow" >
 					<div class="divCell_header col-lg-6 col-md-6 col-sm-6">Question</div>
-					<div class="divCell_header col-lg-2 col-md-2 col-sm-2">Category  <input type="button" id="buttonOrderBy2" class="change_order_sign" value="&#x25AD" onclick="orderedBy(2)"></div>
+					<div class="divCell_header col-lg-2 col-md-2 col-sm-2">Category  <input type="button" id="buttonOrderBy2" class="change_order_sign" value="&#x25AD;" onclick="orderedBy(2)"></div>
 					<div class="divCell_header col-lg-2 col-md-2 col-sm-2">Date  <input type="button" id="buttonOrderBy1" class="change_order_sign" value="&#x25BC;" onclick="orderedBy(1)"></div>
-					<div class="divCell_header col-lg-2 col-md-2 col-sm-2">Frequently asked  <input type="button" id="buttonOrderBy3" class="change_order_sign" value="&#x25AD" onclick="orderedBy(3)"></div>
+					<div class="divCell_header col-lg-2 col-md-2 col-sm-2">Frequently asked  <input type="button" id="buttonOrderBy3" class="change_order_sign" value="&#x25AD;" onclick="orderedBy(3)"></div>
 				</div>
 				</div>
 			</div>
