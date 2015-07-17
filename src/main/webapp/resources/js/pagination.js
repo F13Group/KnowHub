@@ -135,7 +135,6 @@ function switchCategoryButtonOver(categoryId, isMouseOver) {
 	
 function selectCategory(categoryId) {
 	
-	window.selectedCategoryId = categoryId;
 	globalSortColumnIndex = 1;
 	globalSortDirectionAsc = -1;
 	
@@ -144,6 +143,12 @@ function selectCategory(categoryId) {
 		
 	$("#category"+categoryId).toggleClass('categoriesMenuButton');
 	$("#category"+categoryId).toggleClass('categoriesMenuButtonActive');
+	
+	if (window.selectedCategoryId == categoryId) {
+		switchCategoryButtonOver(categoryId, 'true');
+	} else {
+		window.selectedCategoryId = categoryId;
+	}
 		
 	var questionUrl = window.location.href.toString() + "questions";
 		
