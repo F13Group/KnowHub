@@ -17,6 +17,15 @@
 		base-package="ua.f13group.KnowHub.service.simpleImplementation" />
 	<context:component-scan base-package="ua.f13group.KnowHub.repository" />
 
+        <tx:annotation-driven transaction-manager="transactionManager"/>
+        
+        <bean id="transactionManagerFactory" class="org.springframework.orm.jpa.JpaTransactionManager">
+            <property name="entityManagerFactory"  ref="entityManagerFactory"/>
+        </bean>
+    
+        <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+            <property name="entityManagerFactory" ref="entityManagerFactory"/>    
+        </bean>
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="persistenceUnitName" value="hibernateUnit" />
@@ -35,6 +44,6 @@
 		<property name="location" value="classpath:spring/jdbc.properties" />
 	</bean>
  
-
+        <bean class="org.springframework.security.authentication.encoding.ShaPasswordEncoder" id="passwordEncoder"/>
 
 </beans>

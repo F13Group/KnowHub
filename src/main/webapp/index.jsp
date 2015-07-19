@@ -42,7 +42,7 @@
 				<div id="navLinks">
 					<div id="links">
 						<div class="nav-left">
-							<a href="">Sign up</a> <a href="">Log in</a> <a href="">Help</a>
+							<a href="signup">Sign up</a> <a href="">Log in</a> <a href="">Help</a>
 						</div>
 					</div>
 				</div>
