@@ -9,6 +9,13 @@ INSERT INTO categories (value) VALUES
 ('Others'),
 ('C#');
 
+INSERT INTO properties(key, value) VALUES 
+('smtp_server','smtp.ukr.net'),
+('smtp_port','465'),
+('smtp_user','f13group@ukr.net'),
+('smtp_password','password_for_ukrnet');
+
+
 INSERT INTO tags (value) VALUES 
 ('tag1'), 
 ('tag2'), 

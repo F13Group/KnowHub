@@ -5,6 +5,13 @@ CREATE TABLE categories (
     PRIMARY KEY(category_id)
 );
 
+CREATE TABLE properties (
+    property_id bigserial,
+    key varchar(250) NOT NULL,
+    value varchar(250),
+    PRIMARY KEY(property_id)
+);
+
 ;
 CREATE TABLE tags (
     tag_id bigserial,
