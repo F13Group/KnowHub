@@ -43,6 +43,7 @@ public class SignUpController {
                 return model;
             }
             newUser.setPassword(passwordEncoder.encodePassword(newUser.getPassword(), newUser.getLogin()));
+            newUser.setPassword2(null);
             userService.saveUser(newUser);
             
             model.addObject("newUser", new User());

@@ -13,6 +13,7 @@ public class SendOnlyMailService implements MailService {
 	private PropertyService propertyService;
 	
 
+        @Override
 	public boolean sendMail(String address, String subject, String text){
 		Properties props = new Properties();
 		props.put("mail.smtp.host", propertyService.getProperty("smtp_server"));
@@ -39,8 +40,8 @@ public class SendOnlyMailService implements MailService {
 			message.setText(text);
  
 			Transport.send(message);
- 
-			return true;
+
+                        return true;
  
 		} catch (MessagingException e) {
 			return false;
