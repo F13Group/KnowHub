@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -37,12 +38,13 @@ public class PropertyRepositoryJDBC implements PropertyRepository {
 //			Class.forName(driver);
 
 			try (Connection connection = ds.getConnection();) {
-
-				Statement statement = connection.createStatement();
-				ResultSet rs = statement.executeQuery("");
+				PreparedStatement statement = connection.prepareStatement("Select value from properties where key=?");
+				statement.setString(1, key);
+				ResultSet rs = statement.executeQuery();
 				rs.next();
 				return rs.getString(1);
 			} catch (SQLException e) {
+				e.printStackTrace();
 				return null;
 			}
 

@@ -7,8 +7,10 @@ package ua.f13group.KnowHub.service.jpaService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import ua.f13group.KnowHub.domain.User;
 import ua.f13group.KnowHub.repository.UserRepository;
+import ua.f13group.KnowHub.service.MailService;
 import ua.f13group.KnowHub.service.UserService;
 
 /**
@@ -21,9 +23,21 @@ public class JpaUserService implements UserService{
     @Autowired
     private UserRepository userRepository;
     
+    @Autowired 
+    private MailService mailService; 
+    
     @Override
-    public int saveUser(User user) {
-        return userRepository.saveUser(user);
+    public Integer saveUser(User user) {
+    	
+    	// Hardcoded subject  and text of e-mail
+    	String subject = "Registration confirmation"; 
+    	String text = "message text!!!111 ";
+    	
+    	if(userRepository.saveUser(user) !=null ){
+    		
+    		//mailService.sendMail(user.getLogin(), subject, text);
+    	}
+        return user.getUserId().intValue();
     }
     
 }

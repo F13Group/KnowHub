@@ -12,5 +12,5 @@ import ua.f13group.KnowHub.domain.User;
  * @author amd
  */
 public interface UserRepository {
-    public int saveUser(User user);
+    public Integer saveUser(User user);
 }

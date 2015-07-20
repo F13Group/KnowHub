@@ -14,7 +14,6 @@ public class SendOnlyMailService implements MailService {
 	
 
 	public boolean sendMail(String address, String subject, String text){
-		
 		Properties props = new Properties();
 		props.put("mail.smtp.host", propertyService.getProperty("smtp_server"));
 		props.put("mail.smtp.socketFactory.port", propertyService.getProperty("smtp_port"));

@@ -13,6 +13,6 @@ import ua.f13group.KnowHub.domain.User;
  */
 
 public interface UserService {
-    public int saveUser(User user);
+    public Integer saveUser(User user);
     
 }
