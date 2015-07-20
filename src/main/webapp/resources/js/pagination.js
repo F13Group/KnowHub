@@ -28,7 +28,11 @@ function pageSizeChanged() {
 	
 function displayPage(currentPageNumber) {
 	var pageSizeChooser = document.getElementById("pageSizeChooser");
-	var pageSizeChosen = pageSizeChooser.options[pageSizeChooser.selectedIndex].text;
+	var pageSizeChosen;
+	
+	if (pageSizeChooser != null) {
+		pageSizeChosen = pageSizeChooser.options[pageSizeChooser.selectedIndex].text;
+	}
 		
 	$.post(globalQuestionMetadataUrl, {rowsOnPageNumber: pageSizeChosen})
 		.done(function(data) {
