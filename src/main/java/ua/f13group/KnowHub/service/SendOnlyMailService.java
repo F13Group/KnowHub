@@ -1,9 +1,8 @@
 package ua.f13group.KnowHub.service;
 import java.util.*;
-
 import javax.mail.*;
 import javax.mail.internet.*;
-
+import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
