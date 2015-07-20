@@ -24,20 +24,19 @@ public class PropertyRepositoryJDBC implements PropertyRepository {
 
 	@Override
 	public String getProperty(String key) {
-		String url, user, password, driver;
+//		String url, user, password, driver;
+//
+//		try (FileInputStream fileInput = new FileInputStream(new File(
+//				"spring/jdbc.properties"))) {
+//			Properties prop = new Properties();
+//			prop.load(fileInput);
+//			url = prop.getProperty("url");
+//			password = prop.getProperty("password");
+//			driver = prop.getProperty("driver");
+//			user = prop.getProperty("user");
+//			Class.forName(driver);
 
-		try (FileInputStream fileInput = new FileInputStream(new File(
-				"spring/jdbc.properties"))) {
-			Properties prop = new Properties();
-			prop.load(fileInput);
-			url = prop.getProperty("url");
-			password = prop.getProperty("password");
-			driver = prop.getProperty("driver");
-			user = prop.getProperty("user");
-			Class.forName(driver);
-
-			try (Connection connection = DriverManager.getConnection(url, user,
-					password);) {
+			try (Connection connection = ds.getConnection();) {
 
 				Statement statement = connection.createStatement();
 				ResultSet rs = statement.executeQuery("");
@@ -47,10 +46,10 @@ public class PropertyRepositoryJDBC implements PropertyRepository {
 				return null;
 			}
 
-		} catch (IOException | ClassNotFoundException e) {
-			e.printStackTrace();
-			return null;
-		}
+//		} catch (IOException | ClassNotFoundException e) {
+//			e.printStackTrace();
+//			return null;
+//		}
 
 	}
 
