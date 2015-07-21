@@ -10,7 +10,7 @@ public class HomePageControllerTest {
 	public void homePageAllTest(){
 		
 		HomePageController homePageController = new HomePageController();
-		String expResult = "homePage";
+		String expResult = "index";
 		String result = homePageController.homePageAll();
 		assertTrue(result.equals(expResult));
 		
