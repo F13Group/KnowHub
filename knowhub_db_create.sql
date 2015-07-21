@@ -25,6 +25,8 @@ CREATE TABLE users(
     login varchar(50) NOT NULL,
     password varchar(50) NOT NULL,
     enabled boolean NOT NULL,
+    confirmed boolean NOT NULL,
+    link varchar(50),
     PRIMARY KEY(user_id)
 );
 

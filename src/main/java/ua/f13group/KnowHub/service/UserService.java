@@ -14,5 +14,5 @@ import ua.f13group.KnowHub.domain.User;
 
 public interface UserService {
     public Integer saveUser(User user);
-    
+    public Integer confirmUser(String userlink);
 }

@@ -7,8 +7,12 @@ package ua.f13group.KnowHub.repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Repository;
+
+import ua.f13group.KnowHub.domain.Category;
 import ua.f13group.KnowHub.domain.User;
 
 /**
@@ -21,11 +25,19 @@ public class UserRepositoryJPA implements UserRepository {
     @PersistenceContext
     private EntityManager entityManager;
     
-    @Transactional
+    
     @Override
     public Integer saveUser(User user) {
         entityManager.persist(user);
         return user.getUserId().intValue();
     }
+
+	@Override
+	public User getUserByLink(String userlink) {
+		TypedQuery<User> query = entityManager.createNamedQuery("User.findByLink", User.class);
+		query.setParameter("link", userlink);
+		
+		return query.getSingleResult();
+	}
     
 }
