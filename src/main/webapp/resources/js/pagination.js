@@ -1,4 +1,9 @@
-var globalCategoryUrl = window.location.href.toString() + "categories";
+var globalCategoryUrl = window.location.href.toString()
+if (globalCategoryUrl.indexOf("index") != -1) {
+	globalCategoryUrl = globalCategoryUrl.substr(0, globalCategoryUrl.indexOf("index"));
+}
+globalCategoryUrl += "categories";
+
 var globalQuestionUrl, globalQuestionMetadataUrl, globalQuestionPageMetadataUrl; 
 
 var globalSortColumnIndex, globalSortDirection = -1;
@@ -88,8 +93,12 @@ $(document).ready(function() {
 	window.selectedCategoryId = -1;
 	globalSortColumnIndex = 1;
 	globalSortDirectionAsc = -1;
-				
-	var questionUrl = window.location.href.toString() + "questions";
+	
+	var questionUrl = window.location.href.toString()
+	if (questionUrl.indexOf("index") != -1) {
+		questionUrl = questionUrl.substr(0, questionUrl.indexOf("index"));
+	}
+	questionUrl += "questions";
 	globalQuestionUrl = questionUrl;
 	
 	var questionMetadataUrl = questionUrl + "/metadata";
@@ -154,8 +163,12 @@ function selectCategory(categoryId) {
 		window.selectedCategoryId = categoryId;
 	}
 		
-	var questionUrl = window.location.href.toString() + "questions";
-		
+	var questionUrl = window.location.href.toString()
+	if (questionUrl.indexOf("index") != -1) {
+		questionUrl = questionUrl.substr(0, questionUrl.indexOf("index"));
+	}
+	questionUrl += "questions";	
+	
 	if (categoryId != -1) {
 		questionUrl += "/categories/" + categoryId;
 	}		

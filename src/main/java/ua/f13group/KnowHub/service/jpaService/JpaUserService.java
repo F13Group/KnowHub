@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ua.f13group.KnowHub.service.jpaService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +9,6 @@ import ua.f13group.KnowHub.repository.UserRepository;
 import ua.f13group.KnowHub.service.MailService;
 import ua.f13group.KnowHub.service.UserService;
 
-/**
- *
- * @author amd
- */
 @Service
 public class JpaUserService implements UserService{
 
@@ -33,11 +24,11 @@ public class JpaUserService implements UserService{
     	
     	// Hardcoded subject  and text of e-mail
     	String subject = "Registration confirmation"; 
-    	//String text = "message text!!!111 ";
-    	
+    	    	
     	if(userRepository.saveUser(user) !=null ){
     		user.setLink(user.getLogin().hashCode()+""+user.getUserId());
-    		String text =("http://localhost:8080/KnowHub/confirmation/"+user.getLink());
+    		String text = "Thank you for joining KnowHub! To get started, you need to verify your email address. Please go to the link below and log in: \n\r";
+    		text += ("http://localhost:8080/KnowHub/confirmation/" + user.getLink());
     		
     		mailService.sendMail(user.getLogin(), subject, text);
     	}

@@ -1,8 +1,3 @@
-<%-- 
-    Document   : registration
-    Created on : 18.07.2015, 17:06:33
-    Author     : amd
---%>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -17,9 +12,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<!-- <link rel="stylesheet" href="resources/style/css/style.css"
-	type="text/css" />-->
-	
 <!-- Bootstrap core CSS -->
 <link href="resources/styleBootstrap/css/bootstrap.min.css"	rel="stylesheet">
 
@@ -27,12 +19,9 @@
 <link href="resources/styleBootstrap/css/custom.css" rel="stylesheet">
 <!-- <link rel="stylesheet"	href="resources/styleBootstrap/css/bootstrap.vertical-tabs.css"> -->
 <!-- <script src="resources/styleBootstrap/js/ie-emulation-modes-warning.js"></script> -->
-
-
-
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script src="resources/js/pagination.js"></script>
+
 </head>
 
 <body>
@@ -59,31 +48,32 @@
 	<div class="container">
             <form:form commandName="newUser" method="post">
                 <div class="form-horizontal" >
-                    <div class="form-group">
-                        <label for="username" class=" col-sm-2 control-label">Name</label>
+                    <div class="form-group" id="login-group">
+                        <label for="username" class="col-sm-2 control-label">Name:</label>
                         <div class="col-sm-2">
-                          <form:input class="form-control" path="login" placeholder="user_name@epam.com"/>
+                        	<form:input class="form-control" path="login" placeholder="user_name@epam.com" onfocus="showMessageLogin()" onblur="hideMessageLogin()"/>
                         </div>
                         <span class="error"><form:errors path="login" /></span>
                     </div>
                     
-                    <div class="form-group">
-                        <label for="password" class=" col-sm-2 control-label">Password</label>
+                    <div class="form-group" id="password-group">
+                        <label for="password" class="col-sm-2 control-label">Password:</label>
                         <div class="col-sm-2">
-                            <form:password class="form-control" path="password"/>
+                            <form:password class="form-control" path="password" onfocus="showMessagePassword()" onblur="hideMessagePassword()"/>
                         </div>
                         <span class="error"><form:errors path="password" /></span>
                     </div>
-                    <div class="form-group">
-                        <label for="password2" class="col-sm-2 control-label">Confirm password</label>
+                    
+                    <div class="form-group" id="password2-group">
+                        <label for="password2" class="col-sm-2 control-label">Confirm password:</label>
                         <div class="col-sm-2">
                             <form:password class="form-control" path="password2"/>
                         </div>
                         <span class="error"><form:errors path="password2" /></span>
                     </div>
+                    
                     <div class="row">
                         <input type="submit" class="col-lg-offset-2 btn btn-success" onclick="return validateForm();"/>
-<!--                        <button type="button" class="col-lg-offset-2 btn btn-success" onclick="confirmation()">Success</button>-->
                     </div>
                 </div>
             </form:form> 
@@ -96,19 +86,62 @@
 	</footer>	
 	
 	<script>
-        function confirmation(){
-            return confirm("test message");
+		function showMessageLogin() {
+			$('.form-control').removeAttr('style');
+        	$( ".error" ).remove();
+			$("#login-group").append("<div id=loginInstructions>Use your corporate email as in the example.\nYou should only add your name and surname with _ symbol in between.</div>")
+		}
+		
+		function hideMessageLogin() {
+			$("#loginInstructions").remove();
+		}
+		
+		function showMessagePassword() {
+			$('.form-control').removeAttr('style');
+        	$( ".error" ).remove();
+			$("#password-group").append("<div id=passwordInstructions>Password must have at least 8 characters but not more than 20 characters and contain at least 2 of the following: uppercase letters, lowercase letters, numbers, and symbols including spaces.\nDo not use your email, name or surname as your password or as part of it.</div>")
+		}
+		
+		function hideMessagePassword() {
+			$("#passwordInstructions").remove();
+		}
+	
+        function confirmation() {
+            return confirm("TERMS OF AGREEMENT\nDo you agree?");
         }
         
         function validateForm() {
-            var x = document.forms["newUser"]["login"].value;            
-            if (x == null || x == "") {
-                alert("Name must be filled out!");
+        	$('.form-control').removeAttr('style');
+        	$( ".error" ).remove();
+        	
+            var login = document.forms["newUser"]["login"].value;            
+            if (login == null || login == "") {                
+                document.getElementById("login").style.border = "1px solid #B22746";
+                document.getElementById("login").style.boxShadow = "0 0 10px #B22746";
+                $("#login-group").after("<div class='error col-lg-offset-2'>This information is required.</div>");                
                 return false;
             }
-            if (x.indexOf("@epam.com") <= 0) {
-            	alert("Name must be a valid @epam.com email!");
+            if (login.indexOf("@epam.com") <= 0) {
+            	document.getElementById("login").style.border = "1px solid #B22746";
+                document.getElementById("login").style.boxShadow = "0 0 10px #B22746";
+                $("#login-group").after("<div class='error col-lg-offset-2'>Enter the email address in the format name_surname@epam.com</div>");            	
             	return false;
+            }
+            
+            var pass1 = document.forms["newUser"]["password"].value;
+            if (pass1 == null || pass1 == "") {                
+                document.getElementById("password").style.border = "1px solid #B22746";
+                document.getElementById("password").style.boxShadow = "0 0 10px #B22746";
+                $("#password-group").after("<div class='error col-lg-offset-2'>This information is required.</div>");                
+                return false;
+            }
+            
+            var pass2 = document.forms["newUser"]["password2"].value;
+            if (pass2 == null || pass2 == "") {                
+                document.getElementById("password2").style.border = "1px solid #B22746";
+                document.getElementById("password2").style.boxShadow = "0 0 10px #B22746";
+                $("#password2-group").after("<div class='error col-lg-offset-2'>This information is required.</div>");                
+                return false;
             }
             
             var regexp1 = /((?=.*\d)(?=.*[a-z]).{8,})/;
@@ -116,16 +149,33 @@
             var regexp3 = /((?=.*\d)(?=.*[~@#$%^\+\-\=\[\]\*\(\)\/\{\}\\\?\!\|\:\;\_\<\>]).{8,})/;
             var regexp4 = /((?=.*[a-z])(?=.*[A-Z]).{8,})/;
             var regexp5 = /((?=.*[a-z])(?=.*[~@#$%^\+\-\=\[\]\*\(\)\/\{\}\\\?\!\|\:\;\_\<\>]).{8,})/;
-            var regexp6 = /((?=.*[A-Z])(?=.*[~@#$%^\+\-\=\[\]\*\(\)\/\{\}\\\?\!\|\:\;\_\<\>]).{8,})/;
-            var pass1 = document.forms["newUser"]["password"].value;
-            if (!regexp1.test(pass1) & !regexp2.test(pass1) & !regexp3.test(pass1) & !regexp4.test(pass1) & !regexp5.test(pass1) & !regexp6.test(pass1)) {            	
-            	alert(pass1 + "\nPassword must follow rules!");
+            var regexp6 = /((?=.*[A-Z])(?=.*[~@#$%^\+\-\=\[\]\*\(\)\/\{\}\\\?\!\|\:\;\_\<\>]).{8,})/;            
+            if (!regexp1.test(pass1) & !regexp2.test(pass1) & !regexp3.test(pass1) & !regexp4.test(pass1) & !regexp5.test(pass1) & !regexp6.test(pass1)) {
+            	document.getElementById("password").style.border = "1px solid #B22746";
+                document.getElementById("password").style.boxShadow = "0 0 10px #B22746";                
+                document.getElementById("password").value = "";
+                document.getElementById("password2").value = "";
+                $("#password-group").after("<div class='error col-lg-offset-2'>Passwords must have at least 8 characters and contain at least two of the following: uppercase letters, lowercase letters, numbers, and symbols including spaces. Do not use your email, name or surname as your password or as part of it.</div>");            	
             	return false;
             }
             
-            var pass2 = document.forms["newUser"]["password2"].value;
+            if (pass1.length > 20) {
+            	document.getElementById("password").style.border = "1px solid #B22746";
+                document.getElementById("password").style.boxShadow = "0 0 10px #B22746";                
+                document.getElementById("password").value = "";
+                document.getElementById("password2").value = "";
+                $("#password-group").after("<div class='error col-lg-offset-2'>Your password can't be longer than 20 characters.</div>");            	
+            	return false;
+            }            
+            
             if (pass1 != pass2) {
-            	alert(pass1 + "\nEntered passwords don't match!");
+            	document.getElementById("password").style.border = "1px solid #B22746";
+                document.getElementById("password").style.boxShadow = "0 0 10px #B22746";
+            	document.getElementById("password2").style.border = "1px solid #B22746";
+                document.getElementById("password2").style.boxShadow = "0 0 10px #B22746";
+                document.getElementById("password").value = "";
+                document.getElementById("password2").value = "";
+                $("#password2-group").after("<div class='error col-lg-offset-2'>These passwords don't match!</div>");            	
             	return false;
             }
             
