@@ -81,6 +81,11 @@ padding-right: 10%;
 color: #1A9CB0;
 margin-right: 15px;
 }
+#navLinks  a.inactive {
+	color: #c0c0c0;
+    pointer-events: none;
+    cursor: default;
+}
 #navLinks a:hover{
 color: #1A9CB0;
 }

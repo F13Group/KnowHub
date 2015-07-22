@@ -11,19 +11,14 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<!-- <link rel="stylesheet" href="resources/style/css/style.css"
-	type="text/css" />-->
-	
+
 <!-- Bootstrap core CSS -->
 <link href="resources/styleBootstrap/css/bootstrap.min.css"	rel="stylesheet">
 
 <!-- Custom styles for this template -->
 <link href="resources/styleBootstrap/css/custom.css" rel="stylesheet">
-<!-- <link rel="stylesheet"	href="resources/styleBootstrap/css/bootstrap.vertical-tabs.css"> -->
-<!-- <script src="resources/styleBootstrap/js/ie-emulation-modes-warning.js"></script> -->
 
-
-
+<!-- JavaScripts -->
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="resources/js/pagination.js"></script>
@@ -42,7 +37,9 @@
 				<div id="navLinks">
 					<div id="links">
 						<div class="nav-left">
-							<a href="signup">Sign up</a> <a href="">Log in</a> <a href="">Help</a>
+							<a href="signup">Sign up</a>
+							<a href="">Log in</a>
+							<a href="">Help</a>
 						</div>
 					</div>
 				</div>
