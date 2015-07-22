@@ -20,13 +20,7 @@ function hideMessagePassword() {
 }
 
 function showMessagePassword2() {
-	devalidate();
-	if (!validateLogin()) {
-		return;
-	}
-	if (!validatePassword()) {
-		return;
-	}	
+	
 }
 
 function confirmation() {
@@ -65,6 +59,12 @@ function validateLogin() {
 	}
 	
 	return true;
+}
+
+function loginExists() {
+	document.getElementById("login").style.border = "1px solid #B22746";
+	document.getElementById("login").style.boxShadow = "0 0 10px #B22746";
+	$("#login-group").after("<div class='error col-lg-offset-2'>We are sorry but the user with this login exists already!</div>");
 }
 
 function validatePassword() {

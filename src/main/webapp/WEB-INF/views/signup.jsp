@@ -88,5 +88,13 @@
 		</div>
 	</footer>
 	
+	<script>
+		$(document).ready(function() {			
+			<c:if test="${not empty signUpError}">
+				loginExists();
+			</c:if>
+		});
+	</script>
+	
 </body>
 </html>

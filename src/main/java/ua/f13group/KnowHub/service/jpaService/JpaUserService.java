@@ -42,7 +42,7 @@ public class JpaUserService implements UserService{
     		String text = "Thank you for joining KnowHub! To get started, you need to verify your email address. Please go to the link below and log in: \n\r";
     		text += ("http://localhost:8080/KnowHub/confirmation/" + confirmation.getLink());
     		
-    		mailService.sendMail(user.getLogin(), subject, text);
+    		//mailService.sendMail(user.getLogin(), subject, text);
     	}
         return user.getUserId().intValue();
     }

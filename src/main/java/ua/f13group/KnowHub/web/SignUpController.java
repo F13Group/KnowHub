@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import ua.f13group.KnowHub.domain.User;
-import ua.f13group.KnowHub.service.PropertyService;
 import ua.f13group.KnowHub.service.UserService;
 
 /**
@@ -35,6 +34,7 @@ public class SignUpController {
     @RequestMapping(value = "/signup",method = RequestMethod.GET)
 	public ModelAndView signup(ModelAndView model) {
             model.addObject("newUser", new User());
+            model.addObject("signUpError", "");
             model.setViewName("signup");
             return model;
 	}
@@ -43,27 +43,29 @@ public class SignUpController {
 	public ModelAndView signup(@Valid final User newUser, final BindingResult result, ModelAndView model) {
             if (result.hasErrors()) {
                 model.addObject("newUser", newUser);
+                model.addObject("signUpError", "");
                 return model;
             }
-            User user =userService.getUserByLogin(newUser.getLogin());
-            if (user != null && user.isConfirmed()){
-            	
+            
+            User user = userService.getUserByLogin(newUser.getLogin());
+            if (user != null && user.isConfirmed()) {            	
             	result.rejectValue("login", "error.newUser", "Email already exists");
+            	model.addObject("newUser", newUser);
+            	model.addObject("signUpError", "Email already exists");
             	return model;
             }
             
             newUser.setPassword(passwordEncoder.encodePassword(newUser.getPassword(), newUser.getLogin()));
             newUser.setPassword2(null);
-            
-            if(user !=null && user.isConfirmed() == false){
-            	userService.updateUser(newUser);
+            if (userService.saveUser(newUser) != null) {
+            	model.addObject("newUser", newUser);
+            	model.setViewName("signupnotification");
+            	return model;
+            } else {
+            	model.addObject("newUser", new User());
+            	model.addObject("signUpError", "");
+            	model.setViewName("signup");
+            	return model;
             }
-            else{
-            	userService.saveUser(newUser);
-            }
-            
-            model.addObject("newUser", new User());
-            model.setViewName("signup");
-            return model;
 	}
 }
