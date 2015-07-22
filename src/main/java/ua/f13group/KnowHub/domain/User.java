@@ -6,6 +6,10 @@
 package ua.f13group.KnowHub.domain;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.Calendar;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -62,8 +66,12 @@ public class User implements Serializable {
     
     @Column(name = "link")
     private String link;
+    
+    @Column(name = "reg_date")
+	private Timestamp regDate ;
 
     public User() {
+    	regDate = new Timestamp(Calendar.getInstance().getTimeInMillis());
     }
 
     public User(Long userId) {
@@ -132,6 +140,14 @@ public class User implements Serializable {
 
 	public void setLink(String link) {
 		this.link = link;
+	}
+
+	public Timestamp getRegDate() {
+		return regDate;
+	}
+
+	public void setRegDate(Timestamp regDate) {
+		this.regDate = regDate;
 	}
 
 	@Override

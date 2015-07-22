@@ -37,7 +37,28 @@ public class UserRepositoryJPA implements UserRepository {
 		TypedQuery<User> query = entityManager.createNamedQuery("User.findByLink", User.class);
 		query.setParameter("link", userlink);
 		
-		return query.getSingleResult();
+		User user;
+		try { user = query.getSingleResult();
+			
+		} catch (javax.persistence.NoResultException e) {
+			return null;
+		}
+		
+		return user;
+	}
+
+	@Override
+	public User getUserByLogin(String login) {
+		TypedQuery<User> query = entityManager.createNamedQuery("User.findByLogin", User.class);
+		query.setParameter("login", login);
+		User user;
+		try { user = query.getSingleResult();
+			
+		} catch (javax.persistence.NoResultException e) {
+			return null;
+		}
+		
+		return user;
 	}
     
 }

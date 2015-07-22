@@ -6,6 +6,7 @@
 package ua.f13group.KnowHub.web;
 
 import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -13,7 +14,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
 import ua.f13group.KnowHub.domain.User;
+import ua.f13group.KnowHub.service.PropertyService;
 import ua.f13group.KnowHub.service.UserService;
 
 /**
@@ -42,6 +45,13 @@ public class SignUpController {
                 model.addObject("newUser", newUser);
                 return model;
             }
+            User user =userService.getUserByLogin(newUser.getLogin());
+            if (user != null && user.isConfirmed()){
+            	
+            	result.rejectValue("login", "error.newUser", "Email already exists");
+            	return model;
+            }
+            
             newUser.setPassword(passwordEncoder.encodePassword(newUser.getPassword(), newUser.getLogin()));
             newUser.setPassword2(null);
             userService.saveUser(newUser);

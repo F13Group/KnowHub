@@ -27,6 +27,7 @@ CREATE TABLE users(
     enabled boolean NOT NULL,
     confirmed boolean NOT NULL,
     link varchar(50),
+    reg_date timestamp,
     PRIMARY KEY(user_id)
 );
 

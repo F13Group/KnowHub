@@ -14,4 +14,5 @@ import ua.f13group.KnowHub.domain.User;
 public interface UserRepository {
     public Integer saveUser(User user);
     public User getUserByLink(String userlink);
+    public User getUserByLogin(String login);
 }
