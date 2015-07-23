@@ -33,8 +33,9 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = "User.findByUserId", query = "SELECT u FROM User u WHERE u.userId = :userId"),
     @NamedQuery(name = "User.findByLogin", query = "SELECT u FROM User u WHERE u.login = :login"),
     @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password"),
-    @NamedQuery(name = "User.findByEnabled", query = "SELECT u FROM User u WHERE u.enabled = :enabled"),
-    @NamedQuery(name = "User.findByLink", query = "SELECT u FROM User u WHERE u.link = :link")})
+    @NamedQuery(name = "User.findByEnabled", query = "SELECT u FROM User u WHERE u.enabled = :enabled")
+    /*@NamedQuery(name = "User.findByLink", query = "SELECT u FROM User u WHERE u.link = :link")*/
+})
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -63,15 +64,8 @@ public class User implements Serializable {
     
     @Column(name = "confirmed")
     private boolean confirmed = false;
-    
-    @Column(name = "link")
-    private String link;
-    
-    @Column(name = "reg_date")
-	private Timestamp regDate ;
 
     public User() {
-    	regDate = new Timestamp(Calendar.getInstance().getTimeInMillis());
     }
 
     public User(Long userId) {
@@ -134,21 +128,6 @@ public class User implements Serializable {
 		this.confirmed = confirmed;
 	}
 
-	public String getLink() {
-		return link;
-	}
-
-	public void setLink(String link) {
-		this.link = link;
-	}
-
-	public Timestamp getRegDate() {
-		return regDate;
-	}
-
-	public void setRegDate(Timestamp regDate) {
-		this.regDate = regDate;
-	}
 
 	@Override
     public int hashCode() {

@@ -54,7 +54,13 @@ public class SignUpController {
             
             newUser.setPassword(passwordEncoder.encodePassword(newUser.getPassword(), newUser.getLogin()));
             newUser.setPassword2(null);
-            userService.saveUser(newUser);
+            
+            if(user !=null && user.isConfirmed() == false){
+            	userService.updateUser(newUser);
+            }
+            else{
+            	userService.saveUser(newUser);
+            }
             
             model.addObject("newUser", new User());
             model.setViewName("signup");

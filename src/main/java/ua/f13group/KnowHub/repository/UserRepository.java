@@ -5,6 +5,7 @@
  */
 package ua.f13group.KnowHub.repository;
 
+import ua.f13group.KnowHub.domain.Confirmation;
 import ua.f13group.KnowHub.domain.User;
 
 /**
@@ -13,6 +14,12 @@ import ua.f13group.KnowHub.domain.User;
  */
 public interface UserRepository {
     public Integer saveUser(User user);
-    public User getUserByLink(String userlink);
+    public Confirmation getConfirmationByLink(String link);
     public User getUserByLogin(String login);
+    public void saveConfirmation(Confirmation confirm);
+    public void deleteConfirmation(Confirmation confirm);
+	public void deleteUser(User newUser);
+	public Confirmation getConfirmationByUserId(Long userId);
+	public Confirmation getConfirmationByUserLogin(String login);
+		
 }

@@ -16,4 +16,6 @@ public interface UserService {
     public Integer saveUser(User user);
     public Integer confirmUser(String userlink);
     public User getUserByLogin(String login);
+	public void updateUser(User newUser);
+	
 }

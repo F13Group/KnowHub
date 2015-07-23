@@ -19,18 +19,22 @@ CREATE TABLE tags (
     PRIMARY KEY(tag_id)
 );
 
-
 CREATE TABLE users(
     user_id bigserial,
     login varchar(50) NOT NULL,
     password varchar(50) NOT NULL,
     enabled boolean NOT NULL,
     confirmed boolean NOT NULL,
-    link varchar(50),
-    reg_date timestamp,
     PRIMARY KEY(user_id)
 );
 
+CREATE TABLE confirmations(
+    conf_id bigserial,
+    user_id bigint,
+    link varchar(50),
+    reg_date timestamp,
+    PRIMARY KEY(conf_id)
+);
 
 CREATE TABLE authorities(
     authority_id bigserial,

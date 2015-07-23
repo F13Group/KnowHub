@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import ua.f13group.KnowHub.domain.Confirmation;
 import ua.f13group.KnowHub.domain.User;
 import ua.f13group.KnowHub.repository.UserRepository;
 import ua.f13group.KnowHub.service.MailService;
@@ -35,9 +36,11 @@ public class JpaUserService implements UserService{
     	String subject = "Registration confirmation"; 
     	    	
     	if(userRepository.saveUser(user) !=null ){
-    		user.setLink(user.getLogin().hashCode()+""+user.getUserId());
+    		Confirmation confirmation = new Confirmation(user);
+    		confirmation.setLink(user.getLogin().hashCode()+""+user.getUserId());
+    		userRepository.saveConfirmation(confirmation);
     		String text = "Thank you for joining KnowHub! To get started, you need to verify your email address. Please go to the link below and log in: \n\r";
-    		text += ("http://localhost:8080/KnowHub/confirmation/" + user.getLink());
+    		text += ("http://localhost:8080/KnowHub/confirmation/" + confirmation.getLink());
     		
     		mailService.sendMail(user.getLogin(), subject, text);
     	}
@@ -46,10 +49,11 @@ public class JpaUserService implements UserService{
     
     @Transactional
 	@Override
-	public Integer confirmUser(String userlink) {
+	public Integer confirmUser(String link) {
     	
-			User user = userRepository.getUserByLink(userlink);
-			Long regTime = user.getRegDate().getTime();
+    		Confirmation confirmation = userRepository.getConfirmationByLink(link);
+			User user = confirmation.getUser();
+			Long regTime = confirmation.getRegDate().getTime();
 			long regTimeout = Integer.valueOf((propertyService.getProperty("reg_timeout"))) *60*60*1000 ;
 			if(Calendar.getInstance().getTimeInMillis() > regTime + regTimeout ){
 				
@@ -57,6 +61,7 @@ public class JpaUserService implements UserService{
 			}
 							
 			user.setConfirmed(true);
+			userRepository.deleteConfirmation(confirmation);
 		return user.getUserId().intValue();
 	}
     
@@ -66,6 +71,15 @@ public class JpaUserService implements UserService{
 		login =login.trim().toLowerCase();
 		
 		return userRepository.getUserByLogin(login);
+	}
+	
+	@Transactional
+	@Override
+	public void updateUser(User newUser) {
+		userRepository.deleteConfirmation(userRepository.getConfirmationByUserLogin(newUser.getLogin()));
+		userRepository.deleteUser(userRepository.getUserByLogin(newUser.getLogin()));
+		newUser.setUserId(null);
+		saveUser(newUser);
 	}
     
 }

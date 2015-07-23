@@ -8,11 +8,12 @@ package ua.f13group.KnowHub.repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import ua.f13group.KnowHub.domain.Category;
+import ua.f13group.KnowHub.domain.Confirmation;
 import ua.f13group.KnowHub.domain.User;
 
 /**
@@ -25,7 +26,7 @@ public class UserRepositoryJPA implements UserRepository {
     @PersistenceContext
     private EntityManager entityManager;
     
-    
+    @Transactional
     @Override
     public Integer saveUser(User user) {
         entityManager.persist(user);
@@ -33,18 +34,18 @@ public class UserRepositoryJPA implements UserRepository {
     }
 
 	@Override
-	public User getUserByLink(String userlink) {
-		TypedQuery<User> query = entityManager.createNamedQuery("User.findByLink", User.class);
-		query.setParameter("link", userlink);
+	public Confirmation getConfirmationByLink(String link) {
+		TypedQuery<Confirmation> query = entityManager.createNamedQuery("Confirmation.findByLink", Confirmation.class);
+		query.setParameter("link", link);
 		
-		User user;
-		try { user = query.getSingleResult();
+		Confirmation confirmation;
+		try { confirmation = query.getSingleResult();
 			
 		} catch (javax.persistence.NoResultException e) {
 			return null;
 		}
 		
-		return user;
+		return confirmation;
 	}
 
 	@Override
@@ -60,5 +61,54 @@ public class UserRepositoryJPA implements UserRepository {
 		
 		return user;
 	}
+
+	@Transactional
+	@Override
+	public void saveConfirmation(Confirmation confirm) {
+		entityManager.persist(confirm);
+	}
+
+	@Override
+	public void deleteConfirmation(Confirmation confirm) {
+		entityManager.remove(confirm);
+	}
+
+	@Transactional
+	@Override
+	public void deleteUser(User newUser) {
+		entityManager.remove(newUser);
+		
+	}
+
+	@Override
+	public Confirmation getConfirmationByUserId(Long userId) {
+		TypedQuery<Confirmation> query = entityManager.createNamedQuery("Confirmation.findByUserId", Confirmation.class);
+		query.setParameter("userid", userId);
+		
+		Confirmation confirmation;
+		try { confirmation = query.getSingleResult();
+			
+		} catch (javax.persistence.NoResultException e) {
+			return null;
+		}
+		
+		return confirmation;
+	}
+
+	@Override
+	public Confirmation getConfirmationByUserLogin(String login) {
+		TypedQuery<Confirmation> query = entityManager.createNamedQuery("Confirmation.findByLogin", Confirmation.class);
+		query.setParameter("login", login);
+		
+		Confirmation confirmation;
+		try { confirmation = query.getSingleResult();
+			
+		} catch (javax.persistence.NoResultException e) {
+			return null;
+		}
+		
+		return confirmation;
+	}
+	
     
 }
