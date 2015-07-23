@@ -10,6 +10,7 @@
 <title>KNOW HUB</title>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <!-- Bootstrap core CSS -->
@@ -55,7 +56,7 @@
                     <div class="form-group" id="login-group">
                         <label for="username" class="col-sm-2 control-label">Email:</label>
                         <div class="col-sm-2">
-                        	<form:input class="form-control" path="login" placeholder="user_name@epam.com" onfocus="showMessageLogin()" onblur="validateLogin()"/>
+                        	<form:input class="form-control" path="login" placeholder="user_name@epam.com" onfocus="showMessageLogin(loginInstructions)" onblur="validateLogin(errorLoginEmpty, errorLoginNotEmail)"/>
                         </div>
                         <span class="error"><form:errors path="login" /></span>
                     </div>
@@ -63,7 +64,7 @@
                     <div class="form-group" id="password-group">
                         <label for="password" class="col-sm-2 control-label">Password:</label>
                         <div class="col-sm-2">
-                            <form:password class="form-control" path="password" onfocus="showMessagePassword()" onblur="validatePassword()"/>
+                            <form:password class="form-control" path="password" onfocus="showMessagePassword(passwordInstructions, errorLoginEmpty, errorLoginNotEmail)" onblur="validatePassword(errorPasswordEmpty, errorPasswordBadlyFormed, errorPasswordTooLong)"/>
                         </div>
                         <span class="error"><form:errors path="password" /></span>
                     </div>
@@ -71,13 +72,13 @@
                     <div class="form-group" id="password2-group">
                         <label for="password2" class="col-sm-2 control-label">Confirm password:</label>
                         <div class="col-sm-2">
-                            <form:password class="form-control" path="password2" onfocus="showMessagePassword2()" onblur="validatePassword2()"/>
+                            <form:password class="form-control" path="password2" onfocus="showMessagePassword2()" onblur="validatePassword2(errorPassword2Empty, errorPassword2NoMatch)"/>
                         </div>
                         <span class="error"><form:errors path="password2"/></span>
                     </div>
                     
                     <div class="row">
-                        <input type="submit" class="col-lg-offset-2 btn btn-success" onclick="return validateForm();"/>
+                        <input type="submit" class="col-lg-offset-2 btn btn-success" onclick="return validateForm(errorLoginEmpty, errorLoginNotEmail, errorPasswordEmpty, errorPasswordBadlyFormed, errorPasswordTooLong, errorPassword2Empty, errorPassword2NoMatch, confirmDialogText);"/>
                     </div>
                 </div>
             </form:form> 
@@ -89,12 +90,24 @@
 		</div>
 	</footer>
 	
-	<script>
+	<script>		
+		var loginInstructions = "${fn:escapeXml(loginInstructions)}";
+		var passwordInstructions = "${fn:escapeXml(passwordInstructions)}";
+		var confirmDialogText = "${fn:escapeXml(confirmDialogText)}";
+		var errorLoginEmpty = "${fn:escapeXml(errorLoginEmpty)}";
+		var errorLoginNotEmail = "${fn:escapeXml(errorLoginNotEmail)}";
+		var errorLoginExistsAlready = "${fn:escapeXml(errorLoginExistsAlready)}";
+		var errorPasswordEmpty = "${fn:escapeXml(errorPasswordEmpty)}";
+		var errorPasswordBadlyFormed = "${fn:escapeXml(errorPasswordBadlyFormed)}";
+		var errorPasswordTooLong = "${fn:escapeXml(errorPasswordTooLong)}";
+		var errorPassword2Empty = "${fn:escapeXml(errorPassword2Empty)}";
+		var errorPassword2NoMatch = "${fn:escapeXml(errorPassword2NoMatch)}";
+		
 		$(document).ready(function() {			
 			<c:if test="${not empty signUpError}">
 				loginExists();
 			</c:if>
-		});		
+		});
 	</script>
 	
 </body>
