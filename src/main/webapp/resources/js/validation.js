@@ -20,11 +20,8 @@ function hideMessagePassword() {
 }
 
 function showMessagePassword2() {
-	
-}
-
-function confirmation() {
-	return confirm("TERMS OF AGREEMENT\nDo you agree?");
+	$('#password2').removeAttr('style');
+	$("#password2-error").remove();
 }
 
 function devalidate() {
@@ -40,13 +37,13 @@ function validateLogin() {
 	if (login == null || login == "") {                
 		document.getElementById("login").style.border = "1px solid #B22746";
 		document.getElementById("login").style.boxShadow = "0 0 10px #B22746";
-		$("#login-group").after("<div class='error col-lg-offset-2'>This information is required.</div>");                
+		$("#login-group").after("<div class='error col-lg-offset-2' id=login-error>This information is required.</div>");                
 		return false;
 	}
 	if (login.indexOf("@epam.com") <= 0) {
 		document.getElementById("login").style.border = "1px solid #B22746";
 		document.getElementById("login").style.boxShadow = "0 0 10px #B22746";
-		$("#login-group").after("<div class='error col-lg-offset-2'>Enter the email address in the format name_surname@epam.com</div>");            	
+		$("#login-group").after("<div class='error col-lg-offset-2' id=login-error>Enter the email address in the format name_surname@epam.com</div>");            	
 		return false;
 	}
 	
@@ -54,7 +51,7 @@ function validateLogin() {
 	if (username.indexOf("_") <= 0) {
 		document.getElementById("login").style.border = "1px solid #B22746";
 		document.getElementById("login").style.boxShadow = "0 0 10px #B22746";
-		$("#login-group").after("<div class='error col-lg-offset-2'>Enter the email address in the format name_surname@epam.com</div>");            	
+		$("#login-group").after("<div class='error col-lg-offset-2' id=login-error>Enter the email address in the format name_surname@epam.com</div>");            	
 		return false;
 	}
 	
@@ -64,7 +61,7 @@ function validateLogin() {
 function loginExists() {
 	document.getElementById("login").style.border = "1px solid #B22746";
 	document.getElementById("login").style.boxShadow = "0 0 10px #B22746";
-	$("#login-group").after("<div class='error col-lg-offset-2'>We are sorry but the user with this login exists already!</div>");
+	$("#login-group").after("<div class='error col-lg-offset-2' id=login-error>We are sorry but the user with this login exists already!</div>");
 }
 
 function validatePassword() {
@@ -75,7 +72,7 @@ function validatePassword() {
 	if (pass1 == null || pass1 == "") {                
 		document.getElementById("password").style.border = "1px solid #B22746";
 		document.getElementById("password").style.boxShadow = "0 0 10px #B22746";
-		$("#password-group").after("<div class='error col-lg-offset-2'>This information is required.</div>");                
+		$("#password-group").after("<div class='error col-lg-offset-2' id=password-error>This information is required.</div>");                
 		return false;
 	}	
 
@@ -90,7 +87,7 @@ function validatePassword() {
 		document.getElementById("password").style.boxShadow = "0 0 10px #B22746";                
 		document.getElementById("password").value = "";
 		document.getElementById("password2").value = "";
-		$("#password-group").after("<div class='error col-lg-offset-2'>Passwords must have at least 8 characters and contain at least two of the following: uppercase letters, lowercase letters, numbers, and symbols including spaces. Do not use your email, name or surname as your password or as part of it.</div>");            	
+		$("#password-group").after("<div class='error col-lg-offset-2' id=password-error>Passwords must have at least 8 characters and contain at least two of the following: uppercase letters, lowercase letters, numbers, and symbols including spaces. Do not use your email, name or surname as your password or as part of it.</div>");            	
 		return false;
 	}
 
@@ -99,15 +96,18 @@ function validatePassword() {
 		document.getElementById("password").style.boxShadow = "0 0 10px #B22746";                
 		document.getElementById("password").value = "";
 		document.getElementById("password2").value = "";
-		$("#password-group").after("<div class='error col-lg-offset-2'>Your password can't be longer than 20 characters.</div>");            	
+		$("#password-group").after("<div class='error col-lg-offset-2' id=password-error>Your password can't be longer than 20 characters.</div>");            	
 		return false;
 	}
 	
 	return true;
 }
 
-function validatePassword2() {
-	showMessagePassword2();
+function validatePassword2() {	
+	
+	if ($("#password2-error")[0]) {
+		return false;
+	}
 	
 	var pass1 = document.forms["newUser"]["password"].value;
 	var pass2 = document.forms["newUser"]["password2"].value;
@@ -115,7 +115,7 @@ function validatePassword2() {
 	if (pass2 == null || pass2 == "") {                
 		document.getElementById("password2").style.border = "1px solid #B22746";
 		document.getElementById("password2").style.boxShadow = "0 0 10px #B22746";
-		$("#password2-group").after("<div class='error col-lg-offset-2'>This information is required.</div>");                
+		$("#password2-group").after("<div class='error col-lg-offset-2' id=password2-error>This information is required.</div>");                
 		return false;
 	}
 
@@ -126,7 +126,7 @@ function validatePassword2() {
 		document.getElementById("password2").style.boxShadow = "0 0 10px #B22746";
 		document.getElementById("password").value = "";
 		document.getElementById("password2").value = "";
-		$("#password2-group").after("<div class='error col-lg-offset-2'>These passwords don't match!</div>");            	
+		$("#password2-group").after("<div class='error col-lg-offset-2' id=password2-error>These passwords don't match!</div>");            	
 		return false;
 	}
 	
@@ -149,4 +149,14 @@ function validateForm() {
 	}
 
 	return confirmation();
+}
+
+function confirmation() {
+	if (confirm("TERMS OF AGREEMENT\nDo you agree?")) {
+		return true;
+	} else {
+		document.getElementById("password").value = "";
+		document.getElementById("password2").value = "";
+		return false;
+	}
 }
