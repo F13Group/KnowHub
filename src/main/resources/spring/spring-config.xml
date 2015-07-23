@@ -26,6 +26,7 @@
         <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
             <property name="entityManagerFactory" ref="entityManagerFactory"/>    
         </bean>
+        
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="persistenceUnitName" value="hibernateUnit" />
@@ -39,11 +40,17 @@
 		<property name="username" value="${user}" />
 		<property name="password" value="${password}" />
 	</bean>
+	
  	<bean id="propertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="location" value="classpath:spring/jdbc.properties" />
 	</bean>
  
-        <bean class="org.springframework.security.authentication.encoding.ShaPasswordEncoder" id="passwordEncoder"/>
+    <bean class="org.springframework.security.authentication.encoding.ShaPasswordEncoder" id="passwordEncoder"/>
+    
+    <!-- Message Source -->
+  	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+  		<property name="basename" value="messages"/>
+  	</bean>
 
 </beans>

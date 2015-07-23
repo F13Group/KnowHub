@@ -8,6 +8,8 @@ package ua.f13group.KnowHub.web;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.MessageSourceAware;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -23,8 +25,15 @@ import ua.f13group.KnowHub.service.UserService;
  * @author amd
  */
 @Controller
-public class SignUpController {
+public class SignUpController implements MessageSourceAware {
     
+	private MessageSource messageSource;
+	
+	@Override
+	public void setMessageSource(MessageSource messageSource) {
+		this.messageSource = messageSource;		
+	}
+	
     @Autowired
     private UserService userService;
     
@@ -35,6 +44,31 @@ public class SignUpController {
 	public ModelAndView signup(ModelAndView model) {
             model.addObject("newUser", new User());
             model.addObject("signUpError", "");
+            
+            model.addObject("loginInstructions",
+    				messageSource.getMessage("info.signuppage.loginInstructions", null, null));
+            model.addObject("passwordInstructions",
+    				messageSource.getMessage("info.signuppage.passwordInstructions", null, null));
+            model.addObject("confirmDialogText",
+    				messageSource.getMessage("info.signuppage.confirmDialogText", null, null));
+            
+            model.addObject("errorLoginEmpty",
+    				messageSource.getMessage("error.signuppage.loginEmpty", null, null));
+            model.addObject("errorLoginNotEmail",
+    				messageSource.getMessage("error.signuppage.loginNotEmail", null, null));
+            model.addObject("errorLoginExistsAlready",
+    				messageSource.getMessage("error.signuppage.loginExistsAlready", null, null));
+            model.addObject("errorPasswordEmpty",
+    				messageSource.getMessage("error.signuppage.passwordEmpty", null, null));
+            model.addObject("errorPasswordBadlyFormed",
+    				messageSource.getMessage("error.signuppage.passwordBadlyFormed", null, null));
+            model.addObject("errorPasswordTooLong",
+    				messageSource.getMessage("error.signuppage.passwordTooLong", null, null));
+            model.addObject("errorPassword2Empty",
+    				messageSource.getMessage("error.signuppage.password2Empty", null, null));
+            model.addObject("errorPassword2NoMatch",
+    				messageSource.getMessage("error.signuppage.password2NoMatch", null, null));
+            
             model.setViewName("signup");
             return model;
 	}

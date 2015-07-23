@@ -19,7 +19,8 @@
 <link href="resources/styleBootstrap/css/custom.css" rel="stylesheet">
 
 <!-- JavaScripts -->
-<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.3.js"></script>
+<script src="https://code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="resources/js/validation.js"></script>
 
@@ -40,7 +41,7 @@
 						<div class="nav-left">
 							<a href="" class="inactive">Sign up</a>
 							<a href="">Log in</a>
-							<a href="">Help</a>
+							<a href="">Help</a>							
 						</div>
 					</div>
 				</div>
@@ -93,7 +94,7 @@
 			<c:if test="${not empty signUpError}">
 				loginExists();
 			</c:if>
-		});
+		});		
 	</script>
 	
 </body>
