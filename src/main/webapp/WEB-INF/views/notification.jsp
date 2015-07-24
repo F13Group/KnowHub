@@ -6,17 +6,17 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- favicon -->
-<link rel="icon" href="resources/styleBootstrap/img/question_shield.png" type="image/png">
+<link rel="icon" href="${pageContext.servletContext.contextPath}/resources/styleBootstrap/img/question_shield.png" type="image/png">
 <title>KNOW HUB</title>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 
 <!-- Bootstrap core CSS -->
-<link href="resources/styleBootstrap/css/bootstrap.min.css"	rel="stylesheet">
+<link href="${pageContext.servletContext.contextPath}/resources/styleBootstrap/css/bootstrap.min.css"	rel="stylesheet">
 
 <!-- Custom styles for this template -->
-<link href="resources/styleBootstrap/css/custom.css" rel="stylesheet">
+<link href="${pageContext.servletContext.contextPath}/resources/styleBootstrap/css/custom.css" rel="stylesheet">
 
 <!-- JavaScripts -->
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
@@ -36,7 +36,7 @@
 				<div id="navLinks">
 					<div id="links">
 						<div class="nav-left">
-							<a href="signup">Sign up</a>
+							<a href="${pageContext.servletContext.contextPath}/signup">Sign up</a>
 							<a href="">Log in</a>
 							<a href="">Help</a>
 						</div>
