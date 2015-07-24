@@ -5,6 +5,9 @@
  */
 package ua.f13group.KnowHub.web;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +35,12 @@ public class SignUpController implements MessageSourceAware {
 	@Override
 	public void setMessageSource(MessageSource messageSource) {
 		this.messageSource = messageSource;		
+	}
+	
+	public boolean checkWithRegExp(String string,String regexp){  
+	       Pattern p = Pattern.compile(regexp);  
+	       Matcher m = p.matcher(string);  
+	       return m.matches();  
 	}
 	
     @Autowired
@@ -86,6 +95,25 @@ public class SignUpController implements MessageSourceAware {
                 addMessages(model);
                 
                 return model;
+            }
+            newUser.setLogin(newUser.getLogin().trim().toLowerCase());
+            
+            if(!(newUser.getLogin().endsWith("@epam.com") &&
+            		newUser.getLogin().contains("_") && 
+            		newUser.getPassword().equals(newUser.getPassword2()) && (
+            		this.checkWithRegExp(newUser.getPassword(), "((?=.*\\d)(?=.*[a-z]).{8,})") ||
+            		this.checkWithRegExp(newUser.getPassword(), "((?=.*\\d)(?=.*[A-Z]).{8,})") ||
+            		this.checkWithRegExp(newUser.getPassword(), "((?=.*\\d)(?=.*[~\\@\\#\\$\\%\\^\\+\\-\\=\\[\\]*()/{}\\?!|:;_<>]).{8,})") ||
+            		this.checkWithRegExp(newUser.getPassword(), "((?=.*[a-z])(?=.*[A-Z]).{8,})") ||
+            		this.checkWithRegExp(newUser.getPassword(), "((?=.*[a-z])(?=.*[~\\@\\#\\$\\%\\^\\+\\-\\=\\[\\]*()/{}\\?!|:;_<>]).{8,})") ||
+            		this.checkWithRegExp(newUser.getPassword(), "((?=.*[A-Z])(?=.*[~\\@\\#\\$\\%\\^\\+\\-\\=\\[\\]*()/{}\\?!|:;_<>]).{8,})") 
+            		))){
+            	model.setViewName("notification");
+            	model.addObject("error", "ValidationFail");
+            	model.addObject("notificationMessage",
+        				messageSource.getMessage("info.notificationpage.serverValidationError",
+        						null, null));
+            	return model; 
             }
             
             User user = userService.getUserByLogin(newUser.getLogin());
