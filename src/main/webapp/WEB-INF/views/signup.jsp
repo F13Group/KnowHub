@@ -49,7 +49,7 @@
             <form:form commandName="newUser" method="post">
                 <div class="form-horizontal" >
                     <div class="form-group" id="login-group">
-                        <label for="username" class="col-sm-2 control-label">Name:</label>
+                        <label for="username" class="col-sm-2 control-label">Email:</label>
                         <div class="col-sm-2">
                         	<form:input class="form-control" path="login" placeholder="user_name@epam.com" onfocus="showMessageLogin()" onblur="hideMessageLogin()"/>
                         </div>
