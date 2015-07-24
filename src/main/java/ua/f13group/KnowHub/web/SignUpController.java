@@ -40,34 +40,38 @@ public class SignUpController implements MessageSourceAware {
     @Autowired
     private ShaPasswordEncoder passwordEncoder;
     
+    private void addMessages(ModelAndView model) {
+    	model.addObject("loginInstructions",
+				messageSource.getMessage("info.signuppage.loginInstructions", null, null));
+        model.addObject("passwordInstructions",
+				messageSource.getMessage("info.signuppage.passwordInstructions", null, null));
+        model.addObject("confirmDialogText",
+				messageSource.getMessage("info.signuppage.confirmDialogText", null, null));
+        
+        model.addObject("errorLoginEmpty",
+				messageSource.getMessage("error.signuppage.loginEmpty", null, null));
+        model.addObject("errorLoginNotEmail",
+				messageSource.getMessage("error.signuppage.loginNotEmail", null, null));
+        model.addObject("errorLoginExistsAlready",
+				messageSource.getMessage("error.signuppage.loginExistsAlready", null, null));
+        model.addObject("errorPasswordEmpty",
+				messageSource.getMessage("error.signuppage.passwordEmpty", null, null));
+        model.addObject("errorPasswordBadlyFormed",
+				messageSource.getMessage("error.signuppage.passwordBadlyFormed", null, null));
+        model.addObject("errorPasswordTooLong",
+				messageSource.getMessage("error.signuppage.passwordTooLong", null, null));
+        model.addObject("errorPassword2Empty",
+				messageSource.getMessage("error.signuppage.password2Empty", null, null));
+        model.addObject("errorPassword2NoMatch",
+				messageSource.getMessage("error.signuppage.password2NoMatch", null, null));
+    }
+    
     @RequestMapping(value = "/signup",method = RequestMethod.GET)
 	public ModelAndView signup(ModelAndView model) {
             model.addObject("newUser", new User());
             model.addObject("signUpError", "");
             
-            model.addObject("loginInstructions",
-    				messageSource.getMessage("info.signuppage.loginInstructions", null, null));
-            model.addObject("passwordInstructions",
-    				messageSource.getMessage("info.signuppage.passwordInstructions", null, null));
-            model.addObject("confirmDialogText",
-    				messageSource.getMessage("info.signuppage.confirmDialogText", null, null));
-            
-            model.addObject("errorLoginEmpty",
-    				messageSource.getMessage("error.signuppage.loginEmpty", null, null));
-            model.addObject("errorLoginNotEmail",
-    				messageSource.getMessage("error.signuppage.loginNotEmail", null, null));
-            model.addObject("errorLoginExistsAlready",
-    				messageSource.getMessage("error.signuppage.loginExistsAlready", null, null));
-            model.addObject("errorPasswordEmpty",
-    				messageSource.getMessage("error.signuppage.passwordEmpty", null, null));
-            model.addObject("errorPasswordBadlyFormed",
-    				messageSource.getMessage("error.signuppage.passwordBadlyFormed", null, null));
-            model.addObject("errorPasswordTooLong",
-    				messageSource.getMessage("error.signuppage.passwordTooLong", null, null));
-            model.addObject("errorPassword2Empty",
-    				messageSource.getMessage("error.signuppage.password2Empty", null, null));
-            model.addObject("errorPassword2NoMatch",
-    				messageSource.getMessage("error.signuppage.password2NoMatch", null, null));
+            addMessages(model);
             
             model.setViewName("signup");
             return model;
@@ -78,6 +82,9 @@ public class SignUpController implements MessageSourceAware {
             if (result.hasErrors()) {
                 model.addObject("newUser", newUser);
                 model.addObject("signUpError", "");
+                
+                addMessages(model);
+                
                 return model;
             }
             
@@ -86,20 +93,35 @@ public class SignUpController implements MessageSourceAware {
             	result.rejectValue("login", "error.newUser", "Email already exists");
             	model.addObject("newUser", newUser);
             	model.addObject("signUpError", "Email already exists");
+            	
+            	addMessages(model);
+            	
             	return model;
             }
             
             newUser.setPassword(passwordEncoder.encodePassword(newUser.getPassword(), newUser.getLogin()));
             newUser.setPassword2(null);
-            if (userService.saveUser(newUser) != null) {
+            
+            if (user !=null && user.isConfirmed() == false){
+            	userService.updateUser(newUser);
             	model.addObject("newUser", newUser);
             	model.setViewName("signupnotification");
             	return model;
-            } else {
-            	model.addObject("newUser", new User());
-            	model.addObject("signUpError", "");
-            	model.setViewName("signup");
-            	return model;
             }
+            else {
+            	if (userService.saveUser(newUser) != null) {
+                	model.addObject("newUser", newUser);
+                	model.setViewName("signupnotification");
+                	return model;
+                } else {
+                	model.addObject("newUser", new User());
+                	model.addObject("signUpError", "");
+                	
+                	addMessages(model);
+                	
+                	model.setViewName("signup");
+                	return model;
+                }
+            }            
 	}
 }

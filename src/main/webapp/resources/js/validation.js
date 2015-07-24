@@ -58,10 +58,10 @@ function validateLogin(message1, message2) {
 	return true;
 }
 
-function loginExists() {
+function loginExists(message) {
 	document.getElementById("login").style.border = "1px solid #B22746";
 	document.getElementById("login").style.boxShadow = "0 0 10px #B22746";
-	$("#login-group").after("<div class='error col-lg-offset-2' id=login-error>We are sorry but the user with this login exists already!</div>");
+	$("#login-group").after("<div class='error col-lg-offset-2' id=login-error>" + message + "</div>");
 }
 
 function validatePassword(message1, message2, message3) {

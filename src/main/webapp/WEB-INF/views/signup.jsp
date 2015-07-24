@@ -105,7 +105,7 @@
 		
 		$(document).ready(function() {			
 			<c:if test="${not empty signUpError}">
-				loginExists();
+				loginExists(errorLoginExistsAlready);
 			</c:if>
 		});
 	</script>
