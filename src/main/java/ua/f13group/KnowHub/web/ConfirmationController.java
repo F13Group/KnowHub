@@ -25,14 +25,14 @@ public class ConfirmationController implements MessageSourceAware {
 	private UserService userService;
 	
 	@RequestMapping(value = "/confirmation/{userlink}",method = RequestMethod.GET)
-	public String confirm(@PathVariable String userlink, ModelAndView model){
+	public ModelAndView confirm(@PathVariable String userlink, ModelAndView model){
 		userService.confirmUser(userlink);
 		
 		model.addObject("notificationMessage",
 				messageSource.getMessage("info.notificationpage.registrationConfirmed",
 						null, null));
-		
-		return "notification";
+		model.setViewName("notification");
+		return model;
 		
 	}
 }
