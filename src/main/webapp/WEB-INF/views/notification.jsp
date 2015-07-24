@@ -47,7 +47,7 @@
 	</div>
 
 	<div class="notification">
-		<c:out value="Registration email was sent to ${newUser.login}. Check your email for the link to complete the registration process. If you don't see this email in your inbox within 24 hours, please make sure that the email address you have entered is correct and is a corporate one." />		
+		<c:out value="${notificationMessage}" />		
 	</div>
 		
 	<footer class="footer">

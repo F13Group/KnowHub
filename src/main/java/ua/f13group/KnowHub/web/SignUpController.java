@@ -105,7 +105,10 @@ public class SignUpController implements MessageSourceAware {
             if (user !=null && user.isConfirmed() == false){
             	userService.updateUser(newUser);
             	model.addObject("newUser", newUser);
-            	model.setViewName("signupnotification");
+            	model.addObject("notificationMessage",
+        				messageSource.getMessage("info.notificationpage.emailSent",
+        						new Object[] { newUser.getLogin() }, null));
+            	model.setViewName("notification");
             	return model;
             }
             else {
