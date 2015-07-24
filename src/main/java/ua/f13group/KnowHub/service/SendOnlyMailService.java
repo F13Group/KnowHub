@@ -44,6 +44,7 @@ public class SendOnlyMailService implements MailService {
                         return true;
  
 		} catch (MessagingException e) {
+			System.err.println(e);
 			return false;
 		}
 		
