@@ -50,14 +50,17 @@ public class JpaUserService implements UserService{
     @Transactional
 	@Override
 	public Integer confirmUser(String link) {
-    	
+    		
     		Confirmation confirmation = userRepository.getConfirmationByLink(link);
-			User user = confirmation.getUser();
+			if(confirmation == null){
+				return null;
+			}
+    		User user = confirmation.getUser();
 			Long regTime = confirmation.getRegDate().getTime();
 			long regTimeout = Integer.valueOf((propertyService.getProperty("reg_timeout"))) *60*60*1000 ;
 			if(Calendar.getInstance().getTimeInMillis() > regTime + regTimeout ){
 				
-				return -1;
+				return null;
 			}
 							
 			user.setConfirmed(true);

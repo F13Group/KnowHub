@@ -57,6 +57,12 @@ public class User implements Serializable {
     @Transient
     private String password2;
    
+    @Transient
+    private String firstname;
+    
+    @Transient
+    private String lastname;
+    
     @NotNull
     @Column(name = "enabled")
     private boolean enabled = true;
@@ -79,6 +85,20 @@ public class User implements Serializable {
         this.enabled = enabled;
     }
 
+    public String getFirstname(){
+    	if(firstname == null){
+    		firstname = login.substring(0, login.indexOf('_'));
+    	}
+    	return firstname;
+    }
+    
+    public String getLastname(){
+    	if(lastname == null){
+    		login.substring(login.indexOf('_')+1, login.indexOf('@'));
+    	}
+    	return lastname;
+    }
+    
     public String getPassword2() {
         return password2;
     }
