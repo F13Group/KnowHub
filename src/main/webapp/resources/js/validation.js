@@ -32,7 +32,7 @@ function devalidate() {
 function validateLogin(message1, message2) {
 	hideMessageLogin();
 	
-	var login = document.forms["newUser"]["login"].value;
+	var login = document.forms["newUser"]["login"].value.toLowerCase();
 	
 	if (login == null || login == "") {                
 		document.getElementById("login").style.border = "1px solid #B22746";
@@ -40,6 +40,12 @@ function validateLogin(message1, message2) {
 		$("#login-group").after("<div class='error col-lg-offset-2' id=login-error>" + message1 + "</div>");                
 		return false;
 	}
+	
+	if (login.indexOf("@") <= 0) {
+		login += "@epam.com";
+		document.getElementById("login").value = login;
+	}
+	
 	if (login.indexOf("@epam.com") <= 0) {
 		document.getElementById("login").style.border = "1px solid #B22746";
 		document.getElementById("login").style.boxShadow = "0 0 10px #B22746";
