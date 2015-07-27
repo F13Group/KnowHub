@@ -64,7 +64,7 @@
                     <div class="form-group" id="password-group">
                         <label for="password" class="col-sm-2 control-label">Password:</label>
                         <div class="col-sm-2">
-                            <form:password class="form-control" path="password" onfocus="showMessagePassword(passwordInstructions, errorLoginEmpty, errorLoginNotEmail)" onblur="validatePassword(errorPasswordEmpty, errorPasswordBadlyFormed, errorPasswordTooLong)"/>
+                            <form:password class="form-control" path="password" placeholder="Enter your new password" onfocus="showMessagePassword(passwordInstructions, errorLoginEmpty, errorLoginNotEmail)" onblur="validatePassword(errorPasswordEmpty, errorPasswordBadlyFormed, errorPasswordTooLong)"/>
                         </div>
                         <span class="error"><form:errors path="password" /></span>
                     </div>
@@ -72,13 +72,13 @@
                     <div class="form-group" id="password2-group">
                         <label for="password2" class="col-sm-2 control-label">Confirm password:</label>
                         <div class="col-sm-2">
-                            <form:password class="form-control" path="password2" onfocus="showMessagePassword2()" onblur="validatePassword2(errorPassword2Empty, errorPassword2NoMatch)"/>
+                            <form:password class="form-control" path="password2" placeholder="Re-enter your password" onfocus="showMessagePassword2()" onblur="validatePassword2(errorPassword2Empty, errorPassword2NoMatch)"/>
                         </div>
                         <span class="error"><form:errors path="password2"/></span>
                     </div>
                     
                     <div class="row">
-                        <input type="submit" class="col-lg-offset-2 btn btn-success" onclick="return validateForm(errorLoginEmpty, errorLoginNotEmail, errorPasswordEmpty, errorPasswordBadlyFormed, errorPasswordTooLong, errorPassword2Empty, errorPassword2NoMatch, confirmDialogText);"/>
+                        <input type="submit" value="Create your account" class="col-lg-offset-2 btn btn-success" onclick="return validateForm(errorLoginEmpty, errorLoginNotEmail, errorPasswordEmpty, errorPasswordBadlyFormed, errorPasswordTooLong, errorPassword2Empty, errorPassword2NoMatch, confirmDialogText);"/>
                     </div>
                 </div>
             </form:form> 

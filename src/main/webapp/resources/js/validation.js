@@ -67,6 +67,7 @@ function loginExists(message) {
 function validatePassword(message1, message2, message3) {
 	hideMessagePassword();
 	
+	var login = document.forms["newUser"]["login"].value;
 	var pass1 = document.forms["newUser"]["password"].value;
 	
 	if (pass1 == null || pass1 == "") {                
@@ -82,7 +83,7 @@ function validatePassword(message1, message2, message3) {
 	var regexp4 = /((?=.*[a-z])(?=.*[A-Z]).{8,})/;
 	var regexp5 = /((?=.*[a-z])(?=.*[~@#$%^\+\-\=\[\]\*\(\)\/\{\}\\\?\!\|\:\;\_\<\>]).{8,})/;
 	var regexp6 = /((?=.*[A-Z])(?=.*[~@#$%^\+\-\=\[\]\*\(\)\/\{\}\\\?\!\|\:\;\_\<\>]).{8,})/;            
-	if (!regexp1.test(pass1) & !regexp2.test(pass1) & !regexp3.test(pass1) & !regexp4.test(pass1) & !regexp5.test(pass1) & !regexp6.test(pass1)) {
+	if (!regexp1.test(pass1) & !regexp2.test(pass1) & !regexp3.test(pass1) & !regexp4.test(pass1) & !regexp5.test(pass1) & !regexp6.test(pass1) & !(pass1.indexOf(login.substr(0,login.indexOf("@epam.com"))) !=-1) ) {
 		document.getElementById("password").style.border = "1px solid #B22746";
 		document.getElementById("password").style.boxShadow = "0 0 10px #B22746";                
 		document.getElementById("password").value = "";
