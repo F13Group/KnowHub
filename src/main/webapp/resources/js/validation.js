@@ -1,3 +1,7 @@
+function endsWith(str, suffix) {
+    return str.indexOf(suffix, str.length - suffix.length) != -1;
+}
+
 function showMessageLogin(message) {
 	devalidate();
 	$("#login-group").append("<div id=loginInstructions>" + message + "</div>");
@@ -52,17 +56,17 @@ function validateLogin(message1, message2) {
 		$("#login-group").after("<div class='error col-lg-offset-2' id=login-error>" + message2 + "</div>");            	
 		return false;
 	}
-	
-	var username = login.substr(0, login.indexOf("@epam.com"));
-	if (username.indexOf("_") <= 0) {
+		
+	var username = login.substr(0, login.length - "@epam.com".length);
+	if (username.indexOf("_") <= 0 || username.indexOf("@") > -1) {
 		document.getElementById("login").style.border = "1px solid #B22746";
 		document.getElementById("login").style.boxShadow = "0 0 10px #B22746";
 		$("#login-group").after("<div class='error col-lg-offset-2' id=login-error>" + message2 + "</div>");            	
 		return false;
 	}
 	
-	var firstname = login.substr(0, login.indexOf("_"));
-	var lastname = login.substr(login.indexOf("_")+1, login.indexOf("@")-login.indexOf("_")-1);
+	var firstname = username.substr(0, username.indexOf("_"));
+	var lastname = username.substr(username.indexOf("_") + 1, username.length);
 	var regexp = /((?=.*[~@#$%^\+\-\=\[\]\*\(\)\/\{\}\\\?\!\|\:\;\_\<\>/\s/]))/;
 	if( regexp.test(firstname) | regexp.test(lastname) ){
 		document.getElementById("login").style.border = "1px solid #B22746";

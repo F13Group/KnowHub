@@ -78,7 +78,7 @@
                     </div>
                     
                     <div class="row">
-                        <input type="submit" value="Create your account" class="col-lg-offset-2 btn" style=" color:white; border-color: #1A9CB0; background: #1A9CB0" onclick="return validateForm(errorLoginEmpty, errorLoginNotEmail, errorPasswordEmpty, errorPasswordBadlyFormed, errorPasswordTooLong, errorPassword2Empty, errorPassword2NoMatch, confirmDialogText);"/>
+                        <input type="submit" value="Create your account" class="col-lg-offset-2 btn" style=" color:white; border-color: #1A9CB0; background: #1A9CB0" onmouseover="this.style.backgroundColor='#A3C644'; this.style.borderColor='#A3C644'" onmouseout="this.style.backgroundColor='#1A9CB0'; this.style.borderColor='#1A9CB0'" onclick="return validateForm(errorLoginEmpty, errorLoginNotEmail, errorPasswordEmpty, errorPasswordBadlyFormed, errorPasswordTooLong, errorPassword2Empty, errorPassword2NoMatch, confirmDialogText);"/>
                     </div>
                 </div>
             </form:form> 
