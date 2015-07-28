@@ -219,6 +219,18 @@ margin-right: 1%;
   	outline:none;
 }
 
+.customeButton{
+	color:white; 
+	border-color: #1A9CB0; 
+	background: #1A9CB0;
+}
+
+.customeButtonOwer{
+	color:white; 
+	border-color: #A3C644; 
+	background: #A3C644;
+}
+
 /* table view  */
 .divTable{
   display:table;     

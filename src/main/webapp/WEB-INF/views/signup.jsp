@@ -56,7 +56,7 @@
                     <div class="form-group" id="login-group">
                         <label for="username" class="col-sm-2 control-label">Email:</label>
                         <div class="col-sm-2">
-                        	<form:input class="form-control" path="login" placeholder="user_name@epam.com" onfocus="showMessageLogin(loginInstructions)" onblur="validateLogin(errorLoginEmpty, errorLoginNotEmail)"/>
+                        	<form:input class="form-control" path="login" placeholder="name_surname@epam.com" onfocus="showMessageLogin(loginInstructions)" onblur="validateLogin(errorLoginEmpty, errorLoginNotEmail)"/>
                         </div>
                         <span class="error"><form:errors path="login" /></span>
                     </div>
@@ -78,7 +78,7 @@
                     </div>
                     
                     <div class="row">
-                        <input type="submit" value="Create your account" class="col-lg-offset-2 btn btn-success" onclick="return validateForm(errorLoginEmpty, errorLoginNotEmail, errorPasswordEmpty, errorPasswordBadlyFormed, errorPasswordTooLong, errorPassword2Empty, errorPassword2NoMatch, confirmDialogText);"/>
+                        <input type="submit" value="Create your account" class="col-lg-offset-2 btn" style=" color:white; border-color: #1A9CB0; background: #1A9CB0" onclick="return validateForm(errorLoginEmpty, errorLoginNotEmail, errorPasswordEmpty, errorPasswordBadlyFormed, errorPasswordTooLong, errorPassword2Empty, errorPassword2NoMatch, confirmDialogText);"/>
                     </div>
                 </div>
             </form:form> 
