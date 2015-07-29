@@ -33,7 +33,15 @@
 
 <body>
 
-<div class="navbar">
+	<div id="dialog-terms" title="TERMS OF AGREEMENT">
+		<p>
+			<span class="ui-icon ui-icon-alert"
+				style="float: left; margin: 0 7px 20px 0;"></span>
+			${fn:escapeXml(confirmDialogText)}
+		</p>
+	</div>
+
+	<div class="navbar">
 		<div class="navbar-inner">
 			<a class="brand" href="${pageContext.servletContext.contextPath}">KnowHub</a>
 			<ul class="nav">
@@ -92,15 +100,7 @@
 		<div class="container">
 			<p class="text-muted"></p>
 		</div>
-	</footer>
-
-	<div id="dialog-terms" title="TERMS OF AGREEMENT">
-		<p>
-			<span class="ui-icon ui-icon-alert"
-				style="float: left; margin: 0 7px 20px 0;"></span>
-				${fn:escapeXml(confirmDialogText)}
-		</p>
-	</div>
+	</footer>	
 
 	<script>		
 		var loginInstructions = "${fn:escapeXml(loginInstructions)}";
@@ -125,23 +125,35 @@
 			dialogClass: 'no-close',
 			resizable : false,
 			autoOpen : false,
-			height : 300,
-			width : 350,
+			height : 400,
+			width : 450,
 			modal : true,
 			closeOnEscape : false,
 			draggable : false,
-            resizable : false,
+		    resizable : false,
+		    create: function (e, ui) {
+		        var pane = $(this).dialog("widget").find(".ui-dialog-buttonpane");
+		        $("<label class='agree' ><input  type='checkbox'/> I agree</label>").prependTo(pane);
+		        $(":button:contains('Continue')").prop("disabled", true).addClass("ui-state-disabled");
+		    },
 			buttons : {
-				"Accept" : function() {					
+				"Continue" : function() {					
 					$(this).dialog("close");
 					document.getElementById("newUser").submit();
 				},
-				"Reject" : function() {					
+				"Cancel" : function() {					
 					$(this).dialog("close");
 				}
 			}
-		});		
+		});
 		
+		$(document).on("change", ".agree input", function () {
+			if (this.checked) {
+				$(":button:contains('Continue')").prop("disabled", false).removeClass("ui-state-disabled");
+			} else {
+				$(":button:contains('Continue')").prop("disabled", true).addClass("ui-state-disabled");
+			}
+		})
 	</script>
 	
 </body>

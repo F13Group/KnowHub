@@ -67,7 +67,7 @@ function validateLogin(message1, message2) {
 	
 	var firstname = username.substr(0, username.indexOf("_"));
 	var lastname = username.substr(username.indexOf("_") + 1, username.length);
-	var regexp = /((?=.*[~@#$%^\+\-\=\[\]\*\(\)\/\{\}\\\?\!\|\:\;\_\<\>/\s/]))/;
+	var regexp = /((?=.*[~@#$%^\.\,\+\-\=\[\]\*\(\)\/\{\}\\\?\!\|\:\;\_\<\>/\s/]))/;
 	if( regexp.test(firstname) | regexp.test(lastname) ){
 		document.getElementById("login").style.border = "1px solid #B22746";
 		document.getElementById("login").style.boxShadow = "0 0 10px #B22746";
@@ -174,14 +174,4 @@ function validateForm(messageLogin1, messageLogin2, messagePassword1, messagePas
 	$('div#dialog-terms').dialog('open');
 	
 	return false;
-}
-
-function confirmation(message) {
-	if (confirm(message)) {
-		return true;
-	} else {
-		document.getElementById("password").value = "";
-		document.getElementById("password2").value = "";
-		return false;
-	}
 }
