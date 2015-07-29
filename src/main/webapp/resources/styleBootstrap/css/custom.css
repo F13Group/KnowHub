@@ -23,6 +23,10 @@ body {
     margin-bottom: 15px;
 }
 
+.no-close .ui-dialog-titlebar-close {
+	display: none 
+}
+
 /*MAIN MENU */
 .navbar{
 	text-align: right;

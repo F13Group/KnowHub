@@ -170,8 +170,10 @@ function validateForm(messageLogin1, messageLogin2, messagePassword1, messagePas
 	if (!validatePassword2(messagePassword21, messagePassword22)) {
 		return false;
 	}
-
-	return confirmation(confirmationMessage);
+	
+	$('div#dialog-terms').dialog('open');
+	
+	return false;
 }
 
 function confirmation(message) {

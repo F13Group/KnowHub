@@ -19,10 +19,14 @@
 <!-- Custom styles for this template -->
 <link href="resources/styleBootstrap/css/custom.css" rel="stylesheet">
 
+<!-- JQuery style -->
+<link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet">
+
 <!-- JavaScripts -->
 <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
 <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 <script src="resources/js/validation.js"></script>
 
 </head>
@@ -89,7 +93,15 @@
 			<p class="text-muted"></p>
 		</div>
 	</footer>
-	
+
+	<div id="dialog-terms" title="TERMS OF AGREEMENT">
+		<p>
+			<span class="ui-icon ui-icon-alert"
+				style="float: left; margin: 0 7px 20px 0;"></span>
+				${fn:escapeXml(confirmDialogText)}
+		</p>
+	</div>
+
 	<script>		
 		var loginInstructions = "${fn:escapeXml(loginInstructions)}";
 		var passwordInstructions = "${fn:escapeXml(passwordInstructions)}";
@@ -106,8 +118,30 @@
 		$(document).ready(function() {			
 			<c:if test="${not empty signUpError}">
 				loginExists(errorLoginExistsAlready);
-			</c:if>
+			</c:if>			
 		});
+		
+		$("#dialog-terms").dialog({
+			dialogClass: 'no-close',
+			resizable : false,
+			autoOpen : false,
+			height : 300,
+			width : 350,
+			modal : true,
+			closeOnEscape : false,
+			draggable : false,
+            resizable : false,
+			buttons : {
+				"Accept" : function() {					
+					$(this).dialog("close");
+					document.getElementById("newUser").submit();
+				},
+				"Reject" : function() {					
+					$(this).dialog("close");
+				}
+			}
+		});		
+		
 	</script>
 	
 </body>
