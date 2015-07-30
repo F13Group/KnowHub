@@ -67,7 +67,7 @@ function validateLogin(message1, message2) {
 	
 	var firstname = login.substr(0, login.indexOf("_"));
 	var lastname = login.substr(login.indexOf("_") + 1, login.indexOf("@") - login.indexOf("_") - 1);
-	var regexp = /((?=.*[~@#$%^\"\'\.\,\+\=\[\]\*\(\)\/\{\}\\\?\!\|\:\;\_\<\>/\s\u0410-\u044f/]))/;
+	var regexp = /((?=.*[~@#$%^\"\'\.\,\+\=\[\]\*\(\)\/\{\}\\\?\!\|\:\;\_\<\>/\s\u0410-\u044f\u0401\u0451\u0404\u0454\u0406\u0456\u0407\u0457/]))/;
 	if(regexp.test(firstname) | regexp.test(lastname) 
 			| firstname.indexOf("-") == 0 | lastname.indexOf("-") == 0 
 			| endsWith(firstname, "-") | endsWith(lastname, "-")){
