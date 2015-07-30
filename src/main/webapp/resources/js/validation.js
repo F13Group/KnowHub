@@ -66,9 +66,11 @@ function validateLogin(message1, message2) {
 	}
 	
 	var firstname = login.substr(0, login.indexOf("_"));
-	var lastname = login.substr(login.indexOf("_")+1, login.indexOf("@")-login.indexOf("_")-1);
+	var lastname = login.substr(login.indexOf("_") + 1, login.indexOf("@") - login.indexOf("_") - 1);
 	var regexp = /((?=.*[~@#$%^\"\'\.\,\+\=\[\]\*\(\)\/\{\}\\\?\!\|\:\;\_\<\>/\s/]))/;
-	if( regexp.test(firstname) | regexp.test(lastname) ){
+	if(regexp.test(firstname) | regexp.test(lastname) 
+			| firstname.indexOf("-") == 0 | lastname.indexOf("-") == 0 
+			| endsWith(firstname, "-") | endsWith(lastname, "-")){
 		document.getElementById("login").style.border = "1px solid #B22746";
 		document.getElementById("login").style.boxShadow = "0 0 10px #B22746";
 		$("#login-group").after("<div class='error col-lg-offset-2' id=login-error>" + message2 + "</div>");            	
