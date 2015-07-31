@@ -67,11 +67,10 @@ function validateLogin(message1, message2) {
 	}
 	
 	var firstname = login.substr(0, login.indexOf("_"));
-	var lastname = login.substr(login.indexOf("_") + 1, login.indexOf("@") - login.indexOf("_") - 1);
-	var regexp = /((?=.*[~@#$%^\"\'\.\,\+\=\[\]\*\(\)\/\{\}\\\?\!\|\:\;\_\<\>/\s\u0410-\u044f\u0401\u0451\u0404\u0454\u0406\u0456\u0407\u0457/]))/;
-	if(regexp.test(firstname) | regexp.test(lastname) 
-			| firstname.indexOf("-") == 0 | lastname.indexOf("-") == 0 
-			| endsWith(firstname, "-") | endsWith(lastname, "-")){
+	var lastname = login.substr(login.indexOf("_") + 1, login.indexOf("@") - login.indexOf("_") - 1);	
+	var regexp_firstname = /(^[a-zA-Z]+[-]{0,1}[a-zA-Z]+$)/	
+	var regexp_lastname = /(^[a-zA-Z]+[-]{0,1}[a-zA-Z]+[0-9]*$)/;
+	if (!regexp_firstname.test(firstname) | !regexp_lastname.test(lastname)){
 		document.getElementById("login").style.border = "1px solid #B22746";
 		document.getElementById("login").style.boxShadow = "0 0 10px #B22746";
 		$("#login-group").after("<div class='error col-lg-offset-2' id=login-error>" + message2 + "</div>");            	
