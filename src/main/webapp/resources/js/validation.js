@@ -28,13 +28,14 @@ function showMessagePassword2() {
 	$("#password2-error").remove();
 }
 
-function devalidate() {
+function devalidate() {	
 	$('.form-control').removeAttr('style');
 	$( ".error" ).remove();
 }
 
 function validateLogin(message1, message2) {
 	hideMessageLogin();
+	devalidate();
 	
 	var login = document.forms["newUser"]["login"].value.toLowerCase();
 	
@@ -45,7 +46,7 @@ function validateLogin(message1, message2) {
 		return false;
 	}
 	
-	if (login.indexOf("@") <= 0) {
+	if (login.indexOf("@") < 0) {
 		login += "@epam.com";
 		document.getElementById("login").value = login;
 	}
@@ -86,13 +87,17 @@ function loginExists(message) {
 	$("#login-group").after("<div class='error col-lg-offset-2' id=login-error>" + message + "</div>");
 }
 
-function validatePassword(message1, message2, message3) {
+function validatePassword(message1, message2, message3) {	
 	hideMessagePassword();
+	if ($("#password-error")[0]) {
+		$('#password').removeAttr('style');
+		$("#password-error").remove();
+	}
 	
 	var login = document.forms["newUser"]["login"].value.toLowerCase();
 	var pass1 = document.forms["newUser"]["password"].value;
 	var firstname = login.substr(0, login.indexOf("_"));
-	var lastname = login.substr(login.indexOf("_")+1, login.indexOf("@")-login.indexOf("_")-1);
+	var lastname = login.substr(login.indexOf("_") + 1, login.indexOf("@")-login.indexOf("_") - 1);
 	
 	if (pass1 == null || pass1 == "") {		
 		document.getElementById("password").style.border = "1px solid #B22746";
