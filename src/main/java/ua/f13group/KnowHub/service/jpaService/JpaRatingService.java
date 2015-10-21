@@ -2,6 +2,7 @@ package ua.f13group.KnowHub.service.jpaService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ua.f13group.KnowHub.domain.Rating;
 import ua.f13group.KnowHub.repository.RatingRepository;
 import ua.f13group.KnowHub.service.RatingService;
 
@@ -13,6 +14,11 @@ public class JpaRatingService implements RatingService {
 
     @Autowired
     RatingRepository ratingRepository;
+
+    @Override
+    public Long save(Rating rating) {
+        return ratingRepository.save(rating);
+    }
 
     @Override
     public Boolean ifLiked(Long userId, Long questionId) {

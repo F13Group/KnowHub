@@ -1,6 +1,7 @@
 package ua.f13group.KnowHub.repository;
 
 import org.springframework.stereotype.Repository;
+import ua.f13group.KnowHub.domain.Rating;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,6 +15,12 @@ public class RatingRepositoryJPA implements RatingRepository {
 
     @PersistenceContext
     private EntityManager entityManager;
+
+    @Override
+    public Long save(Rating rating) {
+        entityManager.persist(rating);
+        return rating.getId();
+    }
 
     @Override
     public Boolean ifLiked(Long userId, Long questionId) {
