@@ -1,6 +1,7 @@
 package ua.f13group.KnowHub.repository;
 
 import ua.f13group.KnowHub.domain.Question;
+import ua.f13group.KnowHub.domain.Rating;
 import ua.f13group.KnowHub.domain.User;
 
 import java.util.List;
@@ -11,4 +12,5 @@ import java.util.List;
 public interface RatingRepository {
     public Boolean ifLiked(Long userId, Long questionId);
     public Long countLikesByQuestionId(Long questionId);
+    public Long save(Rating rating);
 }
