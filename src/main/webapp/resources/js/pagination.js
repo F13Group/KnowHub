@@ -35,6 +35,7 @@ function orderedBy(sortColumnIndex) {
 }
 
 
+
 function pageSizeChanged() {
 	displayPage("1");		
 }
