@@ -48,7 +48,7 @@
 				<div id="navLinks">
 					<div id="links">
 						<div class="nav-left">
-							<a href="">Sign up</a> <a href="">Log in</a> <a href="">Help</a>
+							<a href="/KnowHub">Home</a><a href="/KnowHub/signup">Sign up</a> <a class ="inactive" href="">Log in</a> <a href="">Help</a>
 						</div>
 					</div>
 				</div>
@@ -57,15 +57,42 @@
 	</div>
 
 	<div class="container">
-            <form class="login-form" action="j_spring_security_check" method="post">
-            
-                <input id="j_username" name="j_username" size="20" maxlength="30" type="text"  placeholder="username@epam.com"/>
-
-		<input id="j_password" name="j_password" size="20" maxlength="20" type="password" placeholder="password" />
-			
-		<input type="submit" value="login"/>
+ 		<form class="login-form" action="j_spring_security_check" method="post">
+                <div class="form-horizontal" >
+                    <div class="form-group" id="login-group">
+                        <label for="username" class="col-sm-2 control-label">Email:</label>
+                        <div class="col-sm-2">
+							<input id="j_username" name="username" size="20" maxlength="30" type="text"  placeholder="username@epam.com"/>                     
+						</div>
+         	        </div>
+                    <div class="form-group" id="password-group">
+                        <label for="password" class="col-sm-2 control-label">Password:</label>
+                        <div class="col-sm-2">
+							<input id="j_password" name="password" size="20" maxlength="20" type="password" placeholder="password" />                    
+					    </div>
+            	     </div>
                 
+ 					<div class="row">
+						<div class="checkbox">
+ 	 						<label class="col-sm-2 control-label row-label"><input type="checkbox" class="col-lg-offset-2 btn">Remember me</label>
+						</div>
+					</div>
+					<div class="row">
+						<input type="submit" value="Login" class="col-lg-offset-2 btn login-btn" style=" color:white; border-color: #1A9CB0; background: #1A9CB0" onmouseover="this.style.backgroundColor='#A3C644'; this.style.borderColor='#A3C644'" onmouseout="this.style.backgroundColor='#1A9CB0'; this.style.borderColor='#1A9CB0'"/>
+                	</div>
+                </div>
             </form>
+            
+            <div class="row separate">
+            	<label class="col-sm-2 control-label row-label"><a href="">Forgot your password?</a></label>
+            </div>
+            
+            <div class="row separate">
+            	<label class="col-sm-2 control-label row-label">Don't have an account?</label>
+            </div>
+            <div class="row">
+				<a href="/KnowHub/signup" class="col-lg-offset-2 btn login-btn" style=" color:white; border-color: #1A9CB0; background: #1A9CB0" onmouseover="this.style.backgroundColor='#A3C644'; this.style.borderColor='#A3C644'" onmouseout="this.style.backgroundColor='#1A9CB0'; this.style.borderColor='#1A9CB0'">Sign up</a>
+           	</div>
 	</div>	<!-- /.container -->
 	
 	<footer class="footer">
