@@ -71,6 +71,8 @@ public class User implements Serializable {
     @Column(name = "confirmed")
     private boolean confirmed = false;
 
+
+
     public User() {
     }
 
