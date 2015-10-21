@@ -1,5 +1,6 @@
 package ua.f13group.KnowHub.web.rest;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,8 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 import ua.f13group.KnowHub.domain.Category;
 import ua.f13group.KnowHub.domain.Question;
 import ua.f13group.KnowHub.domain.QuestionSortConfig;
+import ua.f13group.KnowHub.domain.Rating;
 import ua.f13group.KnowHub.service.QuestionService;
 import ua.f13group.KnowHub.service.RatingService;
+import ua.f13group.KnowHub.service.UserService;
 import ua.f13group.KnowHub.web.dto.PageMetadata;
 import ua.f13group.KnowHub.web.dto.QuestionFrequentAskedDTO;
 import ua.f13group.KnowHub.web.dto.QuestionMetadata;
@@ -25,9 +28,12 @@ public class QuestionController {
 
 	@Autowired
 	QuestionService questionService;
-	
+
 	@Autowired
 	RatingService ratingService;
+
+	@Autowired
+	UserService userService;
 
 	public static final String DEFAULT_ROWS_ON_PAGE_NUMBER = "7";
 	public static final String DEFAULT_CURRENT_PAGE_NUMBER = "1";
@@ -49,22 +55,31 @@ public class QuestionController {
 			@RequestParam(value = "currentPageNumber", required = false, defaultValue = DEFAULT_CURRENT_PAGE_NUMBER) Integer currentPageNumber,
 			@RequestParam(value = "rowsOnPageNumber", required = false, defaultValue = DEFAULT_ROWS_ON_PAGE_NUMBER) Integer rowsOnPageNumber,
 			@RequestParam(value = "sortColumnIndex", required = false, defaultValue = DEFAULT_SORT_COLUMN_INDEX) Integer sortColumnIndex,
-			@RequestParam(value = "userId", required = false) Long userId) {
-			
+			Principal principal) {		
+
+		boolean guestLogin = false;
+		Long userId = null;
+		if (principal == null) {
+			guestLogin = true;
+		} else {
+		String login = principal.getName();
+		userId = userService.getUserByLogin(login).getUserId();
+		}
 		List<Question> list = questionService.getQuestionsForPage(
 				rowsOnPageNumber,
 				currentPageNumber,
 				sortConfig(sortColumnIndex),
 				ascending(sortColumnIndex));
-		
+
 		List<QuestionFrequentAskedDTO> questionFrequentAskedUserList = new ArrayList<>(DEFAULT_LIST_SIZE);
-		
+		Boolean isAsked;
 		for (Question question : list) {
 			Long questionId = question.getId();
 			Long rating = ratingService.countLikesByQuestionId(questionId);
-			Boolean isAsked = null;			
-			isAsked = ratingService.ifLiked(userId, questionId);			
-			
+			isAsked = null;
+			if (!guestLogin) {
+				isAsked = ratingService.ifLiked(userId, questionId);			
+			} 
 			QuestionFrequentAskedDTO item = new QuestionFrequentAskedDTO(
 					questionId, 
 					question.getValue(),
@@ -75,7 +90,7 @@ public class QuestionController {
 					isAsked);
 			questionFrequentAskedUserList.add(item);
 		}
-		
+
 		return questionFrequentAskedUserList;		
 	}
 
@@ -85,8 +100,16 @@ public class QuestionController {
 			@RequestParam(value = "currentPageNumber", required = false, defaultValue = DEFAULT_CURRENT_PAGE_NUMBER) Integer currentPageNumber,
 			@RequestParam(value = "rowsOnPageNumber", required = false, defaultValue = DEFAULT_ROWS_ON_PAGE_NUMBER) Integer rowsOnPageNumber,
 			@RequestParam(value = "sortColumnIndex", required = false, defaultValue = DEFAULT_SORT_COLUMN_INDEX) Integer sortColumnIndex,
-			//added
-			@RequestParam(value = "userId", required = false) Long userId) {
+			Principal principal) {		
+
+		boolean guestLogin = false;
+		Long userId = null;
+		if (principal == null) {
+			guestLogin = true;
+		} else {
+		String login = principal.getName();
+		userId = userService.getUserByLogin(login).getUserId();
+		}
 		
 		List<Question> list = questionService.getQuestionsForPage(
 				new Category(categoryId),
@@ -94,15 +117,17 @@ public class QuestionController {
 				currentPageNumber,
 				sortConfig(sortColumnIndex),
 				ascending(sortColumnIndex));
-		
+
 		List<QuestionFrequentAskedDTO> questionFrequentAskedUserList = new ArrayList<>(DEFAULT_LIST_SIZE);
-		
+
 		for (Question question : list) {
 			Long questionId = question.getId();
 			Long rating = ratingService.countLikesByQuestionId(questionId);
 			Boolean isAsked = null;			
-			isAsked = ratingService.ifLiked(userId, questionId);			
-			
+			isAsked = null;
+			if (!guestLogin) {
+				isAsked = ratingService.ifLiked(userId, questionId);			
+			} 
 			QuestionFrequentAskedDTO item = new QuestionFrequentAskedDTO(
 					questionId, 
 					question.getValue(),
@@ -113,7 +138,7 @@ public class QuestionController {
 					isAsked);
 			questionFrequentAskedUserList.add(item);
 		}
-		
+
 		return questionFrequentAskedUserList;
 	}
 
@@ -124,6 +149,31 @@ public class QuestionController {
 	private boolean ascending(Integer sortColumnIndex) {
 		return sortColumnIndex < 0 ? false : true;
 	}
+
+	@RequestMapping(value = "/rate", method = RequestMethod.POST)
+	public Boolean rateQuestion(
+			Principal principal,
+			@RequestParam(value = "questionId", required = false) Long questionId){
+		
+		
+		Long userId = null;
+		if (principal == null) {
+			return false;
+		} else {
+		String login = principal.getName();
+		userId = userService.getUserByLogin(login).getUserId();
+		}
+		
+		if (questionId <= 0 ) {			
+			return false;
+		}
+
+		Rating rating = new Rating();
+		rating.setUserId(userId);
+		rating.setQuestionId(questionId);
+		ratingService.save(rating);		
+		return true;
+	}	
 
 	@RequestMapping(value = "/metadata", method = RequestMethod.POST)
 	public QuestionMetadata getMetadata(
