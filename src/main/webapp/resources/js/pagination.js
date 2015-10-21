@@ -10,8 +10,11 @@ var globalSortColumnIndex, globalSortDirection = -1;
 	
 var selectedCategoryId;
 
-//button for I WAS ASKED
-var was_asked_button = '<img id="was_asked_button" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRA895yQvOkgubmKkcXetwBi9Vf1sNW0YqvoeVeIeQGxEdVOhNG" width="30" height="20" onmouseover="mouseOverWasAskedButton()">';
+var globalData;
+
+function was_asked_button(questionId) {
+	return '<img id="was_asked_button" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRA895yQvOkgubmKkcXetwBi9Vf1sNW0YqvoeVeIeQGxEdVOhNG" width="30" height="20" onmouseover="mouseOverWasAskedButton(' + questionId + ')">'; 
+}
 
 
 function orderedBy(sortColumnIndex) {
@@ -59,7 +62,8 @@ function displayPage(currentPageNumber) {
 
 function outputQuestions(pC, cPN, rOPN) {	
 	$.post(globalQuestionUrl, {currentPageNumber: cPN, rowsOnPageNumber: rOPN, sortColumnIndex: globalSortColumnIndex*globalSortDirection })
-		.done(function(data) {			
+		.done(function(data) {
+			globalData = data;
 			$(".divRow").empty();
 			$("#pagingRow").show();
 			if (data.length == 0) {
@@ -87,7 +91,7 @@ function outputQuestions(pC, cPN, rOPN) {
 		           		value.value += "...";
 		           	}		          
  
-		           	$("<div class='divRow row'><div class='col-lg-6 col-md-6 col-sm-6 divQuestionColor divCell_2'>" + value.value + "</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Center'>" + value.category.shortValue + "</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Center'>" + date +"</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Center'>" + was_asked_button + "     " + value.rating +  "</div></div>").insertAfter("#headRow");
+		           	$("<div class='divRow row'><div class='col-lg-6 col-md-6 col-sm-6 divQuestionColor divCell_2'>" + value.value + "</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Center'>" + value.category.shortValue + "</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Center'>" + date + "</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Left'>" + was_asked_button(value.id) + " " + value.rating +  "</div></div>").insertAfter("#headRow");
 			});
 		}						
 	});
@@ -126,21 +130,18 @@ $(document).ready(function() {
 });
 
 
-function mouseOverWasAskedButton(){
-	//check if user had not already voted for this question
- 
+function mouseOverWasAskedButton(questionId){	
+	//check if user had already voted for this question-method post to controller
+	
 	$(document).ready(function(){
 	 $("[id^=was_asked_button]").tooltip({
 		 title: "Please click on this icon if you also have been asked the question.",
-		 placement: "left", 
+		 placement: "right", 
 		 trigger: "hover", 
-		 delay: {show: 10, hide: 300}
+		 delay: {show: 10, hide: 700}
       }
     )
   });
-
-
-
 }
 
 
@@ -148,8 +149,6 @@ function incrementQuestionScoreWasAskedButton(){
 	//check if user had already voted for this question
 	
 	// if not - send request to server to increment counter
-	
-	
 	
 	//if yes - Then a number will not change and remain the same/  a popup notification appears with the following text: 
 	//"Thank you for scoring the question! Please note that you can score the question only once." 
