@@ -10,6 +10,10 @@ var globalSortColumnIndex, globalSortDirection = -1;
 	
 var selectedCategoryId;
 
+//button for I WAS ASKED
+var was_asked_button = '<img id="was_asked_button" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRA895yQvOkgubmKkcXetwBi9Vf1sNW0YqvoeVeIeQGxEdVOhNG" width="30" height="20" onmouseover="mouseOverWasAskedButton()">';
+
+
 function orderedBy(sortColumnIndex) {
 	if (globalSortColumnIndex == sortColumnIndex) {
 		globalSortDirection *= -1;
@@ -76,11 +80,14 @@ function outputQuestions(pC, cPN, rOPN) {
 		            	mm = '0' + mm;
 		           	}
 		           	var date = dd+'/'+mm+'/'+yyyy;
+		           
+		           	
 		           	if(value.value.length > 70){
 		           		value.value = value.value.substring(0,65);
 		           		value.value += "...";
-		           	}
-		           	$("<div class='divRow row'><div class='col-lg-6 col-md-6 col-sm-6 divQuestionColor divCell_2'>" + value.value + "</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Center'>" + value.category.shortValue + "</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Center'>" + date +"</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Center'>" + value.rating + "</div></div>").insertAfter("#headRow");
+		           	}		          
+ 
+		           	$("<div class='divRow row'><div class='col-lg-6 col-md-6 col-sm-6 divQuestionColor divCell_2'>" + value.value + "</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Center'>" + value.category.shortValue + "</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Center'>" + date +"</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Center'>" + was_asked_button + "     " + value.rating +  "</div></div>").insertAfter("#headRow");
 			});
 		}						
 	});
@@ -117,6 +124,38 @@ $(document).ready(function() {
 	
 	displayPage("1");					
 });
+
+
+function mouseOverWasAskedButton(){
+	//check if user had not already voted for this question
+ 
+	$(document).ready(function(){
+	 $("[id^=was_asked_button]").tooltip({
+		 title: "Please click on this icon if you also have been asked the question.",
+		 placement: "left", 
+		 trigger: "hover", 
+		 delay: {show: 10, hide: 300}
+      }
+    )
+  });
+
+
+
+}
+
+
+function incrementQuestionScoreWasAskedButton(){
+	//check if user had already voted for this question
+	
+	// if not - send request to server to increment counter
+	
+	
+	
+	//if yes - Then a number will not change and remain the same/  a popup notification appears with the following text: 
+	//"Thank you for scoring the question! Please note that you can score the question only once." 
+	//if increment did happen, than - displayPage(current page number)
+}
+
 
 function switchCategoryButtonOver(categoryId, isMouseOver) {
 	if (Number(categoryId) == window.selectedCategoryId) {

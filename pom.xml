@@ -236,6 +236,7 @@
                     <update>true</update>
                     <url>http://epuakyiw1793t6.kyiv.epam.com:8085/manager/text</url>           
                     <path>/knowhub</path>
+                    <port>8892</port>
                 </configuration>
             </plugin>
     
