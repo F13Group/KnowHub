@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceAware;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,9 +47,6 @@ public class SignUpController implements MessageSourceAware {
 	
     @Autowired
     private UserService userService;
-    
-    @Autowired
-    private ShaPasswordEncoder passwordEncoder;
     
     private void addMessages(ModelAndView model) {
     	model.addObject("loginInstructions",
@@ -131,7 +130,9 @@ public class SignUpController implements MessageSourceAware {
             	return model;
             }
             
-            newUser.setPassword(passwordEncoder.encodePassword(newUser.getPassword(), newUser.getLogin()));
+            //done by Oleksandr
+            PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
             newUser.setPassword2(null);
             
             if (user !=null && user.isConfirmed() == false){

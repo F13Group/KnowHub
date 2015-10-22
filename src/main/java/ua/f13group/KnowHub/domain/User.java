@@ -49,11 +49,11 @@ public class User implements Serializable {
     private String login;
     
     @NotNull
-    @Size(min = 1, max = 50)
+    @Size(min = 1, max = 64)
     @Column(name = "password")
     private String password;
     
-    @Size(min = 1, max = 50)
+    @Size(min = 1, max = 64)
     @Transient
     private String password2;
    
