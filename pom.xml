@@ -33,7 +33,15 @@
                     <version>1.10.19</version>
                     <scope>test</scope>
                 </dependency>
-                    <!-- Json processing -->
+                
+                <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>4.0.0.RELEASE</version>
+            <scope>test</scope>
+        </dependency>
+        
+        <!-- Json processing -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
