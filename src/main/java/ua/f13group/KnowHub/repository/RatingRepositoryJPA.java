@@ -6,6 +6,7 @@ import ua.f13group.KnowHub.domain.Rating;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 
 /**
  * Created by dennis on 10/20/2015.
@@ -17,6 +18,7 @@ public class RatingRepositoryJPA implements RatingRepository {
     private EntityManager entityManager;
 
     @Override
+    @Transactional
     public Long save(Rating rating) {
         entityManager.persist(rating);
         return rating.getId();
