@@ -18,19 +18,17 @@
          <!-- <intercept-url pattern="/questions/metadata*" access="ROLE_ANONYMOUS"/> --> 
          <!-- <intercept-url pattern='/' access="hasRole('ROLE_STUDENT')" /> -->
         
-        <form-login   
-        default-target-url="/"
-        />      
-                <!--login-page="login"    
-                default-target-url="/"
-                username-parameter="username"
-                password-parameter="password" /> 
-                authentication-failure-url="/login.html?error=true"-->
-
-		<logout />
-        <!--<logout logout-success-url="/login?logout" />--> 
         
-        <!-- csrf disabled due to java script for question data needs -->    
+        
+        
+        <form-login 
+		    login-page="/login.jsp" 
+		    default-target-url="/" 
+			authentication-failure-url="/login?error" 
+			username-parameter="username"
+			password-parameter="password" />
+		<logout logout-success-url="/login?logout" />
+   
         <csrf disabled="true"/>
     </http>
     

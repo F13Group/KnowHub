@@ -57,7 +57,7 @@
 	</div>
 
 	<div class="container">
- 		<form class="login-form" action="j_spring_security_check" method="post">
+ 		<form class="login-form" action="login" method="post">
                 <div class="form-horizontal" >
                     <div class="form-group" id="login-group">
                         <label for="username" class="col-sm-2 control-label">Email:</label>
