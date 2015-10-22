@@ -10,6 +10,7 @@
 <title>KNOW HUB</title>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 
 <!-- Bootstrap core CSS -->
@@ -33,10 +34,10 @@
 		<div class="navbar-inner">
 			<a class="brand" href="${pageContext.servletContext.contextPath}">KnowHub</a>
 			<ul class="nav">
-				<li class="inactive"><a href="">My Question list</a></li>
+				<li <sec:authorize access="isAnonymous()">class="inactive"</sec:authorize>><a href="">My Question list</a></li>
 				<li><a href="">Tags</a></li>
-				<li class="inactive"><a href="">My Bookmarks</a></li>
-				<li class="inactive"><a href="">Add Question</a></li>
+				<li <sec:authorize access="isAnonymous()">class="inactive"</sec:authorize>><a href="">My Bookmarks</a></li>
+				<li <sec:authorize access="isAnonymous()">class="inactive"</sec:authorize>><a href="">Add Question</a></li>
 				<div id="navLinks">
 					<div id="links">
 						<div class="nav-left">

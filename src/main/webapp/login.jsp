@@ -48,7 +48,7 @@
 				<div id="navLinks">
 					<div id="links">
 						<div class="nav-left">
-							<a href="/KnowHub">Home</a><a href="/KnowHub/signup">Sign up</a> <a class ="inactive" href="">Log in</a> <a href="">Help</a>
+							<a href="${pageContext.servletContext.contextPath}">Home</a><a href="/KnowHub/signup">Sign up</a> <a class ="inactive" href="">Log in</a> <a href="">Help</a>
 						</div>
 					</div>
 				</div>
