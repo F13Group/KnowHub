@@ -42,9 +42,17 @@
 				<li <sec:authorize access="isAnonymous()">class="inactive"</sec:authorize>><a href="">Add Question</a></li>
 				<div id="navLinks">
 					<div id="links">
-						<div class="nav-left">
+					<div class="nav-left">
+						<sec:authorize access="isAuthenticated()">
+							<a id="userName" href="" class="inactive"><sec:authentication property="principal.username" /></a>
+						</sec:authorize>
+						<sec:authorize access="isAnonymous()">
 							<a href="signup">Sign up</a>
 							<a href="login.jsp">Log in</a>
+						</sec:authorize>
+						<sec:authorize access="isAuthenticated()">
+							<a href="">Log off</a>
+						</sec:authorize>
 							<a href="">Help</a>
 						</div>
 					</div>

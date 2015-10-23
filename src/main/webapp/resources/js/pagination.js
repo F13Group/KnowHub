@@ -13,6 +13,8 @@ var selectedCategoryId;
 var globalData;
 var currentPage;
 
+var globalUserName;
+
 function was_asked_button(questionId, isAsked) {
 	return '<img id="was_asked_button" src="resources/img/rate.png" width="30" height="20" onclick="incrementQuestionRating('+ questionId + ', '+ isAsked+')"  onmouseover="mouseOverWasAskedButton( '+ questionId + ', '+ isAsked+')">';
 }
@@ -101,9 +103,21 @@ function outputQuestions(pC, cPN, rOPN) {
 		
 	pagination(pC, cPN, rOPN);
 };
+
 	
 $(document).ready(function() {
+	
+	var userName = $("#userName").html();
+	if (userName) {
+		userName = userName.split("@");
+		userName = userName[0].replace("_", " ");	
 		
+		$("#userName").empty();
+		$("#userName").append(userName);
+		
+		globalUserName = userName;
+	}
+	
 	window.selectedCategoryId = -1;
 	globalSortColumnIndex = 1;
 	globalSortDirectionAsc = -1;

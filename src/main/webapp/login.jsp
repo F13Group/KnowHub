@@ -32,14 +32,13 @@
 
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script src="resources/js/pagination.js"></script>
 </head>
 
 <body>
 
 <div class="navbar">
 		<div class="navbar-inner">
-			<a class="brand" href="">KnowHub</a>
+			<a class="brand" href="${pageContext.servletContext.contextPath}">KnowHub</a>
 			<ul class="nav">
 				<li class="inactive hidden"><a href="">My Question list</a></li>
                                 <li class="hidden"><a href="">Tags</a></li>
@@ -48,7 +47,8 @@
 				<div id="navLinks">
 					<div id="links">
 						<div class="nav-left">
-							<a href="${pageContext.servletContext.contextPath}">Home</a><a href="/KnowHub/signup">Sign up</a> <a class ="inactive" href="">Log in</a> <a href="">Help</a>
+							<!-- <a href="${pageContext.servletContext.contextPath}">Home</a>-->
+							<a href="/KnowHub/signup">Sign up</a> <a class ="inactive" href="">Log in</a> <a href="">Help</a>
 						</div>
 					</div>
 				</div>
