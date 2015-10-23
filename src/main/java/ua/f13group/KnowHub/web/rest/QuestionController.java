@@ -76,7 +76,7 @@ public class QuestionController {
 		for (Question question : list) {
 			Long questionId = question.getId();
 			Long rating = ratingService.countLikesByQuestionId(questionId);
-			isAsked = null;
+			isAsked = false;
 			if (!guestLogin) {
 				isAsked = ratingService.ifLiked(userId, questionId);			
 			} 
@@ -119,12 +119,11 @@ public class QuestionController {
 				ascending(sortColumnIndex));
 
 		List<QuestionFrequentAskedDTO> questionFrequentAskedUserList = new ArrayList<>(DEFAULT_LIST_SIZE);
-
+		Boolean isAsked;
 		for (Question question : list) {
 			Long questionId = question.getId();
 			Long rating = ratingService.countLikesByQuestionId(questionId);
-			Boolean isAsked = null;			
-			isAsked = null;
+			isAsked = false;
 			if (!guestLogin) {
 				isAsked = ratingService.ifLiked(userId, questionId);			
 			} 
@@ -150,7 +149,7 @@ public class QuestionController {
 		return sortColumnIndex < 0 ? false : true;
 	}
 
-	@RequestMapping(value = "/rate", method = RequestMethod.POST)
+	@RequestMapping(value = {"/rate", "/categories/{categoryId}/rate"}, method = RequestMethod.POST)
 	public Boolean rateQuestion(
 			Principal principal,
 			@RequestParam(value = "questionId", required = false) Long questionId){
