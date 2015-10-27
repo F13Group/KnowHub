@@ -102,7 +102,13 @@
 					</div>
 					<span class="error"><form:errors path="password" cssStyle="color: red;"/></span>
 				</div>
-
+				
+				<div class="row">
+					<div class="checkbox">
+ 	 					<label class="col-sm-2 control-label row-label"><input type="checkbox" class="col-lg-offset-2 btn">Remember me</label>
+					</div>
+				</div>
+					
 				<div class="row">
 					<input name="submit" type="submit" value="Login"
 						class="col-lg-offset-2 btn"
@@ -110,6 +116,19 @@
 						onmouseover="this.style.backgroundColor='#A3C644'; this.style.borderColor='#A3C644'"
 						onmouseout="this.style.backgroundColor='#1A9CB0'; this.style.borderColor='#1A9CB0'" />
 				</div>
+				
+				<div class="row separate">
+            		<label class="col-sm-2 control-label row-label"><a href="">Forgot your password?</a></label>
+            	</div>
+            
+            	<div class="row separate">
+            		<label class="col-sm-2 control-label row-label">Don't have an account?</label>
+            	</div>
+            	
+	            <div class="row">
+					<a href="/knowhub/signup" class="col-lg-offset-2 btn login-btn" style=" color:white; border-color: #1A9CB0; background: #1A9CB0" onmouseover="this.style.backgroundColor='#A3C644'; this.style.borderColor='#A3C644'" onmouseout="this.style.backgroundColor='#1A9CB0'; this.style.borderColor='#1A9CB0'">Sign up</a>
+	           	</div>
+	           	
 				<input type="hidden" name="${_csrf.parameterName}"
 					value="${_csrf.token}" />
 			

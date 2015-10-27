@@ -17,7 +17,7 @@ public abstract class AbstractSignUpController implements MessageSourceAware {
 		this.messageSource = messageSource;
 	}
 
-	public boolean checkWithRegExp(String string, String regexp) {
+	protected boolean checkWithRegExp(String string, String regexp) {
 		Pattern p = Pattern.compile(regexp);
 		Matcher m = p.matcher(string);
 		return m.matches();
