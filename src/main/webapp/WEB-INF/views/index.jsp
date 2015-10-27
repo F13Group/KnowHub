@@ -48,10 +48,10 @@
 						</sec:authorize>
 						<sec:authorize access="isAnonymous()">
 							<a href="signup">Sign up</a>
-							<a href="login.jsp">Log in</a>
+							<a href="login">Log in</a>
 						</sec:authorize>
 						<sec:authorize access="isAuthenticated()">
-							<a href="">Log off</a>
+							<a href="logout">Log off</a>
 						</sec:authorize>
 							<a href="">Help</a>
 						</div>

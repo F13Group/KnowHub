@@ -22,7 +22,7 @@
         
         
         <form-login 
-		    login-page="/login.jsp" 
+		    login-page="/login" 
 		    default-target-url="/" 
 			authentication-failure-url="/login?error" 
 			username-parameter="username"
