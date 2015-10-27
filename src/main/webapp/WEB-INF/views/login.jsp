@@ -14,8 +14,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
+
 <!-- Bootstrap core CSS -->
-<link href="resources/styleBootstrap/css/bootstrap.min.css"
+ <link href="resources/styleBootstrap/css/bootstrap.min.css"
 	rel="stylesheet">
 
 <!-- Custom styles for this template -->
@@ -34,18 +35,13 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 <script src="resources/js/validation.js"></script>
-
+    <!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script type="text/javascript"
+            src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.14.0/jquery.validate.min.js"></script>
 </head>
 
 <body>
-
-	<%-- 	<div id="dialog-terms" title="TERMS OF AGREEMENT">
-		<p>
-			<span class="ui-icon ui-icon-alert"
-				style="float: left; margin: 0 7px 20px 0;"></span>
-			${fn:escapeXml(confirmDialogText)}
-		</p>
-	</div> --%>
 
 	<div class="navbar">
 		<div class="navbar-inner">
@@ -68,59 +64,55 @@
 	</div>
 
 	<div class="container">
-		<form:form name='loginForm' commandName="newUser" method='POST'>
-			<div class="form-horizontal">
-				<!-- <table>
-			<tr>
-				<td>User:</td>
-				<td><input type='text' name='username' value=''></td>
-			</tr>
-			<tr>
-				<td>Password:</td>
-				<td><input type='password' name='password' /></td>
-			</tr>
-			<tr>
-				<td colspan='2'><input name="submit" type="submit"
-					value="submit" /></td>
-			</tr>
-		  </table> -->
+		<form:form name='loginForm' commandName="newUser" method='POST' cssClass="form-horizontal registrationForm" class="form-signin">
+
+
 				<c:if test="${not empty error}">
-					<div class="error">${error}</div>
+				    <div class="alert alert-danger alert-dismissible" role="alert">
+				        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+				                aria-hidden="true">&times;</span></button>
+				        <strong>Warning!</strong> ${error}
+				    </div>
 				</c:if>
 				
-				<div class="form-group" id="login-group">
+				<c:if test="${not empty message}">
+    				<div class="alert alert-info alert-dismissible" role="alert">
+        				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                			aria-hidden="true">&times;</span></button>
+        				<strong> ${message}</strong>
+    				</div>
+				</c:if>
+				
+				<div class="form-group"  id="login-group">
 					<label for="username" class="col-sm-2 control-label">Email:</label>
 					<div class="col-sm-2">
 						<input id="username" name="username" type="text"
 							class="form-control" placeholder="name_surname@epam.com"
-							onfocus="showMessageLogin(loginInstructions)"
-							onblur="validateLogin(errorLoginEmpty, errorLoginNotEmail)" />
+							onfocus="showMessageLogin(loginInstructions)" onblur="validateLogin(errorLoginEmpty, errorLoginNotEmail)" 
+							/>
 					</div>
-					<span class="error"><form:errors path="login" /></span>
+					<span class="error"><form:errors path="login" cssStyle="color: red;"/></span>
 				</div>
 
 				<div class="form-group" id="password-group">
 					<label for="password" class="col-sm-2 control-label">Password:</label>
-					<div class="col-sm-2">
+					<div class="col-sm-2" >
 						<input id="password" name="password" type="password"
-							class="form-control" placeholder="Enter your password"
-							onfocus="showMessagePassword(passwordInstructions)"
-							onblur="validatePassword(errorPasswordEmpty, errorPasswordBadlyFormed, errorPasswordTooLong)" />
+							class="form-control" placeholder="Enter your password"/> 
 					</div>
-					<span class="error"><form:errors path="password" /></span>
+					<span class="error"><form:errors path="password" cssStyle="color: red;"/></span>
 				</div>
 
 				<div class="row">
-					<input name="submit" type="submit" value="submit"
+					<input name="submit" type="submit" value="Login"
 						class="col-lg-offset-2 btn"
 						style="color: white; border-color: #1A9CB0; background: #1A9CB0"
 						onmouseover="this.style.backgroundColor='#A3C644'; this.style.borderColor='#A3C644'"
 						onmouseout="this.style.backgroundColor='#1A9CB0'; this.style.borderColor='#1A9CB0'" />
 				</div>
-				<!-- onclick="return validateForm(errorLoginEmpty, errorLoginNotEmail, errorPasswordEmpty, errorPasswordBadlyFormed, errorPasswordTooLong, errorPassword2Empty, errorPassword2NoMatch, confirmDialogText);" -->
 				<input type="hidden" name="${_csrf.parameterName}"
 					value="${_csrf.token}" />
-			</div>
+			
 		</form:form>
 	</div>
 	<!-- /.container -->
@@ -148,7 +140,41 @@
 			<c:if test="${not empty signUpError}">
 			loginExists(errorLoginExistsAlready);
 			</c:if>
-		});
+		
+			$.validator.addMethod("customemail",
+	                function (value, element) {
+	                    return /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(value);
+	                },
+	                "Please input valid email"
+	        );
+ 			
+			$(".registrationForm").validate(
+	                {
+	                    rules: {
+	                        username: {
+	                        	required: {
+	                                depends: function () {
+	                                    $(this).val($.trim($(this).val()));
+	                                    return true;
+	                                }
+	                            },
+	                            customemail: true
+	                        },
+
+	                        password: {
+	                            required: true,
+	                            minlength: 7
+	                        },
+	                    },
+	                    highlight: function (element) {
+	                        $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+	                    },
+	                    unhighlight: function (element) {
+	                        $(element).closest('.form-group').removeClass('has-error').addClass('has-success');
+	                    },
+	                });
+		}); 
+		
 	</script>
 
 </body>
