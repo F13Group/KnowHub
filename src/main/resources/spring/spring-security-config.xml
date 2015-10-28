@@ -14,13 +14,7 @@
       
     <http auto-config="true">
     <intercept-url pattern="/**" access="permitAll" />
-        <!-- <intercept-url pattern="/**" access="hasRole('ROLE_ANONYMOUS', 'ROLE_STUDENT')" /> -->
-         <!-- <intercept-url pattern="/questions/metadata*" access="ROLE_ANONYMOUS"/> --> 
-         <!-- <intercept-url pattern='/' access="hasRole('ROLE_STUDENT')" /> -->
-        
-        
-        
-        
+
         <form-login 
 		    login-page="/login" 
 		    default-target-url="/" 
@@ -34,17 +28,12 @@
     
     <authentication-manager>
         <authentication-provider>
-        <!-- <user-service>
-                <user name="testuser" password="123" authorities="ROLE_STUDENT, ROLE_ADMIN" />
-                <user name="bob" password="456" authorities="ROLE_STUDENT" />
-            </user-service>-->
-        	
         	<password-encoder ref="encoder">
             </password-encoder>
-            
+            <!-- case insensitive queries -->
             <jdbc-user-service data-source-ref="dataSource"
-            users-by-username-query="select login as username, password as password, 'true' as enabled from users where login=?"
-            authorities-by-username-query="select login as username, 'ROLE_STUDENT' as authorities from users where login = ?"/>
+            users-by-username-query="select login as username, password as password, 'true' as enabled from users where login=lower(?)"
+            authorities-by-username-query="select login as username, 'ROLE_STUDENT' as authorities from users where login=lower(?)"/>
         </authentication-provider>
     </authentication-manager>
        

@@ -95,7 +95,7 @@
 				<div class="form-group" id="password-group">
 					<label for="password" class="col-sm-2 control-label">Password:</label>
 					<div class="col-sm-2" >
-						<form:input path="password" type="password"
+						<form:input path="password" type="password" 
 							class="form-control " placeholder="Enter your password"/> 
 						<form:errors path="password" cssStyle="color: red;"/>
 					</div>
