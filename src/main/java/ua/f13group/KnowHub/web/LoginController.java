@@ -25,16 +25,13 @@ public class LoginController extends AbstractSignUpController {
 		
 		addMessages(model);
 		if (error != null) {
-			logger.info("if error - " + error);
 			model.addObject("error", messageSource.getMessage("error.loginpage.wrongLoginOrPassword", null, null));
 		}
 		
 		if (logout != null) {
-			logger.info("if logout - " + logout);
 			model.addObject("message", messageSource.getMessage("info.loginpage.logoutSuccessful", null, null));
 		}
 		
-		logger.info("/login");
 		model.addObject("newUser", new User());
 		model.setViewName("login");
 		return model;
