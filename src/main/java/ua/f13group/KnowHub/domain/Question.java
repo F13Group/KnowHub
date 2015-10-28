@@ -49,9 +49,9 @@ public class Question implements Serializable {
 	String value;
 	@Column(name = "load_date")
 	Timestamp loadDate;
-	Long rating;
-	@Column(name = "user_id")
-	Long userId;
+//	Long rating;
+//	@Column(name = "user_id")
+//	Long userId;
 
 	//@ManyToMany(fetch = FetchType.EAGER)
 	// @LazyCollection(LazyCollectionOption.FALSE)
@@ -64,6 +64,11 @@ public class Question implements Serializable {
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "question_tags", joinColumns = { @JoinColumn(name = "question_id") }, inverseJoinColumns = { @JoinColumn(name = "tag_id") })
 	private List<Tag> tags;
+
+//	@ManyToMany(fetch = FetchType.EAGER)
+//	@JoinTable(name = "ratings", joinColumns = { @JoinColumn(name = "question_id") }, inverseJoinColumns = {
+//			@JoinColumn(name = "user_id") })
+//	private List<User> users;
 
 	public Question() {
 	}
@@ -92,21 +97,21 @@ public class Question implements Serializable {
 		this.loadDate = loadDate;
 	}
 
-	public Long getRating() {
-		return rating;
-	}
-
-	public void setRating(Long rating) {
-		this.rating = rating;
-	}
-
-	public Long getUserId() {
-		return userId;
-	}
-
-	public void setUserId(Long userId) {
-		this.userId = userId;
-	}
+//	public Long getRating() {
+//		return rating;
+//	}
+//
+//	public void setRating(Long rating) {
+//		this.rating = rating;
+//	}
+//
+//	public Long getUserId() {
+//		return userId;
+//	}
+//
+//	public void setUserId(Long userId) {
+//		this.userId = userId;
+//	}
 
 //	public List<Category> getCategories() {
 //		return categories;
@@ -131,53 +136,5 @@ public class Question implements Serializable {
 		this.tags = tags;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result
-				+ ((loadDate == null) ? 0 : loadDate.hashCode());
-		result = prime * result + ((rating == null) ? 0 : rating.hashCode());
-		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
-		result = prime * result + ((value == null) ? 0 : value.hashCode());
-		return result;
-	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (!(obj instanceof Question))
-			return false;
-		Question other = (Question) obj;
-		if (loadDate == null) {
-			if (other.loadDate != null)
-				return false;
-		} else if (!loadDate.equals(other.loadDate))
-			return false;
-		if (rating == null) {
-			if (other.rating != null)
-				return false;
-		} else if (!rating.equals(other.rating))
-			return false;
-		if (userId == null) {
-			if (other.userId != null)
-				return false;
-		} else if (!userId.equals(other.userId))
-			return false;
-		if (value == null) {
-			if (other.value != null)
-				return false;
-		} else if (!value.equals(other.value))
-			return false;
-		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "Question [id=" + id + ", value=" + value + ", loadDate="
-				+ loadDate + ", rating=" + rating + ", userId=" + userId + "]";
-	}
 }

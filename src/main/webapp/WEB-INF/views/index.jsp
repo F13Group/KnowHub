@@ -10,6 +10,7 @@
 <title>KNOW HUB</title>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 
 <!-- Bootstrap core CSS -->
@@ -23,7 +24,9 @@
 
 <!-- JavaScripts -->
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script src="resources/js/pagination.js"></script>
 </head>
 
@@ -33,15 +36,23 @@
 		<div class="navbar-inner">
 			<a class="brand" href="${pageContext.servletContext.contextPath}">KnowHub</a>
 			<ul class="nav">
-				<li class="inactive"><a href="">My Question list</a></li>
+				<li <sec:authorize access="isAnonymous()">class="inactive"</sec:authorize>><a href="">My Question list</a></li>
 				<li><a href="">Tags</a></li>
-				<li class="inactive"><a href="">My Bookmarks</a></li>
-				<li class="inactive"><a href="">Add Question</a></li>
+				<li <sec:authorize access="isAnonymous()">class="inactive"</sec:authorize>><a href="">My Bookmarks</a></li>
+				<li <sec:authorize access="isAnonymous()">class="inactive"</sec:authorize>><a href="">Add Question</a></li>
 				<div id="navLinks">
 					<div id="links">
-						<div class="nav-left">
+					<div class="nav-left">
+						<sec:authorize access="isAuthenticated()">
+							<a id="userName" href="" class="inactive"><sec:authentication property="principal.username" /></a>
+						</sec:authorize>
+						<sec:authorize access="isAnonymous()">
 							<a href="signup">Sign up</a>
-							<a href="">Log in</a>
+							<a href="login">Log in</a>
+						</sec:authorize>
+						<sec:authorize access="isAuthenticated()">
+							<a href="logout">Log off</a>
+						</sec:authorize>
 							<a href="">Help</a>
 						</div>
 					</div>
@@ -60,9 +71,12 @@
 				<div class="row">
 				<div  id="headRow" class="headRow" >
 					<div class="divCell_header col-lg-6 col-md-6 col-sm-6">Question</div>
-					<div class="divCell_header col-lg-2 col-md-2 col-sm-2">Category  <input type="button" id="buttonOrderBy2" class="change_order_sign" value="&#x25AD;" onclick="orderedBy(2)"></div>
-					<div class="divCell_header col-lg-2 col-md-2 col-sm-2">Date  <input type="button" id="buttonOrderBy1" class="change_order_sign" value="&#x25BC;" onclick="orderedBy(1)"></div>
-					<div class="divCell_header col-lg-2 col-md-2 col-sm-2">Frequently asked  <input type="button" id="buttonOrderBy3" class="change_order_sign" value="&#x25AD;" onclick="orderedBy(3)"></div>
+					<div class="divCell_header <sec:authorize access="isAuthenticated()">col-lg-1</sec:authorize><sec:authorize access="isAnonymous()">col-lg-2</sec:authorize> col-md-2 col-sm-2">Category  <input type="button" id="buttonOrderBy2" class="change_order_sign" value="&#x25AD;" onclick="orderedBy(2)"></div>
+					<div class="divCell_header <sec:authorize access="isAuthenticated()">col-lg-1</sec:authorize><sec:authorize access="isAnonymous()">col-lg-2</sec:authorize> col-md-2 col-sm-2">Date  <input type="button" id="buttonOrderBy1" class="change_order_sign" value="&#x25BC;" onclick="orderedBy(1)"></div>
+					<div class="divCell_header col-lg-2 col-md-2 col-sm-2">Frequently Asked  <input type="button" id="buttonOrderBy3" class="change_order_sign" value="&#x25AD;" onclick="orderedBy(3)"></div>
+					<sec:authorize access="isAuthenticated()">
+					<div class="divCell_header col-lg-2 col-md-2 col-sm-2">My Bookmarks  <input type="button" id="buttonOrderBy4" class="change_order_sign" value="&#x25AD;" onclick="orderedBy(4)"></div>
+					</sec:authorize>
 				</div>
 				</div>
 			</div>
