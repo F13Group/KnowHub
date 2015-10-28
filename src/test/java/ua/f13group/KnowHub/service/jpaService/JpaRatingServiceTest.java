@@ -1,12 +1,13 @@
 package ua.f13group.KnowHub.service.jpaService;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import ua.f13group.KnowHub.service.RatingService;
 
+import ua.f13group.KnowHub.service.RatingService;
 import static org.junit.Assert.*;
 
 /**
@@ -18,7 +19,8 @@ public class JpaRatingServiceTest {
 
     @Autowired
     RatingService ratingService;
-
+    
+    @Ignore
     @Test
     public void testIfLiked() throws Exception {
 
@@ -28,7 +30,8 @@ public class JpaRatingServiceTest {
 
 
     }
-
+    
+    @Ignore
     @Test
     public void testCountLikesByQuestionId() throws Exception {
 
