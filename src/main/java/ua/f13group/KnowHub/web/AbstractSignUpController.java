@@ -24,6 +24,7 @@ public abstract class AbstractSignUpController implements MessageSourceAware {
 	}
 	
 	protected void addMessages(ModelAndView model) {
+		//DTO
 		model.addObject("loginInstructions", messageSource.getMessage("info.signuppage.loginInstructions", null, null));
 		model.addObject("passwordInstructions", messageSource.getMessage("info.signuppage.passwordInstructions", null, null));
 		model.addObject("confirmDialogText", messageSource.getMessage("info.signuppage.confirmDialogText", null, null));
