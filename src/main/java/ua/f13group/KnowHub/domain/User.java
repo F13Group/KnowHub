@@ -44,12 +44,12 @@ public class User implements Serializable {
     private Long userId;
     
     @NotNull
-    @Size(min = 1, max = 50)
+    @Size(min = 2, max = 50, message = "Please enter your email")
     @Column(name = "login")
     private String login;
     
     @NotNull
-    @Size(min = 1, max = 64)
+    @Size(min = 2, max = 64, message = "Please enter your password")
     @Column(name = "password")
     private String password;
     

@@ -25,7 +25,7 @@
 		    login-page="/login" 
 		    default-target-url="/" 
 			authentication-failure-url="/login?error" 
-			username-parameter="username"
+			username-parameter="login"
 			password-parameter="password" />
 		<logout logout-success-url="/login?logout" />
    

@@ -1,7 +1,10 @@
 package ua.f13group.KnowHub.web;
 
+import javax.validation.Valid;
+
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,6 +25,7 @@ public class LoginController extends AbstractSignUpController {
 	public ModelAndView signup(ModelAndView model, 
 			@RequestParam(value = "logout", required = false) String logout, 
 			@RequestParam(value = "error", required = false) String error) {
+		
 		addMessages(model);
 		if (error != null) {
 			logger.info("if error - " + error);
@@ -35,11 +39,7 @@ public class LoginController extends AbstractSignUpController {
 		
 		logger.info("/login");
 		model.addObject("newUser", new User());
-		model.addObject("signUpError", "");
-		
 		model.setViewName("login");
 		return model;
 	}
-
-	
 }

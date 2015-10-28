@@ -35,5 +35,7 @@ public abstract class AbstractSignUpController implements MessageSourceAware {
 		model.addObject("errorPasswordTooLong",	messageSource.getMessage("error.signuppage.passwordTooLong", null, null));
 		model.addObject("errorPassword2Empty", messageSource.getMessage("error.signuppage.password2Empty", null, null));
 		model.addObject("errorPassword2NoMatch", messageSource.getMessage("error.signuppage.password2NoMatch", null, null));
+		model.addObject("infoPleaseEnterEmail", messageSource.getMessage("info.loginpage.pleaseEnterEmail", null, null));
+		model.addObject("infoPleaseEnterPassword", messageSource.getMessage("info.loginpage.pleaseEnterPassword", null, null));
 	}
 }

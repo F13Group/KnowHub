@@ -66,12 +66,11 @@
 	<div class="container">
 		<form:form name='loginForm' commandName="newUser" method='POST' cssClass="form-horizontal registrationForm" class="form-signin">
 
-
 				<c:if test="${not empty error}">
 				    <div class="alert alert-danger alert-dismissible" role="alert">
 				        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
 				                aria-hidden="true">&times;</span></button>
-				        <strong>Warning!</strong> ${error}
+				        <strong>${error}</strong> 
 				    </div>
 				</c:if>
 				
@@ -83,24 +82,23 @@
     				</div>
 				</c:if>
 				
-				<div class="form-group"  id="login-group">
+				<div class="form-group"   id="login-group">
 					<label for="username" class="col-sm-2 control-label">Email:</label>
 					<div class="col-sm-2">
-						<input id="username" name="username" type="text"
-							class="form-control" placeholder="name_surname@epam.com"
-							onfocus="showMessageLogin(loginInstructions)" onblur="validateLogin(errorLoginEmpty, errorLoginNotEmail)" 
-							/>
+					<!-- path="login" - login is required http form-login username-parameter in spring-security-config.xml  -->
+						<form:input path="login" type="text"
+							class="form-control " placeholder="name_surname@epam.com"/>	
+						<form:errors path="login" cssStyle="color: red;"/>
 					</div>
-					<span class="error"><form:errors path="login" cssStyle="color: red;"/></span>
 				</div>
 
 				<div class="form-group" id="password-group">
 					<label for="password" class="col-sm-2 control-label">Password:</label>
 					<div class="col-sm-2" >
-						<input id="password" name="password" type="password"
-							class="form-control" placeholder="Enter your password"/> 
+						<form:input path="password" type="password"
+							class="form-control " placeholder="Enter your password"/> 
+						<form:errors path="password" cssStyle="color: red;"/>
 					</div>
-					<span class="error"><form:errors path="password" cssStyle="color: red;"/></span>
 				</div>
 				
 				<div class="row">
@@ -154,11 +152,10 @@
 		var errorPasswordTooLong = "${fn:escapeXml(errorPasswordTooLong)}";
 		var errorPassword2Empty = "${fn:escapeXml(errorPassword2Empty)}";
 		var errorPassword2NoMatch = "${fn:escapeXml(errorPassword2NoMatch)}";
+		var errorPassword2NoMatch = "${fn:escapeXml(infoPleaseEnterEmail)}";
+		var errorPassword2NoMatch = "${fn:escapeXml(infoPleaseEnterPassword)}";
 
 		$(document).ready(function() {
-			<c:if test="${not empty signUpError}">
-			loginExists(errorLoginExistsAlready);
-			</c:if>
 		
 			$.validator.addMethod("customemail",
 	                function (value, element) {
@@ -167,10 +164,9 @@
 	                "Please input valid email"
 	        );
  			
-			$(".registrationForm").validate(
-	                {
+			$(".registrationForm").validate({
 	                    rules: {
-	                        username: {
+	                        login: {
 	                        	required: {
 	                                depends: function () {
 	                                    $(this).val($.trim($(this).val()));
@@ -180,10 +176,11 @@
 	                            customemail: true
 	                        },
 
-	                        password: {
+	                        password: 
+	                         {
 	                            required: true,
-	                            minlength: 7
-	                        },
+	                            minlength: 8
+	                        }, 
 	                    },
 	                    highlight: function (element) {
 	                        $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
@@ -191,10 +188,13 @@
 	                    unhighlight: function (element) {
 	                        $(element).closest('.form-group').removeClass('has-error').addClass('has-success');
 	                    },
+	                     
+	                    messages: {
+	                    	login: "Please enter your email",
+	                    	password: "Please enter your password",
+	                    },
 	                });
 		}); 
-		
 	</script>
-
 </body>
 </html>
