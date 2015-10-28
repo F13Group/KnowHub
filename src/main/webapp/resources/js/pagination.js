@@ -95,7 +95,7 @@ function outputQuestions(pC, cPN, rOPN) {
 
 
                     function was_asked_button(questionId, isAsked) {
-                        return '<img id="was_asked_button" src="resources/img/rate.png" width="30" height="20" onclick="incrementQuestionRating(' + questionId + ', ' + isAsked + ')"  onmouseover="mouseOverWasAskedButton( ' + questionId + ', ' + isAsked + ')">';
+                        return '<img id="was_asked_button' + questionId + '" src="resources/img/rate.png" width="30" height="20" onclick="incrementQuestionRating(' + questionId + ', ' + isAsked + ')"  onmouseover="mouseOverWasAskedButton( ' + questionId + ', ' + isAsked + ')">';
                     }
 
 
@@ -160,31 +160,31 @@ $(document).ready(function () {
 function mouseOverWasAskedButton(questionId, isAsked) {
     console.log(isAsked);
     if (isAsked == false) {
-            $("[id^=was_asked_button]").tooltip({
-                title: "Please click on this icon if you also have been asked the question.",
-                placement: "right",
-                trigger: "hover",
-                delay: {show: 1},
+        $("#was_asked_button" + questionId).tooltip({
+            title: "Please click on this icon if you also have been asked the question.",
+            placement: "right",
+            trigger: "hover",
+            delay: {show: 1},
 
-            });
+        });
     }
 }
+
+function rf() {
+    return false
+};
 
 function incrementQuestionRating(questionId, isAsked) {
 
     if (isAsked == true) {
-            $("[id^=was_asked_button]").
-                tooltip({
-                    title: "Thank you for scoring the question! Please note that you can score the question only once.",
-                    placement: "right",
-                    trigger: "click",
-                    delay: {show: 1}
-                })
+        alert("Thank you for scoring the question! Please note that you can score the question only once.");
+
     }
 
     if (isAsked == false) {
         $.post(globalQuestionUrl + "/rate", {questionId: questionId}).done(function (isSuccess) {
             console.log("rate = " + isSuccess);
+            $("#was_asked_button" + questionId).on('mouseover', rf);
             displayPage(currentPage);
         });
     }
