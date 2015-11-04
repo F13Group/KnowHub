@@ -13,6 +13,7 @@ public class QuestionFrequentAskedDTO {
 	private List<Tag> tags;
 	private Long rating;
 	private Boolean isAsked;
+	private Boolean isBookmarked;
 	
 	public QuestionFrequentAskedDTO(			
 			Long id,
@@ -21,7 +22,8 @@ public class QuestionFrequentAskedDTO {
 			Category category,
 			List<Tag> tags,
 			Long rating,
-			Boolean isAsked) {
+			Boolean isAsked,
+			Boolean isBookmarked) {
 		
 		this.id = id;
 		this.value = value;
@@ -30,6 +32,7 @@ public class QuestionFrequentAskedDTO {
 		this.tags = tags;
 		this.rating = rating;
 		this.isAsked = isAsked;
+		this.isBookmarked = isBookmarked;
 	}
 
 	public Long getId() {
@@ -88,5 +91,11 @@ public class QuestionFrequentAskedDTO {
 		this.isAsked = isAsked;
 	}
 
-	
+	public Boolean getIsBookmarked() {
+		return isBookmarked;
+	}
+
+	public void setIsBookmarked(Boolean isBookmarked) {
+		this.isBookmarked = isBookmarked;
+	}
 }

@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="KnowHub_latest:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="KnowHub.war">
+      <element id="artifact" artifact-name="KnowHub_latest:war exploded" />
+    </root>
+  </artifact>
+</component>
