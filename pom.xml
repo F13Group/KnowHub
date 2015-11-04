@@ -258,9 +258,9 @@
 				<configuration>
 					<!--<server>myserver</server> -->
 					<username>admin</username>
-					<password>p@ssw0rd</password>
+					<password>pass</password>
 					<update>true</update>
-					<url>http://epuakyiw1793t6.kyiv.epam.com:8085/manager/text</url>
+					<url>http://localhost:8085/manager/text</url>
 					<path>/knowhub</path>
 					<port>8085</port>
 				</configuration>
