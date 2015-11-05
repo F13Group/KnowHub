@@ -21,5 +21,6 @@ public interface UserRepository {
 	public void deleteUser(User newUser);
 	public Confirmation getConfirmationByUserId(Long userId);
 	public Confirmation getConfirmationByUserLogin(String login);
+	public Confirmation getRestorePassByLink(String generatedLink);
 		
 }
