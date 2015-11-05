@@ -14,6 +14,8 @@ public class CustomHttpSessionListener implements HttpSessionListener {
 	
 	private static final Logger logger = Logger.getLogger(CustomHttpSessionListener.class);
 	
+	private static final int DEFAULT_SESSION_TIMEOUT = 15*60;
+	
 	@Override
 	public void sessionCreated(HttpSessionEvent event) {
 		HttpSession session = event.getSession();
@@ -24,17 +26,19 @@ public class CustomHttpSessionListener implements HttpSessionListener {
 
 		PropertyService propertyService = 
 				(PropertyService) ctx.getBean("propertyService");
-
-		propertyService.toString();
-		int maxInactiveInterval = Integer.parseInt(propertyService.getProperty("session_timeout"));
-		//int maxInactiveInterval = 15*60;
+		
+		String res = propertyService.getProperty("session_timeout");
+		int maxInactiveInterval = DEFAULT_SESSION_TIMEOUT;
+		
+		if (res != null && !res.isEmpty()) {
+			maxInactiveInterval = Integer.parseInt(res);
+		}
 		event.getSession().setMaxInactiveInterval(maxInactiveInterval);
 		logger.info("Session created with timeout: " + maxInactiveInterval);
 	}
 
 	@Override
 	public void sessionDestroyed(HttpSessionEvent event) {
-		// TODO Auto-generated method stub
 		logger.info("Session destroyed");
 	}
 
