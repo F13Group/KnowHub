@@ -33,7 +33,7 @@ public class CustomHttpSessionListener implements HttpSessionListener {
 		if (res != null && !res.isEmpty()) {
 			maxInactiveInterval = Integer.parseInt(res);
 		}
-		event.getSession().setMaxInactiveInterval(maxInactiveInterval);
+		session.setMaxInactiveInterval(maxInactiveInterval);
 		logger.info("Session created with timeout: " + maxInactiveInterval);
 	}
 
