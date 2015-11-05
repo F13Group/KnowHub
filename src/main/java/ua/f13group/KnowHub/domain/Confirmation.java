@@ -3,17 +3,7 @@ package ua.f13group.KnowHub.domain;
 import java.sql.Timestamp;
 import java.util.Calendar;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "confirmations")
@@ -37,6 +27,10 @@ public class Confirmation {
 	    
 	@Column(name = "reg_date")
 	private Timestamp regDate ;
+
+	@Column(name = "type")
+	@Enumerated(EnumType.STRING)
+	private ConfirmationType confirmationType;
 	
 	public Confirmation(){
 		regDate = new Timestamp(Calendar.getInstance().getTimeInMillis());
@@ -78,6 +72,12 @@ public class Confirmation {
 	public void setRegDate(Timestamp regDate) {
 		this.regDate = regDate;
 	}
-	
-	
+
+	public ConfirmationType getConfirmationType() {
+		return confirmationType;
+	}
+
+	public void setConfirmationType(ConfirmationType confirmationType) {
+		this.confirmationType = confirmationType;
+	}
 }

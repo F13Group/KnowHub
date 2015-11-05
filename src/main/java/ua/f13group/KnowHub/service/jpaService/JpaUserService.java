@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ua.f13group.KnowHub.domain.Confirmation;
+import ua.f13group.KnowHub.domain.ConfirmationType;
 import ua.f13group.KnowHub.domain.User;
 import ua.f13group.KnowHub.repository.UserRepository;
 import ua.f13group.KnowHub.service.MailService;
@@ -38,6 +39,7 @@ public class JpaUserService implements UserService{
     	if(userRepository.saveUser(user) !=null ){
     		Confirmation confirmation = new Confirmation(user);
     		confirmation.setLink(user.getLogin().hashCode()+""+user.getUserId());
+			confirmation.setConfirmationType(ConfirmationType.conf);
     		userRepository.saveConfirmation(confirmation);
     		String text = "Thank you for joining KnowHub! To get started, you need to verify your email address. Please go to the link below and log in: \n\r";
     		text += ("http://epuakyiw1793t6.kyiv.epam.com:8085/knowhub/confirmation/" + confirmation.getLink());
