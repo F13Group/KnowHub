@@ -98,10 +98,14 @@ function outputQuestions(pC, cPN, rOPN) {
                         return '<img id="was_asked_button' + questionId + '" src="resources/img/rate.png" width="30" height="20" onclick="incrementQuestionRating(' + questionId + ', ' + isAsked + ')"  onmouseover="mouseOverWasAskedButton( ' + questionId + ', ' + isAsked + ')">';
                     }
 
-
+                    function was_bookmarked_button(questionId, isBookmarked){
+                    	var style = '<style> .non-active{filter: grayscale(100%)}</style>'
+                    	return style + '<img id="was_bookmarked' + questionId + '" src="resources/img/star.png" width="20" height="20" onmouseover="mouseOverWasBookmarkedButton(' + questionId + ', ' + isBookmarked + ')"/>';
+                    }
+                    
                     var userName = $("#userName").html();
                     if (userName) {
-                        $("<div class='divRow row'><div class='col-lg-6 col-md-6 col-sm-6 divQuestionColor divCell_2'>" + value.value + "</div><div class='col-lg-1 col-md-2 col-sm-2 divCell_Center'>" + value.category.shortValue + "</div><div class='col-lg-1 col-md-2 col-sm-2 divCell_Center'>" + date + "</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Left'>" + was_asked_button(value.id, value.isAsked) + " " + value.rating + "</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Center'>" + "<img id=\"was_bookmarked\" src=\"resources/img/star.png\" width=\"20\" height=\"20\"/>" + "</div></div>").insertAfter("#headRow");
+                        $("<div class='divRow row'><div class='non-active col-lg-6 col-md-6 col-sm-6 divQuestionColor divCell_2'>" + value.value + "</div><div class='col-lg-1 col-md-2 col-sm-2 divCell_Center'>" + value.category.shortValue + "</div><div class='col-lg-1 col-md-2 col-sm-2 divCell_Center'>" + date + "</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Left'>" + was_asked_button(value.id, value.isAsked) + " " + value.rating + "</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Left'>" + was_bookmarked_button(value.id, value.isBookmarked) + "</div></div>").insertAfter("#headRow");
 
                     } else {
                         $("<div class='divRow row'><div class='col-lg-6 col-md-6 col-sm-6 divQuestionColor divCell_2'>" + value.value + "</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Center'>" + value.category.shortValue + "</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Center'>" + date + "</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Center'>" + value.rating + "</div></div>").insertAfter("#headRow");
@@ -186,6 +190,26 @@ function incrementQuestionRating(questionId, isAsked) {
             console.log("rate = " + isSuccess);
             $("#was_asked_button" + questionId).on('mouseover', rf);
             displayPage(currentPage);
+        });
+    }
+}
+
+function mouseOverWasBookmarkedButton(questionId, isBookmarked) {
+    if (isBookmarked == false) {
+        $("#was_bookmarked" + questionId).tooltip({
+            title: "Please click on this icon to bookmark the question.",
+            placement: "right",
+            trigger: "hover",
+            delay: {show: 1},
+
+        });
+    }else{
+    	$("#was_bookmarked" + questionId).tooltip({
+            title: "Please click on this icon to remove the bookmark.",
+            placement: "right",
+            trigger: "hover",
+            delay: {show: 1},
+
         });
     }
 }
