@@ -1,8 +1,10 @@
 package ua.f13group.KnowHub.web;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import ua.f13group.KnowHub.domain.User;
@@ -13,17 +15,17 @@ import ua.f13group.KnowHub.domain.User;
  */
 
 @Controller
-public class RestorePasswordController {
+public class RestorePasswordController extends AbstractSignUpController {
 
-	private static final Logger logger = Logger.getLogger(RestorePasswordController.class);
+	private static final Logger logger = LoggerFactory.getLogger(RestorePasswordController.class);
 	
-	@RequestMapping("/restore")
+	@RequestMapping(value = "/restore", method = RequestMethod.GET)
 	public ModelAndView restorePassword(ModelAndView modelAndView, @RequestParam(value = "error", required = false) String error){
 		logger.info("inside restorePassword method");
 		
 		if (error != null) {
 			logger.info("if error - " + error);
-			modelAndView.addObject("error", "Sorry but this link has been already expired. Please go back to <a href='/knowhub/login'>Forgot your password?</a> to get new link.");
+			modelAndView.addObject("error", messageSource.getMessage("error.restorePage.linkExpired", null, null));
 		}
 		
 		logger.info("after if block");
