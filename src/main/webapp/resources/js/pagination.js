@@ -99,8 +99,7 @@ function outputQuestions(pC, cPN, rOPN) {
                     }
 
                     function was_bookmarked_button(questionId, isBookmarked){
-                    	var style = '<style> .non-active{filter: grayscale(100%)}</style>'
-                    	return style + '<img id="was_bookmarked' + questionId + '" src="resources/img/star.png" width="20" height="20" onmouseover="mouseOverWasBookmarkedButton(' + questionId + ', ' + isBookmarked + ')"/>';
+                    	return '<img id="was_bookmarked' + questionId + '" onclick ="toggleBookmark(' + questionId + ')" src="resources/img/nonactivestar.png" data-swap="resources/img/star.png" width="20" height="20" onmouseover="mouseOverWasBookmarkedButton(' + questionId + ', ' + isBookmarked + ')"/>';
                     }
                     
                     var userName = $("#userName").html();
@@ -214,6 +213,21 @@ function mouseOverWasBookmarkedButton(questionId, isBookmarked) {
     }
 }
 
+function toggleBookmark(questionId) {
+	var isBookmarked = false; 
+	      var _this = $("#was_bookmarked" + questionId);
+	      var current = _this.attr("src");
+	      var swap = _this.attr("data-swap");     
+	     _this.attr('src', swap).attr("data-swap",current);  
+	     
+   /* if (isAsked == false) {
+        $.post(globalQuestionUrl + "/rate", {questionId: questionId}).done(function (isSuccess) {
+            console.log("rate = " + isSuccess);
+            $("#was_asked_button" + questionId).on('mouseover', rf);
+            displayPage(currentPage);
+        });
+    }*/
+}
 
 function switchCategoryButtonOver(categoryId, isMouseOver) {
     if (Number(categoryId) == window.selectedCategoryId) {
