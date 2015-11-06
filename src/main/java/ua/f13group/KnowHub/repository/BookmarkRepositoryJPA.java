@@ -5,6 +5,7 @@ import ua.f13group.KnowHub.domain.Bookmark;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
@@ -32,9 +33,10 @@ public class BookmarkRepositoryJPA implements BookmarkRepository {
     @Override
     @Transactional
     public Long unbookmark(Long userId, Long questionId) {
-        TypedQuery<Boolean> typedQuery = entityManager.createNamedQuery("Bookmark.unbookmark", Boolean.class)
+        Query query = entityManager.createNamedQuery("Bookmark.unbookmark")
                 .setParameter("questionId", questionId)
                 .setParameter("userId", userId);
+        query.executeUpdate();
         return questionId;
     }
 }

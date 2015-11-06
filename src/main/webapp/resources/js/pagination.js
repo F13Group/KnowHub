@@ -99,7 +99,16 @@ function outputQuestions(pC, cPN, rOPN) {
                     }
 
                     function was_bookmarked_button(questionId, isBookmarked){
-                    	return '<img id="was_bookmarked' + questionId + '" onclick ="toggleBookmark(' + questionId + ')" src="resources/img/nonactivestar.png" data-swap="resources/img/star.png" width="20" height="20" onmouseover="mouseOverWasBookmarkedButton(' + questionId + ', ' + isBookmarked + ')"/>';
+                    	var currentImg;
+                    	var swapImg; 
+                     	if(isBookmarked == false){
+                    		currentImg = "resources/img/nonactivestar.png";
+                    		swapImg = "resources/img/star.png";
+                    	}else if(isBookmarked == true){
+                    		currentImg = "resources/img/star.png";
+                    		swapImg = "resources/img/nonactivestar.png";
+                    	}
+                    	return '<img id="was_bookmarked' + questionId + '" onclick ="toggleBookmark(' + questionId + ', ' + isBookmarked + ')" src='+ currentImg +'  data-swap=' + swapImg + ' width="20" height="20" onmouseover="mouseOverWasBookmarkedButton(' + questionId + ', ' + isBookmarked + ')"/>';
                     }
                     
                     var userName = $("#userName").html();
@@ -155,6 +164,8 @@ $(document).ready(function () {
             $("#categoriesMenu").append("<div class=categoriesMenuItem><input id=category" + value.id + " class=categoriesMenuButton type=button value='" + value.value + "' onclick=selectCategory(" + value.id + ") onmouseover=switchCategoryButtonOver('" + value.id + "','true') onmouseout=switchCategoryButtonOver('" + value.id + "','false')><br /></div>");
         });
     });
+    
+    
 
     displayPage("1");
 });
@@ -202,7 +213,7 @@ function mouseOverWasBookmarkedButton(questionId, isBookmarked) {
             delay: {show: 1},
 
         });
-    }else{
+    }else if(isBookmarked == true){
     	$("#was_bookmarked" + questionId).tooltip({
             title: "Please click on this icon to remove the bookmark.",
             placement: "right",
@@ -213,20 +224,22 @@ function mouseOverWasBookmarkedButton(questionId, isBookmarked) {
     }
 }
 
-function toggleBookmark(questionId) {
-	var isBookmarked = false; 
+function toggleBookmark(questionId, isBookmarked) {
+
 	      var _this = $("#was_bookmarked" + questionId);
 	      var current = _this.attr("src");
 	      var swap = _this.attr("data-swap");     
 	     _this.attr('src', swap).attr("data-swap",current);  
 	     
-   /* if (isAsked == false) {
-        $.post(globalQuestionUrl + "/rate", {questionId: questionId}).done(function (isSuccess) {
-            console.log("rate = " + isSuccess);
-            $("#was_asked_button" + questionId).on('mouseover', rf);
-            displayPage(currentPage);
-        });
-    }*/
+	     if(isBookmarked == false){
+	    	$.post(globalQuestionUrl + "/bookmark", {questionId: questionId}).done(function(isSuccess) {
+				displayPage(currentPage);
+			}); 
+	     }else if(isBookmarked == true){
+	    	 $.post(globalQuestionUrl + "/unbookmark", {questionId: questionId}).done(function(isSucces) {
+				displayPage(currentPage);
+			});
+	     }
 }
 
 function switchCategoryButtonOver(categoryId, isMouseOver) {

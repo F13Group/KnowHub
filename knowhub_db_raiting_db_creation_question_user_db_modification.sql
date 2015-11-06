@@ -19,8 +19,4 @@ CREATE TABLE ratings
       REFERENCES users (user_id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
 )
-WITH (
-  OIDS=FALSE
-);
-ALTER TABLE ratings
-  OWNER TO knowhub_user;
+
