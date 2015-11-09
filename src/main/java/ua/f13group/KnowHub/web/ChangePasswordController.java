@@ -17,7 +17,7 @@ public class ChangePasswordController {
 	@Autowired
 	UserRepository userRepository;
 	
-	@RequestMapping(value = "/linkValidation/{generatedLink}")
+	@RequestMapping(value = "/restore_password/{generatedLink}")
 	public User checkReceivedLink (@PathVariable String generatedLink){
 		Confirmation confirmation = userRepository.getRestorePassByLink(generatedLink);
 		if (confirmation == null){
