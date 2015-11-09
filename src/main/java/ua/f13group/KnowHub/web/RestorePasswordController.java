@@ -34,4 +34,11 @@ public class RestorePasswordController extends AbstractSignUpController {
 		return modelAndView;
 	}
 	
+	@RequestMapping(value = "/restore", method = RequestMethod.POST)
+	public ModelAndView changePassword(ModelAndView modelAndView){
+		
+		
+		return 
+	}
+	
 }

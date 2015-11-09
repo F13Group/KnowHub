@@ -62,24 +62,21 @@
 		</div>
 	</div>    
       
-	<div class="container" >
+      
+    <div class="container" >  
+      
+    <c:choose>
+    	<c:when test="${not empty error}">
+	    	<div class="alert alert-danger alert-dismissible" role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span></button>
+				<strong>${error}</strong> 
+			</div>
+    	</c:when>
+    
+    	<c:otherwise>
+    	
             <form:form commandName="newUser" method="post" cssClass="form-horizontal restoreForm">
-            
-            	<c:if test="${not empty error}">
-				    <div class="alert alert-danger alert-dismissible" role="alert">
-				        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-				                aria-hidden="true">&times;</span></button>
-				        <strong>${error}</strong> 
-				    </div>
-				</c:if>
-				
-				<c:if test="${not empty message}">
-    				<div class="alert alert-info alert-dismissible" role="alert">
-        				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                			aria-hidden="true">&times;</span></button>
-        				<strong> ${message}</strong>
-    				</div>
-				</c:if>
             
                 <div class="form-horizontal" >
                      
@@ -112,6 +109,10 @@
             		</div>
                 </div>
             </form:form> 
+	
+    	</c:otherwise>
+    </c:choose>  
+      
 	</div>	<!-- /.container -->
 	
     <footer class="footer">
