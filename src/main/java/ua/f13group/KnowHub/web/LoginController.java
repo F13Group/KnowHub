@@ -36,4 +36,10 @@ public class LoginController extends AbstractSignUpController {
 		model.setViewName("login");
 		return model;
 	}
+	
+	@RequestMapping(value = "/restore", method = RequestMethod.GET)
+	public String restorePasswordPage() {
+				
+		return "restore";
+	}
 }
