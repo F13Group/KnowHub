@@ -7,4 +7,5 @@ import ua.f13group.KnowHub.domain.Confirmation;
  */
 public interface ConfirmationService {
     public void saveConfirmation(Confirmation confirmation);
+    public void deleteOldConfirmations(Long id);
 }

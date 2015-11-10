@@ -10,7 +10,8 @@ import javax.persistence.*;
 @NamedQueries({
     @NamedQuery(name = "Confirmation.findByLink", query = "SELECT c FROM Confirmation c WHERE c.link = :link "),
     @NamedQuery(name = "Confirmation.findByUserId", query = "SELECT c FROM Confirmation c WHERE c.user.userId = :userid "),
-    @NamedQuery(name = "Confirmation.findByLogin", query = "SELECT c FROM Confirmation c WHERE c.user.login = :login ")
+    @NamedQuery(name = "Confirmation.findByLogin", query = "SELECT c FROM Confirmation c WHERE c.user.login = :login "),
+	@NamedQuery(name = "Confirmation.clearOldLinks", query = "DELETE FROM Confirmation c WHERE c.user.userId = :id")
 })
 public class Confirmation {
 	@Id
