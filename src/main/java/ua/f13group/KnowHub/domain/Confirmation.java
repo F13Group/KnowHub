@@ -18,8 +18,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "confirmations")
 @NamedQueries({
-	@NamedQuery(name = "Confirmation.findRestorePassByLink", query = "SELECT c FROM Confirmation c WHERE c.link = :link AND c.type = 'rest'"),
-    @NamedQuery(name = "Confirmation.findConfirmationByLink", query = "SELECT c FROM Confirmation c WHERE c.link = :link AND c.type = 'conf'"),
+	@NamedQuery(name = "Confirmation.findRestorePassByLink", query = "SELECT c FROM Confirmation c WHERE c.link = :link AND c.confirmationType = 'rest'"),
+    @NamedQuery(name = "Confirmation.findConfirmationByLink", query = "SELECT c FROM Confirmation c WHERE c.link = :link AND c.confirmationType = 'conf'"),
     @NamedQuery(name = "Confirmation.findByUserId", query = "SELECT c FROM Confirmation c WHERE c.user.userId = :userid "),
     @NamedQuery(name = "Confirmation.findByLogin", query = "SELECT c FROM Confirmation c WHERE c.user.login = :login ")
 })
