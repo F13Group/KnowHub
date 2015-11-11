@@ -1,0 +1,1 @@
+50      16      *       *       *       root    psql -c "select delete_old_rows()" knowhub_test_local
