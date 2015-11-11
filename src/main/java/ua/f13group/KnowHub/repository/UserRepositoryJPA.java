@@ -32,10 +32,10 @@ public class UserRepositoryJPA implements UserRepository {
 
 	@Override
 	public Confirmation getConfirmationByLink(String link) {
-		TypedQuery<Confirmation> query = entityManager.createNamedQuery("Confirmation.findByLink", Confirmation.class);
+		TypedQuery<Confirmation> query = entityManager.createNamedQuery("Confirmation.findConfirmationByLink", Confirmation.class);
 		query.setParameter("link", link);
 		
-		Confirmation confirmation;
+		Confirmation confirmation; 
 		try { confirmation = query.getSingleResult();
 			
 		} catch (javax.persistence.NoResultException e) {
@@ -98,6 +98,21 @@ public class UserRepositoryJPA implements UserRepository {
 		query.setParameter("login", login);
 		
 		Confirmation confirmation;
+		try { confirmation = query.getSingleResult();
+			
+		} catch (javax.persistence.NoResultException e) {
+			return null;
+		}
+		
+		return confirmation;
+	}
+
+	@Override
+	public Confirmation getRestorePassByLink(String generatedLink) {
+		TypedQuery<Confirmation> query = entityManager.createNamedQuery("Confirmation.findRestorePassByLink", Confirmation.class);
+		query.setParameter("link", generatedLink);
+		
+		Confirmation confirmation; 
 		try { confirmation = query.getSingleResult();
 			
 		} catch (javax.persistence.NoResultException e) {

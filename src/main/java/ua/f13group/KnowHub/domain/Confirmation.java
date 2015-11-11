@@ -8,7 +8,8 @@ import javax.persistence.*;
 @Entity
 @Table(name = "confirmations")
 @NamedQueries({
-    @NamedQuery(name = "Confirmation.findByLink", query = "SELECT c FROM Confirmation c WHERE c.link = :link "),
+	@NamedQuery(name = "Confirmation.findRestorePassByLink", query = "SELECT c FROM Confirmation c WHERE c.link = :link AND c.type = 'rest'"),
+    @NamedQuery(name = "Confirmation.findConfirmationByLink", query = "SELECT c FROM Confirmation c WHERE c.link = :link AND c.type = 'conf'"),
     @NamedQuery(name = "Confirmation.findByUserId", query = "SELECT c FROM Confirmation c WHERE c.user.userId = :userid "),
     @NamedQuery(name = "Confirmation.findByLogin", query = "SELECT c FROM Confirmation c WHERE c.user.login = :login "),
 	@NamedQuery(name = "Confirmation.clearOldLinks", query = "DELETE FROM Confirmation c WHERE  c.confirmationType = 'rest' and c.user.userId = :id")
