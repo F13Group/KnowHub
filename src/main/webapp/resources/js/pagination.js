@@ -98,10 +98,22 @@ function outputQuestions(pC, cPN, rOPN) {
                         return '<img id="was_asked_button' + questionId + '" src="resources/img/rate.png" width="30" height="20" onclick="incrementQuestionRating(' + questionId + ', ' + isAsked + ')"  onmouseover="mouseOverWasAskedButton( ' + questionId + ', ' + isAsked + ')">';
                     }
 
-
+                    function was_bookmarked_button(questionId, isBookmarked){
+                    	var currentImg;
+                    	var swapImg; 
+                     	if(isBookmarked == false){
+                    		currentImg = "resources/img/nonactivestar.png";
+                    		swapImg = "resources/img/star.png";
+                    	}else if(isBookmarked == true){
+                    		currentImg = "resources/img/star.png";
+                    		swapImg = "resources/img/nonactivestar.png";
+                    	}
+                    	return '<img id="was_bookmarked' + questionId + '" onclick ="toggleBookmark(' + questionId + ', ' + isBookmarked + ')" src='+ currentImg +'  data-swap=' + swapImg + ' width="20" height="20" onmouseover="mouseOverWasBookmarkedButton(' + questionId + ', ' + isBookmarked + ')"/>';
+                    }
+                    
                     var userName = $("#userName").html();
                     if (userName) {
-                        $("<div class='divRow row'><div class='col-lg-6 col-md-6 col-sm-6 divQuestionColor divCell_2'>" + value.value + "</div><div class='col-lg-1 col-md-2 col-sm-2 divCell_Center'>" + value.category.shortValue + "</div><div class='col-lg-1 col-md-2 col-sm-2 divCell_Center'>" + date + "</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Left'>" + was_asked_button(value.id, value.isAsked) + " " + value.rating + "</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Center'>" + "<img id=\"was_bookmarked\" src=\"resources/img/star.png\" width=\"20\" height=\"20\"/>" + "</div></div>").insertAfter("#headRow");
+                        $("<div class='divRow row'><div class='non-active col-lg-6 col-md-6 col-sm-6 divQuestionColor divCell_2'>" + value.value + "</div><div class='col-lg-1 col-md-2 col-sm-2 divCell_Center'>" + value.category.shortValue + "</div><div class='col-lg-1 col-md-2 col-sm-2 divCell_Center'>" + date + "</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Left'>" + was_asked_button(value.id, value.isAsked) + " " + value.rating + "</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Left'>" + was_bookmarked_button(value.id, value.isBookmarked) + "</div></div>").insertAfter("#headRow");
 
                     } else {
                         $("<div class='divRow row'><div class='col-lg-6 col-md-6 col-sm-6 divQuestionColor divCell_2'>" + value.value + "</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Center'>" + value.category.shortValue + "</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Center'>" + date + "</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Center'>" + value.rating + "</div></div>").insertAfter("#headRow");
@@ -152,6 +164,8 @@ $(document).ready(function () {
             $("#categoriesMenu").append("<div class=categoriesMenuItem><input id=category" + value.id + " class=categoriesMenuButton type=button value='" + value.value + "' onclick=selectCategory(" + value.id + ") onmouseover=switchCategoryButtonOver('" + value.id + "','true') onmouseout=switchCategoryButtonOver('" + value.id + "','false')><br /></div>");
         });
     });
+    
+    
 
     displayPage("1");
 });
@@ -190,6 +204,43 @@ function incrementQuestionRating(questionId, isAsked) {
     }
 }
 
+function mouseOverWasBookmarkedButton(questionId, isBookmarked) {
+    if (isBookmarked == false) {
+        $("#was_bookmarked" + questionId).tooltip({
+            title: "Please click on this icon to bookmark the question.",
+            placement: "right",
+            trigger: "hover",
+            delay: {show: 1},
+
+        });
+    }else if(isBookmarked == true){
+    	$("#was_bookmarked" + questionId).tooltip({
+            title: "Please click on this icon to remove the bookmark.",
+            placement: "right",
+            trigger: "hover",
+            delay: {show: 1},
+
+        });
+    }
+}
+
+function toggleBookmark(questionId, isBookmarked) {
+
+	      var _this = $("#was_bookmarked" + questionId);
+	      var current = _this.attr("src");
+	      var swap = _this.attr("data-swap");     
+	     _this.attr('src', swap).attr("data-swap",current);  
+	     
+	     if(isBookmarked == false){
+	    	$.post(globalQuestionUrl + "/bookmark", {questionId: questionId}).done(function(isSuccess) {
+				displayPage(currentPage);
+			}); 
+	     }else if(isBookmarked == true){
+	    	 $.post(globalQuestionUrl + "/unbookmark", {questionId: questionId}).done(function(isSucces) {
+				displayPage(currentPage);
+			});
+	     }
+}
 
 function switchCategoryButtonOver(categoryId, isMouseOver) {
     if (Number(categoryId) == window.selectedCategoryId) {
