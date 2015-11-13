@@ -1,6 +1,5 @@
 package ua.f13group.KnowHub.web;
 
-import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,12 +15,11 @@ import ua.f13group.KnowHub.domain.User;
 @Controller
 public class LoginController extends AbstractSignUpController {
 
-	private static final Logger logger = Logger.getLogger(LoginController.class);
-
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView signup(ModelAndView model, 
 			@RequestParam(value = "logout", required = false) String logout, 
-			@RequestParam(value = "error", required = false) String error) {
+			@RequestParam(value = "error", required = false) String error,
+			@RequestParam(value = "message", required = false) String message) {
 		
 		addMessages(model);
 		if (error != null) {
@@ -30,6 +28,10 @@ public class LoginController extends AbstractSignUpController {
 		
 		if (logout != null) {
 			model.addObject("message", messageSource.getMessage("info.loginpage.logoutSuccessful", null, null));
+		}
+		
+		if (message != null) {
+			model.addObject("message", message);
 		}
 		
 		model.addObject("newUser", new User());

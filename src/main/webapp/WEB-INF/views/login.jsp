@@ -14,7 +14,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-
 <!-- Bootstrap core CSS -->
  <link href="resources/styleBootstrap/css/bootstrap.min.css"
 	rel="stylesheet">
