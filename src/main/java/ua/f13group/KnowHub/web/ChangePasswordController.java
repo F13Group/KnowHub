@@ -32,5 +32,4 @@ public class ChangePasswordController {
 		}
 		return null;
 	}
-	
 }
