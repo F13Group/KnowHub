@@ -15,9 +15,9 @@ import ua.f13group.KnowHub.domain.User;
  */
 
 @Controller
-public class RestorePasswordController extends AbstractSignUpController {
+public class ResetPasswordController extends AbstractSignUpController {
 
-	private static final Logger logger = LoggerFactory.getLogger(RestorePasswordController.class);
+	private static final Logger logger = LoggerFactory.getLogger(ResetPasswordController.class);
 	
 	@RequestMapping(value = "/restore", method = RequestMethod.GET)
 	public ModelAndView restorePassword(ModelAndView modelAndView, @RequestParam(value = "error", required = false) String error){
@@ -30,15 +30,15 @@ public class RestorePasswordController extends AbstractSignUpController {
 		
 		logger.info("after if block");
 		modelAndView.addObject("newUser", new User());
-		modelAndView.setViewName("restorePassword");
+		modelAndView.setViewName("resetPassword");
 		return modelAndView;
 	}
 	
 	@RequestMapping(value = "/restore", method = RequestMethod.POST)
 	public ModelAndView changePassword(ModelAndView modelAndView){
 		
-		
-		return 
+		modelAndView.setViewName("resetPassword");
+		return modelAndView; 
 	}
 	
 }
