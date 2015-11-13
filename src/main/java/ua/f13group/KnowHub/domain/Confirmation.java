@@ -3,24 +3,16 @@ package ua.f13group.KnowHub.domain;
 import java.sql.Timestamp;
 import java.util.Calendar;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "confirmations")
 @NamedQueries({
-    @NamedQuery(name = "Confirmation.findByLink", query = "SELECT c FROM Confirmation c WHERE c.link = :link "),
+	@NamedQuery(name = "Confirmation.findRestorePassByLink", query = "SELECT c FROM Confirmation c WHERE c.link = :link AND c.confirmationType = 'rest'"),
+    @NamedQuery(name = "Confirmation.findConfirmationByLink", query = "SELECT c FROM Confirmation c WHERE c.link = :link AND c.confirmationType = 'conf'"),
     @NamedQuery(name = "Confirmation.findByUserId", query = "SELECT c FROM Confirmation c WHERE c.user.userId = :userid "),
-    @NamedQuery(name = "Confirmation.findByLogin", query = "SELECT c FROM Confirmation c WHERE c.user.login = :login ")
+    @NamedQuery(name = "Confirmation.findByLogin", query = "SELECT c FROM Confirmation c WHERE c.user.login = :login "),
+	@NamedQuery(name = "Confirmation.clearOldLinks", query = "DELETE FROM Confirmation c WHERE  c.confirmationType = 'rest' and c.user.userId = :id")
 })
 public class Confirmation {
 	@Id
@@ -37,6 +29,10 @@ public class Confirmation {
 	    
 	@Column(name = "reg_date")
 	private Timestamp regDate ;
+
+	@Column(name = "type")
+	@Enumerated(EnumType.STRING)
+	private ConfirmationType confirmationType;
 	
 	public Confirmation(){
 		regDate = new Timestamp(Calendar.getInstance().getTimeInMillis());
@@ -78,6 +74,12 @@ public class Confirmation {
 	public void setRegDate(Timestamp regDate) {
 		this.regDate = regDate;
 	}
-	
-	
+
+	public ConfirmationType getConfirmationType() {
+		return confirmationType;
+	}
+
+	public void setConfirmationType(ConfirmationType confirmationType) {
+		this.confirmationType = confirmationType;
+	}
 }

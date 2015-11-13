@@ -116,7 +116,7 @@
 				</div>
 				
 				<div class="row separate">
-            		<label class="col-sm-2 control-label row-label"><a href="">Forgot your password?</a></label>
+            		<label class="col-sm-2 control-label row-label"><a href="restore">Forgot your password?</a></label>
             	</div>
             
             	<div class="row separate">
