@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- favicon -->
-<link rel="icon" href="resources/styleBootstrap/img/question_shield.png"
+<link rel="icon" href="${pageContext.request.contextPath}/resources/styleBootstrap/img/question_shield.png"
 	type="image/png">
 <title>KNOW HUB</title>
 
@@ -16,11 +16,11 @@
 
 
 <!-- Bootstrap core CSS -->
-<link href="resources/styleBootstrap/css/bootstrap.min.css"
+<link href="${pageContext.request.contextPath}/resources/styleBootstrap/css/bootstrap.min.css"
 	rel="stylesheet">
 
 <!-- Custom styles for this template -->
-<link href="resources/styleBootstrap/css/custom.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/styleBootstrap/css/custom.css" rel="stylesheet">
 
 <!-- JQuery style -->
 <link
@@ -55,8 +55,10 @@
 				<div id="navLinks">
 					<div id="links">
 						<div class="nav-left">
-							<a href="index">Home</a> <a href="signup">Sign up</a> <a
-								href="login">Log in</a> <a href="">Help</a>
+							<a href="${pageContext.request.contextPath}/index">Home</a> 
+							<a href="${pageContext.request.contextPath}/signup">Sign up</a> 
+							<a href="${pageContext.request.contextPath}/login">Log in</a> 
+							<a href="">Help</a>
 						</div>
 					</div>
 				</div>

@@ -12,6 +12,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
 <!-- Bootstrap core CSS -->
 <link href="${pageContext.request.contextPath}/resources/styleBootstrap/css/bootstrap.min.css"	rel="stylesheet">
@@ -92,18 +93,19 @@
 
                 <div class="form-horizontal" >
                     
-                    <input type="hidden" name="login" value="${user_login}"/>
+                    <input id="login" type="hidden" name="login" value="${user_login}"/>
                     
                     <div class="form-group" id="password-group">
                         <label for="password" class="col-sm-2 control-label">Password:</label>
-                        <div class="col-sm-2">
+                        <div class="col-sm-3">
                             <input id="password" name="password" type="password" class="form-control" placeholder="Enter your new password"/>
                         </div>
+                        
                     </div>
                     
                     <div class="form-group" id="password2-group">
                         <label for="password2" class="col-sm-2 control-label">Confirm password:</label>
-                        <div class="col-sm-2">
+                        <div class="col-sm-3">
                             <input id="password2" name="password2" type="password" class="form-control" placeholder="Re-enter your password"/>
                         </div>
                     </div>
@@ -136,10 +138,10 @@
 			$(".resetPasswordForm").validate(
 	                {
 	                    rules: {
-	                    	
+	                    		
 	                        password: {
 	                            required: true,
-	                            minlength: 4
+	                            minlength: 4, 
 	                        },
 	                        password2: {
 	                            required: true,

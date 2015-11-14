@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- favicon -->
-<link rel="icon" href="resources/styleBootstrap/img/question_shield.png"
+<link rel="icon" href="${pageContext.request.contextPath}/resources/styleBootstrap/img/question_shield.png"
 	type="image/png">
 <title>KNOW HUB</title>
 
@@ -15,11 +15,11 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <!-- Bootstrap core CSS -->
- <link href="resources/styleBootstrap/css/bootstrap.min.css"
+ <link href="${pageContext.request.contextPath}/resources/styleBootstrap/css/bootstrap.min.css"
 	rel="stylesheet">
 
 <!-- Custom styles for this template -->
-<link href="resources/styleBootstrap/css/custom.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/resources/styleBootstrap/css/custom.css" rel="stylesheet">
 
 <!-- JQuery style -->
 <link
@@ -33,7 +33,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-<script src="resources/js/validation.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/validation.js"></script>
     <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script type="text/javascript"
