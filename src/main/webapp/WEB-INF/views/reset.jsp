@@ -49,7 +49,7 @@
 					<div id="links">
 						<div class="nav-left">
 							<a href="" class="inactive">Sign up</a>
-							<a href="login">Log in</a>
+							<a href="${pageContext.request.contextPath}/login">Log in</a>
 							<a href="">Help</a>							
 						</div>
 					</div>
@@ -77,8 +77,8 @@
 	</c:if>
 	
 	<c:choose>
-	<c:when test="${not empty error}">
 	
+	<c:when test="${not empty error}">
 	    <div class="alert alert-danger alert-dismissible" role="alert">
 	        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
 	                aria-hidden="true">&times;</span></button>
@@ -97,15 +97,14 @@
                     
                     <div class="form-group" id="password-group">
                         <label for="password" class="col-sm-2 control-label">Password:</label>
-                        <div class="col-sm-3">
+                        <div class="col-sm-4">
                             <input id="password" name="password" type="password" class="form-control" placeholder="Enter your new password"/>
                         </div>
-                        
                     </div>
                     
                     <div class="form-group" id="password2-group">
                         <label for="password2" class="col-sm-2 control-label">Confirm password:</label>
-                        <div class="col-sm-3">
+                        <div class="col-sm-4">
                             <input id="password2" name="password2" type="password" class="form-control" placeholder="Re-enter your password"/>
                         </div>
                     </div>
@@ -141,24 +140,27 @@
 	                    		
 	                        password: {
 	                            required: true,
-	                            minlength: 4, 
+	                            minlength: 8, 
+	                            maxlength: 64,
 	                        },
+	                        
 	                        password2: {
 	                            required: true,
-	                            minlength: 4,
+	                            minlength: 8,
+	                            maxlength: 64,
 	                            equalTo: "#password"
 	                        }
 	                    },
+	                    
 	                    highlight: function (element) {
 	                        $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
 	                    },
+	                    
 	                    unhighlight: function (element) {
 	                        $(element).closest('.form-group').removeClass('has-error').addClass('has-success');
 	                    },
-	                });
+			});
 		});
-		
-		
 	</script>
 	
 </body>
