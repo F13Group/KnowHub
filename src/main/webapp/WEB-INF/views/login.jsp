@@ -63,7 +63,7 @@
 	</div>
 
 	<div class="container">
-		<form:form name='loginForm' commandName="newUser" method='POST' cssClass="form-horizontal registrationForm" class="form-signin">
+		<form:form name='loginForm' commandName="newUser" method='POST' cssClass="form-horizontal loginForm" class="form-signin">
 
 				<c:if test="${not empty error}">
 				    <div class="alert alert-danger alert-dismissible" role="alert">
@@ -83,7 +83,7 @@
 				
 				<div class="form-group"   id="login-group">
 					<label for="username" class="col-sm-2 control-label">Email:</label>
-					<div class="col-sm-2">
+					<div class="col-sm-3">
 					<!-- path="login" - login is required http form-login username-parameter in spring-security-config.xml  -->
 						<form:input path="login" type="text"
 							class="form-control " placeholder="name_surname@epam.com"/>	
@@ -93,7 +93,7 @@
 
 				<div class="form-group" id="password-group">
 					<label for="password" class="col-sm-2 control-label">Password:</label>
-					<div class="col-sm-2" >
+					<div class="col-sm-3" >
 						<form:input path="password" type="password" 
 							class="form-control " placeholder="Enter your password"/> 
 						<form:errors path="password" cssStyle="color: red;"/>
@@ -158,12 +158,20 @@
 		
 			$.validator.addMethod("customemail",
 	                function (value, element) {
-	                    return /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(value);
+	                    return /^\w+_\w+@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(value);
+	                    /*  ^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$  - one of the email pattern version*/
 	                },
 	                "Please input valid email"
 	        );
+			
+	        $.validator.addMethod("epamEmail", 
+	        		function(value, element){
+	        			return this.optional(element) || /^.+@epam.com$/.test(value);
+	        		}, 
+	        		"Only epam.com email addresses are allowed."
+	        );
  			
-			$(".registrationForm").validate({
+			$(".loginForm").validate({
 	                    rules: {
 	                        login: {
 	                        	required: {
@@ -172,13 +180,17 @@
 	                                    return true;
 	                                }
 	                            },
-	                            customemail: true
+	                            customemail: true,
+	                            epamEmail: true,
+	                            minlength: 8,
+	                            maxlength: 64,
 	                        },
 
 	                        password: 
 	                         {
 	                            required: true,
-	                            minlength: 8
+	                            minlength: 8,
+	                            maxlength: 64,
 	                        }, 
 	                    },
 	                    highlight: function (element) {
@@ -189,11 +201,21 @@
 	                    },
 	                     
 	                    messages: {
-	                    	login: "Please enter your email",
-	                    	password: "Please enter your password",
+	                    	login: {
+	                    		required: "Please enter your email",
+	                    		minlength: "Your login must consist of at least 8 characters",
+	                    	},
+	                    	password: {
+	                    		required: "Please enter your password",
+	                    		minlength: "Your password must consist of at least 8 characters",
+	                    	}
 	                    },
 	                });
+			
+			
 		}); 
+		
+		
 	</script>
 </body>
 </html>
