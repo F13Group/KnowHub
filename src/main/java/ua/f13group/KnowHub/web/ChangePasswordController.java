@@ -6,9 +6,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ua.f13group.KnowHub.domain.Confirmation;
 import ua.f13group.KnowHub.domain.User;
 import ua.f13group.KnowHub.repository.UserRepository;
+import ua.f13group.KnowHub.service.ConfirmationService;
 
 @Controller
 public class ChangePasswordController extends AbstractSignUpController {
@@ -20,6 +22,9 @@ public class ChangePasswordController extends AbstractSignUpController {
 
     @Autowired
     BCryptPasswordEncoder passwordEncoder;
+
+    @Autowired
+    ConfirmationService confirmationService;
 
     @RequestMapping(value = "/restore_password", method = RequestMethod.GET)
     public String redirectToRestorePage(Model model) {
@@ -45,7 +50,8 @@ public class ChangePasswordController extends AbstractSignUpController {
     public String resetPassword(
             @ModelAttribute User newUser,
             Model model,
-            @RequestParam(value = "id", required = true) Long id) {
+            @RequestParam(value = "id", required = true) Long id,
+            RedirectAttributes redirectAttributes) {
 
         User user = new User();
         user = userRepository.getUserById(id);
@@ -70,9 +76,12 @@ public class ChangePasswordController extends AbstractSignUpController {
         user.setPassword(passwordEncoder.encode(newUser.getPassword()));
         user.setPassword2(null);
         userRepository.editUser(user);
-        model.addAttribute("message", messageSource.getMessage("info.loginPage.passwordReset", null, null));
-        model.addAttribute("newUser", user);
-        return "login";
+//        model.addAttribute("message", messageSource.getMessage("info.loginPage.passwordReset", null, null));
+//        model.addAttribute("newUser", user);
+        confirmationService.deleteOldConfirmations(user.getUserId());
+        redirectAttributes.addFlashAttribute("message", messageSource.getMessage("info.loginPage.passwordReset", null, null));
+        redirectAttributes.addFlashAttribute("newUser", user);
+        return "redirect:/login";
     }
 
 }
