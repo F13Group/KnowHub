@@ -17,5 +17,6 @@ public interface UserService {
     public Integer confirmUser(String userlink);
     public User getUserByLogin(String login);
 	public void updateUser(User newUser);
+    public User getUserById(Long id);
 	
 }
