@@ -42,8 +42,10 @@ public class JpaUserService implements UserService{
 			confirmation.setConfirmationType(ConfirmationType.conf);
     		userRepository.saveConfirmation(confirmation);
     		String text = "Thank you for joining KnowHub! To get started, you need to verify your email address. Please go to the link below and log in: \n\r";
-    		text += ("http://epuakyiw1793t6.kyiv.epam.com:8085/knowhub/confirmation/" + confirmation.getLink());
-    		    		
+    		//text += ("http://epuakyiw1793t6.kyiv.epam.com:8085/knowhub/confirmation/" + confirmation.getLink());
+    		text += ("http://localhost:8085/knowhub/confirmation/" + confirmation.getLink());
+    		
+    		//commented by Oleksandr
     		//mailService.sendMail(user.getLogin(), subject, text);
     	}
         return user.getUserId().intValue();
