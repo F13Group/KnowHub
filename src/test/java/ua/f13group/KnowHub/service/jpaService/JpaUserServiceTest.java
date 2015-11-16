@@ -1,5 +1,6 @@
 package ua.f13group.KnowHub.service.jpaService;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,7 @@ public class JpaUserServiceTest {
     UserRepository userRepository;
 
     @Test
+    @Ignore
     public void testSaveUser() throws Exception {
 
         Confirmation confirmation = new Confirmation();

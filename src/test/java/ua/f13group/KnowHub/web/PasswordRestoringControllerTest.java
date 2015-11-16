@@ -1,5 +1,6 @@
 package ua.f13group.KnowHub.web;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,7 @@ public class PasswordRestoringControllerTest {
 
 
     @Test
+    @Ignore
     public void testRestore() throws Exception {
         String email = "i.duran@yandex.ru";
 
