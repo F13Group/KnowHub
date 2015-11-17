@@ -35,14 +35,16 @@ public class ChangePasswordController extends AbstractSignUpController {
     public String checkReceivedLink(Model model, @PathVariable String generatedLink) {
         Confirmation confirmation = userRepository.getRestorePassByLink(generatedLink);
         if (confirmation == null) {
-            return null;
+            model.addAttribute("notificationMessage", messageSource.getMessage("error.resetPage.nosuchurl", null, null));
+            return "notification";
         } else {
             if (confirmation.getRegDate().getTime() + CHANGE_PASS_EXPIRATION_PERIOD > System.currentTimeMillis()) {
                 model.addAttribute("user_id", confirmation.getUser().getUserId());
                 return "reset";
             }
         }
-        return null;
+        model.addAttribute("notificationMessage", messageSource.getMessage("error.resetPage.nosuchurl", null, null));
+        return "notification";
     }
 
     /* The method valid entered passwords and rewrite user entity password */
