@@ -111,6 +111,11 @@ public class QuestionRepositoryJPA implements QuestionRepository {
 		return query.getSingleResult().intValue();
 	}
 
+	@Override
+	public Question findById(Long questionId) {
+		return entityManager.find(Question.class, questionId);
+	}
+
 }
 /**
  * Deleted queries

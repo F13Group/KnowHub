@@ -23,4 +23,6 @@ public interface QuestionRepository {
 	// public List<Question> testCriteria(int rowsOnPage, int
 	// pageNumber,QuestionSortConfig cfg);
 
+	public Question findById(Long questionId);
+
 }

@@ -183,7 +183,7 @@ public class QuestionController {
 
         Rating rating = new Rating();
         rating.setUserId(userId);
-        rating.setQuestionId(questionId);
+        rating.setQuestion(questionService.getQuestionById(questionId));
         ratingService.save(rating);
         return true;
     }

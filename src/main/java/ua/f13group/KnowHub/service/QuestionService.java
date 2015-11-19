@@ -16,6 +16,7 @@ public interface QuestionService {
 	public int getPagesCount(Category category, int rowsOnPage);
 	public int getPagesCount(int rowsOnPage);
 	public int getRecordsCount();
-	public int getRecordsCount(Category category);	
+	public int getRecordsCount(Category category);
+	public Question getQuestionById(Long questionId);	
 
 }

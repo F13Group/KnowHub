@@ -68,4 +68,10 @@ public class JpaQuestionService implements QuestionService  {
 		return questionRep.getRecordsCount(category);
 	}
 
+	@Override
+	public Question getQuestionById(Long questionId) {
+		// TODO Auto-generated method stub
+		return questionRep.findById(questionId);
+	}
+
 }
