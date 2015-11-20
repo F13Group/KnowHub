@@ -83,7 +83,7 @@
 				</c:if>
 				
 				<div class="form-group"   id="login-group">
-					<label for="username" class="col-sm-2 control-label">Email:</label>
+					<label for="login" class="col-sm-2 control-label">Email:</label>
 					<div class="col-sm-2">
 					<!-- path="login" - login is required http form-login username-parameter in spring-security-config.xml  -->
 						<form:input path="login" type="text"

@@ -37,7 +37,7 @@
 					<div id="links">
 						<div class="nav-left">
 							<a href="${pageContext.servletContext.contextPath}/signup">Sign up</a>
-							<a href="">Log in</a>
+							<a href="${pageContext.servletContext.contextPath}/login">Log in</a>
 							<a href="">Help</a>
 						</div>
 					</div>

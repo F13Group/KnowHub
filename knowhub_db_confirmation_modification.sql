@@ -12,4 +12,4 @@ $BODY$ begin delete from confirmations where reg_date < now() - interval '1 days
   LANGUAGE plpgsql VOLATILE
   COST 100;
 ALTER FUNCTION delete_old_rows()
-  OWNER TO root;
+  OWNER TO knowhub_user;
