@@ -1,7 +1,6 @@
 package ua.f13group.KnowHub.web.rest;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,15 +41,6 @@ public class QuestionController {
     public static final Integer DEFAULT_NOT_LOGGED_USER = null;
     public static final Integer DEFAULT_LIST_SIZE = 100;
 
-    //
-    // @ModelAttribute
-    // public int paginationHolding(
-    // @RequestParam(value = "currentPage", required = false) Integer
-    // currentPage) {
-    // return 5;
-    //
-    // }
-
     @RequestMapping(method = RequestMethod.POST)
     public List<QuestionFrequentAskedDTO> getAllQuestions(
             @RequestParam(value = "currentPageNumber", required = false, defaultValue = DEFAULT_CURRENT_PAGE_NUMBER) Integer currentPageNumber,
@@ -66,37 +56,18 @@ public class QuestionController {
             String login = principal.getName();
             userId = userService.getUserByLogin(login).getUserId();
         }
-        List<Question> list = questionService.getQuestionsForPage(
-                rowsOnPageNumber,
-                currentPageNumber,
-                sortConfig(sortColumnIndex),
-                ascending(sortColumnIndex));
-
-        List<QuestionFrequentAskedDTO> questionFrequentAskedUserList = new ArrayList<>(DEFAULT_LIST_SIZE);
-        Boolean isAsked;
-        Boolean isBookmarked;
-        for (Question question : list) {
-            Long questionId = question.getId();
-            Long rating = ratingService.countLikesByQuestionId(questionId);
-            isAsked = false;
-            isBookmarked = false;
-            if (!guestLogin) {
-                isAsked = ratingService.ifLiked(userId, questionId);
-            }
-            if (!guestLogin) {
-                isBookmarked = bookmarkService.isBookmarked(userId, questionId);
-            }
-            QuestionFrequentAskedDTO item = new QuestionFrequentAskedDTO(
-                    questionId,
-                    question.getValue(),
-                    question.getLoadDate(),
-                    question.getCategory(),
-                    question.getTags(),
-                    rating,
-                    isAsked,
-                    isBookmarked);
-            questionFrequentAskedUserList.add(item);
+        
+        if (guestLogin) {
+        	userId = (long) 0;
         }
+        
+        List<QuestionFrequentAskedDTO> questionFrequentAskedUserList = 
+        		questionService.getQuestionsFrequentlyAskedForPageAndUser(
+        				userId, 
+        				rowsOnPageNumber, 
+        				currentPageNumber, 
+        				sortConfig(sortColumnIndex),
+        				ascending(sortColumnIndex));
 
         return questionFrequentAskedUserList;
     }
@@ -117,40 +88,19 @@ public class QuestionController {
             String login = principal.getName();
             userId = userService.getUserByLogin(login).getUserId();
         }
-
-        List<Question> list = questionService.getQuestionsForPage(
-                new Category(categoryId),
-                rowsOnPageNumber,
-                currentPageNumber,
-                sortConfig(sortColumnIndex),
-                ascending(sortColumnIndex));
-
-        List<QuestionFrequentAskedDTO> questionFrequentAskedUserList = new ArrayList<>(DEFAULT_LIST_SIZE);
-        Boolean isAsked;
-        Boolean isBookmarked;
-        for (Question question : list) {
-            Long questionId = question.getId();
-            Long rating = ratingService.countLikesByQuestionId(questionId);
-            isAsked = false;
-            isBookmarked = false;
-            if (!guestLogin) {
-                isAsked = ratingService.ifLiked(userId, questionId);
-            }
-
-            if (!guestLogin) {
-                isBookmarked = bookmarkService.isBookmarked(userId, questionId);
-            }
-            QuestionFrequentAskedDTO item = new QuestionFrequentAskedDTO(
-                    questionId,
-                    question.getValue(),
-                    question.getLoadDate(),
-                    question.getCategory(),
-                    question.getTags(),
-                    rating,
-                    isAsked,
-                    isBookmarked);
-            questionFrequentAskedUserList.add(item);
+        
+        if (guestLogin) {
+        	userId = (long) 0;
         }
+        
+        List<QuestionFrequentAskedDTO> questionFrequentAskedUserList = 
+        		questionService.getQuestionsFrequentlyAskedForPageAndUser(
+        				userId,
+        				new Category(categoryId),
+        				rowsOnPageNumber, 
+        				currentPageNumber, 
+        				sortConfig(sortColumnIndex),
+        				ascending(sortColumnIndex));
 
         return questionFrequentAskedUserList;
     }

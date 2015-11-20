@@ -25,12 +25,12 @@ public interface QuestionRepository {
 
 	public Question findById(Long questionId);
 
-	List<Object[]> findForPageWithRatingIsAskedAndIsBookmarked(int userId,
+	List<Object[]> findForPageWithRatingIsAskedAndIsBookmarked(long userId,
 			int rowsOnPage, int pageNumber, QuestionSortConfig orderBy,
 			boolean ascending);
 	
 	List<Object[]> findForPageWithRatingIsAskedAndIsBookmarked(
-			int userId, Category category, int rowsOnPage, int pageNumber,
+			long userId, Category category, int rowsOnPage, int pageNumber,
 			QuestionSortConfig orderBy, boolean ascending);
 
 }
