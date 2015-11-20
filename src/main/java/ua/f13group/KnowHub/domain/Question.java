@@ -49,11 +49,11 @@ import javax.persistence.ColumnResult;
 //		FROM questions q LEFT JOIN ratings r ON r.question_id = q.question_id
 //		GROUP BY q.question_id
 //		ORDER BY q.question_id
-		@NamedQuery(name = "Question.findAllWithRatingIsAskedAndIsBookmarked", 
-			query = "SELECT q.id, q.value, q.loadDate, q.category, count (r.userId) as rating,"
-					+ " (SELECT count(r.id)>0 as asked FROM Rating r WHERE r.userId = :userId and r.question.id = q.id),"
-					+ " (SELECT count(b.id)>0 as bookmarked FROM Bookmark b WHERE b.userId = :userId and b.questionId = q.id)"
-					+ " FROM Rating r RIGHT JOIN r.question q GROUP BY q.id ORDER BY q.id")
+//		@NamedQuery(name = "Question.findAllWithRatingIsAskedAndIsBookmarked", 
+//			query = "SELECT q.id, q.value, q.loadDate, q.category, count (r.userId) as rating,"
+//					+ " (SELECT count(r.id)>0 as asked FROM Rating r WHERE r.userId = :userId and r.question.id = q.id),"
+//					+ " (SELECT count(b.id)>0 as bookmarked FROM Bookmark b WHERE b.userId = :userId and b.questionId = q.id)"
+//					+ " FROM Rating r RIGHT JOIN r.question q GROUP BY q.id ORDER BY q.id")
 })
 @SqlResultSetMapping(
         name = "QuestionMapping",
@@ -62,8 +62,8 @@ import javax.persistence.ColumnResult;
                 fields = {
                     @FieldResult(name = "id", column = "id"),
                     @FieldResult(name = "value", column = "value"),
-                    @FieldResult(name = "loadDate", column = "loadDate"),
-                    @FieldResult(name = "category", column = "category")}),
+                    @FieldResult(name = "loadDate", column = "load_date"),
+                    @FieldResult(name = "category", column = "category_id")}),
                 columns = {
         			@ColumnResult(name = "rating", type = Long.class),
         			@ColumnResult(name = "isAsked", type = Boolean.class),
