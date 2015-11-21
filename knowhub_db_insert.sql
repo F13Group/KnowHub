@@ -13,7 +13,9 @@ INSERT INTO properties(key, value) VALUES
 ('smtp_server','smtp.ukr.net'),
 ('smtp_port','465'),
 ('smtp_user','f13group@ukr.net'),
-('smtp_password','password_for_ukrnet');
+('smtp_password','password_for_ukrnet'),
+('reg_timeout','24'),
+('session_timeout','900');
 
 
 INSERT INTO tags (value) VALUES 

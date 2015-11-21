@@ -56,5 +56,9 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
+	
+	<listener>
+    	<listener-class>ua.f13group.KnowHub.web.listener.CustomHttpSessionListener</listener-class>
+  	</listener>
 
 </web-app>
