@@ -88,8 +88,9 @@ public class SignUpController extends AbstractSignUpController {
             PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
             newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
             newUser.setPassword2(null);
-            
-            if (user !=null && user.isConfirmed() == false){
+
+
+		if (user !=null && user.isConfirmed() == false){
             	userService.updateUser(newUser);
             	model.addAttribute("newUser", newUser);
             	model.addAttribute("notificationMessage",
