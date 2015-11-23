@@ -122,9 +122,15 @@ public class UserRepositoryJPA implements UserRepository {
 		return confirmation;
 	}
 
+
 	@Transactional
 	@Override
 	public void editUser(User user) {
-		entityManager.merge(user);		
+		entityManager.merge(user);
+	}
+
+	@Override
+	public User getUserById(Long id) {
+		return entityManager.find(User.class,id);
 	}
 }

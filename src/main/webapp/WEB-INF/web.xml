@@ -11,7 +11,7 @@
 	<!-- location of log4j config file -->
 	<context-param>
 		<param-name>log4jConfigLocation</param-name>
-		<param-value>classpath:spring/log4j.properties</param-value>
+		<param-value>classpath:log4j.properties</param-value>
 	</context-param>
 
 	<listener>
@@ -56,5 +56,9 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
+	
+	<listener>
+    	<listener-class>ua.f13group.KnowHub.web.listener.CustomHttpSessionListener</listener-class>
+  	</listener>
 
 </web-app>

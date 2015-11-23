@@ -23,4 +23,14 @@ public interface QuestionRepository {
 	// public List<Question> testCriteria(int rowsOnPage, int
 	// pageNumber,QuestionSortConfig cfg);
 
+	public Question findById(Long questionId);
+
+	List<Object[]> findForPageWithRatingIsAskedAndIsBookmarked(long userId,
+			int rowsOnPage, int pageNumber, QuestionSortConfig orderBy,
+			boolean ascending);
+	
+	List<Object[]> findForPageWithRatingIsAskedAndIsBookmarked(
+			long userId, Category category, int rowsOnPage, int pageNumber,
+			QuestionSortConfig orderBy, boolean ascending);
+
 }

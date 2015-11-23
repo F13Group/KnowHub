@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceAware;
+import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 
 public abstract class AbstractSignUpController implements MessageSourceAware {
@@ -23,19 +24,19 @@ public abstract class AbstractSignUpController implements MessageSourceAware {
 		return m.matches();
 	}
 	
-	protected void addMessages(ModelAndView model) {
-		model.addObject("loginInstructions", messageSource.getMessage("info.signuppage.loginInstructions", null, null));
-		model.addObject("passwordInstructions", messageSource.getMessage("info.signuppage.passwordInstructions", null, null));
-		model.addObject("confirmDialogText", messageSource.getMessage("info.signuppage.confirmDialogText", null, null));
-		model.addObject("errorLoginEmpty", messageSource.getMessage("error.signuppage.loginEmpty", null, null));
-		model.addObject("errorLoginNotEmail", messageSource.getMessage("error.signuppage.loginNotEmail", null, null));
-		model.addObject("errorLoginExistsAlready", messageSource.getMessage("error.signuppage.loginExistsAlready", null, null));
-		model.addObject("errorPasswordEmpty", messageSource.getMessage("error.signuppage.passwordEmpty", null, null));
-		model.addObject("errorPasswordBadlyFormed", messageSource.getMessage("error.signuppage.passwordBadlyFormed", null, null));
-		model.addObject("errorPasswordTooLong",	messageSource.getMessage("error.signuppage.passwordTooLong", null, null));
-		model.addObject("errorPassword2Empty", messageSource.getMessage("error.signuppage.password2Empty", null, null));
-		model.addObject("errorPassword2NoMatch", messageSource.getMessage("error.signuppage.password2NoMatch", null, null));
-		model.addObject("infoPleaseEnterEmail", messageSource.getMessage("info.loginpage.pleaseEnterEmail", null, null));
-		model.addObject("infoPleaseEnterPassword", messageSource.getMessage("info.loginpage.pleaseEnterPassword", null, null));
+	protected void addMessages(Model model) {
+		model.addAttribute("loginInstructions", messageSource.getMessage("info.signuppage.loginInstructions", null, null));
+		model.addAttribute("passwordInstructions", messageSource.getMessage("info.signuppage.passwordInstructions", null, null));
+		model.addAttribute("confirmDialogText", messageSource.getMessage("info.signuppage.confirmDialogText", null, null));
+		model.addAttribute("errorLoginEmpty", messageSource.getMessage("error.signuppage.loginEmpty", null, null));
+		model.addAttribute("errorLoginNotEmail", messageSource.getMessage("error.signuppage.loginNotEmail", null, null));
+		model.addAttribute("errorLoginExistsAlready", messageSource.getMessage("error.signuppage.loginExistsAlready", null, null));
+		model.addAttribute("errorPasswordEmpty", messageSource.getMessage("error.signuppage.passwordEmpty", null, null));
+		model.addAttribute("errorPasswordBadlyFormed", messageSource.getMessage("error.signuppage.passwordBadlyFormed", null, null));
+		model.addAttribute("errorPasswordTooLong",	messageSource.getMessage("error.signuppage.passwordTooLong", null, null));
+		model.addAttribute("errorPassword2Empty", messageSource.getMessage("error.signuppage.password2Empty", null, null));
+		model.addAttribute("errorPassword2NoMatch", messageSource.getMessage("error.signuppage.password2NoMatch", null, null));
+		model.addAttribute("infoPleaseEnterEmail", messageSource.getMessage("info.loginpage.pleaseEnterEmail", null, null));
+		model.addAttribute("infoPleaseEnterPassword", messageSource.getMessage("info.loginpage.pleaseEnterPassword", null, null));
 	}
 }

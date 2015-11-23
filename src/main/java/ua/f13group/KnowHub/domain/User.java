@@ -45,7 +45,7 @@ public class User implements Serializable {
     
     @NotNull
     @Size(min = 2, max = 50, message = "Please enter your email")
-    @Column(name = "login")
+    @Column(name = "login", unique = true)
     private String login;
     
     @NotNull

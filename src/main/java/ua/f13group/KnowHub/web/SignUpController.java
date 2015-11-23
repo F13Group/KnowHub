@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,25 +29,25 @@ public class SignUpController extends AbstractSignUpController {
     private UserService userService;
     
     @RequestMapping(value = "/signup",method = RequestMethod.GET)
-	public ModelAndView signup(ModelAndView model) {
-            model.addObject("newUser", new User());
-            model.addObject("signUpError", "");
+	public String signup(Model model) {
+            model.addAttribute("newUser", new User());
+            model.addAttribute("signUpError", "");
             
             addMessages(model);
             
-            model.setViewName("signup");
-            return model;
+            //model.setViewName("signup");
+            return "signup";
 	}
     
     @RequestMapping(value = "/signup",method = RequestMethod.POST)
-	public ModelAndView signup(@Valid final User newUser, final BindingResult result, ModelAndView model) {
+	public String signup(@Valid final User newUser, final BindingResult result, Model model) {
             if (result.hasErrors()) {
-                model.addObject("newUser", newUser);
-                model.addObject("signUpError", "");
+                model.addAttribute("newUser", newUser);
+                model.addAttribute("signUpError", "");
                 
                 addMessages(model);
                 
-                return model;
+                return "signup";
             }
             newUser.setLogin(newUser.getLogin().trim().toLowerCase());
             
@@ -64,23 +65,23 @@ public class SignUpController extends AbstractSignUpController {
             		this.checkWithRegExp(newUser.getFirstname(), "(?=.*[~\\@\\#\\$\\%\\^\\+\\-\\=\\[\\]*()/{}\\?!|:;_<>])") ||
             		this.checkWithRegExp(newUser.getLastname(), "(?=.*[~\\@\\#\\$\\%\\^\\+\\-\\=\\[\\]*()/{}\\?!|:;_<>])")
             		))){
-            	model.setViewName("notification");
-            	model.addObject("error", "ValidationFail");
-            	model.addObject("notificationMessage",
-        				messageSource.getMessage("info.notificationpage.serverValidationError",
-        						null, null));
-            	return model; 
+            	//model.setViewName("notification");
+            	model.addAttribute("error", "ValidationFail");
+            	model.addAttribute("notificationMessage",
+						messageSource.getMessage("info.notificationpage.serverValidationError",
+								null, null));
+            	return "notification";
             }
             
             User user = userService.getUserByLogin(newUser.getLogin());
             if (user != null && user.isConfirmed()) {            	
             	result.rejectValue("login", "error.newUser", "Email already exists");
-            	model.addObject("newUser", newUser);
-            	model.addObject("signUpError", "Email already exists");
+            	model.addAttribute("newUser", newUser);
+            	model.addAttribute("signUpError", "Email already exists");
             	
             	addMessages(model);
             	
-            	return model;
+            	return "signup";
             }
             
             //done by Oleksandr
@@ -88,31 +89,31 @@ public class SignUpController extends AbstractSignUpController {
             newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
             newUser.setPassword2(null);
             
-            if (user !=null && user.isConfirmed() == false){
+            if (user != null && user.isConfirmed() == false){
             	userService.updateUser(newUser);
-            	model.addObject("newUser", newUser);
-            	model.addObject("notificationMessage",
-        				messageSource.getMessage("info.notificationpage.emailSent",
-        						new Object[] { newUser.getLogin() }, null));
-            	model.setViewName("notification");
-            	return model;
+            	model.addAttribute("newUser", newUser);
+            	model.addAttribute("notificationMessage",
+						messageSource.getMessage("info.notificationpage.emailSent",
+								new Object[]{newUser.getLogin()}, null));
+            	//model.setViewName("notification");
+            	return "notification";
             }
             else {
             	if (userService.saveUser(newUser) != null) {
-                	model.addObject("newUser", newUser);
-                	model.addObject("notificationMessage",
-            				messageSource.getMessage("info.notificationpage.emailSent",
-            						new Object[] { newUser.getLogin() }, null));
-                	model.setViewName("notification");
-                	return model;
+                	model.addAttribute("newUser", newUser);
+                	model.addAttribute("notificationMessage",
+							messageSource.getMessage("info.notificationpage.emailSent",
+									new Object[]{newUser.getLogin()}, null));
+                	//model.setViewName("notification");
+                	return "notification";
                 } else {
-                	model.addObject("newUser", new User());
-                	model.addObject("signUpError", "");
+                	model.addAttribute("newUser", new User());
+                	model.addAttribute("signUpError", "");
                 	
                 	addMessages(model);
                 	
-                	model.setViewName("signup");
-                	return model;
+                	//model.setViewName("signup");
+                	return "signup";
                 }
             }            
 	}
