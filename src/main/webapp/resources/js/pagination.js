@@ -113,10 +113,10 @@ function outputQuestions(pC, cPN, rOPN) {
                     
                     var userName = $("#userName").html();
                     if (userName) {
-                        $("<div class='divRow row'><div class='non-active col-lg-6 col-md-6 col-sm-6 divQuestionColor divCell_2'>" + value.value + "</div><div class='col-lg-1 col-md-2 col-sm-2 divCell_Center'>" + value.category.shortValue + "</div><div class='col-lg-1 col-md-2 col-sm-2 divCell_Center'>" + date + "</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Left'>" + was_asked_button(value.id, value.isAsked) + " " + value.rating + "</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Left'>" + was_bookmarked_button(value.id, value.isBookmarked) + "</div></div>").insertAfter("#headRow");
+                        $("<div class='divRow row'><div class='non-active col-lg-6 col-md-6 col-sm-6 divCell_2'><a href='question/"+ value.id +"'  class='divQuestionColor'>" + value.value + "</a></div><div class='col-lg-1 col-md-2 col-sm-2 divCell_Center'>" + value.category.shortValue + "</div><div class='col-lg-1 col-md-2 col-sm-2 divCell_Center'>" + date + "</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Left'>" + was_asked_button(value.id, value.isAsked) + " " + value.rating + "</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Left'>" + was_bookmarked_button(value.id, value.isBookmarked) + "</div></div>").insertAfter("#headRow");
 
                     } else {
-                        $("<div class='divRow row'><div class='col-lg-6 col-md-6 col-sm-6 divQuestionColor divCell_2'>" + value.value + "</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Center'>" + value.category.shortValue + "</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Center'>" + date + "</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Center'>" + value.rating + "</div></div>").insertAfter("#headRow");
+                        $("<div class='divRow row'><div class='col-lg-6 col-md-6 col-sm-6 divCell_2'><a href='question/"+ value.id +"' class ='divQuestionColor'>" + value.value + "</a></div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Center'>" + value.category.shortValue + "</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Center'>" + date + "</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Center'>" + value.rating + "</div></div>").insertAfter("#headRow");
                     }
 
                 });

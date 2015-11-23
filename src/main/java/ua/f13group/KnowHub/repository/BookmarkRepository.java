@@ -1,3 +1,4 @@
+
 package ua.f13group.KnowHub.repository;
 
 import ua.f13group.KnowHub.domain.Bookmark;
@@ -7,3 +8,4 @@ public interface BookmarkRepository {
     Long save(Bookmark bookmark);
     Long unbookmark(Long userId, Long questionId);
 }
+

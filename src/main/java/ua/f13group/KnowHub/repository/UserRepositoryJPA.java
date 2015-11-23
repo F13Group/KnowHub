@@ -67,7 +67,9 @@ public class UserRepositoryJPA implements UserRepository {
 
 	@Override
 	public void deleteConfirmation(Confirmation confirm) {
-		entityManager.remove(confirm);
+		if (confirm != null) {
+			entityManager.remove(confirm);
+		}
 	}
 
 	@Transactional

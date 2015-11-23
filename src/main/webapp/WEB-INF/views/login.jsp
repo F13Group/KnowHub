@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- favicon -->
-<link rel="icon" href="${pageContext.request.contextPath}/resources/styleBootstrap/img/question_shield.png"
+<link rel="icon" href="resources/styleBootstrap/img/question_shield.png"
 	type="image/png">
 <title>KNOW HUB</title>
 
@@ -14,12 +14,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
+
 <!-- Bootstrap core CSS -->
- <link href="${pageContext.request.contextPath}/resources/styleBootstrap/css/bootstrap.min.css"
+ <link href="resources/styleBootstrap/css/bootstrap.min.css"
 	rel="stylesheet">
 
 <!-- Custom styles for this template -->
-<link href="${pageContext.request.contextPath}/resources/styleBootstrap/css/custom.css" rel="stylesheet">
+<link href="resources/styleBootstrap/css/custom.css" rel="stylesheet">
 
 <!-- JQuery style -->
 <link
@@ -33,7 +34,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/validation.js"></script>
+<script src="resources/js/validation.js"></script>
     <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script type="text/javascript"
@@ -63,7 +64,7 @@
 	</div>
 
 	<div class="container">
-		<form:form name='loginForm' commandName="newUser" method='POST' cssClass="form-horizontal loginForm" class="form-signin">
+		<form:form name='loginForm' commandName="newUser" method='POST' cssClass="form-horizontal registrationForm" class="form-signin">
 
 				<c:if test="${not empty error}">
 				    <div class="alert alert-danger alert-dismissible" role="alert">
@@ -82,8 +83,8 @@
 				</c:if>
 				
 				<div class="form-group"   id="login-group">
-					<label for="username" class="col-sm-2 control-label">Email:</label>
-					<div class="col-sm-3">
+					<label for="login" class="col-sm-2 control-label">Email:</label>
+					<div class="col-sm-2">
 					<!-- path="login" - login is required http form-login username-parameter in spring-security-config.xml  -->
 						<form:input path="login" type="text"
 							class="form-control " placeholder="name_surname@epam.com"/>	
@@ -93,7 +94,7 @@
 
 				<div class="form-group" id="password-group">
 					<label for="password" class="col-sm-2 control-label">Password:</label>
-					<div class="col-sm-3" >
+					<div class="col-sm-2" >
 						<form:input path="password" type="password" 
 							class="form-control " placeholder="Enter your password"/> 
 						<form:errors path="password" cssStyle="color: red;"/>
@@ -158,20 +159,12 @@
 		
 			$.validator.addMethod("customemail",
 	                function (value, element) {
-	                    return /^\w+_\w+@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(value);
-	                    /*  ^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$  - one of the email pattern version*/
+	                    return /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(value);
 	                },
 	                "Please input valid email"
 	        );
-			
-	        $.validator.addMethod("epamEmail", 
-	        		function(value, element){
-	        			return this.optional(element) || /^.+@epam.com$/.test(value);
-	        		}, 
-	        		"Only epam.com email addresses are allowed."
-	        );
  			
-			$(".loginForm").validate({
+			$(".registrationForm").validate({
 	                    rules: {
 	                        login: {
 	                        	required: {
@@ -180,17 +173,13 @@
 	                                    return true;
 	                                }
 	                            },
-	                            customemail: true,
-	                            epamEmail: true,
-	                            minlength: 8,
-	                            maxlength: 64,
+	                            customemail: true
 	                        },
 
 	                        password: 
 	                         {
 	                            required: true,
-	                            minlength: 8,
-	                            maxlength: 64,
+	                            minlength: 8
 	                        }, 
 	                    },
 	                    highlight: function (element) {
@@ -201,21 +190,11 @@
 	                    },
 	                     
 	                    messages: {
-	                    	login: {
-	                    		required: "Please enter your email",
-	                    		minlength: "Your login must consist of at least 8 characters",
-	                    	},
-	                    	password: {
-	                    		required: "Please enter your password",
-	                    		minlength: "Your password must consist of at least 8 characters",
-	                    	}
+	                    	login: "Please enter your email",
+	                    	password: "Please enter your password",
 	                    },
 	                });
-			
-			
 		}); 
-		
-		
 	</script>
 </body>
 </html>
