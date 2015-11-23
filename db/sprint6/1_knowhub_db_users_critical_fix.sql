@@ -848,12 +848,12 @@
             <span class="octicon octicon-device-desktop"></span>
         </a>
 
-        <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="/F13Group/KnowHub/edit/master/knowhub_db_users_critical_fix.sql" class="inline-form js-update-url-with-hash" data-form-nonce="887bb9adcc7e4522f476d26406c627bd7f8ac244" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="1O4ITgMbECrJG343pMWkavVUVo+2geqy++zKWQvjbb23AUZTvRGmDwKGBqpQ30kXNG/FTsRyGajZrjjodAzmJQ==" /></div>
+        <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="/F13Group/KnowHub/edit/master/1_knowhub_db_users_critical_fix.sql" class="inline-form js-update-url-with-hash" data-form-nonce="887bb9adcc7e4522f476d26406c627bd7f8ac244" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="1O4ITgMbECrJG343pMWkavVUVo+2geqy++zKWQvjbb23AUZTvRGmDwKGBqpQ30kXNG/FTsRyGajZrjjodAzmJQ==" /></div>
           <button class="octicon-btn tooltipped tooltipped-nw" type="submit"
             aria-label="Edit this file" data-hotkey="e" data-disable-with>
             <span class="octicon octicon-pencil"></span>
           </button>
-</form>        <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="/F13Group/KnowHub/delete/master/knowhub_db_users_critical_fix.sql" class="inline-form" data-form-nonce="887bb9adcc7e4522f476d26406c627bd7f8ac244" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="j0QJMfNn0nE3qvW3tHJhDaPRn3deAQljSCbzzOxMR4aOS11eWRDlAYWly6r6VjMZm9TWWs0SqoUotxOM8nEjVA==" /></div>
+</form>        <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="/F13Group/KnowHub/delete/master/1_knowhub_db_users_critical_fix.sql" class="inline-form" data-form-nonce="887bb9adcc7e4522f476d26406c627bd7f8ac244" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="j0QJMfNn0nE3qvW3tHJhDaPRn3deAQljSCbzzOxMR4aOS11eWRDlAYWly6r6VjMZm9TWWs0SqoUotxOM8nEjVA==" /></div>
           <button class="octicon-btn octicon-btn-danger tooltipped tooltipped-nw" type="submit"
             aria-label="Delete this file" data-disable-with>
             <span class="octicon octicon-trashcan"></span>
