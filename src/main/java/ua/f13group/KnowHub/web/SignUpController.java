@@ -84,7 +84,7 @@ public class SignUpController extends AbstractSignUpController {
             	return "signup";
             }
             
-            //done by Oleksandr
+            
             PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
             newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
             newUser.setPassword2(null);

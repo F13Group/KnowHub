@@ -34,17 +34,19 @@ public class ChangePasswordController extends AbstractSignUpController {
     @RequestMapping(value = "/restore_password/{generatedLink}")
     public String checkReceivedLink(Model model, @PathVariable String generatedLink) {
         Confirmation confirmation = userRepository.getRestorePassByLink(generatedLink);
+//        String link = "<a href=\"/knowhub/login\">Forgot your password?</a>";
         if (confirmation == null) {
-            model.addAttribute("notificationMessage", messageSource.getMessage("error.resetPage.nosuchurl", null, null));
-            return "notification";
+            model.addAttribute("error", messageSource.getMessage("error.resetPage.nosuchurl", null, null));
+            return "reset";
         } else {
             if (confirmation.getRegDate().getTime() + CHANGE_PASS_EXPIRATION_PERIOD > System.currentTimeMillis()) {
                 model.addAttribute("user_id", confirmation.getUser().getUserId());
                 return "reset";
             }
         }
-        model.addAttribute("notificationMessage", messageSource.getMessage("error.resetPage.nosuchurl", null, null));
-        return "notification";
+
+        model.addAttribute("error", messageSource.getMessage("error.resetPage.nosuchurl", null, null));
+        return "reset";
     }
 
     /* The method valid entered passwords and rewrite user entity password */
