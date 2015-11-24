@@ -131,12 +131,21 @@ public class QuestionRepositoryJPA implements QuestionRepository {
 			sqlQueryString += " ASC";
 		} else {
 			sqlQueryString += " DESC";
-		}
+		}		
 		Query query = 
 				entityManager.createNativeQuery(sqlQueryString, "QuestionMapping");
 		query.setParameter("userId", userId);
+		
+//		Query query = 
+//				entityManager.createNamedQuery("Question.findAllWithRatingIsAskedAndIsBookmarked");
+//		query.setParameter("userId", userId);
+//		if (ascending) {
+//			query.setParameter("orderBy", "q.value ASC");
+//		} else {
+//			query.setParameter("orderBy", "q.value DESC");
+//		}		
 		query.setFirstResult(((pageNumber - 1) * rowsOnPage));
-		query.setMaxResults(rowsOnPage);
+		query.setMaxResults(rowsOnPage);		
 		
 		List<Object[]> values = query.getResultList();
 		return values;
@@ -165,6 +174,14 @@ public class QuestionRepositoryJPA implements QuestionRepository {
 				entityManager.createNativeQuery(sqlQueryString, "QuestionMapping");
 		query.setParameter("userId", userId);
 		query.setParameter("categoryId", category.getId());
+		
+//		Query query = 
+//				entityManager.createNamedQuery("Question.findByCategoryWithRatingIsAskedAndIsBookmarked");
+//		query.setParameter("orderBy", orderBy.nativeName);
+//		query.setParameter("userId", userId);
+//		query.setParameter("categoryId", category.getId());
+//		query.setParameter("ascdesc", ascending ? "ASC" : "DESC");
+		
 		query.setFirstResult(((pageNumber - 1) * rowsOnPage));
 		query.setMaxResults(rowsOnPage);
 		
