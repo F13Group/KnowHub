@@ -101,10 +101,10 @@ function outputQuestions(pC, cPN, rOPN) {
                     function was_bookmarked_button(questionId, isBookmarked){
                     	var currentImg;
                     	var swapImg; 
-                     	if(isBookmarked == false){
+                     	if (isBookmarked == false){
                     		currentImg = "resources/img/nonactivestar.png";
                     		swapImg = "resources/img/star.png";
-                    	}else if(isBookmarked == true){
+                    	} else if (isBookmarked == true){
                     		currentImg = "resources/img/star.png";
                     		swapImg = "resources/img/nonactivestar.png";
                     	}
@@ -163,9 +163,7 @@ $(document).ready(function () {
         $.each(data, function (index, value) {
             $("#categoriesMenu").append("<div class=categoriesMenuItem><input id=category" + value.id + " class=categoriesMenuButton type=button value='" + value.value + "' onclick=selectCategory(" + value.id + ") onmouseover=switchCategoryButtonOver('" + value.id + "','true') onmouseout=switchCategoryButtonOver('" + value.id + "','false')><br /></div>");
         });
-    });
-    
-    
+    });    
 
     displayPage("1");
 });
@@ -213,7 +211,7 @@ function mouseOverWasBookmarkedButton(questionId, isBookmarked) {
             delay: {show: 1},
 
         });
-    }else if(isBookmarked == true){
+    }else if (isBookmarked == true){
     	$("#was_bookmarked" + questionId).tooltip({
             title: "Please click on this icon to remove the bookmark.",
             placement: "right",
@@ -225,21 +223,21 @@ function mouseOverWasBookmarkedButton(questionId, isBookmarked) {
 }
 
 function toggleBookmark(questionId, isBookmarked) {
-
-	      var _this = $("#was_bookmarked" + questionId);
-	      var current = _this.attr("src");
-	      var swap = _this.attr("data-swap");     
-	     _this.attr('src', swap).attr("data-swap",current);  
+	
+	var _this = $("#was_bookmarked" + questionId);
+	var current = _this.attr("src");
+	var swap = _this.attr("data-swap");     
+	_this.attr('src', swap).attr("data-swap",current);  
 	     
-	     if(isBookmarked == false){
-	    	$.post(globalQuestionUrl + "/bookmark", {questionId: questionId}).done(function(isSuccess) {
-				displayPage(currentPage);
-			}); 
-	     }else if(isBookmarked == true){
-	    	 $.post(globalQuestionUrl + "/unbookmark", {questionId: questionId}).done(function(isSucces) {
-				displayPage(currentPage);
-			});
-	     }
+	if(isBookmarked == false){
+		$.post(globalQuestionUrl + "/bookmark", {questionId: questionId}).done(function(isSuccess) {
+			displayPage(currentPage);
+		}); 
+	} else if(isBookmarked == true){
+	   	 $.post(globalQuestionUrl + "/unbookmark", {questionId: questionId}).done(function(isSucces) {
+			displayPage(currentPage);
+		});
+	}
 }
 
 function switchCategoryButtonOver(categoryId, isMouseOver) {
@@ -271,10 +269,10 @@ function switchCategoryButtonOver(categoryId, isMouseOver) {
 }
 
 function selectCategory(categoryId) {
-
-    globalSortColumnIndex = 1;
-    globalSortDirectionAsc = -1;
-
+	
+	globalSortDirection = 1;
+	orderedBy(1);
+    
     $('.categoriesMenuButtonActive').removeAttr('style');
     $('.categoriesMenuButtonActive').toggleClass('categoriesMenuButtonActive').toggleClass('categoriesMenuButton');
 

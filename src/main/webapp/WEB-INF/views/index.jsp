@@ -63,7 +63,6 @@
 
 	<div class="container">
 
-<!-- 		<div class="tabbable"> -->
 			<div class="row">
 			<div id="categoriesMenu" class="categoriesMenu col-lg-2 col-md-2 col-sm-2 justified"></div>
 
@@ -91,7 +90,6 @@
 		</div>		
 		</div>	
 			
-<!-- 		</div>  	/.tabbable -->
 	</div>	<!-- /.container -->
 	
 	<footer class="footer">

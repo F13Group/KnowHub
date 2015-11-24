@@ -124,5 +124,44 @@ public class Question implements Serializable {
 
 	public void setTags(List<Tag> tags) {
 		this.tags = tags;
-	}	
+	}
+	
+	public static String getFindAllWithRatingIsAskedAndIsBookmarkedQueryString
+		(Category category, QuestionSortConfig orderBy, boolean isSortedAscending) {
+		
+		String sqlQueryString = "SELECT q.question_id, q.value, q.load_date, q.category_id, count (r.user_id) as rating,"
+				+ " (SELECT count(r.rating_id)>0 as asked FROM ratings r WHERE r.user_id = :userId and r.question_id = q.question_id),"
+				+ " (SELECT count(b.bookmark_id)>0 as bookmarked FROM bookmarks b WHERE b.user_id = :userId and b.question_id = q.question_id)"
+				+ " FROM ratings r RIGHT JOIN questions q ON r.question_id = q.question_id"
+				+ " JOIN categories c ON c.category_id = q.category_id";
+		
+		if (category != null) {
+			sqlQueryString += " WHERE q.category_id = :categoryId";
+		}
+		
+		sqlQueryString += " GROUP BY q.question_id, c.value ORDER BY";
+		
+		switch (orderBy) {
+			case CATEGORY:
+				sqlQueryString += " c.value";
+				break;
+			case DATE:
+				sqlQueryString += " q.load_date";
+				break;
+			case RATING:
+				sqlQueryString += " rating";
+				break;
+			default:
+				sqlQueryString += " q.value";
+				break;			
+		}
+		
+		if (isSortedAscending) {
+			sqlQueryString += " ASC";
+		} else {
+			sqlQueryString += " DESC";
+		}
+		
+		return sqlQueryString;
+	}
 }
