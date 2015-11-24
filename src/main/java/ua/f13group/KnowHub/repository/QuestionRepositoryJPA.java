@@ -16,6 +16,7 @@ import org.springframework.stereotype.Repository;
 import ua.f13group.KnowHub.domain.Category;
 import ua.f13group.KnowHub.domain.Question;
 import ua.f13group.KnowHub.domain.QuestionSortConfig;
+import ua.f13group.KnowHub.domain.User;
 
 @Repository("questionRepository")
 public class QuestionRepositoryJPA implements QuestionRepository {
@@ -172,4 +173,9 @@ public class QuestionRepositoryJPA implements QuestionRepository {
 		return values;
 	}
 
+
+	@Override
+	public Question getQuestionById(Long id) {
+		return entityManager.find(Question.class,id);
+	}
 }

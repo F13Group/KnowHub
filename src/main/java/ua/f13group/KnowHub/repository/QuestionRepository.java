@@ -33,4 +33,6 @@ public interface QuestionRepository {
 			long userId, Category category, int rowsOnPage, int pageNumber,
 			QuestionSortConfig orderBy, boolean ascending);
 
+	public Question getQuestionById(Long id);
+
 }

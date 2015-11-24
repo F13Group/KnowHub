@@ -31,6 +31,8 @@ import javax.persistence.ColumnResult;
         query = "SELECT Count(q) FROM Question q WHERE q.category.id = :category"),
     @NamedQuery(name = "Question.findByCategory", 
         query = "SELECT q FROM Question q WHERE q.category.id = :category ORDER BY q.loadDate DESC"),
+	@NamedQuery(name = "Question.getQuestionByIdAndByUser",
+        query = "SELECT q FROM Question q WHERE q.id = :id and q.user = :user"),
 })
 @SqlResultSetMapping(
     name = "QuestionMapping",
@@ -53,9 +55,12 @@ public class Question implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "question_id")
     Long id;
-    
-    String value;
-    
+	@Column(name = "description",columnDefinition = "TEXT")
+	String description; //full text of question
+	@Column(name = "value",length = 140)
+    String value; //title of the question
+	@Column(name = "views")
+	Long views;
     @Column(name = "load_date")
     Timestamp loadDate;
 
@@ -66,6 +71,10 @@ public class Question implements Serializable {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "question_tags", joinColumns = { @JoinColumn(name = "question_id") }, inverseJoinColumns = { @JoinColumn(name = "tag_id") })
 	private List<Tag> tags;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
 	public Question() {
 	}
@@ -108,5 +117,29 @@ public class Question implements Serializable {
 
 	public void setTags(List<Tag> tags) {
 		this.tags = tags;
-	}	
+	}
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Long getViews() {
+        return views;
+    }
+
+    public void setViews(Long views) {
+        this.views = views;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
