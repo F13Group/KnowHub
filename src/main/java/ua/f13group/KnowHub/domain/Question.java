@@ -14,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -30,7 +32,21 @@ import javax.persistence.ColumnResult;
     @NamedQuery(name = "Question.getPagesCountWithCategory", 
         query = "SELECT Count(q) FROM Question q WHERE q.category.id = :category"),
     @NamedQuery(name = "Question.findByCategory", 
-        query = "SELECT q FROM Question q WHERE q.category.id = :category ORDER BY q.loadDate DESC"),
+        query = "SELECT q FROM Question q WHERE q.category.id = :category ORDER BY q.loadDate DESC")    
+})
+@NamedNativeQueries({
+	@NamedNativeQuery(name = "Question.findAllWithRatingIsAskedAndIsBookmarked", 
+		query = "SELECT q.question_id, q.value, q.load_date, q.category_id, count (r.user_id) as rating,"
+				+ " (SELECT count(r.rating_id)>0 as asked FROM ratings r WHERE r.user_id = :userId and r.question_id = q.question_id),"
+				+ " (SELECT count(b.bookmark_id)>0 as bookmarked FROM bookmarks b WHERE b.user_id = :userId and b.question_id = q.question_id)"
+				+ " FROM ratings r RIGHT JOIN questions q ON r.question_id = q.question_id"
+				+ " GROUP BY q.question_id ORDER BY :orderBy", resultSetMapping  = "QuestionMapping"),
+	@NamedNativeQuery(name = "Question.findByCategoryWithRatingIsAskedAndIsBookmarked", 
+		query = "SELECT q.question_id, q.value, q.load_date, q.category_id, count (r.user_id) as rating,"
+				+ " (SELECT count(r.rating_id)>0 as asked FROM ratings r WHERE r.user_id = :userId and r.question_id = q.question_id),"
+				+ " (SELECT count(b.bookmark_id)>0 as bookmarked FROM bookmarks b WHERE b.user_id = :userId and b.question_id = q.question_id)"
+				+ " FROM ratings r RIGHT JOIN questions q ON r.question_id = q.question_id WHERE q.category_id = :categoryId"
+				+ " GROUP BY q.question_id ORDER BY :orderBy", resultSetMapping  = "QuestionMapping")
 })
 @SqlResultSetMapping(
     name = "QuestionMapping",
