@@ -16,6 +16,8 @@ public interface QuestionService {
 	public int getPagesCount(Category category, int rowsOnPage);
 	public int getPagesCount(int rowsOnPage);
 	public int getRecordsCount();
-	public int getRecordsCount(Category category);	
+	public int getRecordsCount(Category category);
+	public List<Question> findForPageBookmarkedByUser(long userId, int rowsOnPage,
+													  int pageNumber);
 
 }

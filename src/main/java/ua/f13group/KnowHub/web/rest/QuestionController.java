@@ -230,7 +230,7 @@ public class QuestionController {
             return false;
         }
 
-        bookmarkService.unbookmark(userId,questionId);
+        bookmarkService.unbookmark(userId, questionId);
         return true;
     }
 
@@ -258,6 +258,54 @@ public class QuestionController {
     public PageMetadata getMetadata() {
 
         return new PageMetadata();
+    }
+
+
+    @RequestMapping(value = "/mybookmarks", method = RequestMethod.GET)
+    public List<QuestionFrequentAskedDTO> getAllQuestionsBookmarkedByUser(
+            @RequestParam(value = "currentPageNumber", required = false, defaultValue = DEFAULT_CURRENT_PAGE_NUMBER) Integer currentPageNumber,
+            @RequestParam(value = "rowsOnPageNumber", required = false, defaultValue = DEFAULT_ROWS_ON_PAGE_NUMBER) Integer rowsOnPageNumber,
+            @RequestParam(value = "sortColumnIndex", required = false, defaultValue = DEFAULT_SORT_COLUMN_INDEX) Integer sortColumnIndex,
+            Principal principal) {
+
+        boolean guestLogin = false;
+        Long userId = null;
+        if (principal == null) {
+            guestLogin = true;
+        } else {
+            String login = principal.getName();
+            userId = userService.getUserByLogin(login).getUserId();
+        }
+        List<Question> list = questionService.findForPageBookmarkedByUser(userId,rowsOnPageNumber,
+                currentPageNumber);
+
+        List<QuestionFrequentAskedDTO> questionFrequentAskedUserList = new ArrayList<>(DEFAULT_LIST_SIZE);
+        Boolean isAsked;
+        Boolean isBookmarked;
+        for (Question question : list) {
+            Long questionId = question.getId();
+            Long rating = ratingService.countLikesByQuestionId(questionId);
+            isAsked = false;
+            isBookmarked = false;
+            if (!guestLogin) {
+                isAsked = ratingService.ifLiked(userId, questionId);
+            }
+            if (!guestLogin) {
+                isBookmarked = bookmarkService.isBookmarked(userId, questionId);
+            }
+            QuestionFrequentAskedDTO item = new QuestionFrequentAskedDTO(
+                    questionId,
+                    question.getValue(),
+                    question.getLoadDate(),
+                    question.getCategory(),
+                    question.getTags(),
+                    rating,
+                    isAsked,
+                    isBookmarked);
+            questionFrequentAskedUserList.add(item);
+        }
+
+        return questionFrequentAskedUserList;
     }
 
 }

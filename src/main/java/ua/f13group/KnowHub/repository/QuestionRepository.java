@@ -22,5 +22,6 @@ public interface QuestionRepository {
 	public int getRecordsCount();
 	// public List<Question> testCriteria(int rowsOnPage, int
 	// pageNumber,QuestionSortConfig cfg);
-
+	public List<Question> findForPageBookmarkedByUser(long userId, int rowsOnPage,
+													  int pageNumber);
 }

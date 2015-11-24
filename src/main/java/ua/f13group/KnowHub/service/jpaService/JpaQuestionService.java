@@ -11,12 +11,12 @@ import ua.f13group.KnowHub.domain.QuestionSortConfig;
 import ua.f13group.KnowHub.repository.QuestionRepository;
 import ua.f13group.KnowHub.service.QuestionService;
 
-@Service(value= "questionService")
-public class JpaQuestionService implements QuestionService  {
+@Service(value = "questionService")
+public class JpaQuestionService implements QuestionService {
 
-	@Autowired 
-	private QuestionRepository questionRep; 
-	
+    @Autowired
+    private QuestionRepository questionRep;
+
 //	@Override
 //	public List<Question> findAll() {
 //		return questionRep.findAll();
@@ -28,44 +28,50 @@ public class JpaQuestionService implements QuestionService  {
 //		return questionRep.findByCategory(category);	
 //	}
 
-	@Override
-	public List<Question> getQuestionsForPage(int rowsOnPage, int pageNumber,QuestionSortConfig cfg, boolean ascending) {
-		
-		return questionRep.findForPage(rowsOnPage, pageNumber, cfg, ascending);
-	}
+    @Override
+    public List<Question> getQuestionsForPage(int rowsOnPage, int pageNumber, QuestionSortConfig cfg, boolean ascending) {
 
-	@Override
-	public List<Question> getQuestionsForPage(Category category, int rowsOnPage, int pageNumber,QuestionSortConfig cfg, boolean ascending) {
-		
-		return questionRep.findForPage(category,rowsOnPage, pageNumber, cfg, ascending);
-	}
+        return questionRep.findForPage(rowsOnPage, pageNumber, cfg, ascending);
+    }
 
-	@Override
-	public int getPagesCount(Category category, int rowsOnPage) {
-		int  result = questionRep.getRecordsCount(category);
-		if (result % rowsOnPage ==0) 
-			return result/rowsOnPage;
-		else
-			return result/rowsOnPage+1;
-	}
-	
-	@Override
-	public int getPagesCount(int rowsOnPage) {
-		int  result =  questionRep.getRecordsCount();
-		if (result % rowsOnPage ==0) 
-			return result/rowsOnPage;
-		else
-			return result/rowsOnPage+1;
-	}
+    @Override
+    public List<Question> getQuestionsForPage(Category category, int rowsOnPage, int pageNumber, QuestionSortConfig cfg, boolean ascending) {
 
-	@Override
-	public int getRecordsCount() {
-		return questionRep.getRecordsCount();
-	}
+        return questionRep.findForPage(category, rowsOnPage, pageNumber, cfg, ascending);
+    }
 
-	@Override
-	public int getRecordsCount(Category category) {
-		return questionRep.getRecordsCount(category);
-	}
+    @Override
+    public int getPagesCount(Category category, int rowsOnPage) {
+        int result = questionRep.getRecordsCount(category);
+        if (result % rowsOnPage == 0)
+            return result / rowsOnPage;
+        else
+            return result / rowsOnPage + 1;
+    }
 
+    @Override
+    public int getPagesCount(int rowsOnPage) {
+        int result = questionRep.getRecordsCount();
+        if (result % rowsOnPage == 0)
+            return result / rowsOnPage;
+        else
+            return result / rowsOnPage + 1;
+    }
+
+    @Override
+    public int getRecordsCount() {
+        return questionRep.getRecordsCount();
+    }
+
+    @Override
+    public int getRecordsCount(Category category) {
+        return questionRep.getRecordsCount(category);
+    }
+
+
+    @Override
+    public List<Question> findForPageBookmarkedByUser(long userId, int rowsOnPage,
+                                                      int pageNumber) {
+        return questionRep.findForPageBookmarkedByUser(userId, rowsOnPage, pageNumber);
+    }
 }
