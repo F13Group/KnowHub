@@ -84,6 +84,7 @@ public class JpaUserService implements UserService{
 	@Override
 	public void updateUser(User newUser) {
 		userRepository.deleteConfirmation(userRepository.getConfirmationByUserLogin(newUser.getLogin()));
+		//TODO Eliminate userDeleting in updating process(just change password for new uncomfirmed registration)
 		userRepository.deleteUser(userRepository.getUserByLogin(newUser.getLogin()));
 		newUser.setUserId(null);
 		saveUser(newUser);
