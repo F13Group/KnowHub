@@ -68,51 +68,74 @@
 			<div id="questionsList" class="divTable col-lg-10 col-md-10 col-sm-10 justified">
 				<div class="row">
 				<div  id="headRow" class="headRow" >
-					<div class="divCell_header col-lg-10 divCell_Left">Question</div>
-					<sec:authorize access="isAuthenticated()"><div class="divCell_header col-lg-2 col-md-2 col-sm-2 divCell_Right">Bookmark this question  <img id="was_bookmarked" onclick ="" src='${pageContext.servletContext.contextPath}/resources/img/nonactivestar.png'  data-swap='' width="20" height="20" onmouseover="mouseOverWasBookmarkedButton()"/></div></sec:authorize> 
+					<div class="divCell_header col-lg-8 divCell_Left">Question</div>
+					<div class="divCell_header col-lg-4 col-md-4 col-sm-4" ><sec:authorize access="isAuthenticated()">Bookmark this question  <img id="was_bookmarked" onclick ="" src='${pageContext.servletContext.contextPath}/resources/img/nonactivestar.png'  data-swap='' width="20" height="20" onmouseover="mouseOverWasBookmarkedButton()"/></sec:authorize></div> 
 				</div>
 				
-				<div class="col-lg-6 col-md-6 col-sm-6 divCell_2">
-					<a href="question/1" class="divQuestionColor">Test for copy questions?</a>
+				<div class="col-lg-2 col-md-2 col-sm-2 divCell_Left">
+					<img src='${pageContext.servletContext.contextPath}/resources/img/account.png' width="20" height="20" /> <a href="" class="divQuestionColor">Author</a><br>
+					Added 10.11.2015 at 18.05 
 				</div>
-				<div class="col-lg-2 col-md-2 col-sm-2 divCell_Center">Java</div>
-				<div class="col-lg-2 col-md-2 col-sm-2 divCell_Center">12/06/2015</div>
-				<div class="col-lg-2 col-md-2 col-sm-2 divCell_Center">7</div>
-				
+				<div class="col-lg-10 col-md-10 col-sm-10 justified"> To be, or not to be: that is the question:Whether 'tis nobler in the mind to suffer
+                 The slings and arrows of outrageous fortune, Or to take arms against a sea of troubles, And by opposing end them? To die: to sleep;
+                 No more; and by a sleep to say we end the heart-ache and the thousand natural shocks
+                 That flesh is heir to, 'tis a consummation devoutly to be wish'd. To die, to sleep;
+                 </div>
 				</div>
 			</div>
 			</div>
-			
-			
 
-<!-- 		<div class="tabbable">
-			<div class="row">
-			<div id="categoriesMenu" class="categoriesMenu col-lg-2 col-md-2 col-sm-2 justified"></div>
-
-			<div id="questionsList" class="divTable col-lg-10 col-md-10 col-sm-10 justified">
-				<div class="row">
-				<div  id="headRow" class="headRow" >
-					<div class="divCell_header col-lg-6 col-md-6 col-sm-6">Question</div>
-					<div class="divCell_header <sec:authorize access="isAuthenticated()">col-lg-1</sec:authorize><sec:authorize access="isAnonymous()">col-lg-2</sec:authorize> col-md-2 col-sm-2">Category  <input type="button" id="buttonOrderBy2" class="change_order_sign" value="&#x25AD;" onclick="orderedBy(2)"></div>
-					<div class="divCell_header <sec:authorize access="isAuthenticated()">col-lg-1</sec:authorize><sec:authorize access="isAnonymous()">col-lg-2</sec:authorize> col-md-2 col-sm-2">Date  <input type="button" id="buttonOrderBy1" class="change_order_sign" value="&#x25BC;" onclick="orderedBy(1)"></div>
-					<div class="divCell_header col-lg-2 col-md-2 col-sm-2">Frequently Asked  <input type="button" id="buttonOrderBy3" class="change_order_sign" value="&#x25AD;" onclick="orderedBy(3)"></div>
-					<sec:authorize access="isAuthenticated()">
-					<div class="divCell_header col-lg-2 col-md-2 col-sm-2">My Bookmarks  <input type="button" id="buttonOrderBy4" class="change_order_sign" value="&#x25AD;" onclick="orderedBy(4)"></div>
-					</sec:authorize>
-				</div>
-				</div>
-			</div>
-			</div>
-<!--	<div class="row">
-			<div id="pagingRow" class="pagingRow col-lg-offset-2 col-lg-10 col-md-offset-2 col-md-10 col-sm-offset-2 col-sm-10">
+	
+			<div id="taggingRow" class="col-lg-10 col-md-10 col-sm-10 justified">
 				<div class=row>
-					<div class="divCell_2 col-lg-2 col-md-2 col-sm-2" style="height:50px" align=left>SHOW&nbsp;<select id="pageSizeChooser" onchange="pageSizeChanged()"><option selected>15</option><option>30</option><option>45</option><option>60</option></select></div>
-					<div class="divCell_2 col-lg-8 col-md-8 col-sm-8" id="pagingTag" style="height:50px" align=center></div>
-					<div class="divCell_2 col-lg-2 col-md-2 col-sm-2" id="pagingInfo" style="height:50px" align=right>Records 1-10 of 10</div>
+					<div class="divCell_2 col-lg-2 col-md-2 col-sm-2" id="qCategory" style="height:50px" align=left ><b>Category: </b><a href="" id="category">AT</a></div>
+					<div class="divCell_2 col-lg-6 col-md-6 col-sm-6" id="pagingTag" style="height:50px" align=center><a href="">TEG1</a> <a href="" class="divQuestionColor">TEG2</a></div>
+					<div class="divCell_2 col-lg-4 col-md-4 col-sm-4" id="userComments" style="height:50px" align=center><a href="">Show other questions posted by this user</a></div>
 				</div>
-		</div>		
-		</div>	-->
+			</div>
 			
+			<div id="taggingRow" class="col-lg-10 col-md-10 col-sm-10 justified">
+				<div class=row>
+					<div class="divCell_2 col-lg-2 col-md-2 col-sm-2" id="wasAsked" style="height:60px" align=left><img src='${pageContext.servletContext.contextPath}/resources/img/cursor-pointer.png' width="20" height="20" />This question was asked 5 times</div>
+					<div class="divCell_2 col-lg-6 col-md-6 col-sm-6" id="viewed" style="height:60px" align=left><img src='${pageContext.servletContext.contextPath}/resources/img/eye.png' width="20" height="20" /> Viewed: 15</div>
+					<div class="divCell_2 col-lg-4 col-md-4 col-sm-4" id="showComments" style="height:60px" align=center><a href="">Show all comments</a></div>
+				</div>
+			</div>		
+		
+		<div id="userComments" class="col-lg-10 col-md-10 col-sm-10 justified">
+			<div class="row" >
+				<b>Comments:</b>
+			</div>
+			
+			<div id="comment1" class=" col-lg-10 col-md-10 col-sm-10">
+				<div class="row">
+				<div class="col-lg-2 col-md-2 col-sm-2 divCell_Left">
+					<img src='${pageContext.servletContext.contextPath}/resources/img/account.png' width="20" height="20" /> <a href="">Author</a><br>
+					Added 10.11.2015 at 18.05 
+				</div>
+				
+				<div class="col-lg-10 col-md-10 col-sm-10 justified"> To be, or not to be: that is the question:Whether 'tis nobler in the mind to suffer
+                 The slings and arrows of outrageous fortune, Or to take arms against a sea of troubles, And by opposing end them? To die: to sleep;
+                 </div>
+				</div>
+			</div>
+			
+				<div class="divider">
+								
+				</div>
+			
+			<div id="comment2" class=" col-lg-10 col-md-10 col-sm-10">
+				<div class="row">
+				<div class="col-lg-2 col-md-2 col-sm-2 divCell_Left">
+					<img src='${pageContext.servletContext.contextPath}/resources/img/account.png' width="20" height="20" /> <a href="">Author</a><br>
+					Added 10.11.2015 at 18.05 
+				</div>
+				<div class="col-lg-10 col-md-10 col-sm-10 justified"> To be, or not to be: that is the question:Whether 'tis nobler in the mind to suffer
+                 </div>
+				</div>
+			</div>
+		</div>
+					
  		</div>  <!--	/.tabbable -->
 	</div>	<!-- /.container -->
 	
