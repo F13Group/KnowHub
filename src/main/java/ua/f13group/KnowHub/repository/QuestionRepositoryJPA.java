@@ -13,6 +13,7 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
 
+import org.springframework.transaction.annotation.Transactional;
 import ua.f13group.KnowHub.domain.Category;
 import ua.f13group.KnowHub.domain.Question;
 import ua.f13group.KnowHub.domain.QuestionSortConfig;
@@ -173,9 +174,14 @@ public class QuestionRepositoryJPA implements QuestionRepository {
 		return values;
 	}
 
-
-	@Override
-	public Question getQuestionById(Long id) {
-		return entityManager.find(Question.class,id);
-	}
+    @Override
+    @Transactional
+    public Long save(Question question) {
+        if (question.getId() != null) {
+            entityManager.merge(question);
+        } else {
+            entityManager.persist(question);
+        }
+        return question.getId();
+    }
 }

@@ -25,4 +25,7 @@ public interface QuestionService {
 			long userId, Category category, int rowsOnPage, int pageNumber, QuestionSortConfig cfg,
 			boolean ascending);
 
+	public Long save(Question question);
+	public Long addView(Long questionId);
+
 }
