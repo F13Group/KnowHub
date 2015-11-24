@@ -5,6 +5,5 @@ $ cat .gitignore
 .metadata
 .directory
 /target/
-.idea
 *~
 

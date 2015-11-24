@@ -6,8 +6,8 @@ import javax.persistence.*;
  * Created by dennis on 10/20/2015.
  */
 @NamedQueries({
-        @NamedQuery(name = "Rating.countLikesByQuestionId", query = "SELECT count (r.questionId) FROM Rating r where r.questionId=:questionId"),
-        @NamedQuery(name = "Rating.ifLiked", query = "SELECT count(r.id)>0 as my_bool FROM Rating r WHERE r.userId = :userId and r.questionId=:questionId"),
+        @NamedQuery(name = "Rating.countLikesByQuestionId", query = "SELECT count (r.question.id) FROM Rating r where r.question.id=:questionId"),
+        @NamedQuery(name = "Rating.ifLiked", query = "SELECT count(r.id)>0 as my_bool FROM Rating r WHERE r.userId = :userId and r.question.id=:questionId"),
     /*@NamedQuery(name = "User.findByLink", query = "SELECT u FROM User u WHERE u.link = :link")*/
 })
 
@@ -19,8 +19,11 @@ public class Rating {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "rating_id")
     private Long id;
-    @Column(name = "question_id")
-    private Long questionId;
+    @ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="question_id")
+    private Question question;
+//    @Column(name = "question_id")
+//    private Long questionId;
     @Column(name = "user_id")
     private Long userId;
 
@@ -35,12 +38,12 @@ public class Rating {
         this.id = id;
     }
 
-    public Long getQuestionId() {
-        return questionId;
+    public Question getQuestion() {
+        return question;
     }
 
-    public void setQuestionId(Long questionId) {
-        this.questionId = questionId;
+    public void setQuestion(Question question) {
+        this.question = question;
     }
 
     public Long getUserId() {
@@ -60,7 +63,7 @@ public class Rating {
         Rating rating = (Rating) o;
 
         if (!id.equals(rating.id)) return false;
-        if (!questionId.equals(rating.questionId)) return false;
+        if (!question.getId().equals(rating.question.getId())) return false;
         return userId.equals(rating.userId);
 
     }
@@ -68,7 +71,7 @@ public class Rating {
     @Override
     public int hashCode() {
         int result = id.hashCode();
-        result = 31 * result + questionId.hashCode();
+        result = 31 * result + question.getId().hashCode();
         result = 31 * result + userId.hashCode();
         return result;
     }
@@ -77,7 +80,7 @@ public class Rating {
     public String toString() {
         return "RatingRepository{" +
                 "id=" + id +
-                ", questionId=" + questionId +
+                ", questionId=" + question.getId() +
                 ", userId=" + userId +
                 '}';
     }

@@ -19,7 +19,7 @@ public class JpaRatingService implements RatingService {
     @Override
     @Transactional
     public Long save(Rating rating) {
-        if (!ifLiked(rating.getUserId(),rating.getQuestionId())){
+        if (!ifLiked(rating.getUserId(), rating.getQuestion().getId())){
             ratingRepository.save(rating);
         }
         return rating.getId();

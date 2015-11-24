@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -25,8 +26,7 @@ public class QuestionRepositoryJPA implements QuestionRepository {
 	@Override
 	public List<Question> findForPage(int rowsOnPage, int pageNumber,
 			QuestionSortConfig orderBy, boolean ascending) {
-		// TypedQuery<Question> query =
-		// entityManager.createNamedQuery("Question.findAll", Question.class);
+
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 		CriteriaQuery<Question> criteriaQuery = criteriaBuilder
 				.createQuery(Question.class);
@@ -65,9 +65,7 @@ public class QuestionRepositoryJPA implements QuestionRepository {
 	@Override
 	public List<Question> findForPage(Category category, int rowsOnPage,
 			int pageNumber, QuestionSortConfig orderBy, boolean ascending) {
-		// TypedQuery<Question> query =
-		// entityManager.createNamedQuery("Question.findByCategory",
-		// Question.class);
+
 		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 		CriteriaQuery<Question> criteriaQuery = criteriaBuilder
 				.createQuery(Question.class);
@@ -111,66 +109,67 @@ public class QuestionRepositoryJPA implements QuestionRepository {
 		return query.getSingleResult().intValue();
 	}
 
+	@Override
+	public Question findById(Long questionId) {
+		return entityManager.find(Question.class, questionId);
+	}
+	
+	@Override
+	public List<Object[]> findForPageWithRatingIsAskedAndIsBookmarked(long userId, int rowsOnPage, int pageNumber,
+			QuestionSortConfig orderBy, boolean ascending) {
+		String sqlQueryString = "SELECT q.question_id, q.value, q.load_date, q.category_id, count (r.user_id) as rating,"
+				+ " (SELECT count(r.rating_id)>0 as asked FROM ratings r WHERE r.user_id = :userId and r.question_id = q.question_id),"
+				+ " (SELECT count(b.bookmark_id)>0 as bookmarked FROM bookmarks b WHERE b.user_id = :userId and b.question_id = q.question_id)"
+				+ " FROM ratings r RIGHT JOIN questions q ON r.question_id = q.question_id"
+				+ " GROUP BY q.question_id ORDER BY";
+		if (orderBy == QuestionSortConfig.CATEGORY) {
+			sqlQueryString += " q.category_id";
+		} else {
+			sqlQueryString += " q.load_date";
+		}
+		if (ascending) {
+			sqlQueryString += " ASC";
+		} else {
+			sqlQueryString += " DESC";
+		}
+		Query query = 
+				entityManager.createNativeQuery(sqlQueryString, "QuestionMapping");
+		query.setParameter("userId", userId);
+		query.setFirstResult(((pageNumber - 1) * rowsOnPage));
+		query.setMaxResults(rowsOnPage);
+		
+		List<Object[]> values = query.getResultList();
+		return values;
+	}
+	
+	@Override
+	public List<Object[]> findForPageWithRatingIsAskedAndIsBookmarked(long userId, Category category, 
+			int rowsOnPage, int pageNumber,
+			QuestionSortConfig orderBy, boolean ascending) {
+		String sqlQueryString = "SELECT q.question_id, q.value, q.load_date, q.category_id, count (r.user_id) as rating,"
+				+ " (SELECT count(r.rating_id)>0 as asked FROM ratings r WHERE r.user_id = :userId and r.question_id = q.question_id),"
+				+ " (SELECT count(b.bookmark_id)>0 as bookmarked FROM bookmarks b WHERE b.user_id = :userId and b.question_id = q.question_id)"
+				+ " FROM ratings r RIGHT JOIN questions q ON r.question_id = q.question_id WHERE q.category_id = :categoryId"
+				+ " GROUP BY q.question_id ORDER BY";
+		if (orderBy == QuestionSortConfig.CATEGORY) {
+			sqlQueryString += " q.category_id";
+		} else {
+			sqlQueryString += " q.load_date";
+		}
+		if (ascending) {
+			sqlQueryString += " ASC";
+		} else {
+			sqlQueryString += " DESC";
+		}
+		Query query = 
+				entityManager.createNativeQuery(sqlQueryString, "QuestionMapping");
+		query.setParameter("userId", userId);
+		query.setParameter("categoryId", category.getId());
+		query.setFirstResult(((pageNumber - 1) * rowsOnPage));
+		query.setMaxResults(rowsOnPage);
+		
+		List<Object[]> values = query.getResultList();
+		return values;
+	}
+
 }
-/**
- * Deleted queries
- */
-
-/*
- * @Override public List<Question> findAll() { // TypedQuery<Question> query =
- * entityManager.createNamedQuery("Question.findAll", Question.class);
- * 
- * return query.getResultList(); }
- */
-/*
- * @Override public List<Question> findByCategory(Category category) { //
- * TypedQuery<Question> query =
- * entityManager.createNamedQuery("Question.findByCategory", Question.class);
- * CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
- * CriteriaQuery<Question> criteriaQuery =
- * criteriaBuilder.createQuery(Question.class); Root<Question> questions =
- * criteriaQuery.from(Question.class);
- * criteriaQuery.where(criteriaBuilder.equal(questions.get("category"),
- * criteriaBuilder.parameter(Category.class,"category")));
- * 
- * 
- * TypedQuery<Question> query = entityManager.createQuery(criteriaQuery);
- * query.setParameter("category", category);
- * 
- * return query.getResultList(); }
- */
-
-/*
- * @Override public List<Question> findByCategory(Category
- * category,QuestionSortConfig orderBy) { // TypedQuery<Question> query =
- * entityManager.createNamedQuery("Question.findByCategory", Question.class);
- * CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
- * CriteriaQuery<Question> criteriaQuery =
- * criteriaBuilder.createQuery(Question.class); Root<Question> questions =
- * criteriaQuery.from(Question.class);
- * criteriaQuery.where(criteriaBuilder.equal(questions.get("category"),
- * criteriaBuilder.parameter(Category.class,"category")))
- * .orderBy(criteriaBuilder.asc(questions.get(orderBy.dbName)));
- * 
- * TypedQuery<Question> query = entityManager.createQuery(criteriaQuery);
- * query.setParameter("category", category);
- * 
- * return query.getResultList(); }
- */
-
-/*
- * @Override public List<Question> findForPage(int rowsOnPage, int pageNumber) {
- * // TypedQuery<Question> query =
- * entityManager.createNamedQuery("Question.findAll", Question.class);
- * CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
- * CriteriaQuery<Question> criteriaQuery =
- * criteriaBuilder.createQuery(Question.class);
- * 
- * Root<Question> questions = criteriaQuery.from(Question.class);
- * TypedQuery<Question> query = entityManager.createQuery(criteriaQuery);
- * 
- * query.setFirstResult(((pageNumber-1) * rowsOnPage));
- * query.setMaxResults(rowsOnPage);
- * 
- * return query.getResultList(); }
- */
