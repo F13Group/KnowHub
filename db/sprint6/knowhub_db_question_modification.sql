@@ -1,5 +1,5 @@
 --Field for count of views of question
-ALTER TABLE questions ADD COLUMN views bigint DEFAULT 0;
+ALTER TABLE questions ADD COLUMN views bigint DEFAULT 0 NOT NULL CHECK(views>-1);
 --Field for full text of question
 ALTER TABLE questions ADD COLUMN description text;
 --Field autor of question
