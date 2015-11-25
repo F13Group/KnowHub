@@ -135,9 +135,12 @@ public class JpaQuestionService implements QuestionService  {
 
     @Override
     @Transactional
-    public Long addView(Long questionId) {
+    public void addView(Long questionId) {
         Question question = getQuestionById(questionId);
-        question.setViews(question.getViews()+1);
-        return save(question);
+        if (question==null) {
+			return;
+		}
+		question.setViews(question.getViews()+1);
+        save(question);
     }
 }

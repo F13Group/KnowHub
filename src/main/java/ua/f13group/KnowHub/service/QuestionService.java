@@ -26,6 +26,6 @@ public interface QuestionService {
 			boolean ascending);
 
 	public Long save(Question question);
-	public Long addView(Long questionId);
+	public void addView(Long questionId);
 
 }
