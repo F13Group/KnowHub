@@ -27,6 +27,7 @@
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="${pageContext.servletContext.contextPath}/resources/js/singleQuestion.js"></script>
 </head>
 
 <body>
@@ -68,7 +69,7 @@
 			<div id="questionsList" class="divTable col-lg-10 col-md-10 col-sm-10 justified">
 				<div class="row">
 				<div  id="headRow" class="headRow" >
-					<div class="divCell_header col-lg-8 divCell_Left">Question</div>
+					<div id="qTitle" class="divCell_header col-lg-8 divCell_Left"></div>
 					<div class="divCell_header col-lg-4 col-md-4 col-sm-4" ><sec:authorize access="isAuthenticated()">Bookmark this question  <img id="was_bookmarked" onclick ="" src='${pageContext.servletContext.contextPath}/resources/img/nonactivestar.png'  data-swap='' width="20" height="20" onmouseover="mouseOverWasBookmarkedButton()"/></sec:authorize></div> 
 				</div>
 				
