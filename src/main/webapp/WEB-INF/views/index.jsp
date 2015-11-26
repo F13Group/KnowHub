@@ -28,6 +28,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script src="${pageContext.servletContext.contextPath}/resources/js/pagination.js"></script>
+<script src="${pageContext.servletContext.contextPath}/resources/js/pagetools.js"></script>
 </head>
 
 <body>
@@ -97,6 +98,23 @@
 			<p class="text-muted"></p>
 		</div>
 	</footer>	
+	
+	<script>
+		$(document).ready(function () {
+
+			pageSetup();
+
+	    	$("#categoriesMenu").append("<div class=categoriesMenuItem><input id=category-1 class=categoriesMenuButtonActive type=button value=All&nbsp;Categories onclick=selectCategory(-1) onmouseover=switchCategoryButtonOver('-1','true') onmouseout=switchCategoryButtonOver('-1','false')><br /></div>");
+
+	    	$.getJSON(globalCategoryUrl, function (data) {
+	        	$.each(data, function (index, value) {
+	            	$("#categoriesMenu").append("<div class=categoriesMenuItem><input id=category" + value.id + " class=categoriesMenuButton type=button value='" + value.value + "' onclick=selectCategory(" + value.id + ") onmouseover=switchCategoryButtonOver('" + value.id + "','true') onmouseout=switchCategoryButtonOver('" + value.id + "','false')><br /></div>");
+	        	});
+	    	});    
+
+	    	displayPage("1");
+		});
+	</script>
 	
 </body>
 </html>
