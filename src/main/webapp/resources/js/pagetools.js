@@ -95,7 +95,7 @@ function toggleBookmark(questionId, isBookmarked) {
 			displayPage(currentPage);
 		}); 
 	} else if (isBookmarked == true) {
-	   	 $.post(globalQuestionUrl + "/unbookmark", {questionId: questionId}).done(function(isSucces) {
+	   	 $.post(globalQuestionUrl + "/unbookmark", {questionId: questionId}).done(function(isSuccess) {
 			displayPage(currentPage);
 		});
 	}
