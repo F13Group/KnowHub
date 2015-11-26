@@ -55,7 +55,10 @@ import javax.persistence.ColumnResult;
             fields = {
                 @FieldResult(name = "id", column = "question_id"),
                 @FieldResult(name = "value", column = "value"),
+                @FieldResult(name = "description", column = "description"),
+                @FieldResult(name = "views", column = "views"),
                 @FieldResult(name = "loadDate", column = "load_date"),
+                @FieldResult(name = "user", column = "user_id"),
                 @FieldResult(name = "category", column = "category_id")}),
             columns = {
         	    @ColumnResult(name = "rating", type = Long.class),
@@ -69,8 +72,15 @@ public class Question implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "question_id")
     Long id;
-    
-    String value;
+
+    @Column(name = "value",length = 140)
+    String value; //title of the question
+
+    @Column(name = "description",columnDefinition = "TEXT")
+    String description; //full text of question
+
+    @Column(name = "views")
+    Long views;
     
     @Column(name = "load_date")
     Timestamp loadDate;
@@ -82,6 +92,10 @@ public class Question implements Serializable {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "question_tags", joinColumns = { @JoinColumn(name = "question_id") }, inverseJoinColumns = { @JoinColumn(name = "tag_id") })
 	private List<Tag> tags;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
 	public Question() {
 	}
@@ -125,11 +139,35 @@ public class Question implements Serializable {
 	public void setTags(List<Tag> tags) {
 		this.tags = tags;
 	}
-	
-	public static String getFindAllWithRatingIsAskedAndIsBookmarkedQueryString
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Long getViews() {
+        return views;
+    }
+
+    public void setViews(Long views) {
+        this.views = views;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public static String getFindAllWithRatingIsAskedAndIsBookmarkedQueryString
 		(Category category, QuestionSortConfig orderBy, boolean isSortedAscending) {
 		
-		String sqlQueryString = "SELECT q.question_id, q.value, q.load_date, q.category_id, count (r.user_id) as rating,"
+		String sqlQueryString = "SELECT q.question_id, q.value, q.description, q.views, q.load_date, q.user_id, q.category_id, count (r.user_id) as rating,"
 				+ " (SELECT count(r.rating_id)>0 as asked FROM ratings r WHERE r.user_id = :userId and r.question_id = q.question_id),"
 				+ " (SELECT count(b.bookmark_id)>0 as bookmarked FROM bookmarks b WHERE b.user_id = :userId and b.question_id = q.question_id)"
 				+ " FROM ratings r RIGHT JOIN questions q ON r.question_id = q.question_id"

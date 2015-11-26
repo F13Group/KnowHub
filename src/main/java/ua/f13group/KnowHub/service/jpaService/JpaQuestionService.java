@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import org.springframework.transaction.annotation.Transactional;
 import ua.f13group.KnowHub.domain.Category;
 import ua.f13group.KnowHub.domain.Question;
 import ua.f13group.KnowHub.domain.QuestionSortConfig;
@@ -126,4 +127,20 @@ public class JpaQuestionService implements QuestionService  {
 		// TODO Auto-generated method stub
 		return questionRep.findById(questionId);
 	}
+
+	@Override
+	public Long save(Question question) {
+		return questionRep.save(question);
+	}
+
+    @Override
+    @Transactional
+    public void addView(Long questionId) {
+        Question question = getQuestionById(questionId);
+        if (question==null) {
+			return;
+		}
+		question.setViews(question.getViews()+1);
+        save(question);
+    }
 }
