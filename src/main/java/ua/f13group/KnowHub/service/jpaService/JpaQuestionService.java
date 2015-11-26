@@ -58,7 +58,10 @@ public class JpaQuestionService implements QuestionService  {
 					q.getTags(),
 					rating.longValue(),
 					isAsked,
-					isBookmarked));
+					isBookmarked,
+					q.getUser(),
+					q.getViews(),
+					q.getDescription()));
 		}
 		
 		return result;
@@ -88,7 +91,10 @@ public class JpaQuestionService implements QuestionService  {
 					q.getTags(),
 					rating.longValue(),
 					isAsked,
-					isBookmarked));
+					isBookmarked,
+					q.getUser(),
+					q.getViews(),
+					q.getDescription()));
 		}
 		
 		return result;

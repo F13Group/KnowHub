@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.List;
 import ua.f13group.KnowHub.domain.Category;
 import ua.f13group.KnowHub.domain.Tag;
+import ua.f13group.KnowHub.domain.User;
 
 public class QuestionFrequentAskedDTO {	
 	private Long id;
@@ -14,6 +15,9 @@ public class QuestionFrequentAskedDTO {
 	private Long rating;
 	private Boolean isAsked;
 	private Boolean isBookmarked;
+	private User user; 
+	private Long views;
+	private String description;
 	
 	public QuestionFrequentAskedDTO(			
 			Long id,
@@ -23,7 +27,10 @@ public class QuestionFrequentAskedDTO {
 			List<Tag> tags,
 			Long rating,
 			Boolean isAsked,
-			Boolean isBookmarked) {
+			Boolean isBookmarked,
+			User user,
+			Long views,
+			String description) {
 		
 		this.id = id;
 		this.value = value;
@@ -33,6 +40,9 @@ public class QuestionFrequentAskedDTO {
 		this.rating = rating;
 		this.isAsked = isAsked;
 		this.isBookmarked = isBookmarked;
+		this.user = user;
+		this.views = views;
+		this.description = description;
 	}
 
 	public Long getId() {
@@ -97,5 +107,29 @@ public class QuestionFrequentAskedDTO {
 
 	public void setIsBookmarked(Boolean isBookmarked) {
 		this.isBookmarked = isBookmarked;
+	}
+	
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
+	public User getUser(){
+		return user;
+	}
+	
+	public void setViews(Long views) {
+		this.views = views;
+	}
+	
+	public Long getViews(){
+		return views;
+	}
+	
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	public String getDescription(){
+		return description;
 	}
 }

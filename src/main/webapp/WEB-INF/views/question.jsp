@@ -28,6 +28,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script src="${pageContext.servletContext.contextPath}/resources/js/singleQuestion.js"></script>
+<script src="${pageContext.servletContext.contextPath}/resources/js/pagetools.js"></script>
 </head>
 
 <body>
@@ -74,14 +75,10 @@
 				</div>
 				
 				<div class="col-lg-2 col-md-2 col-sm-2 divCell_Left">
-					<img src='${pageContext.servletContext.contextPath}/resources/img/account.png' width="20" height="20" /> <a href="" class="divQuestionColor">Author</a><br>
-					Added 10.11.2015 at 18.05 
+					<div id="qAuthor"><img src='${pageContext.servletContext.contextPath}/resources/img/account.png' width="20" height="20" /></div>
+					<div id="addedDate"></div> 
 				</div>
-				<div class="col-lg-10 col-md-10 col-sm-10 justified"> To be, or not to be: that is the question:Whether 'tis nobler in the mind to suffer
-                 The slings and arrows of outrageous fortune, Or to take arms against a sea of troubles, And by opposing end them? To die: to sleep;
-                 No more; and by a sleep to say we end the heart-ache and the thousand natural shocks
-                 That flesh is heir to, 'tis a consummation devoutly to be wish'd. To die, to sleep;
-                 </div>
+				<div id="qDescription" class="col-lg-10 col-md-10 col-sm-10 justified"></div>
 				</div>
 			</div>
 			</div>
@@ -89,16 +86,16 @@
 	
 			<div id="taggingRow" class="col-lg-10 col-md-10 col-sm-10 justified">
 				<div class=row>
-					<div class="divCell_2 col-lg-2 col-md-2 col-sm-2" id="qCategory" style="height:50px" align=left ><b>Category: </b><a href="" id="category">AT</a></div>
-					<div class="divCell_2 col-lg-6 col-md-6 col-sm-6" id="pagingTag" style="height:50px" align=center><a href="">TEG1</a> <a href="" class="divQuestionColor">TEG2</a></div>
+					<div class="divCell_2 col-lg-2 col-md-2 col-sm-2" id="qCategory" style="height:50px" align=left ></div>
+					<div class="divCell_2 col-lg-6 col-md-6 col-sm-6" id="qTag" style="height:50px" align=center><a href="">TEG1</a> <a href="" class="divQuestionColor">TEG2</a></div>
 					<div class="divCell_2 col-lg-4 col-md-4 col-sm-4" id="userComments" style="height:50px" align=center><a href="">Show other questions posted by this user</a></div>
 				</div>
 			</div>
 			
 			<div id="taggingRow" class="col-lg-10 col-md-10 col-sm-10 justified">
 				<div class=row>
-					<div class="divCell_2 col-lg-2 col-md-2 col-sm-2" id="wasAsked" style="height:60px" align=left><img src='${pageContext.servletContext.contextPath}/resources/img/cursor-pointer.png' width="20" height="20" />This question was asked 5 times</div>
-					<div class="divCell_2 col-lg-6 col-md-6 col-sm-6" id="viewed" style="height:60px" align=left><img src='${pageContext.servletContext.contextPath}/resources/img/eye.png' width="20" height="20" /> Viewed: 15</div>
+					<div class="divCell_2 col-lg-2 col-md-2 col-sm-2" id="wasAsked" style="height:60px" align=left><img src='${pageContext.servletContext.contextPath}/resources/img/cursor-pointer.png' width="20" height="20" /></div>
+					<div class="divCell_2 col-lg-6 col-md-6 col-sm-6" id="viewed" style="height:60px" align=left><img src='${pageContext.servletContext.contextPath}/resources/img/eye.png' width="20" height="20" /></div>
 					<div class="divCell_2 col-lg-4 col-md-4 col-sm-4" id="showComments" style="height:60px" align=center><a href="">Show all comments</a></div>
 				</div>
 			</div>		

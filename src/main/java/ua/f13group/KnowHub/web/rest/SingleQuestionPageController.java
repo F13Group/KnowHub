@@ -55,6 +55,9 @@ public class SingleQuestionPageController {
 				rating,
 				//ifLiked means wasAsked
 				ratingService.ifLiked(userId, questionId),
-				isBookmarked);		
+				isBookmarked,
+				curQuestion.getUser(),
+				curQuestion.getViews(),
+				curQuestion.getDescription());		
 	}
 }

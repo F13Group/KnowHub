@@ -27,9 +27,9 @@ public class SingleQuestionController {
     public String getQuestion(
             @PathVariable Long questionId,
             Principal principal) {
-
+		
+		//addView adds one more "look" for question to db
         questionService.addView(questionId);
-
 
 		return "question";
 	}
