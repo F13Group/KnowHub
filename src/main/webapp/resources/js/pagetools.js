@@ -1,3 +1,20 @@
+var globalCategoryUrl = window.location.href.toString()
+if (globalCategoryUrl.indexOf("index") != -1) {
+    globalCategoryUrl = globalCategoryUrl.substr(0, globalCategoryUrl.indexOf("index"));
+}
+globalCategoryUrl += "categories";
+
+var globalQuestionUrl, globalQuestionMetadataUrl, globalQuestionPageMetadataUrl;
+
+var globalSortColumnIndex, globalSortDirection = -1;
+
+var selectedCategoryId;
+
+var globalData;
+var currentPage;
+
+var globalUserName;
+
 function pageSetup() {
 	
 	var userName = $("#userName").html();

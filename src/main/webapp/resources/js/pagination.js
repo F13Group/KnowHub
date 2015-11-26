@@ -2,23 +2,6 @@
  * !!!Uses functions wasAskedButton() and wasBookmarkedButton() from pagetools.js!!!
 */
 
-var globalCategoryUrl = window.location.href.toString()
-if (globalCategoryUrl.indexOf("index") != -1) {
-    globalCategoryUrl = globalCategoryUrl.substr(0, globalCategoryUrl.indexOf("index"));
-}
-globalCategoryUrl += "categories";
-
-var globalQuestionUrl, globalQuestionMetadataUrl, globalQuestionPageMetadataUrl;
-
-var globalSortColumnIndex, globalSortDirection = -1;
-
-var selectedCategoryId;
-
-var globalData;
-var currentPage;
-
-var globalUserName;
-
 function displayPage(currentPageNumber) {
     var pageSizeChooser = document.getElementById("pageSizeChooser");
     var pageSizeChosen;
