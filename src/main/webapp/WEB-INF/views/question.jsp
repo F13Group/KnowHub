@@ -29,6 +29,7 @@
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script src="${pageContext.servletContext.contextPath}/resources/js/singleQuestion.js"></script>
 <script src="${pageContext.servletContext.contextPath}/resources/js/pagetools.js"></script>
+<script src="${pageContext.servletContext.contextPath}/resources/js/pagination.js"></script>
 </head>
 
 <body>
@@ -71,7 +72,7 @@
 				<div class="row">
 				<div  id="headRow" class="headRow" >
 					<div id="qTitle" class="divCell_header col-lg-8 divCell_Left"></div>
-					<div class="divCell_header col-lg-4 col-md-4 col-sm-4" ><sec:authorize access="isAuthenticated()">Bookmark this question  <img id="was_bookmarked" onclick ="" src='${pageContext.servletContext.contextPath}/resources/img/nonactivestar.png'  data-swap='' width="20" height="20" onmouseover="mouseOverWasBookmarkedButton()"/></sec:authorize></div> 
+					<div id="wasBookmarked" class="divCell_header col-lg-4 col-md-4 col-sm-4" >Bookmark this question: </div> 
 				</div>
 				
 				<div class="col-lg-2 col-md-2 col-sm-2 divCell_Left">
@@ -94,7 +95,7 @@
 			
 			<div id="taggingRow" class="col-lg-10 col-md-10 col-sm-10 justified">
 				<div class=row>
-					<div class="divCell_2 col-lg-2 col-md-2 col-sm-2" id="wasAsked" style="height:60px" align=left><img src='${pageContext.servletContext.contextPath}/resources/img/cursor-pointer.png' width="20" height="20" /></div>
+					<div class="divCell_2 col-lg-2 col-md-2 col-sm-2" id="wasAsked" style="height:60px" align=left></div>
 					<div class="divCell_2 col-lg-6 col-md-6 col-sm-6" id="viewed" style="height:60px" align=left><img src='${pageContext.servletContext.contextPath}/resources/img/eye.png' width="20" height="20" /></div>
 					<div class="divCell_2 col-lg-4 col-md-4 col-sm-4" id="showComments" style="height:60px" align=center><a href="">Show all comments</a></div>
 				</div>

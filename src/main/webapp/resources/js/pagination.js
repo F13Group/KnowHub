@@ -2,6 +2,8 @@
  * !!!Uses functions wasAskedButton() and wasBookmarkedButton() from pagetools.js!!!
 */
 
+var currentPage;
+
 function displayPage(currentPageNumber) {
     var pageSizeChooser = document.getElementById("pageSizeChooser");
     var pageSizeChosen;
@@ -126,37 +128,6 @@ function pageSizeChanged() {
     displayPage("1");
 }
 
-function mouseOverWasAskedButton(questionId, isAsked) {
-    console.log(isAsked);
-    if (isAsked == false) {
-        $("#was_asked_button" + questionId).tooltip({
-            title: "Please click on this icon if you also have been asked the question.",
-            placement: "right",
-            trigger: "hover",
-            delay: {show: 1},
-
-        });
-    }
-}
-
-function rf() {
-    return false
-}
-
-function incrementQuestionRating(questionId, isAsked) {
-    if (isAsked == true) {
-        alert("Thank you for scoring the question! Please note that you can score the question only once.");
-    }
-
-    if (isAsked == false) {
-        $.post(globalQuestionUrl + "/rate", {questionId: questionId}).done(function (isSuccess) {
-            console.log("rate = " + isSuccess);
-            $("#was_asked_button" + questionId).on('mouseover', rf);
-            displayPage(currentPage);
-        });
-    }
-}
-
 function switchCategoryButtonOver(categoryId, isMouseOver) {
     if (Number(categoryId) == window.selectedCategoryId) {
         if (isMouseOver == "true") {
@@ -201,11 +172,7 @@ function selectCategory(categoryId) {
         window.selectedCategoryId = categoryId;
     }
 
-    var questionUrl = window.location.href.toString()
-    if (questionUrl.indexOf("index") != -1) {
-        questionUrl = questionUrl.substr(0, questionUrl.indexOf("index"));
-    }
-    questionUrl += "questions";
+    var questionUrl = globalAppUrl + "questions";
 
     if (categoryId != -1) {
         questionUrl += "/categories/" + categoryId;
