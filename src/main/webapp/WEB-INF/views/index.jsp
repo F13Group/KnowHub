@@ -39,7 +39,7 @@
 			<ul class="nav">
 				<li <sec:authorize access="isAnonymous()">class="inactive"</sec:authorize>><a href="">My Question list</a></li>
 				<li><a href="">Tags</a></li>
-				<li <sec:authorize access="isAnonymous()">class="inactive"</sec:authorize>><a href="">My Bookmarks</a></li>
+				<li <sec:authorize access="isAnonymous()">class="inactive"</sec:authorize>><a href="myBookmarks">My Bookmarks</a></li>
 				<li <sec:authorize access="isAnonymous()">class="inactive"</sec:authorize>><a href="">Add Question</a></li>
 				<div id="navLinks">
 					<div id="links">
