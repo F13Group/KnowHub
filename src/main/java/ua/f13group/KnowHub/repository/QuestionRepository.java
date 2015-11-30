@@ -35,4 +35,5 @@ public interface QuestionRepository {
 
 	public Long save(Question question);
 
+	public List<Object> findBookmarkedByUser(User user);
 }
