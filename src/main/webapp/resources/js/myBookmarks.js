@@ -92,11 +92,11 @@ function outputQuestions(pC, cPN, rOPN) {
 																	+ "</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Center'>"
 																	+ " "
 																	+ value.rating
-																	+ "</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Center'>"
-																	+ wasBookmarkedButton(
-																			value.id,
-																			value.isBookmarked)
-																	+ "</div></div>")
+																	+ "</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Center'><a href='remove/"
+																	+ value.id
+																	+ "'  class='divQuestionColor'>"
+																	+ "Remove"
+																	+ "</a></div></div>")
 															.insertAfter(
 																	"#headRow");
 												}
