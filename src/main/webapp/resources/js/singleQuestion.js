@@ -29,7 +29,12 @@ function showQuestion() {
     		$("#qTitle").empty().append(data.value);    		
     		if (userName) {
     			$("#wasAsked").empty().append(wasAskedButton(data.id, data.isAsked) + " ");
-    			$("#wasBookmarked").empty().append("Bookmark this question: " + wasBookmarkedButton(data.id, data.isBookmarked));
+    			if (data.isBookmarked) {
+    				$("#wasBookmarked").empty().append("Remove bookmark: ");
+    			} else {
+    				$("#wasBookmarked").empty().append("Bookmark this question: ");
+    			}
+    			$("#wasBookmarked").append(wasBookmarkedButton(data.id, data.isBookmarked));
     		}
     		$("#wasAsked").append("This question was asked " + data.rating + " times");
     		$("#qCategory").empty().append("<b>Category: </b><a href='#' id='category'>" + data.category.shortValue + "</a>");
