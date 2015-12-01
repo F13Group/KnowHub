@@ -24,11 +24,12 @@ $(document).ready(function () {
     $.getJSON(infoUrl, function (data) {
     		$("#qTitle").append(data.value);
     		$("#wasAsked").append("This question was asked "+data.rating+" times");
-    		$("#qCategory").append("<b>Category: </b><a href='' id='category'>"+data.category.shortValue+"</a>");
+    		$("#qCategory").append("<b>Category: </b><a href='#' id='category'>"+data.category.shortValue+"</a>");
+    		$("#qTag").append(showTags(data.tags));
     		$("#viewed").append("Viewed: "+data.views);
     		
     		if(data.user) {
-    			$("#qAuthor").append("<a href='' class='divQuestionColor'>"+getCorrectUserLoginName(data.user.login)+"</a>");
+    			$("#qAuthor").append("<a href='#' class='divQuestionColor'>"+getCorrectUserLoginName(data.user.login)+"</a>");
     		}
     		
     		if(data.description) {
@@ -52,3 +53,11 @@ $(document).ready(function () {
     		
     })
 })
+
+function showTags(listOfTags){
+	var res = "";
+	for(var i = 0; i < listOfTags.length; i++){
+		res+="<a href='#'>"+ listOfTags[i].value + "</a> ";
+	}
+	return res;
+}

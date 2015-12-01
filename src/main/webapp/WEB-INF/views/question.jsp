@@ -37,15 +37,15 @@
 		<div class="navbar-inner">
 			<a class="brand" href="${pageContext.servletContext.contextPath}">KnowHub</a>
 			<ul class="nav">
-				<li <sec:authorize access="isAnonymous()">class="inactive"</sec:authorize>><a href="">My Question list</a></li>
-				<li><a href="">Tags</a></li>
-				<li <sec:authorize access="isAnonymous()">class="inactive"</sec:authorize>><a href="">My Bookmarks</a></li>
-				<li <sec:authorize access="isAnonymous()">class="inactive"</sec:authorize>><a href="">Add Question</a></li>
+				<li <sec:authorize access="isAnonymous()">class="inactive"</sec:authorize>><a href="#">My Question list</a></li>
+				<li><a href="#">Tags</a></li>
+				<li <sec:authorize access="isAnonymous()">class="inactive"</sec:authorize>><a href="#">My Bookmarks</a></li>
+				<li <sec:authorize access="isAnonymous()">class="inactive"</sec:authorize>><a href="#">Add Question</a></li>
 				<div id="navLinks">
 					<div id="links">
 					<div class="nav-left">
 						<sec:authorize access="isAuthenticated()">
-							<a id="userName" href="" class="inactive"><sec:authentication property="principal.username" /></a>
+							<a id="userName" href="#" class="inactive"><sec:authentication property="principal.username" /></a>
 						</sec:authorize>
 						<sec:authorize access="isAnonymous()">
 							<a href="${pageContext.servletContext.contextPath}/signup">Sign up</a>
@@ -54,7 +54,7 @@
 						<sec:authorize access="isAuthenticated()">
 							<a href="${pageContext.servletContext.contextPath}/logout">Log off</a>
 						</sec:authorize>
-							<a href="">Help</a>
+							<a href="#">Help</a>
 						</div>
 					</div>
 				</div>
@@ -87,8 +87,8 @@
 			<div id="taggingRow" class="col-lg-10 col-md-10 col-sm-10 justified">
 				<div class=row>
 					<div class="divCell_2 col-lg-2 col-md-2 col-sm-2" id="qCategory" style="height:50px" align=left ></div>
-					<div class="divCell_2 col-lg-6 col-md-6 col-sm-6" id="qTag" style="height:50px" align=center><a href="">TEG1</a> <a href="" class="divQuestionColor">TEG2</a></div>
-					<div class="divCell_2 col-lg-4 col-md-4 col-sm-4" id="userComments" style="height:50px" align=center><a href="">Show other questions posted by this user</a></div>
+					<div class="divCell_2 col-lg-6 col-md-6 col-sm-6" id="qTag" style="height:50px" align=center></div>
+					<div class="divCell_2 col-lg-4 col-md-4 col-sm-4" id="userComments" style="height:50px" align=center><a href="#">Show other questions posted by this user</a></div>
 				</div>
 			</div>
 			
@@ -96,7 +96,7 @@
 				<div class=row>
 					<div class="divCell_2 col-lg-2 col-md-2 col-sm-2" id="wasAsked" style="height:60px" align=left><img src='${pageContext.servletContext.contextPath}/resources/img/cursor-pointer.png' width="20" height="20" /></div>
 					<div class="divCell_2 col-lg-6 col-md-6 col-sm-6" id="viewed" style="height:60px" align=left><img src='${pageContext.servletContext.contextPath}/resources/img/eye.png' width="20" height="20" /></div>
-					<div class="divCell_2 col-lg-4 col-md-4 col-sm-4" id="showComments" style="height:60px" align=center><a href="">Show all comments</a></div>
+					<div class="divCell_2 col-lg-4 col-md-4 col-sm-4" id="showComments" style="height:60px" align=center><a href="#">Show all comments</a></div>
 				</div>
 			</div>		
 		
@@ -108,7 +108,7 @@
 			<div id="comment1" class=" col-lg-10 col-md-10 col-sm-10">
 				<div class="row">
 				<div class="col-lg-2 col-md-2 col-sm-2 divCell_Left">
-					<img src='${pageContext.servletContext.contextPath}/resources/img/account.png' width="20" height="20" /> <a href="">Author</a><br>
+					<img src='${pageContext.servletContext.contextPath}/resources/img/account.png' width="20" height="20" /> <a href="#">Author</a><br>
 					Added 10.11.2015 at 18.05 
 				</div>
 				
@@ -125,7 +125,7 @@
 			<div id="comment2" class=" col-lg-10 col-md-10 col-sm-10">
 				<div class="row">
 				<div class="col-lg-2 col-md-2 col-sm-2 divCell_Left">
-					<img src='${pageContext.servletContext.contextPath}/resources/img/account.png' width="20" height="20" /> <a href="">Author</a><br>
+					<img src='${pageContext.servletContext.contextPath}/resources/img/account.png' width="20" height="20" /> <a href="#">Author</a><br>
 					Added 10.11.2015 at 18.05 
 				</div>
 				<div class="col-lg-10 col-md-10 col-sm-10 justified"> To be, or not to be: that is the question:Whether 'tis nobler in the mind to suffer
