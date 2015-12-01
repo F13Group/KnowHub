@@ -163,10 +163,10 @@ public class QuestionRepositoryJPA implements QuestionRepository {
     }
 
 	@Override
-	public List<Object> findBookmarkedByUser(User user) {
+	public List<Object[]> findBookmarkedByUser(User user) {
 		Query query = entityManager.createNativeQuery("Question.findByUserBookmarkedOnly", Long.class);
 		query.setParameter("user_id", user.getUserId());
-		List<Object> result = query.getResultList();
+		List<Object[]> result = query.getResultList();
 		return result;
 	}
 }

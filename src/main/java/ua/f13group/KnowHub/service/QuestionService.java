@@ -27,5 +27,7 @@ public interface QuestionService {
 
 	public Long save(Question question);
 	public void addView(Long questionId);
+	
+	public List<QuestionFrequentAskedDTO> getBookmarkedByUser(long userId);
 
 }
