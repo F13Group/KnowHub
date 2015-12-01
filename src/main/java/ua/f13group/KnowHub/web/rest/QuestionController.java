@@ -23,191 +23,177 @@ import ua.f13group.KnowHub.web.dto.QuestionMetadata;
 @RequestMapping(value = "/questions")
 public class QuestionController {
 
-    @Autowired
-    QuestionService questionService;
+	@Autowired
+	QuestionService questionService;
 
-    @Autowired
-    RatingService ratingService;
+	@Autowired
+	RatingService ratingService;
 
-    @Autowired
-    UserService userService;
+	@Autowired
+	UserService userService;
 
-    @Autowired
-    BookmarkService bookmarkService;
+	@Autowired
+	BookmarkService bookmarkService;
 
-    public static final String DEFAULT_ROWS_ON_PAGE_NUMBER = "7";
-    public static final String DEFAULT_CURRENT_PAGE_NUMBER = "1";
-    public static final String DEFAULT_SORT_COLUMN_INDEX = "1";
-    public static final Integer DEFAULT_NOT_LOGGED_USER = null;
-    public static final Integer DEFAULT_LIST_SIZE = 100;
+	public static final String DEFAULT_ROWS_ON_PAGE_NUMBER = "7";
+	public static final String DEFAULT_CURRENT_PAGE_NUMBER = "1";
+	public static final String DEFAULT_SORT_COLUMN_INDEX = "1";
+	public static final Integer DEFAULT_NOT_LOGGED_USER = null;
+	public static final Integer DEFAULT_LIST_SIZE = 100;
 
-    @RequestMapping(method = RequestMethod.POST)
-    public List<QuestionFrequentAskedDTO> getAllQuestions(
-            @RequestParam(value = "currentPageNumber", required = false, defaultValue = DEFAULT_CURRENT_PAGE_NUMBER) Integer currentPageNumber,
-            @RequestParam(value = "rowsOnPageNumber", required = false, defaultValue = DEFAULT_ROWS_ON_PAGE_NUMBER) Integer rowsOnPageNumber,
-            @RequestParam(value = "sortColumnIndex", required = false, defaultValue = DEFAULT_SORT_COLUMN_INDEX) Integer sortColumnIndex,
-            Principal principal) {
+	@RequestMapping(method = RequestMethod.POST)
+	public List<QuestionFrequentAskedDTO> getAllQuestions(
+			@RequestParam(value = "currentPageNumber", required = false, defaultValue = DEFAULT_CURRENT_PAGE_NUMBER) Integer currentPageNumber,
+			@RequestParam(value = "rowsOnPageNumber", required = false, defaultValue = DEFAULT_ROWS_ON_PAGE_NUMBER) Integer rowsOnPageNumber,
+			@RequestParam(value = "sortColumnIndex", required = false, defaultValue = DEFAULT_SORT_COLUMN_INDEX) Integer sortColumnIndex,
+			Principal principal) {
 
-        boolean guestLogin = false;
-        Long userId = null;
-        if (principal == null) {
-            guestLogin = true;
-        } else {
-            String login = principal.getName();
-            userId = userService.getUserByLogin(login).getUserId();
-        }
-        
-        if (guestLogin) {
-        	userId = (long) 0;
-        }
-        
-        List<QuestionFrequentAskedDTO> questionFrequentAskedUserList = 
-        		questionService.getQuestionsFrequentlyAskedForPageAndUser(
-        				userId, 
-        				rowsOnPageNumber, 
-        				currentPageNumber, 
-        				sortConfig(sortColumnIndex),
-        				ascending(sortColumnIndex));
+		boolean guestLogin = false;
+		Long userId = null;
+		if (principal == null) {
+			guestLogin = true;
+		} else {
+			String login = principal.getName();
+			userId = userService.getUserByLogin(login).getUserId();
+		}
 
-        return questionFrequentAskedUserList;
-    }
+		if (guestLogin) {
+			userId = (long) 0;
+		}
 
-    @RequestMapping(value = "/categories/{categoryId}", method = RequestMethod.POST)
-    public List<QuestionFrequentAskedDTO> getAllQuestionsFilterCategory(
-            @PathVariable Long categoryId,
-            @RequestParam(value = "currentPageNumber", required = false, defaultValue = DEFAULT_CURRENT_PAGE_NUMBER) Integer currentPageNumber,
-            @RequestParam(value = "rowsOnPageNumber", required = false, defaultValue = DEFAULT_ROWS_ON_PAGE_NUMBER) Integer rowsOnPageNumber,
-            @RequestParam(value = "sortColumnIndex", required = false, defaultValue = DEFAULT_SORT_COLUMN_INDEX) Integer sortColumnIndex,
-            Principal principal) {
+		List<QuestionFrequentAskedDTO> questionFrequentAskedUserList = questionService
+				.getQuestionsFrequentlyAskedForPageAndUser(userId, rowsOnPageNumber, currentPageNumber,
+						sortConfig(sortColumnIndex), ascending(sortColumnIndex));
 
-        boolean guestLogin = false;
-        Long userId = null;
-        if (principal == null) {
-            guestLogin = true;
-        } else {
-            String login = principal.getName();
-            userId = userService.getUserByLogin(login).getUserId();
-        }
-        
-        if (guestLogin) {
-        	userId = (long) 0;
-        }
-        
-        List<QuestionFrequentAskedDTO> questionFrequentAskedUserList = 
-        		questionService.getQuestionsFrequentlyAskedForPageAndUser(
-        				userId,
-        				new Category(categoryId),
-        				rowsOnPageNumber, 
-        				currentPageNumber, 
-        				sortConfig(sortColumnIndex),
-        				ascending(sortColumnIndex));
+		return questionFrequentAskedUserList;
+	}
 
-        return questionFrequentAskedUserList;
-    }
+	@RequestMapping(value = "/categories/{categoryId}", method = RequestMethod.POST)
+	public List<QuestionFrequentAskedDTO> getAllQuestionsFilterCategory(@PathVariable Long categoryId,
+			@RequestParam(value = "currentPageNumber", required = false, defaultValue = DEFAULT_CURRENT_PAGE_NUMBER) Integer currentPageNumber,
+			@RequestParam(value = "rowsOnPageNumber", required = false, defaultValue = DEFAULT_ROWS_ON_PAGE_NUMBER) Integer rowsOnPageNumber,
+			@RequestParam(value = "sortColumnIndex", required = false, defaultValue = DEFAULT_SORT_COLUMN_INDEX) Integer sortColumnIndex,
+			Principal principal) {
 
-    private QuestionSortConfig sortConfig(Integer sortColumnIndex) {
-        return QuestionSortConfig.values()[Math.abs(sortColumnIndex) - 1];
-    }
+		boolean guestLogin = false;
+		Long userId = null;
+		if (principal == null) {
+			guestLogin = true;
+		} else {
+			String login = principal.getName();
+			userId = userService.getUserByLogin(login).getUserId();
+		}
 
-    private boolean ascending(Integer sortColumnIndex) {
-        return sortColumnIndex < 0 ? false : true;
-    }
+		if (guestLogin) {
+			userId = (long) 0;
+		}
 
-    @RequestMapping(value = {"/rate", "/categories/{categoryId}/rate"}, method = RequestMethod.POST)
-    public Boolean rateQuestion(
-            Principal principal,
-            @RequestParam(value = "questionId", required = false) Long questionId) {
+		List<QuestionFrequentAskedDTO> questionFrequentAskedUserList = questionService
+				.getQuestionsFrequentlyAskedForPageAndUser(userId, new Category(categoryId), rowsOnPageNumber,
+						currentPageNumber, sortConfig(sortColumnIndex), ascending(sortColumnIndex));
 
+		return questionFrequentAskedUserList;
+	}
 
-        Long userId = null;
-        if (principal == null) {
-            return false;
-        } else {
-            String login = principal.getName();
-            userId = userService.getUserByLogin(login).getUserId();
-        }
+	private QuestionSortConfig sortConfig(Integer sortColumnIndex) {
+		return QuestionSortConfig.values()[Math.abs(sortColumnIndex) - 1];
+	}
 
-        if (questionId <= 0) {
-            return false;
-        }
+	private boolean ascending(Integer sortColumnIndex) {
+		return sortColumnIndex < 0 ? false : true;
+	}
 
-        Rating rating = new Rating();
-        rating.setUserId(userId);
-        rating.setQuestion(questionService.getQuestionById(questionId));
-        ratingService.save(rating);
-        return true;
-    }
+	@RequestMapping(value = { "/rate", "/categories/{categoryId}/rate" }, method = RequestMethod.POST)
+	public Boolean rateQuestion(Principal principal,
+			@RequestParam(value = "questionId", required = false) Long questionId) {
 
-    @RequestMapping(value = {"/bookmark", "/categories/{categoryId}/bookmark"}, method = RequestMethod.POST)
-    public Boolean bookmarkQuestion(
-            Principal principal,
-            @RequestParam(value = "questionId", required = false) Long questionId) {
+		Long userId = null;
+		if (principal == null) {
+			return false;
+		} else {
+			String login = principal.getName();
+			userId = userService.getUserByLogin(login).getUserId();
+		}
 
+		if (questionId <= 0) {
+			return false;
+		}
 
-        Long userId = null;
-        if (principal == null) {
-            return false;
-        } else {
-            String login = principal.getName();
-            userId = userService.getUserByLogin(login).getUserId();
-        }
+		Rating rating = new Rating();
+		rating.setUserId(userId);
+		rating.setQuestion(questionService.getQuestionById(questionId));
+		ratingService.save(rating);
+		return true;
+	}
 
-        if (questionId <= 0) {
-            return false;
-        }
+	@RequestMapping(value = { "/bookmark", "/categories/{categoryId}/bookmark" }, method = RequestMethod.POST)
+	public Boolean bookmarkQuestion(Principal principal,
+			@RequestParam(value = "questionId", required = false) Long questionId) {
 
-        Bookmark bookmark = new Bookmark();
-        bookmark.setUserId(userId);
-        bookmark.setQuestionId(questionId);
-        bookmarkService.save(bookmark);
-        return true;
-    }
+		Long userId = null;
+		if (principal == null) {
+			return false;
+		} else {
+			String login = principal.getName();
+			userId = userService.getUserByLogin(login).getUserId();
+		}
 
-    @RequestMapping(value = {"/unbookmark", "/categories/{categoryId}/unbookmark"}, method = RequestMethod.POST)
-    public Boolean unbookmarkQuestion(
-            Principal principal,
-            @RequestParam(value = "questionId", required = false) Long questionId) {
+		if (questionId <= 0) {
+			return false;
+		}
 
-        Long userId = null;
-        if (principal == null) {
-            return false;
-        } else {
-            String login = principal.getName();
-            userId = userService.getUserByLogin(login).getUserId();
-        }
+		Bookmark bookmark = new Bookmark();
+		bookmark.setUserId(userId);
+		bookmark.setQuestionId(questionId);
+		bookmarkService.save(bookmark);
+		return true;
+	}
 
-        if (questionId <= 0) {
-            return false;
-        }
+	@RequestMapping(value = { "/unbookmark", "/categories/{categoryId}/unbookmark" }, method = RequestMethod.POST)
+	public Boolean unbookmarkQuestion(Principal principal,
+			@RequestParam(value = "questionId", required = false) Long questionId) {
 
-        bookmarkService.unbookmark(userId,questionId);
-        return true;
-    }
+		Long userId = null;
+		if (principal == null) {
+			return false;
+		} else {
+			String login = principal.getName();
+			userId = userService.getUserByLogin(login).getUserId();
+		}
 
+		if (questionId <= 0) {
+			return false;
+		}
 
-    @RequestMapping(value = "/metadata", method = RequestMethod.POST)
-    public QuestionMetadata getMetadata(
-            @RequestParam(value = "rowsOnPageNumber") Integer rowsOnPageNumber) {
+		bookmarkService.unbookmark(userId, questionId);
+		return true;
+	}
 
-        return new QuestionMetadata(
-                questionService.getPagesCount(rowsOnPageNumber),
-                questionService.getRecordsCount());
-    }
+	@RequestMapping(value = "/metadata", method = RequestMethod.POST)
+	public QuestionMetadata getMetadata(@RequestParam(value = "rowsOnPageNumber") Integer rowsOnPageNumber) {
 
-    @RequestMapping(value = "/categories/{categoryId}/metadata", method = RequestMethod.POST)
-    public QuestionMetadata getMetadataforCategory(
-            @PathVariable Long categoryId,
-            @RequestParam(value = "rowsOnPageNumber") Integer rowsOnPageNumber) {
-        Category category = new Category(categoryId);
-        return new QuestionMetadata(questionService.getPagesCount(category,
-                rowsOnPageNumber), questionService.getRecordsCount(category));
+		return new QuestionMetadata(questionService.getPagesCount(rowsOnPageNumber), questionService.getRecordsCount());
+	}
 
-    }
+	@RequestMapping(value = "/categories/{categoryId}/metadata", method = RequestMethod.POST)
+	public QuestionMetadata getMetadataforCategory(@PathVariable Long categoryId,
+			@RequestParam(value = "rowsOnPageNumber") Integer rowsOnPageNumber) {
+		Category category = new Category(categoryId);
+		return new QuestionMetadata(questionService.getPagesCount(category, rowsOnPageNumber),
+				questionService.getRecordsCount(category));
 
-    @RequestMapping(value = "/pagemetadata", method = RequestMethod.GET)
-    public PageMetadata getMetadata() {
+	}
 
-        return new PageMetadata();
-    }
+	@RequestMapping(value = "/pagemetadata", method = RequestMethod.GET)
+	public PageMetadata getMetadata() {
+
+		return new PageMetadata();
+	}
+
+	@RequestMapping(value = "/mybookmarks/{userId}")
+	public QuestionMetadata getBookmarkedQuestionsByUser(@RequestParam(value = "rowsOnPageNumber") Integer rowsOnPageNumber){
+		
+		return new QuestionMetadata(questionService.getPagesCount(rowsOnPageNumber), questionService.getRecordsCount());
+	}
 
 }

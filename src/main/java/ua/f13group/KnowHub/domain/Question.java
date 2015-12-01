@@ -40,11 +40,11 @@ import javax.persistence.ColumnResult;
 				+ " (SELECT count(b.bookmark_id)>0 as bookmarked FROM bookmarks b WHERE b.user_id = :userId and b.question_id = q.question_id)"
 				+ " FROM ratings r RIGHT JOIN questions q ON r.question_id = q.question_id WHERE q.category_id = :categoryId"
 				+ " GROUP BY q.question_id ORDER BY :orderBy", resultSetMapping = "QuestionMapping"),
-		@NamedNativeQuery(name = "Question.findByUserBookmarkedOnly", query = "SELECT q.question_id, q.value, q.load_date, c.value, count(r.user_id) as rating--, c.value"
+		@NamedNativeQuery(name = "Question.findByUserBookmarkedOnly", query = "SELECT q.question_id, q.value, q.load_date, c.value, count(r.user_id) as rating"
 				+ "FROM ratings r" + "JOIN questions q ON q.question_id = r.question_id"
 				+ "JOIN categories c ON c.category_id = q.category_id"
 				+ "JOIN bookmarks b ON q.question_id = b.question_id" + "WHERE b.user_id = :user_id"
-				+ "GROUP BY q.question_id, c.value", resultSetMapping = "QuestionMapping") })
+				+ "GROUP BY q.question_id, c.value ORDER BY :orderBy", resultSetMapping = "QuestionMapping") })
 @SqlResultSetMapping(name = "QuestionMapping", entities = @EntityResult(entityClass = Question.class, fields = {
 		@FieldResult(name = "id", column = "question_id"), @FieldResult(name = "value", column = "value"),
 		@FieldResult(name = "description", column = "description"), @FieldResult(name = "views", column = "views"),

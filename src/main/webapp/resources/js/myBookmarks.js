@@ -53,32 +53,33 @@ function outputQuestions(pC, cPN, rOPN) {
 									.each(
 											$(data).get().reverse(),
 											function(index, value) {
-											if (value.isBookmarked){
-												var unformatted_date = new Date(
-														value.loadDate);
-												var dd = unformatted_date
-														.getDate();
-												var mm = unformatted_date
-														.getMonth() + 1;
-												var yyyy = unformatted_date
-														.getFullYear();
-												if (dd < 10) {
-													dd = '0' + dd;
-												}
-												if (mm < 10) {
-													mm = '0' + mm;
-												}
-												var date = dd + '/' + mm + '/'
-														+ yyyy;
+												if (value.isBookmarked) {
+													var unformatted_date = new Date(
+															value.loadDate);
+													var dd = unformatted_date
+															.getDate();
+													var mm = unformatted_date
+															.getMonth() + 1;
+													var yyyy = unformatted_date
+															.getFullYear();
+													if (dd < 10) {
+														dd = '0' + dd;
+													}
+													if (mm < 10) {
+														mm = '0' + mm;
+													}
+													var date = dd + '/' + mm
+															+ '/' + yyyy;
 
-												if (value.value.length > 70) {
-													value.value = value.value
-															.substring(0, 65);
-													value.value += "...";
-												}
+													if (value.value.length > 70) {
+														value.value = value.value
+																.substring(0,
+																		65);
+														value.value += "...";
+													}
 
-												var userName = $("#userName")
-														.html();
+													var userName = $(
+															"#userName").html();
 													$(
 															"<div class='divRow row'><div class='non-active col-lg-6 col-md-6 col-sm-6 divCell_2'><a href='question/"
 																	+ value.id
@@ -98,9 +99,9 @@ function outputQuestions(pC, cPN, rOPN) {
 																	+ "</div></div>")
 															.insertAfter(
 																	"#headRow");
-											}
+												}
 											});
-											
+
 						}
 					});
 
@@ -285,36 +286,23 @@ function switchCategoryButtonOver(categoryId, isMouseOver) {
 	}
 }
 
-function selectCategory(categoryId) {
+function bookmarkedQuestions(userId) {
 	globalSortDirection = 1;
 	orderedBy(1);
 
-	$('.categoriesMenuButtonActive').removeAttr('style');
-	$('.categoriesMenuButtonActive').toggleClass('categoriesMenuButtonActive')
-			.toggleClass('categoriesMenuButton');
-
-	$("#category" + categoryId).toggleClass('categoriesMenuButton');
-	$("#category" + categoryId).toggleClass('categoriesMenuButtonActive');
-
-	if (window.selectedCategoryId == categoryId) {
-		switchCategoryButtonOver(categoryId, 'true');
-	} else {
-		window.selectedCategoryId = categoryId;
+	var bookmarkedURL = window.location.href.toString()
+	if (bookmarkedURL.indexOf("index") != -1) {
+		bookmarkedURL = bookmarkedURL.substr(0, bookmarkedURL.indexOf("index"));
 	}
-
-	var questionUrl = window.location.href.toString()
-	if (questionUrl.indexOf("index") != -1) {
-		questionUrl = questionUrl.substr(0, questionUrl.indexOf("index"));
-	}
-	questionUrl += "questions";
+	bookmarkedURL += "questions";
 
 	if (categoryId != -1) {
-		questionUrl += "/categories/" + categoryId;
+		bookmarkedURL += "/mybookmarks/" + userId;
 	}
-	globalQuestionUrl = questionUrl;
+	globalQuestionUrl = bookmarkedURL;
 
-	var questionMetadataUrl = questionUrl + "/metadata";
-	globalQuestionMetadataUrl = questionMetadataUrl;
+	var bookmarksMetadataUrl = bookmarkedURL + "/metadata";
+	globalQuestionMetadataUrl = bookmarksMetadataUrl;
 
 	displayPage("1");
 }
