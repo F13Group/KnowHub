@@ -48,7 +48,7 @@ public class PasswordRestoringController {
             confirmationService.saveConfirmation(confirmation);
 
             String subject = "Password reset";
-            String text = "<br>Hello, " + confirmation.getUser().getLogin();
+            String text = "<br>Hello, <b>" + confirmation.getUser().getLogin() + "</b>";
             text += "<br>A password reset has been requested for your KnowHub account.";
             text += ("<br>To reset your password, please click the following <a href=\"http://epuakyiw1793t6.kyiv.epam.com:8085/knowhub/restore_password/" + confirmation.getLink() + "\"> Link " +  "</a>");
             text += ("<br>Please note that this link is available only for 24 hours.");
