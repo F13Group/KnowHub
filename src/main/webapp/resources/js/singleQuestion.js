@@ -23,16 +23,20 @@ $(document).ready(function () {
     
     $.getJSON(infoUrl, function (data) {
     		$("#qTitle").append(data.value);
-    		$("#wasAsked").append("This question was asked "+data.rating+" times");
-    		$("#qCategory").append("<b>Category: </b><a href='#' id='category'>"+data.category.shortValue+"</a>");
+    		if (userName) {
+    			$("#wasAsked").append(wasAskedButton(data.id, data.isAsked) + " ");
+    			$("#wasBookmarked").append(wasBookmarkedButton(data.id, data.isBookmarked));
+    		}
+    		$("#wasAsked").append("This question was asked " + data.rating + " times");
+    		$("#qCategory").append("<b>Category: </b><a href='#' id='category'>" + data.category.shortValue + "</a>");
     		$("#qTag").append(showTags(data.tags));
-    		$("#viewed").append("Viewed: "+data.views);
+    		$("#viewed").append("Viewed: " +  data.views);
     		
-    		if(data.user) {
-    			$("#qAuthor").append("<a href='#' class='divQuestionColor'>"+getCorrectUserLoginName(data.user.login)+"</a>");
+    		if (data.user) {
+    			$("#qAuthor").append("<a href='#' class='divQuestionColor'>" + getCorrectUserLoginName(data.user.login) + "</a>");
     		}
     		
-    		if(data.description) {
+    		if (data.description) {
     			$("#qDescription").append(data.description);
     		}
     		
