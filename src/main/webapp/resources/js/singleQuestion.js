@@ -23,7 +23,7 @@ function showQuestion() {
     $("#userName").empty();
     $("#userName").append(getCorrectUserLoginName(userName));
     
-    infoUrl = globalPageUrl+"/info";
+    infoUrl = globalPageUrl + "/info";
     
     $.getJSON(infoUrl, function (data) {    		    		
     		$("#qTitle").empty().append(data.value);    		
@@ -35,6 +35,8 @@ function showQuestion() {
     				$("#wasBookmarked").empty().append("Bookmark this question: ");
     			}
     			$("#wasBookmarked").append(wasBookmarkedButton(data.id, data.isBookmarked));
+    		} else {
+    			$("#wasBookmarked").empty().append("Bookmark this question: " + wasBookmarkedButton(data.id, data.isBookmarked));
     		}
     		$("#wasAsked").append("This question was asked " + data.rating + " times");
     		$("#qCategory").empty().append("<b>Category: </b><a href='#' id='category'>" + data.category.shortValue + "</a>");

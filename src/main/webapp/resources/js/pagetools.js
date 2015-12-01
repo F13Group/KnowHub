@@ -56,7 +56,13 @@ function wasBookmarkedButton(questionId, isBookmarked){
 		currentImg = globalAppUrl + "resources/img/star.png";
 		swapImg = globalAppUrl + "resources/img/nonactivestar.png";
 	}
-	return '<img id="was_bookmarked' + questionId + '" onclick ="toggleBookmark(' + questionId + ', ' + isBookmarked + ')" src='+ currentImg +'  data-swap=' + swapImg + ' width="20" height="20" onmouseover="mouseOverWasBookmarkedButton(' + questionId + ', ' + isBookmarked + ')"/>';
+ 	
+ 	var userName = $("#userName").html();
+ 	if (userName) {
+ 		return '<img id="was_bookmarked' + questionId + '" onclick ="toggleBookmark(' + questionId + ', ' + isBookmarked + ')" src='+ currentImg +'  data-swap=' + swapImg + ' width="20" height="20" onmouseover="mouseOverWasBookmarkedButton(' + questionId + ', ' + isBookmarked + ')"/>';
+ 	} else {
+ 		return '<img id="was_bookmarked' + questionId + '" src='+ currentImg +'  data-swap=' + swapImg + ' width="20" height="20" onmouseover="mouseOverWasBookmarkedButton(' + questionId + ', ' + isBookmarked + ')"/>';
+ 	}
 }
 
 function mouseOverWasAskedButton(questionId, isAsked) {
@@ -71,7 +77,15 @@ function mouseOverWasAskedButton(questionId, isAsked) {
 }
 
 function mouseOverWasBookmarkedButton(questionId, isBookmarked) {
-    if (isBookmarked == false) {
+	var userName = $("#userName").html();
+ 	if (!userName) {
+ 		$("#was_bookmarked" + questionId).tooltip({
+            title: "Please log in to bookmark the question.",
+            placement: "right",
+            trigger: "hover",
+            delay: {show: 1},
+        });
+ 	} else if (isBookmarked == false) {
         $("#was_bookmarked" + questionId).tooltip({
             title: "Please click on this icon to bookmark the question.",
             placement: "right",
