@@ -95,6 +95,14 @@ public class QuestionRepositoryJPA implements QuestionRepository {
 
 		return query.getSingleResult().intValue();
 	}
+	
+	@Override
+	public int getRecordsCountBookmarked(Long userId){
+		TypedQuery<Long> query = entityManager.createNamedQuery("Question.getPagesCountBookmarked", Long.class);
+		query.setParameter("userId", userId);
+		
+		return query.getSingleResult().intValue();
+	}
 
 	@Override
 	public Question findById(Long questionId) {

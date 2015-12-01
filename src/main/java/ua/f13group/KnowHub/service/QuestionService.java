@@ -30,5 +30,7 @@ public interface QuestionService {
 	
 	public List<QuestionFrequentAskedDTO> getBookmarkedByUser(long userId, Category category, int rowsOnPage, int pageNumber, QuestionSortConfig cfg,
 			boolean ascending);
+	int getPagesCountBookmarked(int rowsOnPage, Long userId);
+	int getRecordsCountBookmarked(Long userId);
 
 }

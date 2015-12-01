@@ -123,6 +123,15 @@ public class JpaQuestionService implements QuestionService  {
 	}
 
 	@Override
+	public int getPagesCountBookmarked(int rowsOnPage, Long userId){
+		int result = questionRep.getRecordsCountBookmarked(userId);
+		if (result % rowsOnPage ==0) 
+			return result/rowsOnPage;
+		else
+			return result/rowsOnPage+1;
+	}
+	
+	@Override
 	public int getRecordsCount() {
 		return questionRep.getRecordsCount();
 	}
@@ -132,6 +141,11 @@ public class JpaQuestionService implements QuestionService  {
 		return questionRep.getRecordsCount(category);
 	}
 
+	@Override
+	public int getRecordsCountBookmarked(Long userId){
+		return questionRep.getRecordsCountBookmarked(userId);
+	}
+	
 	@Override
 	public Question getQuestionById(Long questionId) {
 		// TODO Auto-generated method stub

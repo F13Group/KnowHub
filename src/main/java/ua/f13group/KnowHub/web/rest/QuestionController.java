@@ -190,10 +190,11 @@ public class QuestionController {
 		return new PageMetadata();
 	}
 
-	@RequestMapping(value = "/mybookmarks/{userId}")
-	public QuestionMetadata getBookmarkedQuestionsByUser(@RequestParam(value = "rowsOnPageNumber") Integer rowsOnPageNumber){
-		
-		return new QuestionMetadata(questionService.getPagesCount(rowsOnPageNumber), questionService.getRecordsCount());
+	@RequestMapping(value = "/metadata/{userId}")
+	public QuestionMetadata getBookmarkedQuestionsByUser(@PathVariable Long userId,
+			@RequestParam(value = "rowsOnPageNumber") Integer rowsOnPageNumber) {
+
+		return new QuestionMetadata(questionService.getPagesCountBookmarked(rowsOnPageNumber, userId), questionService.getRecordsCountBookmarked(userId));
 	}
 
 }

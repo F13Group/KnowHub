@@ -28,6 +28,7 @@ import javax.persistence.ColumnResult;
 @Table(name = "questions")
 @NamedQueries({ @NamedQuery(name = "Question.getPagesCount", query = "SELECT Count(q) FROM Question q "),
 		@NamedQuery(name = "Question.getPagesCountWithCategory", query = "SELECT Count(q) FROM Question q WHERE q.category.id = :category"),
+		@NamedQuery(name = "Question.getPagesCountBookmarked", query = "SELECT Count(q.question_id) FROM questions q JOIN bookmarks b ON q.question_id = b.question_id WHERE b.user_id = :user_id"),
 		@NamedQuery(name = "Question.findByCategory", query = "SELECT q FROM Question q WHERE q.category.id = :category ORDER BY q.loadDate DESC") })
 @NamedNativeQueries({
 		@NamedNativeQuery(name = "Question.findAllWithRatingIsAskedAndIsBookmarked", query = "SELECT q.question_id, q.value, q.load_date, q.category_id, count (r.user_id) as rating,"
