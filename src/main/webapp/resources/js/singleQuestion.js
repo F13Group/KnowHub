@@ -12,8 +12,12 @@ var getCorrectUserLoginName = function(userName){
     }
 }
 
-$(document).ready(function () {
+$(document).ready(function () {	
+	showQuestion();	
+})
 
+function showQuestion() {
+	
 	//Output UserName for signed student
     var userName = $("#userName").html();
     $("#userName").empty();
@@ -21,23 +25,23 @@ $(document).ready(function () {
     
     infoUrl = globalPageUrl+"/info";
     
-    $.getJSON(infoUrl, function (data) {
-    		$("#qTitle").append(data.value);
+    $.getJSON(infoUrl, function (data) {    		    		
+    		$("#qTitle").empty().append(data.value);    		
     		if (userName) {
-    			$("#wasAsked").append(wasAskedButton(data.id, data.isAsked) + " ");
-    			$("#wasBookmarked").append(wasBookmarkedButton(data.id, data.isBookmarked));
+    			$("#wasAsked").empty().append(wasAskedButton(data.id, data.isAsked) + " ");
+    			$("#wasBookmarked").empty().append("Bookmark this question: " + wasBookmarkedButton(data.id, data.isBookmarked));
     		}
     		$("#wasAsked").append("This question was asked " + data.rating + " times");
-    		$("#qCategory").append("<b>Category: </b><a href='#' id='category'>" + data.category.shortValue + "</a>");
-    		$("#qTag").append(showTags(data.tags));
-    		$("#viewed").append("Viewed: " +  data.views);
+    		$("#qCategory").empty().append("<b>Category: </b><a href='#' id='category'>" + data.category.shortValue + "</a>");
+    		$("#qTag").empty().append(showTags(data.tags));
+    		$("#viewed").empty().append("Viewed: " +  data.views);
     		
     		if (data.user) {
-    			$("#qAuthor").append("<a href='#' class='divQuestionColor'>" + getCorrectUserLoginName(data.user.login) + "</a>");
+    			$("#qAuthor").empty().append("<a href='#' class='divQuestionColor'>" + getCorrectUserLoginName(data.user.login) + "</a>");
     		}
     		
     		if (data.description) {
-    			$("#qDescription").append(data.description);
+    			$("#qDescription").empty().append(data.description);
     		}
     		
     		//Output formatted date		
@@ -53,10 +57,10 @@ $(document).ready(function () {
             }
             var date = dd + '/' + mm + '/' + yyyy;    		
     		
-    		$("#addedDate").append("Added "+date);		
+    		$("#addedDate").empty().append("Added " + date);		
     		
     })
-})
+}
 
 function showTags(listOfTags){
 	var res = "";

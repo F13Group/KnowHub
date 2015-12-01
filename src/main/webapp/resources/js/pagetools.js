@@ -101,7 +101,7 @@ function incrementQuestionRating(questionId, isAsked) {
             if (window.location.href.toString().indexOf("question") < 0) {
 				displayPage(currentPage);
 			} else {
-				location.reload();
+				showQuestion();
 			}
         });
     }
@@ -124,7 +124,7 @@ function toggleBookmark(questionId, isBookmarked) {
 			if (window.location.href.toString().indexOf("question") < 0) {
 				displayPage(currentPage);
 			} else {
-				location.reload();
+				showQuestion();
 			}		
 		}); 
 	} else if (isBookmarked == true) {
@@ -132,7 +132,7 @@ function toggleBookmark(questionId, isBookmarked) {
 	   		if (window.location.href.toString().indexOf("question") < 0) {
 				displayPage(currentPage);
 			} else {
-				location.reload();
+				showQuestion();
 			}
 		});
 	}

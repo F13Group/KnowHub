@@ -72,7 +72,7 @@
 				<div class="row">
 				<div  id="headRow" class="headRow" >
 					<div id="qTitle" class="divCell_header col-lg-8 divCell_Left"></div>
-					<div id="wasBookmarked" class="divCell_header col-lg-4 col-md-4 col-sm-4" >Bookmark this question: </div> 
+					<div id="wasBookmarked" class="divCell_header col-lg-4 col-md-4 col-sm-4" ></div> 
 				</div>
 				
 				<div class="col-lg-2 col-md-2 col-sm-2 divCell_Left">
