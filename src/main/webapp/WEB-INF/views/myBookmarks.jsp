@@ -151,7 +151,8 @@
 		$(document).ready(function() {
 
 			pageSetup();
-			displayPage("1");
+			globalQuestionMetadataUrl += "/mybookmarks"
+			displayPageBookmarks("1");
 		});
 	</script>
 </body>

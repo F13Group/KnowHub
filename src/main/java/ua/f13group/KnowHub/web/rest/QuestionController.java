@@ -193,6 +193,22 @@ public class QuestionController {
                 questionService.getPagesCount(rowsOnPageNumber),
                 questionService.getRecordsCount());
     }
+    
+    @RequestMapping(value = "/metadata/mybookmarks", method = RequestMethod.POST)
+    public QuestionMetadata getMetadataBookmarks(
+            @RequestParam(value = "rowsOnPageNumber") Integer rowsOnPageNumber, Principal principal) {
+
+    	Long userId = 0L;
+    	
+    	if (principal != null) {
+            String login = principal.getName();
+            userId = userService.getUserByLogin(login).getUserId();
+        }
+    	
+        return new QuestionMetadata(
+                questionService.getPagesCountBookmarked(userId, rowsOnPageNumber),
+                questionService.getRecordsCountBookmarked(userId));
+    }
 
     @RequestMapping(value = "/categories/{categoryId}/metadata", method = RequestMethod.POST)
     public QuestionMetadata getMetadataforCategory(

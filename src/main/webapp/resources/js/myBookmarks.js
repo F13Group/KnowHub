@@ -17,6 +17,8 @@ function displayPage(currentPageNumber) {
 					function(data) {
 						outputQuestions(data.pageCount, currentPageNumber,
 								pageSizeChosen);
+						alert(pageSizeChosen);
+						alert(currentPageNumber);
 						var recordsStart = pageSizeChosen
 								* (currentPageNumber - 1) + 1;
 						var recordsEnd;
