@@ -56,6 +56,8 @@ function showQuestion() {
             var dd = unformatted_date.getDate();
             var mm = unformatted_date.getMonth() + 1;
             var yyyy = unformatted_date.getFullYear();
+            
+            var time = unformatted_date.toTimeString().substr(0,5);
             if (dd < 10) {
                 dd = '0' + dd;
             }
@@ -64,7 +66,7 @@ function showQuestion() {
             }
             var date = dd + '/' + mm + '/' + yyyy;    		
     		
-    		$("#addedDate").empty().append("Added " + date);		
+    		$("#addedDate").empty().append("Added " + date + "<br> at " + time);		
     		
     })
 }
