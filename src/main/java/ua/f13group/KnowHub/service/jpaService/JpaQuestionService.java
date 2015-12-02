@@ -169,9 +169,9 @@ public class JpaQuestionService implements QuestionService  {
     }
 
 	@Override
-	public List<QuestionFrequentAskedDTO> getBookmarkedByUser(long userId, Category category, int rowsOnPage, int pageNumber, QuestionSortConfig cfg,
+	public List<QuestionFrequentAskedDTO> getBookmarkedByUser(long userId, int rowsOnPage, int pageNumber, QuestionSortConfig cfg,
 			boolean ascending) {
-		List<Object[]> queryResult = questionRep.findBookmarkedByUser(userRep.getUserById(userId), category, rowsOnPage, pageNumber, cfg);
+		List<Object[]> queryResult = questionRep.findBookmarkedByUser(userRep.getUserById(userId), rowsOnPage, pageNumber, cfg);
 		List<QuestionFrequentAskedDTO> result = new LinkedList<QuestionFrequentAskedDTO>();
 		
 		for (Object[] row : queryResult) {

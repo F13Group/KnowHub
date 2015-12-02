@@ -14,6 +14,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 
 <!-- Bootstrap core CSS -->
@@ -148,10 +149,12 @@
 		</div>
 	</footer>
 	<script type="text/javascript">
+		var userId = "${fn:escapeXml(userId)}";
+	
 		$(document).ready(function() {
-
 			pageSetup();
-			globalQuestionMetadataUrl += "/mybookmarks/" + ${userId};
+			globalQuestionMetadataUrl += "/" + userId;
+			globalQuestionUrl += "/mybookmarks/questions";
 			displayPage("1");
 		});
 	</script>

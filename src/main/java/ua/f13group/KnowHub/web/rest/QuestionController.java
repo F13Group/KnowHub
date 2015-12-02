@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -196,5 +197,20 @@ public class QuestionController {
 
 		return new QuestionMetadata(questionService.getPagesCountBookmarked(rowsOnPageNumber, userId), questionService.getRecordsCountBookmarked(userId));
 	}
-
+	
+	@RequestMapping(value = "/mybookmarks/questions")
+	public List<QuestionFrequentAskedDTO> getBookmarkedQuestions(
+			@RequestParam(value = "currentPageNumber", required = false, defaultValue = DEFAULT_CURRENT_PAGE_NUMBER) Integer currentPageNumber,
+			@RequestParam(value = "rowsOnPageNumber", required = false, defaultValue = DEFAULT_ROWS_ON_PAGE_NUMBER) Integer rowsOnPageNumber,
+			@RequestParam(value = "sortColumnIndex", required = false, defaultValue = DEFAULT_SORT_COLUMN_INDEX) Integer sortColumnIndex,
+			Principal principal){
+		
+		String login = principal.getName();
+		Long userId = userService.getUserByLogin(login).getUserId();
+		
+		List<QuestionFrequentAskedDTO> bookmarkedQuestions = questionService.getBookmarkedByUser(userId, rowsOnPageNumber, currentPageNumber, sortConfig(sortColumnIndex), ascending(sortColumnIndex));
+		return bookmarkedQuestions;
+		
+	}
+	
 }

@@ -28,7 +28,7 @@ public interface QuestionService {
 	public Long save(Question question);
 	public void addView(Long questionId);
 	
-	public List<QuestionFrequentAskedDTO> getBookmarkedByUser(long userId, Category category, int rowsOnPage, int pageNumber, QuestionSortConfig cfg,
+	public List<QuestionFrequentAskedDTO> getBookmarkedByUser(long userId, int rowsOnPage, int pageNumber, QuestionSortConfig cfg,
 			boolean ascending);
 	int getPagesCountBookmarked(int rowsOnPage, Long userId);
 	int getRecordsCountBookmarked(Long userId);

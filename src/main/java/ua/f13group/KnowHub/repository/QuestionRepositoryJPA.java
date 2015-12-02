@@ -11,6 +11,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +27,8 @@ public class QuestionRepositoryJPA implements QuestionRepository {
 	@PersistenceContext
 	private EntityManager entityManager;
 
+	private final static Logger logger = LoggerFactory.getLogger(QuestionRepositoryJPA.class);
+	
 	@Override
 	public List<Question> findForPage(int rowsOnPage, int pageNumber, QuestionSortConfig orderBy, boolean ascending) {
 
@@ -98,10 +102,9 @@ public class QuestionRepositoryJPA implements QuestionRepository {
 	
 	@Override
 	public int getRecordsCountBookmarked(Long userId){
-		TypedQuery<Long> query = entityManager.createNamedQuery("Question.getPagesCountBookmarked", Long.class);
-		query.setParameter("userId", userId);
-		
-		return query.getSingleResult().intValue();
+		Query query = entityManager.createNativeQuery(Question.getBookmarkedQuestionsCount());
+		query.setParameter("user_id", userId);
+		return Integer.parseInt(query.getSingleResult().toString());
 	}
 
 	@Override
@@ -155,14 +158,17 @@ public class QuestionRepositoryJPA implements QuestionRepository {
 	}
 
 	@Override
-	public List<Object[]> findBookmarkedByUser(User user, Category category, int rowsOnPage, int pageNumber,
+	public List<Object[]> findBookmarkedByUser(User user, int rowsOnPage, int pageNumber,
 			QuestionSortConfig orderBy) {
-		Query query = entityManager.createNativeQuery("Question.findByUserBookmarkedOnly", Long.class);
+		Query query = entityManager.createNativeQuery(Question.getBookmarkedQuestionsByUser());
+		System.out.println(query.getParameters().size());
 		query.setParameter("user_id", user.getUserId());
 		query.setParameter("orderBy", orderBy);
 		query.setFirstResult(((pageNumber - 1) * rowsOnPage));
 		query.setMaxResults(rowsOnPage);
+		logger.info(query.toString());
 		List<Object[]> result = query.getResultList();
+		
 		return result;
 	}
 }

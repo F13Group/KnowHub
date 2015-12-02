@@ -8,17 +8,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import ua.f13group.KnowHub.service.QuestionService;
 import ua.f13group.KnowHub.service.UserService;
 
 @Controller
 public class MyBookmarksController {
-	
+
 	@Autowired
 	UserService userService;
-	
-	@RequestMapping(value="/mybookmarks/{userId}", method = RequestMethod.GET)
-	public String loadMyBookmarks(@PathVariable String userId, Model model, Principal principal){
+
+	@RequestMapping(value="mybookmarks/{userId}", method = RequestMethod.GET)
+	public String loadMyBookmarks(@PathVariable String userId, Model model, Principal principal ){
 		if (principal == null){
 			return "redirect:/";
 		}

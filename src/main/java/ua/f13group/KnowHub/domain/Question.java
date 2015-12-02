@@ -5,8 +5,11 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.ColumnResult;
 import javax.persistence.Entity;
+import javax.persistence.EntityResult;
 import javax.persistence.FetchType;
+import javax.persistence.FieldResult;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,17 +21,16 @@ import javax.persistence.NamedNativeQueries;
 import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table;
 import javax.persistence.SqlResultSetMapping;
-import javax.persistence.EntityResult;
-import javax.persistence.FieldResult;
-import javax.persistence.ColumnResult;
+import javax.persistence.Table;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Entity
 @Table(name = "questions")
 @NamedQueries({ @NamedQuery(name = "Question.getPagesCount", query = "SELECT Count(q) FROM Question q "),
 		@NamedQuery(name = "Question.getPagesCountWithCategory", query = "SELECT Count(q) FROM Question q WHERE q.category.id = :category"),
-		@NamedQuery(name = "Question.getPagesCountBookmarked", query = "SELECT Count(q.question_id) FROM questions q JOIN bookmarks b ON q.question_id = b.question_id WHERE b.user_id = :user_id"),
 		@NamedQuery(name = "Question.findByCategory", query = "SELECT q FROM Question q WHERE q.category.id = :category ORDER BY q.loadDate DESC") })
 @NamedNativeQueries({
 		@NamedNativeQuery(name = "Question.findAllWithRatingIsAskedAndIsBookmarked", query = "SELECT q.question_id, q.value, q.load_date, q.category_id, count (r.user_id) as rating,"
@@ -45,7 +47,8 @@ import javax.persistence.ColumnResult;
 				+ "FROM ratings r" + "JOIN questions q ON q.question_id = r.question_id"
 				+ "JOIN categories c ON c.category_id = q.category_id"
 				+ "JOIN bookmarks b ON q.question_id = b.question_id" + "WHERE b.user_id = :user_id"
-				+ "GROUP BY q.question_id, c.value ORDER BY :orderBy", resultSetMapping = "QuestionMapping") })
+				+ "GROUP BY q.question_id, c.value ORDER BY :orderBy", resultSetMapping = "QuestionMapping"),
+		@NamedNativeQuery(name = "Question.getPagesCountBookmarked", query = "SELECT Count(q.question_id) FROM questions q JOIN bookmarks b ON q.question_id = b.question_id WHERE b.user_id = ?") })
 @SqlResultSetMapping(name = "QuestionMapping", entities = @EntityResult(entityClass = Question.class, fields = {
 		@FieldResult(name = "id", column = "question_id"), @FieldResult(name = "value", column = "value"),
 		@FieldResult(name = "description", column = "description"), @FieldResult(name = "views", column = "views"),
@@ -56,6 +59,8 @@ import javax.persistence.ColumnResult;
 public class Question implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
+	
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -152,6 +157,21 @@ public class Question implements Serializable {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public static String getBookmarkedQuestionsCount(){
+		String query = "SELECT Count(q.question_id) FROM questions q JOIN bookmarks b ON q.question_id = b.question_id WHERE b.user_id = :user_id";
+		return query;
+	}
+	
+	public static String getBookmarkedQuestionsByUser(){
+		String query = "SELECT q.question_id, q.value, q.load_date, c.value, count(r.user_id) as rat "
+				+ "FROM questions q " + "JOIN ratings r ON q.question_id = r.question_id "
+				+ "JOIN categories c ON c.category_id = q.category_id "
+				+ "JOIN bookmarks b ON q.question_id = b.question_id " + "WHERE b.user_id = :user_id "
+				+ "GROUP BY q.question_id, c.value ORDER BY :orderBy";
+		
+		return query;
 	}
 	
 	public static String getFindAllWithRatingIsAskedAndIsBookmarkedQueryString(Category category,
