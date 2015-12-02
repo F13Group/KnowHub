@@ -96,7 +96,7 @@
 			<div id="taggingRow" class="col-lg-10 col-md-10 col-sm-10 justified">
 				<div class=row>
 					<div class="divCell_2 col-lg-2 col-md-2 col-sm-2" id="wasAsked" style="height:60px" align=left></div>
-					<div class="divCell_2 col-lg-6 col-md-6 col-sm-6" id="viewed" style="height:60px" align=left><img src='${pageContext.servletContext.contextPath}/resources/img/eye.png' width="20" height="20" /></div>
+					<div class="divCell_2 col-lg-6 col-md-6 col-sm-6" id="viewed" style="height:60px" align=left></div>
 					<div class="divCell_2 col-lg-4 col-md-4 col-sm-4" id="showComments" style="height:60px" align=center><a href="#">Show all comments</a></div>
 				</div>
 			</div>		

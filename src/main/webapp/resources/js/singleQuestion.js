@@ -41,7 +41,7 @@ function showQuestion() {
     		$("#wasAsked").append("This question was asked " + data.rating + " times");
     		$("#qCategory").empty().append("<b>Category: </b><a href='#' id='category'>" + data.category.shortValue + "</a>");
     		$("#qTag").empty().append(showTags(data.tags));
-    		$("#viewed").empty().append("Viewed: " +  data.views);
+    		$("#viewed").empty().append("<img src='" + globalAppUrl + "resources/img/eye.png' width='20' height='20' /> Viewed: " +  data.views);
     		
     		if (data.user) {
     			$("#qAuthor").empty().append("<a href='#' class='divQuestionColor'>" + getCorrectUserLoginName(data.user.login) + "</a>");

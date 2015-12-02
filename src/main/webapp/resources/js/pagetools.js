@@ -110,14 +110,16 @@ function incrementQuestionRating(questionId, isAsked) {
     var questionsUrl = globalAppUrl + "questions";
 
     if (isAsked == false) {
-        $.post(questionsUrl + "/rate", {questionId: questionId}).done(function (isSuccess) {
-            $("#was_asked_button" + questionId).on('mouseover', rf);
-            if (window.location.href.toString().indexOf("question") < 0) {
-				displayPage(currentPage);
-			} else {
-				showQuestion();
-			}
-        });
+    	if (confirm("Are you sure you were asked this particular question?")) {
+    		$.post(questionsUrl + "/rate", {questionId: questionId}).done(function (isSuccess) {
+            	$("#was_asked_button" + questionId).on('mouseover', rf);
+            	if (window.location.href.toString().indexOf("question") < 0) {
+					displayPage(currentPage);
+				} else {
+					showQuestion();
+				}
+        	});
+    	}
     }
 }
 
