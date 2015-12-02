@@ -80,21 +80,21 @@ function mouseOverWasBookmarkedButton(questionId, isBookmarked) {
 	var userName = $("#userName").html();
  	if (!userName) {
  		$("#was_bookmarked" + questionId).tooltip({
-            title: "Please log in to bookmark the question.",
+            title: "Log in to add the question to your bookmarks",
             placement: "right",
             trigger: "hover",
             delay: {show: 1},
         });
  	} else if (isBookmarked == false) {
         $("#was_bookmarked" + questionId).tooltip({
-            title: "Please click on this icon to bookmark the question.",
+            title: "Click the icon to add the question to your bookmarks",
             placement: "right",
             trigger: "hover",
             delay: {show: 1},
         });
     } else if (isBookmarked == true) {
     	$("#was_bookmarked" + questionId).tooltip({
-            title: "Please click on this icon to remove the bookmark.",
+            title: "Click the icon to remove the bookmark",
             placement: "right",
             trigger: "hover",
             delay: {show: 1},
