@@ -26,7 +26,7 @@ public class UserRepositoryJPA implements UserRepository {
     @Transactional
     @Override
     public Integer saveUser(User user) {
-        entityManager.persist(user);
+    	entityManager.persist(user);
         return user.getUserId().intValue();
     }
 
