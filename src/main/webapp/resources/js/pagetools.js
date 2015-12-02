@@ -68,7 +68,7 @@ function wasBookmarkedButton(questionId, isBookmarked){
 function mouseOverWasAskedButton(questionId, isAsked) {
     if (isAsked == false) {
         $("#was_asked_button" + questionId).tooltip({
-            title: "Please click on this icon if you also have been asked the question.",
+            title: "Click the icon if you have been asked the question too",
             placement: "right",            
             trigger: "hover",
             delay: {show: 1},
