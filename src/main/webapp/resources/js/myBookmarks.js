@@ -81,7 +81,9 @@ function outputQuestions(pC, cPN, rOPN) {
 													var userName = $(
 															"#userName").html();
 													$(
-															"<div class='divRow row'><div class='non-active col-lg-6 col-md-6 col-sm-6 divCell_2'><a href='question/"
+															"<div class='divRow row'><div class='non-active col-lg-6 col-md-6 col-sm-6 divCell_2'><a href='"
+																	+ globalQuestionUrl
+																	+ "/"
 																	+ value.id
 																	+ "'  class='divQuestionColor'>"
 																	+ value.value
