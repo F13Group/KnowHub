@@ -13,9 +13,11 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
 
+import org.springframework.transaction.annotation.Transactional;
 import ua.f13group.KnowHub.domain.Category;
 import ua.f13group.KnowHub.domain.Question;
 import ua.f13group.KnowHub.domain.QuestionSortConfig;
+import ua.f13group.KnowHub.domain.User;
 
 @Repository("questionRepository")
 public class QuestionRepositoryJPA implements QuestionRepository {
@@ -35,7 +37,7 @@ public class QuestionRepositoryJPA implements QuestionRepository {
 		Join<Question, Category> categories = questions
 				.join("category");
 		if (ascending == true){
-			if(orderBy==QuestionSortConfig.CATEGORY){
+			if(orderBy == QuestionSortConfig.CATEGORY){
 				criteriaQuery.orderBy(criteriaBuilder.asc(categories
 						.get(orderBy.dbName)));
 			}
@@ -45,7 +47,7 @@ public class QuestionRepositoryJPA implements QuestionRepository {
 			}
 		}
 		else{
-			if(orderBy==QuestionSortConfig.CATEGORY){
+			if(orderBy == QuestionSortConfig.CATEGORY){
 				criteriaQuery.orderBy(criteriaBuilder.desc(categories
 						.get(orderBy.dbName)));
 			}
@@ -116,34 +118,13 @@ public class QuestionRepositoryJPA implements QuestionRepository {
 	
 	@Override
 	public List<Object[]> findForPageWithRatingIsAskedAndIsBookmarked(long userId, int rowsOnPage, int pageNumber,
-			QuestionSortConfig orderBy, boolean ascending) {
-		String sqlQueryString = "SELECT q.question_id, q.value, q.load_date, q.category_id, count (r.user_id) as rating,"
-				+ " (SELECT count(r.rating_id)>0 as asked FROM ratings r WHERE r.user_id = :userId and r.question_id = q.question_id),"
-				+ " (SELECT count(b.bookmark_id)>0 as bookmarked FROM bookmarks b WHERE b.user_id = :userId and b.question_id = q.question_id)"
-				+ " FROM ratings r RIGHT JOIN questions q ON r.question_id = q.question_id"
-				+ " GROUP BY q.question_id ORDER BY";
-		if (orderBy == QuestionSortConfig.CATEGORY) {
-			sqlQueryString += " q.category_id";
-		} else {
-			sqlQueryString += " q.load_date";
-		}
-		if (ascending) {
-			sqlQueryString += " ASC";
-		} else {
-			sqlQueryString += " DESC";
-		}		
+			QuestionSortConfig orderBy, boolean isSortedAscending) {
+	
 		Query query = 
-				entityManager.createNativeQuery(sqlQueryString, "QuestionMapping");
+				entityManager.createNativeQuery(
+						Question.getFindAllWithRatingIsAskedAndIsBookmarkedQueryString(null, orderBy, isSortedAscending), "QuestionMapping");
 		query.setParameter("userId", userId);
-		
-//		Query query = 
-//				entityManager.createNamedQuery("Question.findAllWithRatingIsAskedAndIsBookmarked");
-//		query.setParameter("userId", userId);
-//		if (ascending) {
-//			query.setParameter("orderBy", "q.value ASC");
-//		} else {
-//			query.setParameter("orderBy", "q.value DESC");
-//		}		
+
 		query.setFirstResult(((pageNumber - 1) * rowsOnPage));
 		query.setMaxResults(rowsOnPage);		
 		
@@ -154,33 +135,14 @@ public class QuestionRepositoryJPA implements QuestionRepository {
 	@Override
 	public List<Object[]> findForPageWithRatingIsAskedAndIsBookmarked(long userId, Category category, 
 			int rowsOnPage, int pageNumber,
-			QuestionSortConfig orderBy, boolean ascending) {
-		String sqlQueryString = "SELECT q.question_id, q.value, q.load_date, q.category_id, count (r.user_id) as rating,"
-				+ " (SELECT count(r.rating_id)>0 as asked FROM ratings r WHERE r.user_id = :userId and r.question_id = q.question_id),"
-				+ " (SELECT count(b.bookmark_id)>0 as bookmarked FROM bookmarks b WHERE b.user_id = :userId and b.question_id = q.question_id)"
-				+ " FROM ratings r RIGHT JOIN questions q ON r.question_id = q.question_id WHERE q.category_id = :categoryId"
-				+ " GROUP BY q.question_id ORDER BY";
-		if (orderBy == QuestionSortConfig.CATEGORY) {
-			sqlQueryString += " q.category_id";
-		} else {
-			sqlQueryString += " q.load_date";
-		}
-		if (ascending) {
-			sqlQueryString += " ASC";
-		} else {
-			sqlQueryString += " DESC";
-		}
+			QuestionSortConfig orderBy, boolean isSortedAscending) {
+
 		Query query = 
-				entityManager.createNativeQuery(sqlQueryString, "QuestionMapping");
+				entityManager.createNativeQuery(
+						Question.getFindAllWithRatingIsAskedAndIsBookmarkedQueryString(category, orderBy, isSortedAscending), "QuestionMapping");
+		
 		query.setParameter("userId", userId);
 		query.setParameter("categoryId", category.getId());
-		
-//		Query query = 
-//				entityManager.createNamedQuery("Question.findByCategoryWithRatingIsAskedAndIsBookmarked");
-//		query.setParameter("orderBy", orderBy.nativeName);
-//		query.setParameter("userId", userId);
-//		query.setParameter("categoryId", category.getId());
-//		query.setParameter("ascdesc", ascending ? "ASC" : "DESC");
 		
 		query.setFirstResult(((pageNumber - 1) * rowsOnPage));
 		query.setMaxResults(rowsOnPage);
@@ -189,4 +151,14 @@ public class QuestionRepositoryJPA implements QuestionRepository {
 		return values;
 	}
 
+    @Override
+    @Transactional
+    public Long save(Question question) {
+        if (question.getId() != null) {
+            entityManager.merge(question);
+        } else {
+            entityManager.persist(question);
+        }
+        return question.getId();
+    }
 }
