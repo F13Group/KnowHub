@@ -94,7 +94,11 @@ function outputQuestions(pC, cPN, rOPN) {
 																	+ "</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Center'>"
 																	+ " "
 																	+ value.rating
-																	+ "</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Center'><a href='remove/"
+																	+ "</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Center'><a onmouseover = 'removeLinkTooltip("
+																	+ value.id
+																	+ ")' id = 'remove_link"
+																	+ value.id
+																	+ "' href='remove/"
 																	+ value.id
 																	+ "'  class='divQuestionColor'>"
 																	+ "Remove"
@@ -108,6 +112,20 @@ function outputQuestions(pC, cPN, rOPN) {
 					});
 
 	pagination(pC, cPN, rOPN);
+}
+
+function removeLinkTooltip(questionId) {
+	$("#remove_link" + questionId)
+			.tooltip(
+					{
+						title : "Please click on the icon to remove the bookmark",
+						placement : "right",
+						trigger : "hover",
+						delay : {
+							show : 1
+						},
+
+					});
 }
 
 function pagination(pagesCount, pageNumber, pagesSize) {
