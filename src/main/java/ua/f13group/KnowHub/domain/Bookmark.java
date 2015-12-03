@@ -1,4 +1,7 @@
+
 package ua.f13group.KnowHub.domain;
+
+import javax.persistence.*;
 
 
 import javax.persistence.*;
@@ -79,4 +82,5 @@ public class Bookmark {
                 '}';
     }
 }
+
 

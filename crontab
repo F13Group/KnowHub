@@ -1,1 +1,2 @@
-50      16      *       *       *       root    psql -c "select delete_old_rows()" knowhub_test_local
+#Put this line into /etc/crontab
+*/15      *      *       *       *       postgres    psql -c "select delete_old_rows()" knowhub_test

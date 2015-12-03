@@ -26,27 +26,30 @@ public class JpaUserService implements UserService{
     @Autowired
     private PropertyService propertyService;
     
+    private String letterSubjectRegistration = "Registration confirmation";
+    
+    private void createConfirmationAndSendConfirmationEmail(User user, String subject) {
+    	// !!!!!!!!!!  Hardcoded subject  and text of e-mail
+    	Confirmation confirmation = new Confirmation(user);
+		confirmation.setLink(user.getLogin().hashCode()+""+user.getUserId());
+		confirmation.setConfirmationType(ConfirmationType.conf);
+		userRepository.saveConfirmation(confirmation);
+		String text = "Thank you for joining KnowHub! To get started, you need to verify your email address. Please go to the link below and log in: \n\r";
+		text += ("http://epuakyiw1793t6.kyiv.epam.com:8085/knowhub/confirmation/" + confirmation.getLink());
+		//text += ("http://localhost:8085/knowhub/confirmation/" + confirmation.getLink());
+		
+		//		commented by Oleksandr
+		mailService.sendMail(user.getLogin(), subject, text);
+    }
+    
     @Override
     @Transactional
     public Integer saveUser(User user) {
     	
-    	user.setLogin(user.getLogin().trim().toLowerCase());
-    	
-    	// !!!!!!!!!!  Hardcoded subject  and text of e-mail
-    	
-    	String subject = "Registration confirmation"; 
+    	user.setLogin(user.getLogin().trim().toLowerCase());    	 
     	    	
-    	if(userRepository.saveUser(user) !=null ){
-    		Confirmation confirmation = new Confirmation(user);
-    		confirmation.setLink(user.getLogin().hashCode()+""+user.getUserId());
-			confirmation.setConfirmationType(ConfirmationType.conf);
-    		userRepository.saveConfirmation(confirmation);
-    		String text = "Thank you for joining KnowHub! To get started, you need to verify your email address. Please go to the link below and log in: \n\r";
-    		text += ("http://epuakyiw1793t6.kyiv.epam.com:8085/knowhub/confirmation/" + confirmation.getLink());
-    		//text += ("http://localhost:8085/knowhub/confirmation/" + confirmation.getLink());
-    		
-//    		commented by Oleksandr
-    		mailService.sendMail(user.getLogin(), subject, text);
+    	if (userRepository.saveUser(user) != null){
+    		createConfirmationAndSendConfirmationEmail(user, letterSubjectRegistration);
     	}
         return user.getUserId().intValue();
     }
@@ -84,9 +87,8 @@ public class JpaUserService implements UserService{
 	@Override
 	public void updateUser(User newUser) {
 		userRepository.deleteConfirmation(userRepository.getConfirmationByUserLogin(newUser.getLogin()));
-		userRepository.deleteUser(userRepository.getUserByLogin(newUser.getLogin()));
-		newUser.setUserId(null);
-		saveUser(newUser);
+		userRepository.editUser(newUser);
+		createConfirmationAndSendConfirmationEmail(newUser, letterSubjectRegistration);
 	}
 
 	@Override

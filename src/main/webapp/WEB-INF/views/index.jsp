@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- favicon -->
-<link rel="icon" href="resources/styleBootstrap/img/question_shield.png" type="image/png">
+<link rel="icon" href="${pageContext.servletContext.contextPath}/resources/styleBootstrap/img/question_shield.png" type="image/png">
 <title>KNOW HUB</title>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -14,10 +14,10 @@
 
 
 <!-- Bootstrap core CSS -->
-<link href="resources/styleBootstrap/css/bootstrap.min.css"	rel="stylesheet">
+<link href="${pageContext.servletContext.contextPath}/resources/styleBootstrap/css/bootstrap.min.css"	rel="stylesheet">
 
 <!-- Custom styles for this template -->
-<link href="resources/styleBootstrap/css/custom.css" rel="stylesheet">
+<link href="${pageContext.servletContext.contextPath}/resources/styleBootstrap/css/custom.css" rel="stylesheet">
 
 <!-- JQuery style -->
 <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet">
@@ -27,7 +27,8 @@
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<script src="resources/js/pagination.js"></script>
+<script src="${pageContext.servletContext.contextPath}/resources/js/pagination.js"></script>
+<script src="${pageContext.servletContext.contextPath}/resources/js/pagetools.js"></script>
 </head>
 
 <body>
@@ -63,7 +64,6 @@
 
 	<div class="container">
 
-<!-- 		<div class="tabbable"> -->
 			<div class="row">
 			<div id="categoriesMenu" class="categoriesMenu col-lg-2 col-md-2 col-sm-2 justified"></div>
 
@@ -91,7 +91,6 @@
 		</div>		
 		</div>	
 			
-<!-- 		</div>  	/.tabbable -->
 	</div>	<!-- /.container -->
 	
 	<footer class="footer">
@@ -99,6 +98,23 @@
 			<p class="text-muted"></p>
 		</div>
 	</footer>	
+	
+	<script>
+		$(document).ready(function () {
+
+			pageSetup();
+
+	    	$("#categoriesMenu").append("<div class=categoriesMenuItem><input id=category-1 class=categoriesMenuButtonActive type=button value=All&nbsp;Categories onclick=selectCategory(-1) onmouseover=switchCategoryButtonOver('-1','true') onmouseout=switchCategoryButtonOver('-1','false')><br /></div>");
+
+	    	$.getJSON(globalCategoryUrl, function (data) {
+	        	$.each(data, function (index, value) {
+	            	$("#categoriesMenu").append("<div class=categoriesMenuItem><input id=category" + value.id + " class=categoriesMenuButton type=button value='" + value.value + "' onclick=selectCategory(" + value.id + ") onmouseover=switchCategoryButtonOver('" + value.id + "','true') onmouseout=switchCategoryButtonOver('" + value.id + "','false')><br /></div>");
+	        	});
+	    	});    
+
+	    	displayPage("1");
+		});
+	</script>
 	
 </body>
 </html>

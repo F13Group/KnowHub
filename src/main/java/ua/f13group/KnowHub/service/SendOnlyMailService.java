@@ -33,11 +33,12 @@ public class SendOnlyMailService implements MailService {
 		try {
  
 			Message message = new MimeMessage(session);
+
 			message.setFrom(new InternetAddress(propertyService.getProperty("smtp_user")));
 			message.setRecipients(Message.RecipientType.TO,
 					InternetAddress.parse(address));
 			message.setSubject(subject);
-			message.setText(text);
+            message.setContent(text,"text/html");
  
 			Transport.send(message);
 

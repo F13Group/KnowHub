@@ -26,7 +26,7 @@ public class UserRepositoryJPA implements UserRepository {
     @Transactional
     @Override
     public Integer saveUser(User user) {
-        entityManager.persist(user);
+    	entityManager.persist(user);
         return user.getUserId().intValue();
     }
 
@@ -67,7 +67,9 @@ public class UserRepositoryJPA implements UserRepository {
 
 	@Override
 	public void deleteConfirmation(Confirmation confirm) {
-		entityManager.remove(confirm);
+		if (confirm != null) {
+			entityManager.remove(confirm);
+		}
 	}
 
 	@Transactional

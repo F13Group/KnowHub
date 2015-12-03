@@ -47,11 +47,13 @@ public class PasswordRestoringController {
             confirmationService.deleteOldConfirmations(user.getUserId());
             confirmationService.saveConfirmation(confirmation);
 
-            String subject = "Restore password";
-            String text = "You recieved this message because you requested restoring password. If you did that, follow the link: \n\r";
-            text += ("http://epuakyiw1793t6.kyiv.epam.com:8085/knowhub/restore_password/" + confirmation.getLink());
-            text += ("\n\r This link will be active 24 hours.");
-            text += ("\n\r If you did not do the request - please, ignore this message.");
+            String subject = "Password reset";
+            String text = "<br>Hello, <b>" + confirmation.getUser().getLogin() + "</b>";
+            text += "<br>A password reset has been requested for your KnowHub account.";
+            text += ("<br>To reset your password, please click the following <a href=\"http://epuakyiw1793t6.kyiv.epam.com:8085/knowhub/restore_password/" + confirmation.getLink() + "\"> Link " +  "</a>");
+            text += ("<br>Please note that this link is available only for 24 hours.");
+            text += ("<br>Thank you,");
+            text += ("<br>The KnowHub Team");
             mailService.sendMail(login,subject,text);
         }
 

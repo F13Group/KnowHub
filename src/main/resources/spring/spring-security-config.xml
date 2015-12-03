@@ -32,7 +32,7 @@
             </password-encoder>
             <!-- case insensitive queries -->
             <jdbc-user-service data-source-ref="dataSource"
-            users-by-username-query="select login as username, password as password, 'true' as enabled from users where login=lower(?)"
+            users-by-username-query="select login as username, password as password, confirmed as enabled from users where login=lower(?)"
             authorities-by-username-query="select login as username, 'ROLE_STUDENT' as authorities from users where login=lower(?)"/>
         </authentication-provider>
     </authentication-manager>
