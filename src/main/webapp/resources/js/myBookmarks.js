@@ -55,32 +55,33 @@ function outputQuestions(pC, cPN, rOPN) {
 									.each(
 											$(data).get().reverse(),
 											function(index, value) {
-											if (value.isBookmarked){
-												var unformatted_date = new Date(
-														value.loadDate);
-												var dd = unformatted_date
-														.getDate();
-												var mm = unformatted_date
-														.getMonth() + 1;
-												var yyyy = unformatted_date
-														.getFullYear();
-												if (dd < 10) {
-													dd = '0' + dd;
-												}
-												if (mm < 10) {
-													mm = '0' + mm;
-												}
-												var date = dd + '/' + mm + '/'
-														+ yyyy;
+												if (value.isBookmarked) {
+													var unformatted_date = new Date(
+															value.loadDate);
+													var dd = unformatted_date
+															.getDate();
+													var mm = unformatted_date
+															.getMonth() + 1;
+													var yyyy = unformatted_date
+															.getFullYear();
+													if (dd < 10) {
+														dd = '0' + dd;
+													}
+													if (mm < 10) {
+														mm = '0' + mm;
+													}
+													var date = dd + '/' + mm
+															+ '/' + yyyy;
 
-												if (value.value.length > 70) {
-													value.value = value.value
-															.substring(0, 65);
-													value.value += "...";
-												}
+													if (value.value.length > 70) {
+														value.value = value.value
+																.substring(0,
+																		65);
+														value.value += "...";
+													}
 
-												var userName = $("#userName")
-														.html();
+													var userName = $(
+															"#userName").html();
 													$(
 															"<div class='divRow row'><div class='non-active col-lg-6 col-md-6 col-sm-6 divCell_2'><a href='question/"
 																	+ value.id
@@ -93,20 +94,47 @@ function outputQuestions(pC, cPN, rOPN) {
 																	+ "</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Center'>"
 																	+ " "
 																	+ value.rating
-																	+ "</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Center'>"
-																	+ wasBookmarkedButton(
-																			value.id,
-																			value.isBookmarked)
-																	+ "</div></div>")
+																	+ "</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Center'><a id='remove"
+																	+ value.id
+																	+ "' onmouseover='mouseOverRemove("
+																	+ value.id
+																	+ ")' onclick='removeBookmark("
+																	+ value.id
+																	+ ")'>Remove"
+																	+ "</a></div></div>")
 															.insertAfter(
 																	"#headRow");
-											}
+												}
 											});
-											
+
 						}
 					});
 
 	pagination(pC, cPN, rOPN);
+}
+
+function removeBookmark(questionId) {
+	var questionsUrl = globalAppUrl + "questions";
+	$.post(questionsUrl + "/unbookmark", {
+		questionId : questionId
+	}).done(function(isSuccess) {
+		if (window.location.href.toString().indexOf("question") < 0) {
+			displayPage(currentPage);
+		} else {
+			showQuestion();
+		}
+	});
+}
+
+function mouseOverRemove(questionId) {
+	$("#id" + questionId).tooltip({
+		title : "Please click on the icon to remove the bookmark",
+		placement : "right",
+		trigger : "hover",
+		delay : {
+			show : 1
+		},
+	});
 }
 
 function pagination(pagesCount, pageNumber, pagesSize) {
@@ -214,111 +242,8 @@ function pageSizeChanged() {
 	displayPage("1");
 }
 
-function mouseOverWasAskedButton(questionId, isAsked) {
-	console.log(isAsked);
-	if (isAsked == false) {
-		$("#was_asked_button" + questionId)
-				.tooltip(
-						{
-							title : "Please click on this icon if you also have been asked the question.",
-							placement : "right",
-							trigger : "hover",
-							delay : {
-								show : 1
-							},
-
-						});
-	}
-}
-
 function rf() {
 	return false
-}
-
-function incrementQuestionRating(questionId, isAsked) {
-	if (isAsked == true) {
-		alert("Thank you for scoring the question! Please note that you can score the question only once.");
-	}
-
-	if (isAsked == false) {
-		$.post(globalQuestionUrl + "/rate", {
-			questionId : questionId
-		}).done(function(isSuccess) {
-			console.log("rate = " + isSuccess);
-			$("#was_asked_button" + questionId).on('mouseover', rf);
-			displayPage(currentPage);
-		});
-	}
-}
-
-function switchCategoryButtonOver(categoryId, isMouseOver) {
-	if (Number(categoryId) == window.selectedCategoryId) {
-		if (isMouseOver == "true") {
-			var sample = $(
-					'<div class="categoriesMenuButtonOver" style="display: none;">')
-					.appendTo('body');
-			var backgroundColor = sample.css('background-color');
-			sample.remove();
-			document.getElementById("category" + categoryId).style.backgroundColor = backgroundColor;
-		} else {
-			var sample = $(
-					'<div class="categoriesMenuButtonActive" style="display: none;">')
-					.appendTo('body');
-			var backgroundColor = sample.css('background-color');
-			sample.remove();
-			document.getElementById("category" + categoryId).style.backgroundColor = backgroundColor;
-		}
-	} else {
-		if (isMouseOver == "true") {
-			var sample = $(
-					'<div class="categoriesMenuButtonOver" style="display: none;">')
-					.appendTo('body');
-			var backgroundColor = sample.css('background-color');
-			sample.remove();
-			document.getElementById("category" + categoryId).style.backgroundColor = backgroundColor;
-		} else {
-			var sample = $(
-					'<div class="categoriesMenuButton" style="display: none;">')
-					.appendTo('body');
-			var backgroundColor = sample.css('background-color');
-			sample.remove();
-			document.getElementById("category" + categoryId).style.backgroundColor = backgroundColor;
-		}
-	}
-}
-
-function selectCategory(categoryId) {
-	globalSortDirection = 1;
-	orderedBy(1);
-
-	$('.categoriesMenuButtonActive').removeAttr('style');
-	$('.categoriesMenuButtonActive').toggleClass('categoriesMenuButtonActive')
-			.toggleClass('categoriesMenuButton');
-
-	$("#category" + categoryId).toggleClass('categoriesMenuButton');
-	$("#category" + categoryId).toggleClass('categoriesMenuButtonActive');
-
-	if (window.selectedCategoryId == categoryId) {
-		switchCategoryButtonOver(categoryId, 'true');
-	} else {
-		window.selectedCategoryId = categoryId;
-	}
-
-	var questionUrl = window.location.href.toString()
-	if (questionUrl.indexOf("index") != -1) {
-		questionUrl = questionUrl.substr(0, questionUrl.indexOf("index"));
-	}
-	questionUrl += "questions";
-
-	if (categoryId != -1) {
-		questionUrl += "/categories/" + categoryId;
-	}
-	globalQuestionUrl = questionUrl;
-
-	var questionMetadataUrl = questionUrl + "/metadata";
-	globalQuestionMetadataUrl = questionMetadataUrl;
-
-	displayPage("1");
 }
 
 function orderedBy(sortColumnIndex) {
