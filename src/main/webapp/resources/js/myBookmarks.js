@@ -1,6 +1,7 @@
 /*
  * !!!Uses functions wasAskedButton() and wasBookmarkedButton() from pagetools.js!!!
  */
+var currentPage;
 
 function displayPage(currentPageNumber) {
 	var pageSizeChooser = document.getElementById("pageSizeChooser");
