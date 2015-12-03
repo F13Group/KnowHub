@@ -38,4 +38,7 @@ public interface QuestionRepository {
 	public List<Object[]> findBookmarkedByUser(User user);
 
 	int getRecordsCountBookmarked(Long userId);
+
+	List<Object[]> findBookmarkedByUserPaginatedAndOrdered(long userId, int rowsOnPage, int pageNumber,
+			QuestionSortConfig orderBy, boolean isSortedAscending);
 }

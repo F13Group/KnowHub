@@ -152,7 +152,8 @@
 
 			pageSetup();
 			globalQuestionMetadataUrl += "/mybookmarks"
-			displayPageBookmarks("1");
+			globalQuestionUrl += "/mybookmarks";
+			displayPage("1");
 		});
 	</script>
 </body>

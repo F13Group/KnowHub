@@ -178,4 +178,18 @@ public class QuestionRepositoryJPA implements QuestionRepository {
 		List<Object[]> result = query.getResultList();
 		return result;
 	}
+	
+	@Override
+	public List<Object[]> findBookmarkedByUserPaginatedAndOrdered(long userId, int rowsOnPage, int pageNumber, QuestionSortConfig orderBy, boolean isSortedAscending) {
+
+		Query query = entityManager.createNativeQuery(Question.getBookmarkedByUserPaginatedAndOrdered(orderBy, isSortedAscending), "QuestionMapping");
+		
+		query.setParameter("userId", userId);
+		
+		query.setFirstResult(((pageNumber - 1) * rowsOnPage));
+		query.setMaxResults(rowsOnPage);
+		
+		List<Object[]> values = query.getResultList();
+		return values;
+	}
 }
