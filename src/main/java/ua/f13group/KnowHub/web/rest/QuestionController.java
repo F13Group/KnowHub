@@ -72,6 +72,37 @@ public class QuestionController {
         return questionFrequentAskedUserList;
     }
 
+    @RequestMapping(value = "/mybookmarks", method = RequestMethod.POST)
+    public List<QuestionFrequentAskedDTO> getAllQuestionsBookmarked(
+    	 @RequestParam(value = "currentPageNumber", required = false, defaultValue = DEFAULT_CURRENT_PAGE_NUMBER) Integer currentPageNumber,
+         @RequestParam(value = "rowsOnPageNumber", required = false, defaultValue = DEFAULT_ROWS_ON_PAGE_NUMBER) Integer rowsOnPageNumber,
+         @RequestParam(value = "sortColumnIndex", required = false, defaultValue = DEFAULT_SORT_COLUMN_INDEX) Integer sortColumnIndex,
+         Principal principal) {
+    	
+     boolean guestLogin = false;
+     Long userId = null;
+     if (principal == null) {
+         guestLogin = true;
+     } else {
+         String login = principal.getName();
+         userId = userService.getUserByLogin(login).getUserId();
+     }
+     
+     if (guestLogin) {
+     	userId = (long) 0;
+     }
+     
+     List<QuestionFrequentAskedDTO> bookmarkedQuestionsList = 
+     		questionService.getQuestionsBookmarked(
+     				userId, 
+     				rowsOnPageNumber, 
+     				currentPageNumber, 
+     				sortConfig(sortColumnIndex),
+     				ascending(sortColumnIndex));
+
+     return bookmarkedQuestionsList;
+    }
+    
     @RequestMapping(value = "/categories/{categoryId}", method = RequestMethod.POST)
     public List<QuestionFrequentAskedDTO> getAllQuestionsFilterCategory(
             @PathVariable Long categoryId,
