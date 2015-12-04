@@ -35,11 +35,11 @@ public class PasswordRestoringController {
     private SecureRandom secureRandom = new SecureRandom();
 
     @RequestMapping(value = "restore", method = RequestMethod.POST)
-    public String restore(@RequestParam String login,Model model){
+    public String restore(@RequestParam String login, Model model){
 
         User user = userService.getUserByLogin(login);
 
-        if (user!=null){
+        if (user != null){
 
             Confirmation confirmation = new Confirmation(user);
             confirmation.setLink(new BigInteger(130, secureRandom).toString(50));
