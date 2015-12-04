@@ -39,19 +39,16 @@ public class QuestionRepositoryJPA implements QuestionRepository {
 		if (ascending == true){
 			if(orderBy == QuestionSortConfig.CATEGORY){
 				criteriaQuery.orderBy(criteriaBuilder.asc(categories
-						.get(orderBy.dbName)));
-			}
-			else{
+						.get("replace(" + orderBy.dbName + ",'.','a'")));
+			} else {
 			criteriaQuery.orderBy(criteriaBuilder.asc(questions
 					.get(orderBy.dbName)));
 			}
-		}
-		else{
-			if(orderBy == QuestionSortConfig.CATEGORY){
+		} else {
+			if (orderBy == QuestionSortConfig.CATEGORY){
 				criteriaQuery.orderBy(criteriaBuilder.desc(categories
-						.get(orderBy.dbName)));
-			}
-			else{
+						.get("replace(" + orderBy.dbName + ",'.','a'")));
+			} else {
 			criteriaQuery.orderBy(criteriaBuilder.desc(questions
 					.get(orderBy.dbName)));
 			}
