@@ -25,26 +25,7 @@
 
 <body>
 
-<div class="navbar">
-		<div class="navbar-inner">
-			<a class="brand" href="${pageContext.servletContext.contextPath}">KnowHub</a>
-			<ul class="nav">
-				<li class="inactive"><a href="">My Question list</a></li>
-				<li><a href="">Tags</a></li>
-				<li class="inactive"><a href="">My Bookmarks</a></li>
-				<li class="inactive"><a href="">Add Question</a></li>
-				<div id="navLinks">
-					<div id="links">
-						<div class="nav-left">
-							<a href="${pageContext.servletContext.contextPath}/signup">Sign up</a>
-							<a href="${pageContext.servletContext.contextPath}/login">Log in</a>
-							<a href="">Help</a>
-						</div>
-					</div>
-				</div>
-			</ul>
-		</div>
-	</div>
+	<%@ include file="navbar.jsp"%>
 
 	<div class="notification">
 		<c:out value="${notificationMessage}" />		
