@@ -112,6 +112,15 @@ public class QuestionRepositoryJPA implements QuestionRepository {
 	}
 
 	@Override
+	public int getRecordsCountBookmarked(Long userId) {
+		TypedQuery<Long> query = entityManager.createNamedQuery(
+				"Bookmark.getPagesCountBookmarked", Long.class);
+		query.setParameter("userId", userId);
+		
+		return query.getSingleResult().intValue();
+	}
+	
+	@Override
 	public Question findById(Long questionId) {
 		return entityManager.find(Question.class, questionId);
 	}
@@ -161,4 +170,26 @@ public class QuestionRepositoryJPA implements QuestionRepository {
         }
         return question.getId();
     }
+
+	@Override
+	public List<Object[]> findBookmarkedByUser(User user) {
+		Query query = entityManager.createNativeQuery("Question.findByUserBookmarkedOnly", Long.class);
+		query.setParameter("user_id", user.getUserId());
+		List<Object[]> result = query.getResultList();
+		return result;
+	}
+	
+	@Override
+	public List<Object[]> findBookmarkedByUserPaginatedAndOrdered(long userId, int rowsOnPage, int pageNumber, QuestionSortConfig orderBy, boolean isSortedAscending) {
+
+		Query query = entityManager.createNativeQuery(Question.getBookmarkedByUserPaginatedAndOrdered(orderBy, isSortedAscending), "QuestionMapping");
+		
+		query.setParameter("userId", userId);
+		
+		query.setFirstResult(((pageNumber - 1) * rowsOnPage));
+		query.setMaxResults(rowsOnPage);
+		
+		List<Object[]> values = query.getResultList();
+		return values;
+	}
 }

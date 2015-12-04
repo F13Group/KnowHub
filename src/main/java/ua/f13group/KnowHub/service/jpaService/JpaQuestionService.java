@@ -14,6 +14,7 @@ import ua.f13group.KnowHub.domain.Question;
 import ua.f13group.KnowHub.domain.QuestionSortConfig;
 import ua.f13group.KnowHub.domain.Tag;
 import ua.f13group.KnowHub.repository.QuestionRepository;
+import ua.f13group.KnowHub.repository.UserRepository;
 import ua.f13group.KnowHub.service.QuestionService;
 import ua.f13group.KnowHub.web.dto.QuestionFrequentAskedDTO;
 
@@ -21,7 +22,10 @@ import ua.f13group.KnowHub.web.dto.QuestionFrequentAskedDTO;
 public class JpaQuestionService implements QuestionService  {
 
 	@Autowired 
-	private QuestionRepository questionRep; 
+	private QuestionRepository questionRep;
+	
+	@Autowired
+	private UserRepository userRep;
 	
 	@Override
 	public List<Question> getQuestionsForPage(int rowsOnPage, int pageNumber,QuestionSortConfig cfg, boolean ascending) {
@@ -149,4 +153,74 @@ public class JpaQuestionService implements QuestionService  {
 		question.setViews(question.getViews()+1);
         save(question);
     }
+
+	/*@Override
+	public List<QuestionFrequentAskedDTO> getBookmarkedByUser(long userId) {
+		List<Object[]> queryResult = questionRep.findBookmarkedByUser(userRep.getUserById(userId));
+		List<QuestionFrequentAskedDTO> result = new LinkedList<QuestionFrequentAskedDTO>();
+		
+		for (Object[] row : queryResult) {
+			Question q = (Question) row[0];
+			BigInteger rating = (BigInteger) row[1];
+			Boolean isAsked = (Boolean) row[2];
+			Boolean isBookmarked = (Boolean) row[3];
+			result.add(new QuestionFrequentAskedDTO(
+					q.getId(),
+					q.getValue(),
+					q.getLoadDate(),
+					q.getCategory(),
+					q.getTags(),
+					rating.longValue(),
+					isAsked,
+					isBookmarked,
+					q.getUser(),
+					q.getViews(),
+					q.getDescription()));
+		}
+		return result;
+	}*/
+
+	@Override
+	public int getPagesCountBookmarked(Long userId, Integer rowsOnPage) {
+		int  result =  questionRep.getRecordsCountBookmarked(userId);
+		if (result % rowsOnPage ==0) 
+			return result/rowsOnPage;
+		else
+			return result/rowsOnPage+1;
+	}
+
+	@Override
+	public int getRecordsCountBookmarked(Long userId) {
+		return questionRep.getRecordsCountBookmarked(userId);
+	}
+
+	@Override
+	public List<QuestionFrequentAskedDTO> getQuestionsBookmarked(Long userId, Integer rowsOnPageNumber,
+			Integer currentPageNumber, QuestionSortConfig sortConfig, boolean ascending) {
+		List<Object[]> queryResult = 
+				questionRep.findBookmarkedByUserPaginatedAndOrdered(userId, rowsOnPageNumber, currentPageNumber, sortConfig, ascending);
+		
+		List<QuestionFrequentAskedDTO> result = new LinkedList<QuestionFrequentAskedDTO>();
+		
+		for (Object[] row : queryResult) {
+			Question q = (Question) row[0];
+			BigInteger rating = (BigInteger) row[1];
+			Boolean isAsked = (Boolean) row[2];
+			Boolean isBookmarked = (Boolean) row[3];
+			result.add(new QuestionFrequentAskedDTO(
+					q.getId(),
+					q.getValue(),
+					q.getLoadDate(),
+					q.getCategory(),
+					q.getTags(),
+					rating.longValue(),
+					isAsked,
+					isBookmarked,
+					q.getUser(),
+					q.getViews(),
+					q.getDescription()));
+		}
+		
+		return result;
+	}
 }

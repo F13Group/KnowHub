@@ -56,13 +56,19 @@ function wasBookmarkedButton(questionId, isBookmarked){
 		currentImg = globalAppUrl + "resources/img/star.png";
 		swapImg = globalAppUrl + "resources/img/nonactivestar.png";
 	}
-	return '<img id="was_bookmarked' + questionId + '" onclick ="toggleBookmark(' + questionId + ', ' + isBookmarked + ')" src='+ currentImg +'  data-swap=' + swapImg + ' width="20" height="20" onmouseover="mouseOverWasBookmarkedButton(' + questionId + ', ' + isBookmarked + ')"/>';
+ 	
+ 	var userName = $("#userName").html();
+ 	if (userName) {
+ 		return '<img id="was_bookmarked' + questionId + '" onclick ="toggleBookmark(' + questionId + ', ' + isBookmarked + ')" src='+ currentImg +'  data-swap=' + swapImg + ' width="20" height="20" onmouseover="mouseOverWasBookmarkedButton(' + questionId + ', ' + isBookmarked + ')"/>';
+ 	} else {
+ 		return '<img id="was_bookmarked' + questionId + '" src='+ currentImg +'  data-swap=' + swapImg + ' width="20" height="20" onmouseover="mouseOverWasBookmarkedButton(' + questionId + ', ' + isBookmarked + ')"/>';
+ 	}
 }
 
 function mouseOverWasAskedButton(questionId, isAsked) {
     if (isAsked == false) {
         $("#was_asked_button" + questionId).tooltip({
-            title: "Please click on this icon if you also have been asked the question.",
+            title: "Click the icon if you have been asked the question too",
             placement: "right",            
             trigger: "hover",
             delay: {show: 1},
@@ -71,16 +77,24 @@ function mouseOverWasAskedButton(questionId, isAsked) {
 }
 
 function mouseOverWasBookmarkedButton(questionId, isBookmarked) {
-    if (isBookmarked == false) {
+	var userName = $("#userName").html();
+ 	if (!userName) {
+ 		$("#was_bookmarked" + questionId).tooltip({
+            title: "Log in to add the question to your bookmarks",
+            placement: "right",
+            trigger: "hover",
+            delay: {show: 1},
+        });
+ 	} else if (isBookmarked == false) {
         $("#was_bookmarked" + questionId).tooltip({
-            title: "Please click on this icon to bookmark the question.",
+            title: "Click the icon to add the question to your bookmarks",
             placement: "right",
             trigger: "hover",
             delay: {show: 1},
         });
     } else if (isBookmarked == true) {
     	$("#was_bookmarked" + questionId).tooltip({
-            title: "Please click on this icon to remove the bookmark.",
+            title: "Click the icon to remove the bookmark",
             placement: "right",
             trigger: "hover",
             delay: {show: 1},
@@ -96,14 +110,16 @@ function incrementQuestionRating(questionId, isAsked) {
     var questionsUrl = globalAppUrl + "questions";
 
     if (isAsked == false) {
-        $.post(questionsUrl + "/rate", {questionId: questionId}).done(function (isSuccess) {
-            $("#was_asked_button" + questionId).on('mouseover', rf);
-            if (window.location.href.toString().indexOf("question") < 0) {
-				displayPage(currentPage);
-			} else {
-				location.reload();
-			}
-        });
+    	if (confirm("Are you sure you were asked this particular question?")) {
+    		$.post(questionsUrl + "/rate", {questionId: questionId}).done(function (isSuccess) {
+            	$("#was_asked_button" + questionId).on('mouseover', rf);
+            	if (window.location.href.toString().indexOf("question") < 0) {
+					displayPage(currentPage);
+				} else {
+					showQuestion();
+				}
+        	});
+    	}
     }
 }
 
@@ -124,7 +140,7 @@ function toggleBookmark(questionId, isBookmarked) {
 			if (window.location.href.toString().indexOf("question") < 0) {
 				displayPage(currentPage);
 			} else {
-				location.reload();
+				showQuestion();
 			}		
 		}); 
 	} else if (isBookmarked == true) {
@@ -132,7 +148,7 @@ function toggleBookmark(questionId, isBookmarked) {
 	   		if (window.location.href.toString().indexOf("question") < 0) {
 				displayPage(currentPage);
 			} else {
-				location.reload();
+				showQuestion();
 			}
 		});
 	}
