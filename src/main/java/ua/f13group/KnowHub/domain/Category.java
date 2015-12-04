@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "categories")
-@NamedQueries({ @NamedQuery(name = "Category.findAll", query = "SELECT c FROM Category c ORDER BY c.value") })
+@NamedQueries({ @NamedQuery(name = "Category.findAll", query = "SELECT c FROM Category c ORDER BY replace(c.value,'.','a')") })
 public class Category implements Comparable<Category> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
