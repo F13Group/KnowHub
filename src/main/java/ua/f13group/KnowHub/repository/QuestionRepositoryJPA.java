@@ -8,12 +8,13 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
-
 import org.springframework.transaction.annotation.Transactional;
+
 import ua.f13group.KnowHub.domain.Category;
 import ua.f13group.KnowHub.domain.Question;
 import ua.f13group.KnowHub.domain.QuestionSortConfig;
@@ -36,10 +37,19 @@ public class QuestionRepositoryJPA implements QuestionRepository {
 		Root<Question> questions = criteriaQuery.from(Question.class);
 		Join<Question, Category> categories = questions
 				.join("category");
+		
+		Expression<String> replacedCategoryValue = questions.<String>get(orderBy.dbName);
+		String databaseFunction = "REPLACE";
+		replacedCategoryValue = criteriaBuilder.function(databaseFunction, 
+				String.class, 
+				replacedCategoryValue,
+				criteriaBuilder.literal("."),
+				criteriaBuilder.literal("a"));
+		
 		if (ascending == true){
 			if(orderBy == QuestionSortConfig.CATEGORY){
 				criteriaQuery.orderBy(criteriaBuilder.asc(categories
-						.get("replace(" + orderBy.dbName + ",'.','a'")));
+						.get(orderBy.dbName)));
 			} else {
 			criteriaQuery.orderBy(criteriaBuilder.asc(questions
 					.get(orderBy.dbName)));
@@ -47,7 +57,7 @@ public class QuestionRepositoryJPA implements QuestionRepository {
 		} else {
 			if (orderBy == QuestionSortConfig.CATEGORY){
 				criteriaQuery.orderBy(criteriaBuilder.desc(categories
-						.get("replace(" + orderBy.dbName + ",'.','a'")));
+						.get(orderBy.dbName)));
 			} else {
 			criteriaQuery.orderBy(criteriaBuilder.desc(questions
 					.get(orderBy.dbName)));
@@ -70,6 +80,15 @@ public class QuestionRepositoryJPA implements QuestionRepository {
 				.createQuery(Question.class);
 
 		Root<Question> questions = criteriaQuery.from(Question.class);
+		
+		Expression<String> replacedCategoryValue = questions.<String>get(orderBy.dbName);
+		String databaseFunction = "REPLACE";
+		replacedCategoryValue = criteriaBuilder.function(databaseFunction, 
+				String.class, 
+				replacedCategoryValue,
+				criteriaBuilder.literal("."),
+				criteriaBuilder.literal("a"));
+		
 		if (ascending == true)
 			criteriaQuery.where(
 					criteriaBuilder.equal(questions.get("category"),
