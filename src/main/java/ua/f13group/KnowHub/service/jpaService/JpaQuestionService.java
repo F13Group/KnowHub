@@ -30,7 +30,7 @@ public class JpaQuestionService implements QuestionService  {
 	@Override
 	public List<Question> getQuestionsForPage(int rowsOnPage, int pageNumber,QuestionSortConfig cfg, boolean ascending) {
 		
-		return questionRep.findForPage(rowsOnPage, pageNumber, cfg, ascending);
+		return questionRep.findForPage(null, rowsOnPage, pageNumber, cfg, ascending);
 	}
 
 	@Override
@@ -44,7 +44,7 @@ public class JpaQuestionService implements QuestionService  {
 		(long userId, int rowsOnPage, int pageNumber, QuestionSortConfig cfg, boolean ascending) {
 		
 		List<Object[]> queryResult = 
-				questionRep.findForPageWithRatingIsAskedAndIsBookmarked(userId, 
+				questionRep.findForPageWithRatingIsAskedAndIsBookmarked(userId, null,  
 						rowsOnPage, pageNumber, cfg, ascending);
 		
 		List<QuestionFrequentAskedDTO> result = new LinkedList<QuestionFrequentAskedDTO>();
@@ -107,19 +107,21 @@ public class JpaQuestionService implements QuestionService  {
 	@Override
 	public int getPagesCount(Category category, int rowsOnPage) {
 		int  result = questionRep.getRecordsCount(category);
-		if (result % rowsOnPage ==0) 
+		if (result % rowsOnPage == 0) {
 			return result/rowsOnPage;
-		else
-			return result/rowsOnPage+1;
+		} else {
+			return result/rowsOnPage + 1;
+		}
 	}
 	
 	@Override
 	public int getPagesCount(int rowsOnPage) {
 		int  result =  questionRep.getRecordsCount();
-		if (result % rowsOnPage ==0) 
+		if (result % rowsOnPage == 0) {
 			return result/rowsOnPage;
-		else
-			return result/rowsOnPage+1;
+		} else {
+			return result/rowsOnPage + 1;
+		}
 	}
 
 	@Override
@@ -134,7 +136,6 @@ public class JpaQuestionService implements QuestionService  {
 
 	@Override
 	public Question getQuestionById(Long questionId) {
-		// TODO Auto-generated method stub
 		return questionRep.findById(questionId);
 	}
 
@@ -147,46 +148,21 @@ public class JpaQuestionService implements QuestionService  {
     @Transactional
     public void addView(Long questionId) {
         Question question = getQuestionById(questionId);
-        if (question==null) {
+        if (question == null) {
 			return;
 		}
 		question.setViews(question.getViews()+1);
         save(question);
     }
 
-	/*@Override
-	public List<QuestionFrequentAskedDTO> getBookmarkedByUser(long userId) {
-		List<Object[]> queryResult = questionRep.findBookmarkedByUser(userRep.getUserById(userId));
-		List<QuestionFrequentAskedDTO> result = new LinkedList<QuestionFrequentAskedDTO>();
-		
-		for (Object[] row : queryResult) {
-			Question q = (Question) row[0];
-			BigInteger rating = (BigInteger) row[1];
-			Boolean isAsked = (Boolean) row[2];
-			Boolean isBookmarked = (Boolean) row[3];
-			result.add(new QuestionFrequentAskedDTO(
-					q.getId(),
-					q.getValue(),
-					q.getLoadDate(),
-					q.getCategory(),
-					q.getTags(),
-					rating.longValue(),
-					isAsked,
-					isBookmarked,
-					q.getUser(),
-					q.getViews(),
-					q.getDescription()));
-		}
-		return result;
-	}*/
-
 	@Override
 	public int getPagesCountBookmarked(Long userId, Integer rowsOnPage) {
 		int  result =  questionRep.getRecordsCountBookmarked(userId);
-		if (result % rowsOnPage ==0) 
+		if (result % rowsOnPage == 0) { 
 			return result/rowsOnPage;
-		else
-			return result/rowsOnPage+1;
+		} else {
+			return result/rowsOnPage + 1;
+		}
 	}
 
 	@Override
