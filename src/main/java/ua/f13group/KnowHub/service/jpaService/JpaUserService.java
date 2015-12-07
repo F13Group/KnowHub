@@ -38,7 +38,6 @@ public class JpaUserService implements UserService{
 		text += ("http://epuakyiw1793t6.kyiv.epam.com:8085/knowhub/confirmation/" + confirmation.getLink());
 		//text += ("http://localhost:8085/knowhub/confirmation/" + confirmation.getLink());
 		
-		//		commented by Oleksandr
 		mailService.sendMail(user.getLogin(), subject, text);
     }
     
@@ -58,27 +57,27 @@ public class JpaUserService implements UserService{
 	@Override
 	public Integer confirmUser(String link) {
     		
-    		Confirmation confirmation = userRepository.getConfirmationByLink(link);
-			if(confirmation == null){
-				return null;
-			}
-    		User user = confirmation.getUser();
-			Long regTime = confirmation.getRegDate().getTime();
-			long regTimeout = Integer.valueOf((propertyService.getProperty("reg_timeout"))) *60*60*1000 ;
-			if(Calendar.getInstance().getTimeInMillis() > regTime + regTimeout ){
-				
-				return null;
-			}
-							
-			user.setConfirmed(true);
-			userRepository.deleteConfirmation(confirmation);
+    	Confirmation confirmation = userRepository.getConfirmationByLink(link);
+    	if (confirmation == null) {
+    		return null;
+    	}
+    	User user = confirmation.getUser();
+    	Long regTime = confirmation.getRegDate().getTime();
+    	long regTimeout = Integer.valueOf((propertyService.getProperty("reg_timeout"))) *60*60*1000 ;
+    	if (Calendar.getInstance().getTimeInMillis() > regTime + regTimeout ) {				
+    		return null;
+    	}
+
+    	user.setConfirmed(true);
+    	userRepository.deleteConfirmation(confirmation);
+    	
 		return user.getUserId().intValue();
 	}
     
 	@Override
 	public User getUserByLogin(String login) {
 		
-		login =login.trim().toLowerCase();
+		login = login.trim().toLowerCase();
 		
 		return userRepository.getUserByLogin(login);
 	}
