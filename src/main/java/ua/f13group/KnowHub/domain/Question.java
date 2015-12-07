@@ -209,6 +209,9 @@ public class Question implements Serializable {
 			sqlQueryString += " GROUP BY q.question_id, c.value ORDER BY";
 			
 		switch (orderBy) {
+		case CATEGORY:
+			sqlQueryString += " replace(c.value,'.','a')";
+			break;
 		case DATE:
 			sqlQueryString += " q.load_date";
 			break;

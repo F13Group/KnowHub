@@ -4,7 +4,7 @@ globalAppUrl = globalAppUrl.substr(0, cutPoint + "/knowhub/".length);
 
 var globalCategoryUrl = globalAppUrl + "categories";
 
-var globalQuestionUrl, globalQuestionMetadataUrl, globalQuestionPageMetadataUrl;
+var globalQuestionUrl, globalMyBookmarksUrl, globalQuestionMetadataUrl, globalQuestionPageMetadataUrl;
 
 var globalSortColumnIndex, globalSortDirection = -1;
 
@@ -29,10 +29,13 @@ function pageSetup() {
 
     window.selectedCategoryId = -1;
     globalSortColumnIndex = 1;
-    globalSortDirectionAsc = -1;
+    globalSortDirection = -1;
 
     var questionUrl = globalAppUrl + "questions";
     globalQuestionUrl = questionUrl;
+    
+    var myBookmarksUrl = globalAppUrl + "myBookmarks";
+    globalMyBookmarksUrl = myBookmarksUrl;
 
     var questionMetadataUrl = questionUrl + "/metadata";
     globalQuestionMetadataUrl = questionMetadataUrl;
@@ -147,6 +150,23 @@ function toggleBookmark(questionId, isBookmarked) {
 	   	 $.post(questionsUrl + "/unbookmark", {questionId: questionId}).done(function(isSuccess) {
 	   		if (window.location.href.toString().indexOf("question") < 0) {
 				displayPage(currentPage);
+			} else {
+				showQuestion();
+			}
+		});
+	}
+}
+
+function removeBookmark(questionId) {
+	var confirmation = confirm("Are you sure you would like to remove the bookmark from this question?" +
+			" Please pay attention that then the question will be no longer available on My Bookmarks list");
+	if (confirmation == true) {
+		var questionsUrl = globalAppUrl + "questions";
+		$.post(questionsUrl + "/unbookmark", {
+			questionId : questionId
+		}).done(function(isSuccess) {
+			if (window.location.href.toString().indexOf("question") < 0) {
+				displayPage(1);
 			} else {
 				showQuestion();
 			}

@@ -39,9 +39,9 @@
 <script
 	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script
-	src="${pageContext.servletContext.contextPath}/resources/js/myBookmarks.js"></script>
-<script
 	src="${pageContext.servletContext.contextPath}/resources/js/pagetools.js"></script>
+<script
+	src="${pageContext.servletContext.contextPath}/resources/js/pagination.js"></script>
 </head>
 
 <body>
@@ -76,9 +76,7 @@
 						</div>
 						<sec:authorize access="isAuthenticated()">
 							<div class="divCell_header col-lg-2 col-md-2 col-sm-2">
-								My Bookmarks <input type="button" id="buttonOrderBy4"
-									class="change_order_sign" value="&#x25AD;"
-									onclick="orderedBy(4)">
+								My Bookmarks 
 							</div>
 						</sec:authorize>
 					</div>
@@ -115,7 +113,6 @@
 	</footer>
 	<script type="text/javascript">
 		$(document).ready(function() {
-
 			pageSetup();
 			globalQuestionMetadataUrl += "/mybookmarks"
 			displayPageBookmarks("1");
