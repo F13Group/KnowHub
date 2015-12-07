@@ -171,13 +171,16 @@ public class Question implements Serializable {
 
 		switch (orderBy) {
 		case CATEGORY:
-			sqlQueryString += " c.value";
+			sqlQueryString += " replace(c.value,'.','a')";
 			break;
 		case DATE:
 			sqlQueryString += " q.load_date";
 			break;
 		case RATING:
 			sqlQueryString += " rating";
+			break;
+		case BOOKMARK:
+			sqlQueryString += " bookmarked";
 			break;
 		default:
 			sqlQueryString += " q.value";
@@ -211,6 +214,9 @@ public class Question implements Serializable {
 			break;
 		case RATING:
 			sqlQueryString += " rating";
+			break;
+		case BOOKMARK:
+			sqlQueryString += " bookmarked";
 			break;
 		default:
 			sqlQueryString += " q.value";

@@ -6,11 +6,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Expression;
-//import javax.persistence.criteria.Join;
-import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,102 +20,6 @@ public class QuestionRepositoryJPA implements QuestionRepository {
 
 	@PersistenceContext
 	private EntityManager entityManager;
-
-//	@Override
-//	public List<Question> findForPage(int rowsOnPage, int pageNumber,
-//			QuestionSortConfig orderBy, boolean ascending) {
-//		
-//		String[] replacements = {
-//	            ".", "a"};
-//
-//		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-//		CriteriaQuery<Question> criteriaQuery = criteriaBuilder
-//				.createQuery(Question.class);
-//
-//		Root<Question> questions = criteriaQuery.from(Question.class);
-//		Join<Question, Category> categories = questions
-//				.join("category");
-//		
-//		Expression<String> replacedCategoryValue = questions.<String>get(orderBy.dbName);
-//		String databaseFunction = "REPLACE";
-//		for (int i = 0; i < replacements.length/2; i++) {
-//			replacedCategoryValue = criteriaBuilder.function(databaseFunction, 
-//				String.class, 
-//				replacedCategoryValue,
-//				criteriaBuilder.literal(replacements[i*2]),
-//				criteriaBuilder.literal(replacements[i*2 + 1]));
-//		}
-//		
-//		if (ascending == true){
-//			if(orderBy == QuestionSortConfig.CATEGORY){
-//				criteriaQuery.orderBy(criteriaBuilder.asc(categories
-//						.get(orderBy.dbName)));
-//			} else {
-//			criteriaQuery.orderBy(criteriaBuilder.asc(questions
-//					.get(orderBy.dbName)));
-//			}
-//		} else {
-//			if (orderBy == QuestionSortConfig.CATEGORY){
-//				criteriaQuery.orderBy(criteriaBuilder.desc(categories
-//						.get(orderBy.dbName)));
-//			} else {
-//			criteriaQuery.orderBy(criteriaBuilder.desc(questions
-//					.get(orderBy.dbName)));
-//			}
-//		}
-//
-//		TypedQuery<Question> query = entityManager.createQuery(criteriaQuery);
-//		query.setFirstResult(((pageNumber - 1) * rowsOnPage));
-//		query.setMaxResults(rowsOnPage);
-//
-//		return query.getResultList();
-//	}
-
-	@Override
-	public List<Question> findForPage(Category category, int rowsOnPage,
-			int pageNumber, QuestionSortConfig orderBy, boolean ascending) {
-		
-		String[] replacements = {
-	            ".", "a"};
-
-		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-		CriteriaQuery<Question> criteriaQuery = criteriaBuilder
-				.createQuery(Question.class);
-
-		Root<Question> questions = criteriaQuery.from(Question.class);
-		
-		Expression<String> replacedCategoryValue = questions.<String>get(orderBy.dbName);
-		String databaseFunction = "REPLACE";
-		for (int i = 0; i < replacements.length/2; i++) {
-			replacedCategoryValue = criteriaBuilder.function(databaseFunction, 
-				String.class, 
-				replacedCategoryValue,
-				criteriaBuilder.literal(replacements[i*2]),
-				criteriaBuilder.literal(replacements[i*2 + 1]));
-		}
-		
-		if (ascending == true)
-			criteriaQuery.where(
-					criteriaBuilder.equal(questions.get("category"),
-							criteriaBuilder.parameter(Category.class,
-									"category"))).orderBy(
-					criteriaBuilder.asc(questions.get(orderBy.dbName)));
-		else
-			criteriaQuery.where(
-					criteriaBuilder.equal(questions.get("category"),
-							criteriaBuilder.parameter(Category.class,
-									"category"))).orderBy(
-					criteriaBuilder.desc(questions.get(orderBy.dbName)));
-
-		TypedQuery<Question> query = entityManager.createQuery(criteriaQuery);
-		if (category != null) {
-			query.setParameter("category", category);
-		}
-		query.setFirstResult(((pageNumber - 1) * rowsOnPage));
-		query.setMaxResults(rowsOnPage);
-
-		return query.getResultList();
-	}
 
 	@Override
 	public int getRecordsCount(Category category) {
@@ -153,26 +52,6 @@ public class QuestionRepositoryJPA implements QuestionRepository {
 		return entityManager.find(Question.class, questionId);
 	}
 	
-//	@Override
-//	public List<Object[]> findForPageWithRatingIsAskedAndIsBookmarked(long userId,
-//			int rowsOnPage,
-//			int pageNumber,
-//			QuestionSortConfig orderBy,
-//			boolean isSortedAscending) {
-//	
-//		Query query = 
-//				entityManager.createNativeQuery(
-//						Question.getFindAllWithRatingIsAskedAndIsBookmarkedQueryString(null, orderBy, isSortedAscending), "QuestionMapping");
-//		
-//		query.setParameter("userId", userId);
-//
-//		query.setFirstResult(((pageNumber - 1) * rowsOnPage));
-//		query.setMaxResults(rowsOnPage);		
-//		
-//		List<Object[]> values = query.getResultList();
-//		return values;
-//	}
-	
 	@Override
 	public List<Object[]> findForPageWithRatingIsAskedAndIsBookmarked(long userId,
 			Category category, 
@@ -193,7 +72,7 @@ public class QuestionRepositoryJPA implements QuestionRepository {
 		query.setFirstResult(((pageNumber - 1) * rowsOnPage));
 		query.setMaxResults(rowsOnPage);
 		
-		List<Object[]> values = query.getResultList();
+		List<Object[]> values = query.getResultList();		
 		return values;
 	}
 

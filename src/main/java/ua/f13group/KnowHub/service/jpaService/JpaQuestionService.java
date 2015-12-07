@@ -1,7 +1,6 @@
 package ua.f13group.KnowHub.service.jpaService;
 
 import java.math.BigInteger;
-import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -26,18 +25,6 @@ public class JpaQuestionService implements QuestionService  {
 	
 	@Autowired
 	private UserRepository userRep;
-	
-	@Override
-	public List<Question> getQuestionsForPage(int rowsOnPage, int pageNumber,QuestionSortConfig cfg, boolean ascending) {
-		
-		return questionRep.findForPage(null, rowsOnPage, pageNumber, cfg, ascending);
-	}
-
-	@Override
-	public List<Question> getQuestionsForPage(Category category, int rowsOnPage, int pageNumber, QuestionSortConfig cfg, boolean ascending) {
-		
-		return questionRep.findForPage(category,rowsOnPage, pageNumber, cfg, ascending);
-	}
 	
 	@Override
 	public List<QuestionFrequentAskedDTO> getQuestionsFrequentlyAskedForPageAndUser
@@ -151,7 +138,7 @@ public class JpaQuestionService implements QuestionService  {
         if (question == null) {
 			return;
 		}
-		question.setViews(question.getViews()+1);
+		question.setViews(question.getViews() + 1);
         save(question);
     }
 
