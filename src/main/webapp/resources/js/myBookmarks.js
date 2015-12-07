@@ -126,11 +126,7 @@ function removeBookmark(questionId) {
 				showQuestion();
 			}
 		});
-	} else {
-		
 	}
-	
-
 }
 
 function confirmationDialog() {
