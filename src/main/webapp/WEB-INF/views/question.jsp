@@ -49,7 +49,7 @@
 				</div>
 				
 				<div class="col-lg-2 col-md-2 col-sm-2 divCell_Left">
-					<div id="qAuthor"><img src='${pageContext.servletContext.contextPath}/resources/img/account.png' width="20" height="20" /></div>
+					<div id="qAuthor"></div>
 					<div id="addedDate"></div> 
 				</div>
 				<div id="qDescription" class="col-lg-10 col-md-10 col-sm-10 justified"></div>
