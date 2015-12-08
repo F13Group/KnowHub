@@ -44,7 +44,7 @@ function showQuestion() {
     		$("#viewed").empty().append("<img src='" + globalAppUrl + "resources/img/eye.png' width='20' height='20' /> Viewed: " +  data.views);
     		
     		if (data.user) {
-    			$("#qAuthor").empty().append("<a href='#' class='divQuestionColor'>" + getCorrectUserLoginName(data.user.login) + "</a>");
+    			$("#qAuthor").empty().append("<img src='" + globalAppUrl + "resources/img/account.png' width='20' height='20'/><a href='#' class='divQuestionColor'>" + getCorrectUserLoginName(data.user.login) + "</a>");
     		}
     		
     		if (data.description) {
