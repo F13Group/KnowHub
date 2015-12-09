@@ -9,8 +9,6 @@ import ua.f13group.KnowHub.web.dto.QuestionFrequentAskedDTO;
 
 public interface QuestionService {
 	
-	public List<Question> getQuestionsForPage(int rowsOnPage, int pageNumber,QuestionSortConfig cfg, boolean ascending);
-	public List<Question> getQuestionsForPage(Category category, int rowsOnPage, int pageNumber,QuestionSortConfig cfg, boolean ascending);
 	public int getPagesCount(Category category, int rowsOnPage);
 	public int getPagesCount(int rowsOnPage);
 	public int getRecordsCount();
@@ -28,7 +26,6 @@ public interface QuestionService {
 	public Long save(Question question);
 	public void addView(Long questionId);
 	
-	//public List<QuestionFrequentAskedDTO> getBookmarkedByUser(long userId);
 	public int getPagesCountBookmarked(Long userId, Integer rowsOnPageNumber);
 	public int getRecordsCountBookmarked(Long userId);
 	public List<QuestionFrequentAskedDTO> getQuestionsBookmarked(Long userId, Integer rowsOnPageNumber,

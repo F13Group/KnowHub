@@ -39,48 +39,14 @@
 <script
 	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script
-	src="${pageContext.servletContext.contextPath}/resources/js/myBookmarks.js"></script>
-<script
 	src="${pageContext.servletContext.contextPath}/resources/js/pagetools.js"></script>
+<script
+	src="${pageContext.servletContext.contextPath}/resources/js/pagination.js"></script>
 </head>
 
 <body>
 
-	<div class="navbar">
-		<div class="navbar-inner">
-			<a class="brand" href="${pageContext.servletContext.contextPath}">KnowHub</a>
-			<ul class="nav">
-				<li
-					<sec:authorize access="isAnonymous()">class="inactive"</sec:authorize>><a
-					href="">My Question list</a></li>
-				<li><a href="">Tags</a></li>
-				<li
-					<sec:authorize access="isAnonymous()">class="inactive"</sec:authorize>><a
-					href="">My Bookmarks</a></li>
-				<li
-					<sec:authorize access="isAnonymous()">class="inactive"</sec:authorize>><a
-					href="">Add Question</a></li>
-				<div id="navLinks">
-					<div id="links">
-						<div class="nav-left">
-							<sec:authorize access="isAuthenticated()">
-								<a id="userName" href="" class="inactive"><sec:authentication
-										property="principal.username" /></a>
-							</sec:authorize>
-							<sec:authorize access="isAnonymous()">
-								<a href="signup">Sign up</a>
-								<a href="login">Log in</a>
-							</sec:authorize>
-							<sec:authorize access="isAuthenticated()">
-								<a href="logout">Log off</a>
-							</sec:authorize>
-							<a href="">Help</a>
-						</div>
-					</div>
-				</div>
-			</ul>
-		</div>
-	</div>
+	<%@ include file="navbar.jsp"%>
 
 	<div class="container">
 
@@ -110,9 +76,7 @@
 						</div>
 						<sec:authorize access="isAuthenticated()">
 							<div class="divCell_header col-lg-2 col-md-2 col-sm-2">
-								My Bookmarks <input type="button" id="buttonOrderBy4"
-									class="change_order_sign" value="&#x25AD;"
-									onclick="orderedBy(4)">
+								My Bookmarks 
 							</div>
 						</sec:authorize>
 					</div>
@@ -149,7 +113,6 @@
 	</footer>
 	<script type="text/javascript">
 		$(document).ready(function() {
-
 			pageSetup();
 			globalQuestionMetadataUrl += "/mybookmarks"
 			globalQuestionUrl += "/mybookmarks";
