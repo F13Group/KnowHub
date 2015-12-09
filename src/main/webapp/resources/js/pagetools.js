@@ -165,11 +165,7 @@ function removeBookmark(questionId) {
 		$.post(questionsUrl + "/unbookmark", {
 			questionId : questionId
 		}).done(function(isSuccess) {
-			if (window.location.href.toString().indexOf("question") < 0) {
-				displayPage(1);
-			} else {
-				showQuestion();
-			}
+			displayPage(currentPage);
 		});
 	}
 }
