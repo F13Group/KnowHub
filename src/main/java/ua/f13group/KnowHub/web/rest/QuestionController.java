@@ -15,7 +15,6 @@ import ua.f13group.KnowHub.service.BookmarkService;
 import ua.f13group.KnowHub.service.QuestionService;
 import ua.f13group.KnowHub.service.RatingService;
 import ua.f13group.KnowHub.service.UserService;
-import ua.f13group.KnowHub.web.dto.PageMetadata;
 import ua.f13group.KnowHub.web.dto.QuestionFrequentAskedDTO;
 import ua.f13group.KnowHub.web.dto.QuestionMetadata;
 
@@ -40,7 +39,15 @@ public class QuestionController {
     public static final String DEFAULT_SORT_COLUMN_INDEX = "1";
     public static final Integer DEFAULT_NOT_LOGGED_USER = null;
     public static final Integer DEFAULT_LIST_SIZE = 100;
-
+    
+    private Long determineUserId(Principal principal) {
+    	if (principal == null) {
+        	return (long) 0;
+        } else {            
+            return userService.getUserByLogin(principal.getName()).getUserId();
+        }
+    }
+    
     @RequestMapping(method = RequestMethod.POST)
     public List<QuestionFrequentAskedDTO> getAllQuestions(
             @RequestParam(value = "currentPageNumber", required = false, defaultValue = DEFAULT_CURRENT_PAGE_NUMBER) Integer currentPageNumber,
@@ -48,22 +55,9 @@ public class QuestionController {
             @RequestParam(value = "sortColumnIndex", required = false, defaultValue = DEFAULT_SORT_COLUMN_INDEX) Integer sortColumnIndex,
             Principal principal) {
 
-        boolean guestLogin = false;
-        Long userId = null;
-        if (principal == null) {
-            guestLogin = true;
-        } else {
-            String login = principal.getName();
-            userId = userService.getUserByLogin(login).getUserId();
-        }
-        
-        if (guestLogin) {
-        	userId = (long) 0;
-        }
-        
-        List<QuestionFrequentAskedDTO> questionFrequentAskedUserList = 
+         List<QuestionFrequentAskedDTO> questionFrequentAskedUserList = 
         		questionService.getQuestionsFrequentlyAskedForPageAndUser(
-        				userId, 
+        				determineUserId(principal), 
         				rowsOnPageNumber, 
         				currentPageNumber, 
         				sortConfig(sortColumnIndex),
@@ -72,6 +66,24 @@ public class QuestionController {
         return questionFrequentAskedUserList;
     }
 
+    @RequestMapping(value = "/mybookmarks", method = RequestMethod.POST)
+    public List<QuestionFrequentAskedDTO> getAllQuestionsBookmarked(
+    	 @RequestParam(value = "currentPageNumber", required = false, defaultValue = DEFAULT_CURRENT_PAGE_NUMBER) Integer currentPageNumber,
+         @RequestParam(value = "rowsOnPageNumber", required = false, defaultValue = DEFAULT_ROWS_ON_PAGE_NUMBER) Integer rowsOnPageNumber,
+         @RequestParam(value = "sortColumnIndex", required = false, defaultValue = DEFAULT_SORT_COLUMN_INDEX) Integer sortColumnIndex,
+         Principal principal) {
+     
+     List<QuestionFrequentAskedDTO> bookmarkedQuestionsList = 
+     		questionService.getQuestionsBookmarked(
+     				determineUserId(principal), 
+     				rowsOnPageNumber, 
+     				currentPageNumber, 
+     				sortConfig(sortColumnIndex),
+     				ascending(sortColumnIndex));
+
+     return bookmarkedQuestionsList;
+    }
+    
     @RequestMapping(value = "/categories/{categoryId}", method = RequestMethod.POST)
     public List<QuestionFrequentAskedDTO> getAllQuestionsFilterCategory(
             @PathVariable Long categoryId,
@@ -80,22 +92,9 @@ public class QuestionController {
             @RequestParam(value = "sortColumnIndex", required = false, defaultValue = DEFAULT_SORT_COLUMN_INDEX) Integer sortColumnIndex,
             Principal principal) {
 
-        boolean guestLogin = false;
-        Long userId = null;
-        if (principal == null) {
-            guestLogin = true;
-        } else {
-            String login = principal.getName();
-            userId = userService.getUserByLogin(login).getUserId();
-        }
-        
-        if (guestLogin) {
-        	userId = (long) 0;
-        }
-        
         List<QuestionFrequentAskedDTO> questionFrequentAskedUserList = 
         		questionService.getQuestionsFrequentlyAskedForPageAndUser(
-        				userId,
+        				determineUserId(principal),
         				new Category(categoryId),
         				rowsOnPageNumber, 
         				currentPageNumber, 
@@ -118,21 +117,12 @@ public class QuestionController {
             Principal principal,
             @RequestParam(value = "questionId", required = false) Long questionId) {
 
-
-        Long userId = null;
-        if (principal == null) {
-            return false;
-        } else {
-            String login = principal.getName();
-            userId = userService.getUserByLogin(login).getUserId();
-        }
-
         if (questionId <= 0) {
             return false;
         }
 
         Rating rating = new Rating();
-        rating.setUserId(userId);
+        rating.setUserId(determineUserId(principal));
         rating.setQuestion(questionService.getQuestionById(questionId));
         ratingService.save(rating);
         return true;
@@ -143,21 +133,12 @@ public class QuestionController {
             Principal principal,
             @RequestParam(value = "questionId", required = false) Long questionId) {
 
-
-        Long userId = null;
-        if (principal == null) {
-            return false;
-        } else {
-            String login = principal.getName();
-            userId = userService.getUserByLogin(login).getUserId();
-        }
-
         if (questionId <= 0) {
             return false;
         }
 
         Bookmark bookmark = new Bookmark();
-        bookmark.setUserId(userId);
+        bookmark.setUserId(determineUserId(principal));
         bookmark.setQuestionId(questionId);
         bookmarkService.save(bookmark);
         return true;
@@ -168,19 +149,11 @@ public class QuestionController {
             Principal principal,
             @RequestParam(value = "questionId", required = false) Long questionId) {
 
-        Long userId = null;
-        if (principal == null) {
-            return false;
-        } else {
-            String login = principal.getName();
-            userId = userService.getUserByLogin(login).getUserId();
-        }
-
-        if (questionId <= 0) {
+         if (questionId <= 0) {
             return false;
         }
 
-        bookmarkService.unbookmark(userId,questionId);
+        bookmarkService.unbookmark(determineUserId(principal), questionId);
         return true;
     }
 
@@ -193,6 +166,15 @@ public class QuestionController {
                 questionService.getPagesCount(rowsOnPageNumber),
                 questionService.getRecordsCount());
     }
+    
+    @RequestMapping(value = "/metadata/mybookmarks", method = RequestMethod.POST)
+    public QuestionMetadata getMetadataBookmarks(
+            @RequestParam(value = "rowsOnPageNumber") Integer rowsOnPageNumber, Principal principal) {
+
+        return new QuestionMetadata(
+                questionService.getPagesCountBookmarked(determineUserId(principal), rowsOnPageNumber),
+                questionService.getRecordsCountBookmarked(determineUserId(principal)));
+    }
 
     @RequestMapping(value = "/categories/{categoryId}/metadata", method = RequestMethod.POST)
     public QuestionMetadata getMetadataforCategory(
@@ -203,11 +185,4 @@ public class QuestionController {
                 rowsOnPageNumber), questionService.getRecordsCount(category));
 
     }
-
-    @RequestMapping(value = "/pagemetadata", method = RequestMethod.GET)
-    public PageMetadata getMetadata() {
-
-        return new PageMetadata();
-    }
-
 }

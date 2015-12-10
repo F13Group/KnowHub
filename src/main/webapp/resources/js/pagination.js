@@ -37,8 +37,12 @@ function outputQuestions(pC, cPN, rOPN) {
             $(".divRow").empty();
             $("#pagingRow").show();
             if (data.length == 0) {
-                $("<div class='divRow row'><div class='divCell_2 col-lg-12' align=center>No questions found for this category</div></div>").insertAfter("#headRow");
-                $("#pagingRow").hide();
+            	if (cPN == 1) {
+            		$("<div class='divRow row'><div class='divCell_2 col-lg-12' align=center>No questions found for this category</div></div>").insertAfter("#headRow");
+            		$("#pagingRow").hide();
+            	} else {
+            		displayPage(cPN - 1);
+            	}
             } else {
                 $.each($(data).get().reverse(), function (index, value) {
                     var unformatted_date = new Date(value.loadDate);
@@ -57,16 +61,34 @@ function outputQuestions(pC, cPN, rOPN) {
                     if (value.value.length > 70) {
                         value.value = value.value.substring(0, 65);
                         value.value += "...";
-                    }                   
-                    
-                    var userName = $("#userName").html();
-                    if (userName) {
-                        $("<div class='divRow row'><div class='non-active col-lg-6 col-md-6 col-sm-6 divCell_2'><a href='question/"+ value.id +"'  class='divQuestionColor'>" + value.value + "</a></div><div class='col-lg-1 col-md-2 col-sm-2 divCell_Center'>" + value.category.shortValue + "</div><div class='col-lg-1 col-md-2 col-sm-2 divCell_Center'>" + date + "</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Left'>" + wasAskedButton(value.id, value.isAsked) + " " + value.rating + "</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Left'>" + wasBookmarkedButton(value.id, value.isBookmarked) + "</div></div>").insertAfter("#headRow");
-
-                    } else {
-                        $("<div class='divRow row'><div class='col-lg-6 col-md-6 col-sm-6 divCell_2'><a href='question/"+ value.id +"' class ='divQuestionColor'>" + value.value + "</a></div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Center'>" + value.category.shortValue + "</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Center'>" + date + "</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Center'>" + value.rating + "</div></div>").insertAfter("#headRow");
                     }
-
+                    
+                    if (globalQuestionUrl.indexOf("/mybookmarks") >= 0) {
+                    	$("<div class='divRow row'><div class='non-active col-lg-6 col-md-6 col-sm-6 divCell_2'><a href='question/"
+										+ value.id
+										+ "'  class='divQuestionColor'>"
+										+ value.value
+										+ "</a></div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Center'>"
+										+ value.category.shortValue
+										+ "</div><div class='col-lg-1 col-md-1 col-sm-1 divCell_Center'>"
+										+ date
+										+ "</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Center'>"
+										+ " "
+										+ value.rating
+										+ "</div><div class='col-lg-1 col-md-1 col-sm-1 divCell_Center'><a id='remove"
+										+ value.id
+										+ "' onclick='removeBookmark("
+										+ value.id
+										+ ")'>Remove"
+										+ "</a></div></div>").insertAfter("#headRow");
+                    } else {                    
+                    	var userName = $("#userName").html();
+                    	if (userName) {
+                    		$("<div class='divRow row'><div class='non-active col-lg-6 col-md-6 col-sm-6 divCell_2'><a href='question/"+ value.id +"'  class='divQuestionColor'>" + value.value + "</a></div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Center'>" + value.category.shortValue + "</div><div class='col-lg-1 col-md-1 col-sm-1 divCell_Center'>" + date + "</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Left'>" + wasAskedButton(value.id, value.isAsked) + " " + value.rating + "</div><div class='col-lg-1 col-md-1 col-sm-1 divCell_Left'>" + wasBookmarkedButton(value.id, value.isBookmarked) + "</div></div>").insertAfter("#headRow");
+                    	} else {
+                        	$("<div class='divRow row'><div class='col-lg-6 col-md-6 col-sm-6 divCell_2'><a href='question/"+ value.id +"' class ='divQuestionColor'>" + value.value + "</a></div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Center'>" + value.category.shortValue + "</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Center'>" + date + "</div><div class='col-lg-2 col-md-2 col-sm-2 divCell_Center'>" + value.rating + "</div></div>").insertAfter("#headRow");
+                    	}
+                    }
                 });
             }
         });

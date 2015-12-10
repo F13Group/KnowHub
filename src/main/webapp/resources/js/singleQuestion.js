@@ -41,10 +41,10 @@ function showQuestion() {
     		$("#wasAsked").append("This question was asked " + data.rating + " times");
     		$("#qCategory").empty().append("<b>Category: </b><a href='#' id='category'>" + data.category.shortValue + "</a>");
     		$("#qTag").empty().append(showTags(data.tags));
-    		$("#viewed").empty().append("Viewed: " +  data.views);
+    		$("#viewed").empty().append("<img src='" + globalAppUrl + "resources/img/eye.png' width='20' height='20' /> Viewed: " +  data.views);
     		
     		if (data.user) {
-    			$("#qAuthor").empty().append("<a href='#' class='divQuestionColor'>" + getCorrectUserLoginName(data.user.login) + "</a>");
+    			$("#qAuthor").empty().append("<img src='" + globalAppUrl + "resources/img/account.png' width='20' height='20'/><a href='#' class='divQuestionColor'>" + getCorrectUserLoginName(data.user.login) + "</a>");
     		}
     		
     		if (data.description) {
@@ -56,6 +56,8 @@ function showQuestion() {
             var dd = unformatted_date.getDate();
             var mm = unformatted_date.getMonth() + 1;
             var yyyy = unformatted_date.getFullYear();
+            
+            var time = unformatted_date.toTimeString().substr(0,5);
             if (dd < 10) {
                 dd = '0' + dd;
             }
@@ -64,7 +66,7 @@ function showQuestion() {
             }
             var date = dd + '/' + mm + '/' + yyyy;    		
     		
-    		$("#addedDate").empty().append("Added " + date);		
+    		$("#addedDate").empty().append("Added " + date + "<br> at " + time);		
     		
     })
 }
