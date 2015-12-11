@@ -8,10 +8,13 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
+import org.springframework.stereotype.Repository;
+
 import ua.f13group.KnowHub.domain.Comment;
 import ua.f13group.KnowHub.domain.Question;
 import ua.f13group.KnowHub.domain.User;
 
+@Repository("commentRepository")
 public class CommentRepositoryJPA implements CommentRepository{
 	
 	@PersistenceContext
@@ -30,18 +33,17 @@ public class CommentRepositoryJPA implements CommentRepository{
 	
 	@Override
 	public List<Comment> getAllQuestionComments(Question question) {
-
 		TypedQuery<Comment> query = entityManager.createNamedQuery(
 				"Comment.getAllQuestionComments", Comment.class);
-		query.setParameter("question", question.getId());		
+		query.setParameter("questionId", question.getId());		
 		return query.getResultList();
 	}
 
 	@Override
 	public List<Comment> getAllAuthorComments(User user) {
 		TypedQuery<Comment> query = entityManager.createNamedQuery(
-				"Comment.getAllQuestionComments", Comment.class);
-		query.setParameter("user", user.getUserId());		
+				"Comment.getAllAuthorsComments", Comment.class);
+		query.setParameter("userId", user.getUserId());		
 		return query.getResultList();
 	}
 
@@ -58,8 +60,12 @@ public class CommentRepositoryJPA implements CommentRepository{
 
 	@Override
 	public boolean isRatedByTheUser(Comment comment, User user) {
-		// TODO Auto-generated method stub
-		return false;
+		TypedQuery<User> query = entityManager.createNamedQuery(
+				"Comment.getAllCommentLikers", User.class);
+		query.setParameter("commentId", comment.getId());	
+		List<User> likers = query.getResultList();
+		
+		return likers.contains(user);
 	}
 
 }

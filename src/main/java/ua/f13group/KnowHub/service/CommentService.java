@@ -12,4 +12,5 @@ public interface CommentService {
 	public List<Comment> getAllUserComments(User user);
 	public List<Comment> getFixedNumberOfComments(Question question, Comment comment, int offset);
 	public Comment getCommentById(Long commentId);
+	public boolean isCommentRatedByTheUser(Comment comment, User user);
 }

@@ -84,10 +84,11 @@ public class SingleQuestionPageController {
             Date curDate = new Date();
             
             Comment curComment = new Comment();
-//            curComment.setAuthor(curUser);
-//            curComment.setDate(curDate);
-//            curComment.setText(commentText);
-//            curComment.setQuestion(curQuestion);
+            curComment.setUser(curUser);
+            curComment.setDate(curDate);
+            curComment.setValue(commentText);
+            curComment.setQuestion(curQuestion);
+            curComment.setRating(0);
             
             commentServive.saveComment(curComment);
             
@@ -98,13 +99,15 @@ public class SingleQuestionPageController {
 	}
 	
 	@RequestMapping(value = "/comments", method = RequestMethod.GET)
-	public List<Comment> getComment(@PathVariable Long questionId,
-            @RequestParam(value = "numberOfComments") Integer offset,
-            @RequestParam(value = "lastCommentId") Long commentId) {
+	public List<Comment> getComment(@PathVariable Long questionId
+ //          , @RequestParam(value = "numberOfComments") Integer offset,
+//            @RequestParam(value = "lastCommentId") Long commentId
+            ) {
 		
 		Question curQuestion = questionService.getQuestionById(questionId);
-		Comment curComment = commentServive.getCommentById(commentId);
-		return commentServive.getFixedNumberOfComments(curQuestion, curComment, offset);
+//		Comment curComment = commentServive.getCommentById(commentId);
+		return commentServive.getAllQuestionComments(curQuestion);
+		//return commentServive.getFixedNumberOfComments(curQuestion, curComment, offset);
 	}
 	
 }
