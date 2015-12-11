@@ -30,12 +30,13 @@ public class Comment {
 	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
-	private Long user_id;
+	private User user;
 
-	@Column(name = "question_id")
-	private Long question_id;
+	@ManyToOne
+	@JoinColumn(name = "question_id")
+	private Question question;
 	
-	@OneToMany(mappedBy = "comment_id")
+	@OneToMany(mappedBy = "comment")
 	private List<Like> likes;
 	
 	

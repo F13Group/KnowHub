@@ -70,8 +70,8 @@ public class User implements Serializable {
     @Column(name = "confirmed")
     private boolean confirmed = false;
 
-    @OneToMany(mappedBy = "user_id")
-    private List<Comment> comments;
+//    @OneToMany(mappedBy = "user_id")
+//    private List<Comment> comments;
 
     public User() {
     }

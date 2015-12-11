@@ -24,6 +24,6 @@ public class Like {
 	
 	@ManyToOne
 	@JoinColumn(name = "comment_id")
-	private int comment_id;
+	private Comment comment;
 	
 }
