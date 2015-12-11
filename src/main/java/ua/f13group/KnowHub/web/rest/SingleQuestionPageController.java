@@ -1,3 +1,4 @@
+
 package ua.f13group.KnowHub.web.rest;
 
 import java.security.Principal;
@@ -107,3 +108,4 @@ public class SingleQuestionPageController {
 	}
 	
 }
+

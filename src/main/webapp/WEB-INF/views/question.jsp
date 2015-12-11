@@ -34,34 +34,7 @@
 
 <body>
 
-<div class="navbar">
-		<div class="navbar-inner">
-			<a class="brand" href="${pageContext.servletContext.contextPath}">KnowHub</a>
-			<ul class="nav">
-				<li <sec:authorize access="isAnonymous()">class="inactive"</sec:authorize>><a href="#">My Question list</a></li>
-				<li><a href="#">Tags</a></li>
-				<li <sec:authorize access="isAnonymous()">class="inactive"</sec:authorize>><a href="#">My Bookmarks</a></li>
-				<li <sec:authorize access="isAnonymous()">class="inactive"</sec:authorize>><a href="#">Add Question</a></li>
-				<div id="navLinks">
-					<div id="links">
-					<div class="nav-left">
-						<sec:authorize access="isAuthenticated()">
-							<a id="userName" href="#" class="inactive"><sec:authentication property="principal.username" /></a>
-						</sec:authorize>
-						<sec:authorize access="isAnonymous()">
-							<a href="${pageContext.servletContext.contextPath}/signup">Sign up</a>
-							<a href="${pageContext.servletContext.contextPath}/login">Log in</a>
-						</sec:authorize>
-						<sec:authorize access="isAuthenticated()">
-							<a href="${pageContext.servletContext.contextPath}/logout">Log off</a>
-						</sec:authorize>
-							<a href="#">Help</a>
-						</div>
-					</div>
-				</div>
-			</ul>
-		</div>
-</div>
+	<%@ include file="navbar.jsp"%>
 
 	<div class="container">
 	
@@ -76,7 +49,7 @@
 				</div>
 				
 				<div class="col-lg-2 col-md-2 col-sm-2 divCell_Left">
-					<div id="qAuthor"><img src='${pageContext.servletContext.contextPath}/resources/img/account.png' width="20" height="20" /></div>
+					<div id="qAuthor"></div>
 					<div id="addedDate"></div> 
 				</div>
 				<div id="qDescription" class="col-lg-10 col-md-10 col-sm-10 justified"></div>

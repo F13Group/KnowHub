@@ -12,5 +12,5 @@ public interface CommentRepository {
 	public List<Comment> getAllAuthorComments(User user);
 	public List<Comment> getNextCommentsForScrolling(Question question, Comment comment, int offset);
 	public Comment getCommentById(Long commentId);	
-	public boolean isUserRatedThisComment(Comment comment, User user);
+	public boolean isRatedByTheUser(Comment comment, User user);
 }

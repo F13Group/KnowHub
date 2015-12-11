@@ -41,26 +41,7 @@
 		</p>
 	</div>
 
-	<div class="navbar">
-		<div class="navbar-inner">
-			<a class="brand" href="${pageContext.servletContext.contextPath}">KnowHub</a>
-			<ul class="nav">
-				<li class="inactive hidden"><a href="">My Question list</a></li>
-				<li class="hidden" ><a href="">Tags</a></li>
-				<li class="inactive hidden"><a href="">My Bookmarks</a></li>
-				<li class="inactive hidden"><a href="">Add Question</a></li>
-				<div id="navLinks">
-					<div id="links">
-						<div class="nav-left">
-							<a href="" class="inactive">Sign up</a>
-							<a href="login">Log in</a>
-							<a href="">Help</a>							
-						</div>
-					</div>
-				</div>
-			</ul>
-		</div>
-	</div>    
+	<%@ include file="navbar.jsp"%>    
       
 	<div class="container">
             <form:form commandName="newUser" method="post">

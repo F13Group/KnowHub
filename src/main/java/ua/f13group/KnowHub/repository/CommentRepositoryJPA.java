@@ -57,7 +57,7 @@ public class CommentRepositoryJPA implements CommentRepository{
 	}
 
 	@Override
-	public boolean isUserRatedThisComment(Comment comment, User user) {
+	public boolean isRatedByTheUser(Comment comment, User user) {
 		// TODO Auto-generated method stub
 		return false;
 	}
