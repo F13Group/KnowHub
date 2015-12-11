@@ -6,9 +6,7 @@
 package ua.f13group.KnowHub.domain;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.Calendar;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
@@ -71,7 +70,8 @@ public class User implements Serializable {
     @Column(name = "confirmed")
     private boolean confirmed = false;
 
-
+    @OneToMany(mappedBy = "user_id")
+    private List<Comment> comments;
 
     public User() {
     }
