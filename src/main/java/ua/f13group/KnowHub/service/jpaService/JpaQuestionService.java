@@ -92,8 +92,8 @@ public class JpaQuestionService implements QuestionService  {
 	}
 
 	@Override
-	public int getPagesCount(Category category, int rowsOnPage) {
-		int  result = questionRep.getRecordsCount(category);
+	public int getPagesCount(int rowsOnPage) {
+		int  result =  questionRep.getRecordsCount();
 		if (result % rowsOnPage == 0) {
 			return result/rowsOnPage;
 		} else {
@@ -102,8 +102,8 @@ public class JpaQuestionService implements QuestionService  {
 	}
 	
 	@Override
-	public int getPagesCount(int rowsOnPage) {
-		int  result =  questionRep.getRecordsCount();
+	public int getPagesCount(Category category, int rowsOnPage) {
+		int  result = questionRep.getRecordsCount(category);
 		if (result % rowsOnPage == 0) {
 			return result/rowsOnPage;
 		} else {
@@ -143,6 +143,11 @@ public class JpaQuestionService implements QuestionService  {
     }
 
 	@Override
+	public int getRecordsCountBookmarked(Long userId) {
+		return questionRep.getRecordsCountBookmarked(userId);
+	}
+	
+	@Override
 	public int getPagesCountBookmarked(Long userId, Integer rowsOnPage) {
 		int  result =  questionRep.getRecordsCountBookmarked(userId);
 		if (result % rowsOnPage == 0) { 
@@ -150,11 +155,6 @@ public class JpaQuestionService implements QuestionService  {
 		} else {
 			return result/rowsOnPage + 1;
 		}
-	}
-
-	@Override
-	public int getRecordsCountBookmarked(Long userId) {
-		return questionRep.getRecordsCountBookmarked(userId);
 	}
 
 	@Override
