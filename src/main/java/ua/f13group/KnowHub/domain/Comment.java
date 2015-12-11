@@ -9,16 +9,27 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 @Entity
+
 public class Comment {
 
 	@Id
 	@GeneratedValue
 	@Column(name = "comment_id")
 	private Long id;
-
+	
+	@ManyToOne
+    @JoinColumn(name = "parent_comment_id", referencedColumnName = "comment_id")
+    private Comment parentComment;
+	
+	@OneToMany(mappedBy = "parentComment")
+	private List<Comment> childComments;
+	
+	
 	@Column(name = "value")
 	private String value;
 
@@ -27,7 +38,7 @@ public class Comment {
 
 	@Column(name = "rating")
 	private int rating;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
@@ -35,9 +46,8 @@ public class Comment {
 	@ManyToOne
 	@JoinColumn(name = "question_id")
 	private Question question;
-	
+
 	@OneToMany(mappedBy = "comment")
 	private List<Like> likes;
-	
-	
+
 }
