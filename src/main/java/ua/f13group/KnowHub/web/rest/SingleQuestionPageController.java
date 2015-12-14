@@ -130,6 +130,7 @@ public class SingleQuestionPageController {
 
     @RequestMapping(value = "/dislike", method = RequestMethod.POST)
     public Boolean dislikeComment(){
+
         return false;
     }
 
