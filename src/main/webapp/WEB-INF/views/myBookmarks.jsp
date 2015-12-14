@@ -70,7 +70,7 @@
 								onclick="orderedBy(1)">
 						</div>
 						<div class="divCell_header col-lg-2 col-md-2 col-sm-2">
-							Times Asked <input type="button" id="buttonOrderBy3"
+							Asked <input type="button" id="buttonOrderBy3"
 								class="change_order_sign" value="&#x25AD;"
 								onclick="orderedBy(3)">
 						</div>
