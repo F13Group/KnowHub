@@ -56,7 +56,7 @@ public class Comment {
 	@JoinColumn(name = "question_id")
 	private Question question;
 	
-	@OneToMany(mappedBy = "comment")
+	@OneToMany(mappedBy = "comment", fetch = FetchType.EAGER)
 	private List<Like> likes;
 
 	public Long getId() {
