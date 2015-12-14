@@ -125,7 +125,6 @@ public class SingleQuestionPageController {
             return false;
         }
 
-        like.(userService.getUserByLogin(principal.getName()));
         return false;
     }
 
