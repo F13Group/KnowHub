@@ -19,7 +19,7 @@ public class BookmarkEntityTest {
 		
 		 System.out.println("testing");
 		 
-		 EntityManagerFactory emf = Persistence.createEntityManagerFactory("hibernateUnit");
+		 EntityManagerFactory emf = Persistence.createEntityManagerFactory("TESTHiberantePostgreSQL");
 		 
 		 System.out.println(emf!=null);
 		 

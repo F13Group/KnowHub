@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ua.f13group.KnowHub.domain.Comment;
-import ua.f13group.KnowHub.domain.Like;
 import ua.f13group.KnowHub.domain.Question;
 import ua.f13group.KnowHub.domain.User;
 import ua.f13group.KnowHub.service.BookmarkService;
@@ -42,18 +41,7 @@ public class SingleQuestionPageController {
     
     @Autowired
     CommentService commentServive;
-
-    @Autowired
-    private Like like;
-
-    private Long determineUserId(Principal principal) {
-        if (principal == null) {
-            return (long) 0;
-        } else {
-            return userService.getUserByLogin(principal.getName()).getUserId();
-        }
-    }
-
+	
 	@RequestMapping(method = RequestMethod.GET)
 	public QuestionFrequentAskedDTO getQuestionInfo(
 			@PathVariable Long questionId,
@@ -111,15 +99,20 @@ public class SingleQuestionPageController {
 	}
 	
 	@RequestMapping(value = "/comments", method = RequestMethod.GET)
-	public List<Comment> getComment(@PathVariable Long questionId
- //          , @RequestParam(value = "numberOfComments") Integer offset,
-//            @RequestParam(value = "lastCommentId") Long commentId
-            ) {
+	public List<Comment> getComment(@PathVariable Long questionId,
+			@RequestParam(value = "numberOfComments") Integer offset,
+			@RequestParam(value = "lastCommentId") Long commentId
+			) {
 		
 		Question curQuestion = questionService.getQuestionById(questionId);
-//		Comment curComment = commentServive.getCommentById(commentId);
+		Comment curComment = commentServive.getCommentById(commentId);
+		return commentServive.getFixedNumberOfComments(curQuestion, curComment, offset);
+	}
+
+	@RequestMapping(value = "/allcomments", method = RequestMethod.GET)
+	public List<Comment> getAllComment(@PathVariable Long questionId) {
+		Question curQuestion = questionService.getQuestionById(questionId);
 		return commentServive.getAllQuestionComments(curQuestion);
-		//return commentServive.getFixedNumberOfComments(curQuestion, curComment, offset);
 	}
 
     /* Like current opened question comment*/
@@ -140,6 +133,6 @@ public class SingleQuestionPageController {
     public Boolean dislikeComment(){
         return false;
     }
-	
+
 }
 
