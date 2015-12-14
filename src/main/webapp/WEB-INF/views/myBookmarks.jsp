@@ -70,7 +70,11 @@
 								onclick="orderedBy(1)">
 						</div>
 						<div class="divCell_header col-lg-2 col-md-2 col-sm-2">
+<<<<<<< HEAD
 							Times Asked <input type="button" id="buttonOrderBy3"
+=======
+							Asked <input type="button" id="buttonOrderBy3"
+>>>>>>> 8258807b556c00a411a58cc966a3b63f98669f95
 								class="change_order_sign" value="&#x25AD;"
 								onclick="orderedBy(3)">
 						</div>
@@ -115,7 +119,12 @@
 		$(document).ready(function() {
 			pageSetup();
 			globalQuestionMetadataUrl += "/mybookmarks"
+<<<<<<< HEAD
 			displayPageBookmarks("1");
+=======
+			globalQuestionUrl += "/mybookmarks";
+			displayPage("1");
+>>>>>>> 8258807b556c00a411a58cc966a3b63f98669f95
 		});
 	</script>
 </body>

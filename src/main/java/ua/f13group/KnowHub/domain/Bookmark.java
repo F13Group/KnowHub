@@ -8,9 +8,7 @@ import javax.persistence.*;
 
 @NamedQueries({
         @NamedQuery(name = "Bookmark.isBookmarked", query = "SELECT count(b.id)>0 as my_bool FROM Bookmark b WHERE b.userId = :userId and b.questionId=:questionId"),
-        @NamedQuery(name = "Bookmark.unbookmark", query = "DELETE FROM Bookmark b WHERE b.userId = :userId and b.questionId=:questionId"),
-        @NamedQuery(name = "Bookmark.getPagesCountBookmarked", query = "SELECT Count(b) FROM Bookmark b WHERE b.userId = :userId")
-
+        @NamedQuery(name = "Bookmark.unbookmark", query = "DELETE FROM Bookmark b WHERE b.userId = :userId and b.questionId=:questionId")
 })
 
 @Entity

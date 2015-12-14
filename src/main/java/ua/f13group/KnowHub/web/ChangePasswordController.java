@@ -34,7 +34,7 @@ public class ChangePasswordController extends AbstractSignUpController {
     @RequestMapping(value = "/restore_password/{generatedLink}")
     public String checkReceivedLink(Model model, @PathVariable String generatedLink) {
         Confirmation confirmation = userRepository.getRestorePassByLink(generatedLink);
-//        String link = "<a href=\"/knowhub/login\">Forgot your password?</a>";
+
         if (confirmation == null) {
             model.addAttribute("error", messageSource.getMessage("error.resetPage.nosuchurl", null, null));
             return "reset";
@@ -60,9 +60,6 @@ public class ChangePasswordController extends AbstractSignUpController {
         User user = new User();
         user = userRepository.getUserById(id);
 
-        //User user = userRepository.getUserByLogin(newUser.getLogin());
-
-
         if (!newUser.getPassword().equals(newUser.getPassword2())) {
             model.addAttribute("user_login", newUser.getLogin());
             model.addAttribute("user_id", user.getUserId());
@@ -80,8 +77,6 @@ public class ChangePasswordController extends AbstractSignUpController {
         user.setPassword(passwordEncoder.encode(newUser.getPassword()));
         user.setPassword2(null);
         userRepository.editUser(user);
-//        model.addAttribute("message", messageSource.getMessage("info.loginPage.passwordReset", null, null));
-//        model.addAttribute("newUser", user);
         confirmationService.deleteOldConfirmations(user.getUserId());
         redirectAttributes.addFlashAttribute("message", messageSource.getMessage("info.loginPage.passwordReset", null, null));
         redirectAttributes.addFlashAttribute("newUser", user);
