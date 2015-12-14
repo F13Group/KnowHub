@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ua.f13group.KnowHub.domain.Comment;
+import ua.f13group.KnowHub.domain.Like;
 import ua.f13group.KnowHub.domain.Question;
 import ua.f13group.KnowHub.domain.User;
 import ua.f13group.KnowHub.service.BookmarkService;
@@ -41,7 +42,18 @@ public class SingleQuestionPageController {
     
     @Autowired
     CommentService commentServive;
-	
+
+    @Autowired
+    private Like like;
+
+    private Long determineUserId(Principal principal) {
+        if (principal == null) {
+            return (long) 0;
+        } else {
+            return userService.getUserByLogin(principal.getName()).getUserId();
+        }
+    }
+
 	@RequestMapping(method = RequestMethod.GET)
 	public QuestionFrequentAskedDTO getQuestionInfo(
 			@PathVariable Long questionId,
@@ -109,6 +121,25 @@ public class SingleQuestionPageController {
 		return commentServive.getAllQuestionComments(curQuestion);
 		//return commentServive.getFixedNumberOfComments(curQuestion, curComment, offset);
 	}
+
+    /* Like current opened question comment*/
+    @RequestMapping(value = "/like", method = RequestMethod.POST)
+    public Boolean likeComment(
+            Principal principal,
+            @RequestParam(value = "commentId", required = true) Long commentId){
+
+        if(commentId <= 0){
+            return false;
+        }
+
+        like.setUser(determineUserId(principal));
+        return false;
+    }
+
+    @RequestMapping(value = "/dislike", method = RequestMethod.POST)
+    public Boolean dislikeComment(){
+        return false;
+    }
 	
 }
 

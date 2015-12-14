@@ -14,16 +14,16 @@ public class Like {
 	@GeneratedValue
 	@Column(name = "like_id")
 	private Long id;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
-	
+
 	@Column(name = "positive")
 	private boolean positive;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "comment_id")
 	private Comment comment;
-	
+
 }
