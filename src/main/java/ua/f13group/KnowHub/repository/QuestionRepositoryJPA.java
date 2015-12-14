@@ -20,20 +20,20 @@ public class QuestionRepositoryJPA implements QuestionRepository {
 
 	@PersistenceContext
 	private EntityManager entityManager;
-	
-	@Override
-	public int getRecordsCount() {
-		TypedQuery<Long> query = entityManager.createNamedQuery(
-				"Question.getPagesCount", Long.class);
-
-		return query.getSingleResult().intValue();
-	}
 
 	@Override
 	public int getRecordsCount(Category category) {
 		TypedQuery<Long> query = entityManager.createNamedQuery(
 				"Question.getPagesCountWithCategory", Long.class);
 		query.setParameter("category", category.getId());
+
+		return query.getSingleResult().intValue();
+	}
+
+	@Override
+	public int getRecordsCount() {
+		TypedQuery<Long> query = entityManager.createNamedQuery(
+				"Question.getPagesCount", Long.class);
 
 		return query.getSingleResult().intValue();
 	}
@@ -72,7 +72,6 @@ public class QuestionRepositoryJPA implements QuestionRepository {
 		query.setFirstResult(((pageNumber - 1) * rowsOnPage));
 		query.setMaxResults(rowsOnPage);
 		
-		@SuppressWarnings("unchecked")
 		List<Object[]> values = query.getResultList();		
 		return values;
 	}
@@ -92,8 +91,6 @@ public class QuestionRepositoryJPA implements QuestionRepository {
 	public List<Object[]> findBookmarkedByUser(User user) {
 		Query query = entityManager.createNativeQuery("Question.findByUserBookmarkedOnly", Long.class);
 		query.setParameter("user_id", user.getUserId());
-		
-		@SuppressWarnings("unchecked")
 		List<Object[]> result = query.getResultList();
 		return result;
 	}
@@ -114,7 +111,6 @@ public class QuestionRepositoryJPA implements QuestionRepository {
 		query.setFirstResult(((pageNumber - 1) * rowsOnPage));
 		query.setMaxResults(rowsOnPage);
 		
-		@SuppressWarnings("unchecked")
 		List<Object[]> values = query.getResultList();
 		return values;
 	}

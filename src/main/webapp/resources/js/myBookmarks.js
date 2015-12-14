@@ -18,6 +18,11 @@ function displayPage(currentPageNumber) {
 					function(data) {
 						outputQuestions(data.pageCount, currentPageNumber,
 								pageSizeChosen);
+<<<<<<< HEAD
+						alert(pageSizeChosen);
+						alert(currentPageNumber);
+=======
+>>>>>>> 8258807b556c00a411a58cc966a3b63f98669f95
 						var recordsStart = pageSizeChosen
 								* (currentPageNumber - 1) + 1;
 						var recordsEnd;
@@ -113,6 +118,22 @@ function outputQuestions(pC, cPN, rOPN) {
 }
 
 function removeBookmark(questionId) {
+<<<<<<< HEAD
+	var questionsUrl = globalAppUrl + "questions";
+	$.post(questionsUrl + "/unbookmark", {
+		questionId : questionId
+	}).done(function(isSuccess) {
+		if (window.location.href.toString().indexOf("question") < 0) {
+			displayPage(currentPage);
+		} else {
+			showQuestion();
+		}
+	});
+}
+
+function mouseOverRemove(questionId) {
+	$("#id" + questionId).tooltip({
+=======
 	var confirmation = confirm("Are you sure you would like to remove the bookmark from this question?" +
 			" Please pay attention that then the question will be no longer available on My Bookmarks list");
 	if (confirmation == true) {
@@ -135,6 +156,7 @@ function confirmationDialog() {
 
 function mouseOverRemove(questionId) {
 	$("#remove" + questionId).tooltip({
+>>>>>>> 8258807b556c00a411a58cc966a3b63f98669f95
 		title : "Please click on the icon to remove the bookmark",
 		placement : "right",
 		trigger : "hover",
