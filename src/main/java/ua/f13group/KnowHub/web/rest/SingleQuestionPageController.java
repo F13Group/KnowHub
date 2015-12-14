@@ -132,7 +132,7 @@ public class SingleQuestionPageController {
             return false;
         }
 
-        like.setUser(determineUserId(principal));
+        like.(userService.getUserByLogin(principal.getName()));
         return false;
     }
 
