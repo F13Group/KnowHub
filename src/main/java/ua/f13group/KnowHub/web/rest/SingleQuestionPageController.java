@@ -99,15 +99,20 @@ public class SingleQuestionPageController {
 	}
 	
 	@RequestMapping(value = "/comments", method = RequestMethod.GET)
-	public List<Comment> getComment(@PathVariable Long questionId
- //          , @RequestParam(value = "numberOfComments") Integer offset,
-//            @RequestParam(value = "lastCommentId") Long commentId
-            ) {
+	public List<Comment> getComment(@PathVariable Long questionId,
+			@RequestParam(value = "numberOfComments") Integer offset,
+			@RequestParam(value = "lastCommentId") Long commentId
+			) {
 		
 		Question curQuestion = questionService.getQuestionById(questionId);
-//		Comment curComment = commentServive.getCommentById(commentId);
+		Comment curComment = commentServive.getCommentById(commentId);
+		return commentServive.getFixedNumberOfComments(curQuestion, curComment, offset);
+	}
+	
+	@RequestMapping(value = "/allcomments", method = RequestMethod.GET)
+	public List<Comment> getAllComment(@PathVariable Long questionId) {		
+		Question curQuestion = questionService.getQuestionById(questionId);
 		return commentServive.getAllQuestionComments(curQuestion);
-		//return commentServive.getFixedNumberOfComments(curQuestion, curComment, offset);
 	}
 	
 }

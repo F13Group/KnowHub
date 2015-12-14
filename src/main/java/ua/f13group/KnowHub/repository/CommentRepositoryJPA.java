@@ -49,8 +49,12 @@ public class CommentRepositoryJPA implements CommentRepository{
 
 	@Override
 	public List<Comment> getNextCommentsForScrolling(Question question, Comment comment, int offset) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		// TODO Here it is mock returning all comments from question
+		TypedQuery<Comment> query = entityManager.createNamedQuery(
+				"Comment.getAllQuestionComments", Comment.class);
+		query.setParameter("questionId", question.getId());		
+		return query.getResultList();
 	}
 
 	@Override
