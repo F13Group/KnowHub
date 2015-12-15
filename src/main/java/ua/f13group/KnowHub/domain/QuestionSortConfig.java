@@ -4,7 +4,6 @@ public enum QuestionSortConfig {
 	DATE("Date", "loadDate", "q.load_date"), 
 	CATEGORY("Category", "value", "value"), 
 	RATING("Frequently asked", "rating", "rating"),
-	//TODO: "rating" for Bookmark should be changed on DB field name in table Questions responsible for bookmark 
 	BOOKMARK("My Bookmarks", "bookmarked", "bookmarked");
 	
 	private final String name;

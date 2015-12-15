@@ -12,7 +12,6 @@ import ua.f13group.KnowHub.service.CategoryService;
 
 @RestController
 @RequestMapping(value = "/categories")
-//@ImportResource("classpath:spring/spring-config.xml")
 public class CategoryController {
 
 	@Autowired

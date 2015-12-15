@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ua.f13group.KnowHub.web;
 
 import javax.validation.Valid;
@@ -14,14 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 import ua.f13group.KnowHub.domain.User;
 import ua.f13group.KnowHub.service.UserService;
 
-/**
- *
- * @author amd
- */
 @Controller
 public class SignUpController extends AbstractSignUpController {
 	
@@ -35,7 +25,6 @@ public class SignUpController extends AbstractSignUpController {
             
             addMessages(model);
             
-            //model.setViewName("signup");
             return "signup";
 	}
     
@@ -65,7 +54,6 @@ public class SignUpController extends AbstractSignUpController {
             		this.checkWithRegExp(newUser.getFirstname(), "(?=.*[~\\@\\#\\$\\%\\^\\+\\-\\=\\[\\]*()/{}\\?!|:;_<>])") ||
             		this.checkWithRegExp(newUser.getLastname(), "(?=.*[~\\@\\#\\$\\%\\^\\+\\-\\=\\[\\]*()/{}\\?!|:;_<>])")
             		))){
-            	//model.setViewName("notification");
             	model.addAttribute("error", "ValidationFail");
             	model.addAttribute("notificationMessage",
 						messageSource.getMessage("info.notificationpage.serverValidationError",
@@ -89,13 +77,13 @@ public class SignUpController extends AbstractSignUpController {
             newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
             newUser.setPassword2(null);
             
-            if (user !=null && user.isConfirmed() == false){
-            	userService.updateUser(newUser);
+            if (user != null && user.isConfirmed() == false){
+            	user.setPassword(newUser.getPassword());
+            	userService.updateUser(user);            	
             	model.addAttribute("newUser", newUser);
             	model.addAttribute("notificationMessage",
 						messageSource.getMessage("info.notificationpage.emailSent",
-								new Object[]{newUser.getLogin()}, null));
-            	//model.setViewName("notification");
+								new Object[]{newUser.getLogin()}, null));            	
             	return "notification";
             }
             else {
@@ -103,16 +91,14 @@ public class SignUpController extends AbstractSignUpController {
                 	model.addAttribute("newUser", newUser);
                 	model.addAttribute("notificationMessage",
 							messageSource.getMessage("info.notificationpage.emailSent",
-									new Object[]{newUser.getLogin()}, null));
-                	//model.setViewName("notification");
+									new Object[]{newUser.getLogin()}, null));                	
                 	return "notification";
                 } else {
                 	model.addAttribute("newUser", new User());
                 	model.addAttribute("signUpError", "");
                 	
-                	addMessages(model);
+                	addMessages(model);                	
                 	
-                	//model.setViewName("signup");
                 	return "signup";
                 }
             }            

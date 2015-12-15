@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "categories")
-@NamedQueries({ @NamedQuery(name = "Category.findAll", query = "SELECT c FROM Category c ORDER BY c.value") })
+@NamedQueries({ @NamedQuery(name = "Category.findAll", query = "SELECT c FROM Category c ORDER BY replace(c.value,'.','a')") })
 public class Category implements Comparable<Category> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,13 +21,6 @@ public class Category implements Comparable<Category> {
 	String value;
 	@Column(name = "short_value")
 	String shortValue;
-
-
-
-	// @ManyToMany(mappedBy="categories",fetch=FetchType.LAZY)
-	// @LazyCollection(LazyCollectionOption.TRUE)
-	// @JsonIgnore
-	// private List<Question> questions;
 
 	public Category() {
 	}
@@ -75,18 +68,23 @@ public class Category implements Comparable<Category> {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (!(obj instanceof Category))
+		}
+		if (!(obj instanceof Category)) {
 			return false;
+		}
 		Category other = (Category) obj;
 		if (value == null) {
-			if (other.value != null)
+			if (other.value != null) {
 				return false;
-		} else if (!value.equals(other.value))
+			}
+		} else if (!value.equals(other.value)) {
 			return false;
+		}
 		return true;
 	}
 
@@ -100,7 +98,5 @@ public class Category implements Comparable<Category> {
 		}
 
 		return 0;
-
 	}
-
 }

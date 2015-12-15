@@ -1,7 +1,6 @@
 package ua.f13group.KnowHub.service.jpaService;
 
 import java.math.BigInteger;
-import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -14,6 +13,7 @@ import ua.f13group.KnowHub.domain.Question;
 import ua.f13group.KnowHub.domain.QuestionSortConfig;
 import ua.f13group.KnowHub.domain.Tag;
 import ua.f13group.KnowHub.repository.QuestionRepository;
+import ua.f13group.KnowHub.repository.UserRepository;
 import ua.f13group.KnowHub.service.QuestionService;
 import ua.f13group.KnowHub.web.dto.QuestionFrequentAskedDTO;
 
@@ -21,26 +21,17 @@ import ua.f13group.KnowHub.web.dto.QuestionFrequentAskedDTO;
 public class JpaQuestionService implements QuestionService  {
 
 	@Autowired 
-	private QuestionRepository questionRep; 
+	private QuestionRepository questionRep;
 	
-	@Override
-	public List<Question> getQuestionsForPage(int rowsOnPage, int pageNumber,QuestionSortConfig cfg, boolean ascending) {
-		
-		return questionRep.findForPage(rowsOnPage, pageNumber, cfg, ascending);
-	}
-
-	@Override
-	public List<Question> getQuestionsForPage(Category category, int rowsOnPage, int pageNumber, QuestionSortConfig cfg, boolean ascending) {
-		
-		return questionRep.findForPage(category,rowsOnPage, pageNumber, cfg, ascending);
-	}
+	@Autowired
+	private UserRepository userRep;
 	
 	@Override
 	public List<QuestionFrequentAskedDTO> getQuestionsFrequentlyAskedForPageAndUser
 		(long userId, int rowsOnPage, int pageNumber, QuestionSortConfig cfg, boolean ascending) {
 		
 		List<Object[]> queryResult = 
-				questionRep.findForPageWithRatingIsAskedAndIsBookmarked(userId, 
+				questionRep.findForPageWithRatingIsAskedAndIsBookmarked(userId, null,  
 						rowsOnPage, pageNumber, cfg, ascending);
 		
 		List<QuestionFrequentAskedDTO> result = new LinkedList<QuestionFrequentAskedDTO>();
@@ -101,21 +92,23 @@ public class JpaQuestionService implements QuestionService  {
 	}
 
 	@Override
-	public int getPagesCount(Category category, int rowsOnPage) {
-		int  result = questionRep.getRecordsCount(category);
-		if (result % rowsOnPage ==0) 
+	public int getPagesCount(int rowsOnPage) {
+		int  result =  questionRep.getRecordsCount();
+		if (result % rowsOnPage == 0) {
 			return result/rowsOnPage;
-		else
-			return result/rowsOnPage+1;
+		} else {
+			return result/rowsOnPage + 1;
+		}
 	}
 	
 	@Override
-	public int getPagesCount(int rowsOnPage) {
-		int  result =  questionRep.getRecordsCount();
-		if (result % rowsOnPage ==0) 
+	public int getPagesCount(Category category, int rowsOnPage) {
+		int  result = questionRep.getRecordsCount(category);
+		if (result % rowsOnPage == 0) {
 			return result/rowsOnPage;
-		else
-			return result/rowsOnPage+1;
+		} else {
+			return result/rowsOnPage + 1;
+		}
 	}
 
 	@Override
@@ -130,7 +123,6 @@ public class JpaQuestionService implements QuestionService  {
 
 	@Override
 	public Question getQuestionById(Long questionId) {
-		// TODO Auto-generated method stub
 		return questionRep.findById(questionId);
 	}
 
@@ -143,10 +135,55 @@ public class JpaQuestionService implements QuestionService  {
     @Transactional
     public void addView(Long questionId) {
         Question question = getQuestionById(questionId);
-        if (question==null) {
+        if (question == null) {
 			return;
 		}
-		question.setViews(question.getViews()+1);
+		question.setViews(question.getViews() + 1);
         save(question);
     }
+
+	@Override
+	public int getRecordsCountBookmarked(Long userId) {
+		return questionRep.getRecordsCountBookmarked(userId);
+	}
+	
+	@Override
+	public int getPagesCountBookmarked(Long userId, Integer rowsOnPage) {
+		int  result =  questionRep.getRecordsCountBookmarked(userId);
+		if (result % rowsOnPage == 0) { 
+			return result/rowsOnPage;
+		} else {
+			return result/rowsOnPage + 1;
+		}
+	}
+
+	@Override
+	public List<QuestionFrequentAskedDTO> getQuestionsBookmarked(Long userId, Integer rowsOnPageNumber,
+			Integer currentPageNumber, QuestionSortConfig sortConfig, boolean ascending) {
+		List<Object[]> queryResult = 
+				questionRep.findBookmarkedByUserPaginatedAndOrdered(userId, rowsOnPageNumber, currentPageNumber, sortConfig, ascending);
+		
+		List<QuestionFrequentAskedDTO> result = new LinkedList<QuestionFrequentAskedDTO>();
+		
+		for (Object[] row : queryResult) {
+			Question q = (Question) row[0];
+			BigInteger rating = (BigInteger) row[1];
+			Boolean isAsked = (Boolean) row[2];
+			Boolean isBookmarked = (Boolean) row[3];
+			result.add(new QuestionFrequentAskedDTO(
+					q.getId(),
+					q.getValue(),
+					q.getLoadDate(),
+					q.getCategory(),
+					q.getTags(),
+					rating.longValue(),
+					isAsked,
+					isBookmarked,
+					q.getUser(),
+					q.getViews(),
+					q.getDescription()));
+		}
+		
+		return result;
+	}
 }

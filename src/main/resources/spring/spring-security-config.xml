@@ -13,6 +13,10 @@
     </beans:bean>
       
     <http auto-config="true">
+    <intercept-url pattern="/myBookmarks*" access="hasRole('ROLE_STUDENT')"/>
+    <intercept-url pattern="/bookmark*" access="hasRole('ROLE_STUDENT')"/>
+    <intercept-url pattern="/unbookmark*" access="hasRole('ROLE_STUDENT')"/>
+    <intercept-url pattern="/rate*" access="hasRole('ROLE_STUDENT')"/>
     <intercept-url pattern="/**" access="permitAll" />
 
         <form-login 
