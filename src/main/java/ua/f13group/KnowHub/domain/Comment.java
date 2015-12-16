@@ -23,7 +23,7 @@ import javax.persistence.TemporalType;
 @NamedQueries({
     @NamedQuery(name = "Comment.getAllQuestionComments", query = "SELECT c FROM Comment c WHERE c.question.id = :questionId ORDER BY c.rating DESC"),
     @NamedQuery(name = "Comment.getAllAuthorsComments", query = "SELECT c FROM Comment c WHERE c.user.userId = :userId ORDER BY c.rating DESC"),
-    @NamedQuery(name = "Comment.getAllCommentLikers", query = "SELECT l.user FROM Like l WHERE l.comment.id = :commentId"),
+    @NamedQuery(name = "Comment.getAllCommentConcreteLikers", query = "SELECT l.user FROM Like l WHERE l.comment.id = :commentId and l.positive = :isPositive"),
 })
 
 @Entity
@@ -41,9 +41,6 @@ public class Comment {
 	@Column(name = "load_date")
 	@Temporal(value=TemporalType.TIMESTAMP)
 	private Date date; 
-	
-//	@Column(name = "load_date")
-//	private Timestamp date;
 
 	@Column(name = "rating")
 	private int rating;

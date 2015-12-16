@@ -20,11 +20,12 @@ import ua.f13group.KnowHub.service.CommentService;
 import ua.f13group.KnowHub.service.QuestionService;
 import ua.f13group.KnowHub.service.RatingService;
 import ua.f13group.KnowHub.service.UserService;
+import ua.f13group.KnowHub.web.dto.CommentDTO;
 //import ua.f13group.KnowHub.web.dto.CommentDTO;
 import ua.f13group.KnowHub.web.dto.QuestionFrequentAskedDTO;
 
 @RestController
-@RequestMapping(value = "/question/{questionId}/info")
+@RequestMapping(value = "/question/{questionId}")
 public class SingleQuestionPageController {
 
     @Autowired
@@ -42,7 +43,7 @@ public class SingleQuestionPageController {
     @Autowired
     CommentService commentServive;
 	
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(value="/info", method = RequestMethod.GET)
 	public QuestionFrequentAskedDTO getQuestionInfo(
 			@PathVariable Long questionId,
 			Principal principal) {
@@ -72,7 +73,7 @@ public class SingleQuestionPageController {
 				curQuestion.getDescription());		
 	}
 	
-	@RequestMapping(value = "/newcomment", method = RequestMethod.POST)
+	@RequestMapping(value = "/comments", method = RequestMethod.POST)
 	public boolean addComments(@PathVariable Long questionId,
 			Principal principal,
 			@RequestParam(value = "commentText") String commentText) {
@@ -98,21 +99,41 @@ public class SingleQuestionPageController {
 		return false;
 	}
 	
+	
+	//Method for Ajax uploading comments list, will be implement in next sprints)
+//	@RequestMapping(value = "/comments", method = RequestMethod.GET)
+//	public List<Comment> getComment(@PathVariable Long questionId,
+//			@RequestParam(value = "numberOfComments") Integer offset,
+//			@RequestParam(value = "lastCommentId") Long commentId
+//			) {
+//		
+//		Question curQuestion = questionService.getQuestionById(questionId);
+//		Comment curComment = commentServive.getCommentById(commentId);
+//		return commentServive.getFixedNumberOfComments(curQuestion, curComment, offset);
+//	}
+	
 	@RequestMapping(value = "/comments", method = RequestMethod.GET)
-	public List<Comment> getComment(@PathVariable Long questionId,
-			@RequestParam(value = "numberOfComments") Integer offset,
-			@RequestParam(value = "lastCommentId") Long commentId
-			) {
+	public List<CommentDTO> getAllComment(@PathVariable Long questionId,
+			Principal principal) {
 		
 		Question curQuestion = questionService.getQuestionById(questionId);
-		Comment curComment = commentServive.getCommentById(commentId);
-		return commentServive.getFixedNumberOfComments(curQuestion, curComment, offset);
+		User curUser = null;
+		if (principal != null) {
+			curUser = userService.getUserByLogin(principal.getName());
+		}
+		
+		return commentServive.getAllQuestionCommentDTOs(curQuestion, curUser);
 	}
 	
-	@RequestMapping(value = "/allcomments", method = RequestMethod.GET)
-	public List<Comment> getAllComment(@PathVariable Long questionId) {		
-		Question curQuestion = questionService.getQuestionById(questionId);
-		return commentServive.getAllQuestionComments(curQuestion);
+	@RequestMapping(value = "/like", method = RequestMethod.POST)
+	public boolean changeCommentLike(@PathVariable Long questionId,
+			Principal principal,
+			@RequestParam(value = "commentId") Long commentId,
+			@RequestParam(value = "isPositiveLike") Boolean typeOfRate) {
+			
+		//TODO
+		
+		return false;
 	}
 	
 }

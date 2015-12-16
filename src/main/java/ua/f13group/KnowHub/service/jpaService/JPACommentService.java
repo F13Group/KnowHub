@@ -1,6 +1,9 @@
 package ua.f13group.KnowHub.service.jpaService;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.TypedQuery;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +13,7 @@ import ua.f13group.KnowHub.domain.Question;
 import ua.f13group.KnowHub.domain.User;
 import ua.f13group.KnowHub.repository.CommentRepository;
 import ua.f13group.KnowHub.service.CommentService;
+import ua.f13group.KnowHub.web.dto.CommentDTO;
 
 @Service("commentService")
 public class JPACommentService implements CommentService {
@@ -23,9 +27,34 @@ public class JPACommentService implements CommentService {
 	}
 
 	@Override
-	public List<Comment> getAllQuestionComments(Question question) {
-		return commentRep.getAllQuestionComments(question);
-	}
+	public List<CommentDTO> getAllQuestionCommentDTOs(Question question, User user) {
+			List<CommentDTO> dtoList = new ArrayList<>();
+			List<Comment> commentsList = commentRep.getAllQuestionComments(question);
+			
+			for (Comment i: commentsList) {
+				List<User> negativeLikers = commentRep.getAllCommentConcreteLikers(i, false);
+				List<User> positiveLikers = commentRep.getAllCommentConcreteLikers(i, true);
+				
+				CommentDTO tempDTO = new CommentDTO();
+				tempDTO.setId(i.getId());
+				tempDTO.setDate(i.getDate());
+				tempDTO.setValue(i.getValue());
+				tempDTO.setAuthorLogin(i.getUser().getLogin());
+				tempDTO.setNegativeRate(negativeLikers.size());
+				tempDTO.setPositiveRate(positiveLikers.size());
+				
+				if (user != null) {
+					tempDTO.setCurrentUserRatedComment(negativeLikers.contains(user) || positiveLikers.contains(user));
+				}
+				else {
+					tempDTO.setCurrentUserRatedComment(false);
+				}
+				
+				dtoList.add(tempDTO);
+			}
+			
+			return dtoList;
+		}
 
 	@Override
 	public List<Comment> getAllUserComments(User user) {
@@ -42,9 +71,9 @@ public class JPACommentService implements CommentService {
 		return commentRep.getCommentById(commentId);
 	}
 
-	@Override
-	public boolean isCommentRatedByTheUser(Comment comment, User user) {
-		return commentRep.isRatedByTheUser(comment, user);
-	}
+//	@Override
+//	public boolean isCommentRatedByTheUser(Comment comment, User user) {
+//		return commentRep.isRatedByTheUser(comment, user);
+//	}
 
 }
