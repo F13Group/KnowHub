@@ -1,5 +1,6 @@
 package ua.f13group.KnowHub.repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import ua.f13group.KnowHub.domain.Comment;
 import ua.f13group.KnowHub.domain.Question;
 import ua.f13group.KnowHub.domain.User;
+import ua.f13group.KnowHub.web.dto.CommentDTO;
 
 @Repository("commentRepository")
 public class CommentRepositoryJPA implements CommentRepository{
@@ -62,14 +64,23 @@ public class CommentRepositoryJPA implements CommentRepository{
 		return entityManager.find(Comment.class, commentId);
 	}
 
+//	@Override
+//	public boolean isRatedByTheUser(Comment comment, User user) {
+//		TypedQuery<User> query = entityManager.createNamedQuery(
+//				"Comment.getAllCommentLikers", User.class);
+//		query.setParameter("commentId", comment.getId());	
+//		List<User> likers = query.getResultList();
+//		
+//		return likers.contains(user);
+//	}
+
 	@Override
-	public boolean isRatedByTheUser(Comment comment, User user) {
+	public List<User> getAllCommentConcreteLikers(Comment comment, boolean isPositive) {
 		TypedQuery<User> query = entityManager.createNamedQuery(
-				"Comment.getAllCommentLikers", User.class);
-		query.setParameter("commentId", comment.getId());	
-		List<User> likers = query.getResultList();
-		
-		return likers.contains(user);
+				"Comment.getAllCommentConcreteLikers", User.class);
+		query.setParameter("commentId", comment.getId()).setParameter("isPositive", isPositive);	
+		return query.getResultList();
+
 	}
 
 }
