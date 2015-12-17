@@ -44,11 +44,11 @@
 				<div class="row">
 				<div  id="headRow" class="headRow" >
 					<div class="divCell_header col-lg-6 col-md-6 col-sm-6">Question</div>
-					<div class="divCell_header <sec:authorize access="isAuthenticated()">col-lg-1</sec:authorize><sec:authorize access="isAnonymous()">col-lg-2</sec:authorize> col-md-2 col-sm-2">Category  <input type="button" id="buttonOrderBy2" class="change_order_sign" value="&#x25AD;" onclick="orderedBy(2)"></div>
+					<div class="divCell_header <sec:authorize access="isAuthenticated()">col-lg-2</sec:authorize><sec:authorize access="isAnonymous()">col-lg-2</sec:authorize> col-md-2 col-sm-2">Category  <input type="button" id="buttonOrderBy2" class="change_order_sign" value="&#x25AD;" onclick="orderedBy(2)"></div>
 					<div class="divCell_header <sec:authorize access="isAuthenticated()">col-lg-1</sec:authorize><sec:authorize access="isAnonymous()">col-lg-2</sec:authorize> col-md-2 col-sm-2">Date  <input type="button" id="buttonOrderBy1" class="change_order_sign" value="&#x25BC;" onclick="orderedBy(1)"></div>
-					<div class="divCell_header col-lg-2 col-md-2 col-sm-2">Frequently Asked  <input type="button" id="buttonOrderBy3" class="change_order_sign" value="&#x25AD;" onclick="orderedBy(3)"></div>
+					<div class="divCell_header <sec:authorize access="isAuthenticated()">col-lg-1</sec:authorize><sec:authorize access="isAnonymous()">col-lg-2</sec:authorize> col-md-2 col-sm-2">Asked <input type="button" id="buttonOrderBy3" class="change_order_sign" value="&#x25AD;" onclick="orderedBy(3)"></div>
 					<sec:authorize access="isAuthenticated()">
-					<div class="divCell_header col-lg-2 col-md-2 col-sm-2">My Bookmarks  <input type="button" id="buttonOrderBy4" class="change_order_sign" value="&#x25AD;" onclick="orderedBy(4)"></div>
+					<div class="divCell_header col-lg-2 col-md-2 col-sm-2">Bookmark <input type="button" id="buttonOrderBy4" class="change_order_sign" value="&#x25AD;" onclick="orderedBy(4)"></div>
 					</sec:authorize>
 				</div>
 				</div>

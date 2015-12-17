@@ -7,8 +7,7 @@ import org.junit.Test;
 
 public class HomePageControllerTest {
 
-	@Test
-	@Ignore
+	@Test	
 	public void homePageAllTest(){
 		
 		HomePageController homePageController = new HomePageController();
