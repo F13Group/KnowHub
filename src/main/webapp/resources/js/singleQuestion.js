@@ -6,8 +6,8 @@ var globalAppUrl = window.location.href.toString();
 var cutPoint = globalAppUrl.toLowerCase().indexOf("/knowhub/");
 globalAppUrl = globalAppUrl.substr(0, cutPoint + "/knowhub/".length);
 var infoUrl = globalPageUrl+"/info";
-var commentUrl = infoUrl + "/allcomments";//implementation to be changed
-var startPoint = 0;//implementation to be changed
+var commentUrl = globalPageUrl + "/comments";//implementation to be changed
+var lastCommentId = 0;//implementation to be changed
 var commentsQuantityToLoad = 5;
 var noMoreItemsAvailable = false;
 
@@ -72,21 +72,8 @@ function showQuestion() {
     		}
     		
     		//Output formatted date		
-    		var unformatted_date = new Date(data.loadDate);
-            var dd = unformatted_date.getDate();
-            var mm = unformatted_date.getMonth() + 1;
-            var yyyy = unformatted_date.getFullYear();
-            
-            var time = unformatted_date.toTimeString().substr(0,5);
-            if (dd < 10) {
-                dd = '0' + dd;
-            }
-            if (mm < 10) {
-                mm = '0' + mm;
-            }
-            var date = dd + '/' + mm + '/' + yyyy;    		
     		
-    		$("#addedDate").empty().append("Added " + date + "<br> at " + time);		
+    		$("#addedDate").empty().append("Added " + parseDate(data.loadDate) + "<br> at " + parseTime(data.loadDate));		
     		
     })
 }
@@ -101,7 +88,7 @@ function showTags(listOfTags){
 
 function loadComments() {
 	//Sends index from where to start load comments and quantity.
-	 $.getJSON(commentUrl + '?startPoint=' + startPoint + '&commentsQuantity=' + commentsQuantityToLoad, function (data){
+	 $.getJSON(commentUrl + '?lastCommentId=' + lastCommentId + '&numberOfComments=' + commentsQuantityToLoad, function (data){
 		 /*
 		  * JSON lengths we get, is shorter than quantity we requested for - it means
 		  * that we've loaded last set of comments and we must not send any more request.
@@ -111,11 +98,12 @@ function loadComments() {
 		 }
 	    	for(var i = 0; i < data.length; i++){
 	    		var html =
-	    		'<div id="comment'+ ++startPoint +'" class=" col-lg-10 col-md-10 col-sm-10">\
+	    		'<div id="comment '+ data[i].id +'" class=" col-lg-10 col-md-10 col-sm-10">\
 					<div class="row">\
 					  <div class="col-lg-2 col-md-2 col-sm-2 divCell_Left">\
-					    <img src="'+globalAppUrl+'/resources/img/account.png" width="20" height="20" /> <a href="#">'+data[i].author +'</a><br>\
-					    Added start index '+data[i].startPoint+' quantity '+ data.length+'\\'+data[i].commentsQuantity+'\
+					    <img src="'+globalAppUrl+'/resources/img/account.png" width="20" height="20" /> <a href="#">' + getCorrectUserLoginName(data[i].authorLogin) +'</a><br>\
+					    Added '+ parseDate(data[i].date) + '<br>\
+					    at '+ parseTime(data[i].date) + '\
 				      </div>\
 					    \
 					  <div class="col-lg-10 col-md-10 col-sm-10 justified">'+ data[i].value+'\
@@ -126,6 +114,7 @@ function loadComments() {
 					<br>\
 					</div></div>';   
 	    		$("#userComments").append(html + divider);
+	    		lastCommentId = data[i].id;
 	    	}
 
 	    	/*
@@ -139,4 +128,25 @@ function loadComments() {
     		}
 	    	 
 	    });	
+}
+
+function parseDate(loadDate){
+	var unformatted_date = new Date(loadDate);
+	var dd = unformatted_date.getDate();
+    var mm = unformatted_date.getMonth() + 1;
+    var yyyy = unformatted_date.getFullYear();          
+    
+    if (dd < 10) {
+        dd = '0' + dd;
+    }
+    if (mm < 10) {
+        mm = '0' + mm;
+    }
+    var date = dd + '/' + mm + '/' + yyyy;
+    return date;
+}
+
+function parseTime(loadDate){
+	var unformatted_date = new Date(loadDate);
+	return unformatted_date.toTimeString().substr(0,5);
 }
