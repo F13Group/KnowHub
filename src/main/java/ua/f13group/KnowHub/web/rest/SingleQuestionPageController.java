@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ua.f13group.KnowHub.domain.Comment;
+import ua.f13group.KnowHub.domain.Like;
 import ua.f13group.KnowHub.domain.Question;
 import ua.f13group.KnowHub.domain.User;
 import ua.f13group.KnowHub.service.BookmarkService;
 import ua.f13group.KnowHub.service.CommentService;
+import ua.f13group.KnowHub.service.LikeService;
 import ua.f13group.KnowHub.service.QuestionService;
 import ua.f13group.KnowHub.service.RatingService;
 import ua.f13group.KnowHub.service.UserService;
@@ -41,7 +43,10 @@ public class SingleQuestionPageController {
     BookmarkService bookmarkService;
     
     @Autowired
-    CommentService commentServive;
+    CommentService commentService;
+    
+    @Autowired
+    LikeService likeService;
 	
 	@RequestMapping(value="/info", method = RequestMethod.GET)
 	public QuestionFrequentAskedDTO getQuestionInfo(
@@ -91,7 +96,7 @@ public class SingleQuestionPageController {
             curComment.setQuestion(curQuestion);
             curComment.setRating(0);
             
-            commentServive.saveComment(curComment);
+            commentService.saveComment(curComment);
             
             return true;
         }
@@ -113,7 +118,7 @@ public class SingleQuestionPageController {
 //	}
 	
 	@RequestMapping(value = "/comments", method = RequestMethod.GET)
-	public List<CommentDTO> getAllComment(@PathVariable Long questionId,
+	public List<CommentDTO> getAllComment(@PathVariable("questionId") Long questionId,
 			Principal principal) {
 		
 		Question curQuestion = questionService.getQuestionById(questionId);
@@ -122,7 +127,7 @@ public class SingleQuestionPageController {
 			curUser = userService.getUserByLogin(principal.getName());
 		}
 		
-		return commentServive.getAllQuestionCommentDTOs(curQuestion, curUser);
+		return commentService.getAllQuestionCommentDTOs(curQuestion, curUser);
 	}
 	
 	@RequestMapping(value = "/like", method = RequestMethod.POST)
@@ -131,9 +136,31 @@ public class SingleQuestionPageController {
 			@RequestParam(value = "commentId") Long commentId,
 			@RequestParam(value = "isPositiveLike") Boolean typeOfRate) {
 			
-		//TODO
+		if (principal != null) {
+			Like curLike = new Like();
+			curLike.setUser(userService.getUserByLogin(principal.getName()));
+			curLike.setPositive(typeOfRate);
+			curLike.setComment(commentService.getCommentById(commentId));
+			
+			likeService.addLike(curLike);
+			
+			return true;
+		}
 		
 		return false;
+	}
+	
+	@RequestMapping(value = "/comments/{commentId}", method = RequestMethod.GET)
+	public CommentDTO getSingleComment(@PathVariable("commentId") Long commentId,
+			Principal principal){
+		
+		User curUser = null;
+		if (principal != null) {
+			curUser = userService.getUserByLogin(principal.getName());
+		}
+		
+		return commentService.getSingleCommentDTO(commentId, curUser);
+		
 	}
 	
 }

@@ -10,6 +10,7 @@ import ua.f13group.KnowHub.web.dto.CommentDTO;
 public interface CommentService {
 	public Long saveComment(Comment comment);
 	public List<CommentDTO> getAllQuestionCommentDTOs(Question question, User user);
+	public CommentDTO getSingleCommentDTO(Long commentId, User user);
 	public List<Comment> getAllUserComments(User user);
 	public List<Comment> getFixedNumberOfComments(Question question, Comment comment, int offset);
 	public Comment getCommentById(Long commentId);

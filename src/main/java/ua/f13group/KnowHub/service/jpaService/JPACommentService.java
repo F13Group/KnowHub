@@ -73,6 +73,38 @@ public class JPACommentService implements CommentService {
 		return commentRep.getCommentById(commentId);
 	}
 
+	@Override
+	public CommentDTO getSingleCommentDTO(Long commentId, User user) {
+		
+		if (commentId != null) {
+			Comment i = commentRep.getCommentById(commentId);
+			
+			List<User> negativeLikers = commentRep.getAllCommentConcreteLikers(i, false);
+			List<User> positiveLikers = commentRep.getAllCommentConcreteLikers(i, true);
+			
+			CommentDTO tempDTO = new CommentDTO();
+			tempDTO.setId(i.getId());
+			tempDTO.setDate(i.getDate());
+			tempDTO.setValue(i.getValue());
+			tempDTO.setAuthorLogin(i.getUser().getLogin());
+			tempDTO.setNegativeRate(negativeLikers.size());
+			tempDTO.setPositiveRate(positiveLikers.size());
+			
+			if (user != null) {
+				tempDTO.setCurrentUserNegativelyRatedComment(negativeLikers.contains(user));
+				tempDTO.setCurrentUserPositivelyRatedComment(positiveLikers.contains(user));
+			}
+			else {
+				tempDTO.setCurrentUserNegativelyRatedComment(false);
+				tempDTO.setCurrentUserPositivelyRatedComment(false);
+			}
+			
+			return tempDTO;
+		}
+		
+		return null;
+	}
+
 //	@Override
 //	public boolean isCommentRatedByTheUser(Comment comment, User user) {
 //		return commentRep.isRatedByTheUser(comment, user);
