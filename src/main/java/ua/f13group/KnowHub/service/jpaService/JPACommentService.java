@@ -44,10 +44,12 @@ public class JPACommentService implements CommentService {
 				tempDTO.setPositiveRate(positiveLikers.size());
 				
 				if (user != null) {
-					tempDTO.setCurrentUserRatedComment(negativeLikers.contains(user) || positiveLikers.contains(user));
+					tempDTO.setCurrentUserNegativelyRatedComment(negativeLikers.contains(user));
+					tempDTO.setCurrentUserPositivelyRatedComment(positiveLikers.contains(user));
 				}
 				else {
-					tempDTO.setCurrentUserRatedComment(false);
+					tempDTO.setCurrentUserNegativelyRatedComment(false);
+					tempDTO.setCurrentUserPositivelyRatedComment(false);
 				}
 				
 				dtoList.add(tempDTO);

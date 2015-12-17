@@ -13,7 +13,8 @@ public class CommentDTO {
 	private Long id;
 	private Date date;
 	private String value;
-	private boolean isCurrentUserRatedComment; 
+	private boolean isCurrentUserPositivelyRatedComment; 
+	private boolean isCurrentUserNegativelyRatedComment; 
 	private Comment parentComment;
 	private String authorLogin;
 	private int positiveRate;
@@ -49,12 +50,6 @@ public class CommentDTO {
 	public void setValue(String value) {
 		this.value = value;
 	}
-	public boolean isCurrentUserRatedComment() {
-		return isCurrentUserRatedComment;
-	}
-	public void setCurrentUserRatedComment(boolean isCurrentUserRatedComment) {
-		this.isCurrentUserRatedComment = isCurrentUserRatedComment;
-	}
 	public Comment getParentComment() {
 		return parentComment;
 	}
@@ -66,6 +61,18 @@ public class CommentDTO {
 	}
 	public void setAuthorLogin(String authorLogin) {
 		this.authorLogin = authorLogin;
+	}
+	public boolean isCurrentUserPositivelyRatedComment() {
+		return isCurrentUserPositivelyRatedComment;
+	}
+	public void setCurrentUserPositivelyRatedComment(boolean isCurrentUserPositivelyRatedComment) {
+		this.isCurrentUserPositivelyRatedComment = isCurrentUserPositivelyRatedComment;
+	}
+	public boolean isCurrentUserNegativelyRatedComment() {
+		return isCurrentUserNegativelyRatedComment;
+	}
+	public void setCurrentUserNegativelyRatedComment(boolean isCurrentUserNegativelyRatedComment) {
+		this.isCurrentUserNegativelyRatedComment = isCurrentUserNegativelyRatedComment;
 	} 
 	
 	
