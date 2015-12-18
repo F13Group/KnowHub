@@ -1,6 +1,6 @@
 CREATE TABLE likes
 (
-like_id bigint,
+like_id bigserial,
 user_id bigint,
 positive boolean,
 comment_id bigint,
