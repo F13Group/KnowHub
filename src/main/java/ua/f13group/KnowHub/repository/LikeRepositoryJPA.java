@@ -32,4 +32,9 @@ public class LikeRepositoryJPA implements LikeRepository {
 		return false;
 	}
 
+	@Override
+	public Like getLikeById(Long id) {
+		return entityManager.find(Like.class, id);		
+	}
+
 }

@@ -50,7 +50,7 @@ public class SingleQuestionPageController {
 	
 	@RequestMapping(value="/info", method = RequestMethod.GET)
 	public QuestionFrequentAskedDTO getQuestionInfo(
-			@PathVariable Long questionId,
+			@PathVariable("questionId") Long questionId,
 			Principal principal) {
 		
         Long userId = Long.valueOf(0);
@@ -79,7 +79,7 @@ public class SingleQuestionPageController {
 	}
 	
 	@RequestMapping(value = "/comments", method = RequestMethod.POST)
-	public boolean addComments(@PathVariable Long questionId,
+	public boolean addComments(@PathVariable("questionId") Long questionId,
 			Principal principal,
 			@RequestParam(value = "commentText") String commentText) {
 		
@@ -143,6 +143,20 @@ public class SingleQuestionPageController {
 			curLike.setComment(commentService.getCommentById(commentId));
 			
 			likeService.addLike(curLike);
+			
+			return true;
+		}
+		
+		return false;
+	}
+	
+	@RequestMapping(value = "/unlike", method = RequestMethod.POST)
+	public boolean changeCommentLike(Principal principal,
+			@RequestParam(value = "likeId") Long likeId) {
+			
+		if (principal != null) {
+			
+			likeService.removeLike(likeService.getLikeById(likeId));
 			
 			return true;
 		}

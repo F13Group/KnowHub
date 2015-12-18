@@ -29,4 +29,10 @@ public class JPALikeService implements LikeService {
 		return false;
 	}
 
+	@Override
+	public Like getLikeById(Long id) {
+		
+		return likeRep.getLikeById(id);
+	}
+
 }

@@ -8,14 +8,20 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityResult;
 import javax.persistence.FetchType;
+import javax.persistence.FieldResult;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -26,12 +32,23 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Comment.getAllCommentConcreteLikers", query = "SELECT l.user FROM Like l WHERE l.comment.id = :commentId and l.positive = :isPositive"),
 })
 
+@NamedNativeQueries({
+	@NamedNativeQuery(name = "Comment.findExactNumberOfCommentsStartingFromCurrentOne", query = "select * from"
+			+ " ( select *, row_number() over (order by rating desc) as rn from comments where question_id = :questionId) as foo"
+			+ " where rn > ( select rn from ( select *, row_number() over (order by rating desc) as rn from comments where question_id = :questionId) as foo"
+			+ " where comment_id = :commentId)", resultSetMapping = "CommentMapping")})
+@SqlResultSetMapping(name = "CommentMapping", entities = @EntityResult(entityClass = Comment.class, fields = {
+		@FieldResult(name = "id", column = "comment_id"), @FieldResult(name = "value", column = "value"),
+		@FieldResult(name = "date", column = "load_date"), @FieldResult(name = "user", column = "user_id"),
+		@FieldResult(name = "question", column = "question_id"), @FieldResult(name = "likes", column = "likes")
+}))
+
 @Entity
 @Table(name = "comments")
 public class Comment {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "comment_id")
 	private Long id;
 
