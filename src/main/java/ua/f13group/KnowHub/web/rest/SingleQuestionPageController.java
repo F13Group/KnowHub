@@ -1,10 +1,12 @@
 package ua.f13group.KnowHub.web.rest;
 
+import java.beans.Transient;
 import java.security.Principal;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,137 +31,162 @@ import ua.f13group.KnowHub.web.dto.QuestionFrequentAskedDTO;
 @RequestMapping(value = "/question/{questionId}")
 public class SingleQuestionPageController {
 
-	@Autowired
-	QuestionService questionService;
+    @Autowired
+    QuestionService questionService;
 
-	@Autowired
-	UserService userService;
+    @Autowired
+    UserService userService;
 
-	@Autowired
-	RatingService ratingService;
+    @Autowired
+    RatingService ratingService;
 
-	@Autowired
-	BookmarkService bookmarkService;
+    @Autowired
+    BookmarkService bookmarkService;
 
-	@Autowired
-	CommentService commentService;
+    @Autowired
+    CommentService commentService;
 
-	@Autowired
-	LikeService likeService;
+    @Autowired
+    LikeService likeService;
 
-	@RequestMapping(value="/info", method = RequestMethod.GET)
-	public QuestionFrequentAskedDTO getQuestionInfo(
-			@PathVariable Long questionId,
-			Principal principal) {
+    @RequestMapping(value = "/info", method = RequestMethod.GET)
+    public QuestionFrequentAskedDTO getQuestionInfo(@PathVariable Long questionId, Principal principal) {
 
-		Long userId = Long.valueOf(0);
-		if (principal != null) {
-			String login = principal.getName();
-			userId = userService.getUserByLogin(login).getUserId();
-		}
+        Long userId = Long.valueOf(0);
+        if (principal != null) {
+            String login = principal.getName();
+            userId = userService.getUserByLogin(login).getUserId();
+        }
 
-		Boolean isBookmarked = bookmarkService.isBookmarked(userId, questionId);
-		Question curQuestion = questionService.getQuestionById(questionId);
-		Long rating = ratingService.countLikesByQuestionId(questionId);
+        Boolean isBookmarked = bookmarkService.isBookmarked(userId, questionId);
+        Question curQuestion = questionService.getQuestionById(questionId);
+        Long rating = ratingService.countLikesByQuestionId(questionId);
 
-		return new QuestionFrequentAskedDTO(
-				curQuestion.getId(),
-				curQuestion.getValue(),
-				curQuestion.getLoadDate(),
-				curQuestion.getCategory(),
-				curQuestion.getTags(),
-				rating,
-				//ifLiked means wasAsked
-				ratingService.ifLiked(userId, questionId),
-				isBookmarked,
-				curQuestion.getUser(),
-				curQuestion.getViews(),
-				curQuestion.getDescription());
-	}
+        return new QuestionFrequentAskedDTO(curQuestion.getId(), curQuestion.getValue(), curQuestion.getLoadDate(),
+                curQuestion.getCategory(), curQuestion.getTags(), rating,
+                // ifLiked means wasAsked
+                ratingService.ifLiked(userId, questionId), isBookmarked, curQuestion.getUser(), curQuestion.getViews(),
+                curQuestion.getDescription());
+    }
 
-	@RequestMapping(value = "/comments", method = RequestMethod.POST)
-	public boolean addComments(@PathVariable Long questionId,
-							   Principal principal,
-							   @RequestParam(value = "commentText") String commentText) {
+    @RequestMapping(value = "/comments", method = RequestMethod.POST)
+    public boolean addComments(@PathVariable Long questionId, Principal principal,
+                               @RequestParam(value = "commentText") String commentText) {
 
-		if (principal != null) {
+        if (principal != null) {
 
-			User curUser = userService.getUserByLogin(principal.getName());
-			Question curQuestion = questionService.getQuestionById(questionId);
-			Date curDate = new Date();
+            User curUser = userService.getUserByLogin(principal.getName());
+            Question curQuestion = questionService.getQuestionById(questionId);
+            Date curDate = new Date();
 
-			Comment curComment = new Comment();
-			curComment.setUser(curUser);
-			curComment.setDate(curDate);
-			curComment.setValue(commentText);
-			curComment.setQuestion(curQuestion);
-			curComment.setRating(0);
+            Comment curComment = new Comment();
+            curComment.setUser(curUser);
+            curComment.setDate(curDate);
+            curComment.setValue(commentText);
+            curComment.setQuestion(curQuestion);
+            curComment.setRating(0);
 
-			commentService.saveComment(curComment);
+            commentService.saveComment(curComment);
 
-			return true;
-		}
+            return true;
+        }
 
-		return false;
-	}
+        return false;
+    }
 
+    // Method for Ajax uploading comments list, will be implement in next
+    // sprints)
+    @RequestMapping(value = "/comments", method = RequestMethod.GET)
+    public List<CommentDTO> getComment(@PathVariable Long questionId,
+                                       @RequestParam(value = "numberOfComments", required = false) Integer offset,
+                                       @RequestParam(value = "lastCommentId", required = false) Long commentId, Principal principal) {
+        Question curQuestion = questionService.getQuestionById(questionId);
+        User curUser = null;
+        if (principal != null) {
+            curUser = userService.getUserByLogin(principal.getName());
+        }
 
-	//Method for Ajax uploading comments list, will be implement in next sprints)
-//	@RequestMapping(value = "/comments", method = RequestMethod.GET)
-//	public List<Comment> getComment(@PathVariable Long questionId,
-//			@RequestParam(value = "numberOfComments") Integer offset,
-//			@RequestParam(value = "lastCommentId") Long commentId
-//			) {
-//		
-//		Question curQuestion = questionService.getQuestionById(questionId);
-//		Comment curComment = commentServive.getCommentById(commentId);
-//		return commentServive.getFixedNumberOfComments(curQuestion, curComment, offset);
-//	}
+        return commentService.getAllQuestionCommentDTOs(curQuestion, curUser);
 
-	@RequestMapping(value = "/comments", method = RequestMethod.GET)
-	public List<CommentDTO> getAllComment(@PathVariable("questionId") Long questionId,
-										  Principal principal) {
+        // Question curQuestion = questionService.getQuestionById(questionId);
+        // Comment curComment = commentServive.getCommentById(commentId);
+        // return commentServive.getFixedNumberOfComments(curQuestion,
+        // curComment, offset);
+    }
 
+/*	@RequestMapping(value = "/comments", method = RequestMethod.GET)
+    public List<CommentDTO> getAllComment(@PathVariable("questionId") Long questionId, Principal principal) {
 		Question curQuestion = questionService.getQuestionById(questionId);
 		User curUser = null;
 		if (principal != null) {
 			curUser = userService.getUserByLogin(principal.getName());
 		}
-
 		return commentService.getAllQuestionCommentDTOs(curQuestion, curUser);
-	}
+	}*/
 
-	@RequestMapping(value = "/like", method = RequestMethod.POST)
-	public boolean changeCommentLike(@PathVariable Long questionId,
-									 Principal principal,
-									 @RequestParam(value = "commentId") Long commentId,
-									 @RequestParam(value = "isPositiveLike") Boolean typeOfRate) {
+    @RequestMapping(value = "/like", method = RequestMethod.POST)
+    @Transactional
+    public boolean changeCommentLike(@PathVariable Long questionId, Principal principal,
+                                     @RequestParam(value = "commentId") Long commentId,
+                                     @RequestParam(value = "isPositiveLike") Boolean typeOfRate) {
 
-		if (principal != null) {
-			Like curLike = new Like();
-			curLike.setUser(userService.getUserByLogin(principal.getName()));
-			curLike.setPositive(typeOfRate);
-			curLike.setComment(commentService.getCommentById(commentId));
+        Like oldLike;
 
-			likeService.addLike(curLike);
+        if (principal != null) {
+            Long id = likeService.getLikeIdByUserIdAndCommentId(userService.getUserByLogin(principal.getName()).getUserId(), commentId);
+            if (id == null) {
+                Like curLike = new Like();
+                curLike.setUser(userService.getUserByLogin(principal.getName()));
+                curLike.setPositive(typeOfRate);
+                curLike.setComment(commentService.getCommentById(commentId));
+                likeService.addLike(curLike);
 
-			return true;
-		}
+            } else if (likeService.getLikeById(id).isPositive()!=typeOfRate) {
+                oldLike = likeService.getLikeById(id);
+                oldLike.setPositive(typeOfRate);
+                likeService.addLike(oldLike);
+                return true;
+            }
 
-		return false;
-	}
+//            if ((oldLike == null || oldLike.isPositive() != typeOfRate)) {
+//                Like curLike = new Like();
+//                curLike.setUser(userService.getUserByLogin(principal.getName()));
+//                curLike.setPositive(typeOfRate);
+//                curLike.setComment(commentService.getCommentById(commentId));
+//                likeService.addLike(curLike);
+//                return true;
+//            }
+            return false;
 
-	@RequestMapping(value = "/comments/{commentId}", method = RequestMethod.GET)
-	public CommentDTO getSingleComment(@PathVariable("commentId") Long commentId,
-									   Principal principal){
+        }
 
-		User curUser = null;
-		if (principal != null) {
-			curUser = userService.getUserByLogin(principal.getName());
-		}
 
-		return commentService.getSingleCommentDTO(commentId, curUser);
+        return false;
+    }
 
-	}
+
+    @RequestMapping(value = "/unlike", method = RequestMethod.POST)
+    @Transactional
+    public boolean changeCommentLike(Principal principal,
+                                     @RequestParam(value = "likeId") Long likeId) {
+
+        if (principal != null) {
+            likeService.removeLike(likeService.getLikeById(likeId));
+            return true;
+        }
+        return false;
+    }
+
+    @RequestMapping(value = "/comments/{commentId}", method = RequestMethod.GET)
+    public CommentDTO getSingleComment(@PathVariable("commentId") Long commentId, Principal principal) {
+
+        User curUser = null;
+        if (principal != null) {
+            curUser = userService.getUserByLogin(principal.getName());
+        }
+
+        return commentService.getSingleCommentDTO(commentId, curUser);
+
+    }
 
 }

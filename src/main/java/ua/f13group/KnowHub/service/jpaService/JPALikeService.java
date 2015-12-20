@@ -15,10 +15,11 @@ public class JPALikeService implements LikeService {
 	
 	@Override
 	public Long addLike(Like like) {
-		if (like != null) {
-			return likeRep.createLike(like);
-		}
-		return null;
+//		if (like != null) {
+//			return likeRep.createLike(like);
+//		}
+//		return null;
+		return likeRep.createLike(like);
 	}
 
 	@Override
@@ -29,4 +30,14 @@ public class JPALikeService implements LikeService {
 		return false;
 	}
 
+	@Override
+	public Like getLikeById(Long id) {
+
+		return likeRep.getLikeById(id);
+	}
+
+	@Override
+	public Long getLikeIdByUserIdAndCommentId(Long userId, Long commentId) {
+		return likeRep.getLikeIdByUserIdAndCommentId(userId,commentId);
+	}
 }

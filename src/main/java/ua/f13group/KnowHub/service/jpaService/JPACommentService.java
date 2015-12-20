@@ -12,6 +12,7 @@ import ua.f13group.KnowHub.domain.Comment;
 import ua.f13group.KnowHub.domain.Question;
 import ua.f13group.KnowHub.domain.User;
 import ua.f13group.KnowHub.repository.CommentRepository;
+import ua.f13group.KnowHub.repository.LikeRepository;
 import ua.f13group.KnowHub.service.CommentService;
 import ua.f13group.KnowHub.web.dto.CommentDTO;
 
@@ -19,7 +20,10 @@ import ua.f13group.KnowHub.web.dto.CommentDTO;
 public class JPACommentService implements CommentService {
 
 	@Autowired 
-	private CommentRepository commentRep; 
+	private CommentRepository commentRep;
+
+	@Autowired
+	private LikeRepository likeRep;
 	
 	@Override
 	public Long saveComment(Comment comment) {		
@@ -46,6 +50,7 @@ public class JPACommentService implements CommentService {
 				if (user != null) {
 					tempDTO.setCurrentUserNegativelyRatedComment(negativeLikers.contains(user));
 					tempDTO.setCurrentUserPositivelyRatedComment(positiveLikers.contains(user));
+					tempDTO.setThisCommentsLikeIdIfUserLikedIt(likeRep.getLikeIdByUserIdAndCommentId(user.getUserId(),i.getId()));
 				}
 				else {
 					tempDTO.setCurrentUserNegativelyRatedComment(false);

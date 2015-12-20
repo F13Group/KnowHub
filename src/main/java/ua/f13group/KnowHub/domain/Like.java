@@ -1,19 +1,17 @@
 package ua.f13group.KnowHub.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "likes")
+
+@NamedQueries({
+		@NamedQuery(name = "Like.getLikeIdByUserIdAndCommentId", query = "SELECT l.id FROM Like l WHERE l.user.id = :userId AND l.comment.id =:commentId"),
+})
 public class Like {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "like_id")
 	private Long id;
 	
@@ -27,6 +25,12 @@ public class Like {
 	@ManyToOne
 	@JoinColumn(name = "comment_id")
 	private Comment comment;
+
+	public Like(){}
+
+	public Like (Long id){
+		this.id = id;
+	}
 
 	public Long getId() {
 		return id;
