@@ -32,13 +32,6 @@ public class JPALikeService implements LikeService {
 
 	@Override
 	public Like getLikeById(Long id) {
-<<<<<<< HEAD
-		
-		return likeRep.getLikeById(id);
-	}
-
-=======
-
 		return likeRep.getLikeById(id);
 	}
 
@@ -46,5 +39,4 @@ public class JPALikeService implements LikeService {
 	public Long getLikeIdByUserIdAndCommentId(Long userId, Long commentId) {
 		return likeRep.getLikeIdByUserIdAndCommentId(userId,commentId);
 	}
->>>>>>> refs/remotes/origin/dennis_branch
 }

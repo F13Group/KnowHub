@@ -36,11 +36,6 @@ public class LikeRepositoryJPA implements LikeRepository {
 
 	@Override
 	public Like getLikeById(Long id) {
-<<<<<<< HEAD
-		return entityManager.find(Like.class, id);		
-	}
-
-=======
 		return entityManager.find(Like.class, id);
 	}
 
@@ -59,5 +54,4 @@ public class LikeRepositoryJPA implements LikeRepository {
 
 		return id;
 	}
->>>>>>> refs/remotes/origin/dennis_branch
 }

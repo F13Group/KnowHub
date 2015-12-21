@@ -15,7 +15,7 @@ function likeButton(commentId, isLiked, isDisliked, likeId) {
 
         if (isLiked == true) {
 
-            return '<div id="right"><a href="#"><img id="was_liked_button' +
+            return '<div id="right"><a href=""><img id="was_liked_button' +
                 commentId + '" src=' +
                 one + ' data-swap=' + another + '  width="23" height="23" onclick="toggleLike(' +
                 questionId +
@@ -29,7 +29,7 @@ function likeButton(commentId, isLiked, isDisliked, likeId) {
                 likeId +
                 ')"></a></div>';
         } else {
-            return '<div id="right"><a href="#"><img id="was_liked_button' +
+            return '<div id="right"><a href=""><img id="was_liked_button' +
                 commentId + '" src=' +
                 another + ' data-swap=' + one + ' width="23" height="23" onclick="toggleLike(' +
                 questionId +
@@ -43,7 +43,7 @@ function likeButton(commentId, isLiked, isDisliked, likeId) {
                 likeId +
                 ')"></a></div>';
         }
-    } else return '<div id="right"><a href="#"><img id="like_button" src="' + globalAppUrl + 'resources/img/likes/hand_like.png" width="23" height="23"></a></div>';
+    } else return '<div id="right"><a href=""><img id="like_button" src="' + globalAppUrl + 'resources/img/likes/hand_like.png" width="23" height="23"></a></div>';
 }
 
 function dislikeButton(commentId, isLiked, isDisliked, likeId) {
@@ -55,7 +55,7 @@ function dislikeButton(commentId, isLiked, isDisliked, likeId) {
         another = globalAppUrl + "resources/img/likes/hand_dislike_inactive3.png";
 
         if (isDisliked == true) {
-            return '<div id="right"><a href="#"><img id="was_disliked_button' +
+            return '<div id="right"><a href=""><img id="was_disliked_button' +
                 commentId +
                 '" src=' + one + ' data-swap=' + another + ' width="23" height="23" onclick="toggleDislike(' +
                 questionId +
@@ -69,7 +69,7 @@ function dislikeButton(commentId, isLiked, isDisliked, likeId) {
                 likeId +
                 ')"></a></div>';
         } else {
-            return '<div id="right"><a href="#"><img id="was_disliked_button' +
+            return '<div id="right"><a href=""><img id="was_disliked_button' +
                 commentId +
                 '" src=' + another + ' data-swap=' + one + ' width="23" height="23" onclick="toggleDislike(' +
                 questionId +
@@ -83,7 +83,7 @@ function dislikeButton(commentId, isLiked, isDisliked, likeId) {
                 likeId +
                 ')"></a></div>';
         }
-    } else return '<div id="right"><a href="#"><img id="like_button" src="' + globalAppUrl + 'resources/img/likes/hand_dislike.png" width="23" height="23"></a></div>';
+    } else return '<div id="right"><a href=""><img id="like_button" src="' + globalAppUrl + 'resources/img/likes/hand_dislike.png" width="23" height="23"></a></div>';
 }
 
 var dislike_inactive = globalAppUrl + "resources/img/likes/hand_dislike_inactive3.png";
