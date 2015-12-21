@@ -19,6 +19,7 @@ public class CommentDTO {
 	private String authorLogin;
 	private int positiveRate;
 	private int negativeRate;
+	private Long thisCommentsLikeIdIfUserLikedIt;
 		
 	public int getPositiveRate() {
 		return positiveRate;
@@ -73,7 +74,13 @@ public class CommentDTO {
 	}
 	public void setCurrentUserNegativelyRatedComment(boolean isCurrentUserNegativelyRatedComment) {
 		this.isCurrentUserNegativelyRatedComment = isCurrentUserNegativelyRatedComment;
-	} 
-	
-	
+	}
+
+	public Long getThisCommentsLikeIdIfUserLikedIt() {
+		return thisCommentsLikeIdIfUserLikedIt;
+	}
+
+	public void setThisCommentsLikeIdIfUserLikedIt(Long thisCommentsLikeIdIfUserLikedIt) {
+		this.thisCommentsLikeIdIfUserLikedIt = thisCommentsLikeIdIfUserLikedIt;
+	}
 }

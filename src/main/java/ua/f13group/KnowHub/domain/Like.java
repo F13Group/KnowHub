@@ -1,5 +1,6 @@
 package ua.f13group.KnowHub.domain;
 
+<<<<<<< HEAD
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,9 +9,16 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+=======
+import javax.persistence.*;
+>>>>>>> refs/remotes/origin/dennis_branch
 
 @Entity
 @Table(name = "likes")
+
+@NamedQueries({
+		@NamedQuery(name = "Like.getLikeIdByUserIdAndCommentId", query = "SELECT l.id FROM Like l WHERE l.user.id = :userId AND l.comment.id =:commentId"),
+})
 public class Like {
 
 	@Id
@@ -28,6 +36,12 @@ public class Like {
 	@ManyToOne
 	@JoinColumn(name = "comment_id")
 	private Comment comment;
+
+	public Like(){}
+
+	public Like (Long id){
+		this.id = id;
+	}
 
 	public Long getId() {
 		return id;
