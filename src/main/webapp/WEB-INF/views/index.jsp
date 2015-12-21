@@ -43,7 +43,6 @@
 	src="${pageContext.servletContext.contextPath}/resources/js/pagination.js"></script>
 <script
 	src="${pageContext.servletContext.contextPath}/resources/js/pagetools.js"></script>
-<script src="//cdn.ckeditor.com/4.5.6/standard/ckeditor.js"></script>
 </head>
 
 <body>
@@ -112,21 +111,6 @@
 
 	</div>
 	<!-- /.container -->
-	<div>
-		<form>
-			<textarea name="editor1" id="editor1" rows="10" cols="80">
-                This is my textarea to be replaced with CKEditor.
-            </textarea>
-			<script>
-				// Replace the <textarea id="editor1"> with a CKEditor
-				// instance, using default configuration.
-				CKEDITOR.replace('editor1');
-				CKEDITOR.editorConfig = function( config ) {
-					config.removeButtons = 'Subscript,Superscript,Cut,Copy,Paste,PasteText,PasteFromWord,RemoveFormat,Outdent,Indent,Blockquote,Styles,Format,About,Link,Unlink,Anchor,Scayt,Image,Table,HorizontalRule,SpecialChar,Maximize,Source';
-				};
-			</script>
-		</form>
-	</div>
 	<footer class="footer">
 		<div class="container">
 			<p class="text-muted"></p>
