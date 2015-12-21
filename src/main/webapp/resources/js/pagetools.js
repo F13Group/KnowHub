@@ -157,6 +157,17 @@ function toggleBookmark(questionId, isBookmarked) {
 	}
 }
 
+function mouseOverRemove(questionId) {
+	$("#remove" + questionId).tooltip({
+		title : "Please click on the icon to remove the bookmark",
+		placement : "right",
+		trigger : "hover",
+		delay : {
+			show : 1
+		},
+	});
+}
+
 function removeBookmark(questionId) {
 	var confirmation = confirm("Are you sure you would like to remove the bookmark from this question?" +
 			" Please pay attention that then the question will be no longer available on My Bookmarks list");
