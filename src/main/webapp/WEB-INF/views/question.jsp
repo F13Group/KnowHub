@@ -34,6 +34,13 @@
 	<script src="${pageContext.servletContext.contextPath}/resources/js/pagetools.js"></script>
 	<script src="${pageContext.servletContext.contextPath}/resources/js/pagination.js"></script>
 	<script src="${pageContext.servletContext.contextPath}/resources/js/likes.js"></script>
+	<script src="${pageContext.servletContext.contextPath}/resources/js/tinymce/tinymce.min.js"></script>
+	
+	  <script>
+  	tinymce.init({
+    selector: '#mytextarea'
+  	});
+  </script>
 </head>
 
 <body>
@@ -87,11 +94,17 @@
 	</div>  <!--	/.tabbable -->
 </div>	<!-- /.container -->
 
-<footer class="col-lg-10 col-md-10 col-sm-10" style="position: fixed; background-color:#57ffab; bottom:0; text-align: center;margin-left: 40px;">
+<sec:authorize access="isAuthenticated()">
+<footer class="col-lg-8 col-md-8 col-sm-8" style="position: fixed; bottom:0; text-align: center;margin-left: 40px;">
 	<div class="container">
-		<p class="text-muted"> Add comment here stub</p>
+		<form id="textArea" action="${pageContext.servletContext.contextPath}" method="post">
+    		<textarea id="mytextarea" name="commentText"></textarea>
+    		<input type="submit" value="Save comment" onclick="addComment()"/>
+ 		</form>
+		<!-- <p class="text-muted"> Add comment here stub</p> -->
 	</div>
 </footer>
+</sec:authorize>
 
 </body>
 </html>

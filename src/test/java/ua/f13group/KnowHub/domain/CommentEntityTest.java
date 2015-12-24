@@ -25,7 +25,7 @@ public class CommentEntityTest {
 		System.out.println("testing");
 		 
 		 emf = Persistence.createEntityManagerFactory("TESTHiberantePostgreSQL");
-		 
+		 		 
 		 System.out.println(emf!=null);
 		 
 		 em = emf.createEntityManager();
@@ -36,9 +36,9 @@ public class CommentEntityTest {
 	public void testAddNewEntityToDB() {
 		 
          Comment curComment = new Comment();
-         curComment.setUser(em.find(User.class, 136L));
+         curComment.setUser(em.find(User.class, 137L));
          curComment.setDate(new Date());
-         curComment.setValue("TakSebe comment");
+         curComment.setValue("Tak Sebe comment");
          curComment.setQuestion(em.find(Question.class, 9L));
          curComment.setRating(0);
 		 
@@ -52,9 +52,9 @@ public class CommentEntityTest {
 	            
 	            System.out.println("new comment created with Id"+curComment.getId());
 	            
-	            em.getTransaction().begin();
-	            em.remove(curComment);
-	            em.getTransaction().commit();
+//	            em.getTransaction().begin();
+//	            em.remove(curComment);
+//	            em.getTransaction().commit();
 	            
 	        } finally {
 	            if (em.getTransaction().isActive()) {

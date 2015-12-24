@@ -75,7 +75,17 @@ function showQuestion() {
 
         $("#addedDate").empty().append("Added " + parseDate(data.loadDate) + "<br> at " + parseTime(data.loadDate));
 
+        // footer textArea form
+        var userName = $("#userName").html();
+        if(userName) {
+        	$("#textArea").prop("action", globalPageUrl+"/comments");
+        }
+
     })
+}
+
+function addComment() {
+	
 }
 
 function showTags(listOfTags) {
