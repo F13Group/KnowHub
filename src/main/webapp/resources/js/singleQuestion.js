@@ -78,14 +78,31 @@ function showQuestion() {
         // footer textArea form
         var userName = $("#userName").html();
         if(userName) {
-        	$("#textArea").prop("action", globalPageUrl+"/comments");
+        	//$("#textArea").prop("action", globalPageUrl+"/comments");
         }
 
     })
 }
 
 function addComment() {
-	
+	console.log(tinymce.get('mytextarea').getContent());
+	//todo add post function with textArea text for creation of new comment
+	$.post(globalPageUrl+"/comments", {text: tinymce.get('mytextarea').getContent()}).done(function (isSuccess) {
+		
+		//TODO
+//		tinymce.get('mytextarea').getContent().empty();
+//		
+//		$("#userComments").append(
+//				$.getJSON(globalPageUrl+"/comments/"+, function (data) {})+
+//				'<div class="col-lg-10 col-md-10 col-sm-10"><div class="row">\
+//				<br>\
+//				</div></div>'
+//		);
+//		
+		
+		//		console.log("addComment function finished");
+//		showQuestion();
+	});
 }
 
 function showTags(listOfTags) {

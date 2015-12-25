@@ -83,7 +83,7 @@ public class SingleQuestionPageController {
 	@RequestMapping(value = "/comments", method = RequestMethod.POST)
 	public boolean addComments(@PathVariable("questionId") Long questionId,
 			Principal principal,
-			@RequestParam(value = "commentText") String commentText) {
+			@RequestParam(value = "text") String commentText) {
 		
 		if (principal != null) {
 			
