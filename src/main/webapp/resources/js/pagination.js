@@ -164,6 +164,27 @@ function outputQuestions(pC, cPN, rOPN) {
 														// value.isBookmarked) +
 														// "</div></div>").insertAfter("#headRow");
 													} else {
+														$(
+																"<tr class='divRow'><td id='col1' class=''><a href='question/"
+																		+ value.id
+																		+ "'  class='divQuestionColor'>"
+																		+ value.value
+																		+ "</a></td><td class=''>"
+																		+ value.category.shortValue
+																		+ "</td><td class=''>"
+																		+ date
+																		+ "</td><td class=''>"
+																		+ wasAskedButton(
+																				value.id,
+																				value.isAsked)
+																		+ " "
+																		+ value.rating
+																		+ "</td><td class=''>"
+																		+ wasBookmarkedButton(
+																				value.id,
+																				value.isBookmarked)
+																		+ "</td></tr>")
+																.appendTo("#tableBody");
 														// $("<div class='divRow
 														// row'><div
 														// class='col-lg-6

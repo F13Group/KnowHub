@@ -1,5 +1,5 @@
 #col1 {
-	max-width: 550px;
+	width:100%;
 	min-width: 450px;
 }
 
@@ -21,8 +21,35 @@
 }
 
 #questionsList{
-	margin-left: 206px;
+	width:90%;
 }
+
+#questions_table_categories {
+	vertical-align: top;
+
+}
+
+#questions_table_questions{
+
+	
+}
+
 .row {
-	display:inline;
+	width:95%;
+	
+}
+
+.questions_table{
+	padding:20px;
+}
+
+#categoriesMenu{
+	margin-top: 33px;
+}
+
+.nav-left{
+	min-width:850px;
+}
+.nav {
+	min-width:580px;
 }

@@ -55,32 +55,37 @@
 
 	<div class="container">
 
-		<div class="row">
-			<div id="categoriesMenu" class="categoriesMenu justified"></div>
-			<table id="questionsList" class="table justified">
-				<thead id="headRow">
+		<table class="row">
+			<tr>
+				<td id="questions_table_categories" class="questions_table"><div id="categoriesMenu"
+						class="categoriesMenu justified"></div></td>
+				<td id="questions_table_questions" class="questions_table"><table id="questionsList"
+						class="table">
+						<thead id="headRow">
 
-					<tr>
-						<th id="col1">Question</th>
-						<th id="col2">Category<input type="button"
-							id="buttonOrderBy2" class="change_order_sign" value="&#x25AD;"
-							onclick="orderedBy(2)"></th>
-						<th id="col3">Date<input type="button" id="buttonOrderBy1"
-							class="change_order_sign" value="&#x25BC;" onclick="orderedBy(1)"></th>
-						<th id="col4">Asked<input type="button" id="buttonOrderBy3"
-							class="change_order_sign" value="&#x25AD;" onclick="orderedBy(3)"></th>
-						<sec:authorize access="isAuthenticated()">
-							<th id="col5">Bookmark<input type="button"
-								id="buttonOrderBy4" class="change_order_sign" value="&#x25AD;"
-								onclick="orderedBy(4)"></th>
-						</sec:authorize>
-					</tr>
-				</thead>
+							<tr>
+								<th id="col1">Question</th>
+								<th id="col2">Category<input type="button"
+									id="buttonOrderBy2" class="change_order_sign" value="&#x25AD;"
+									onclick="orderedBy(2)"></th>
+								<th id="col3">Date<input type="button" id="buttonOrderBy1"
+									class="change_order_sign" value="&#x25BC;"
+									onclick="orderedBy(1)"></th>
+								<th id="col4">Asked<input type="button" id="buttonOrderBy3"
+									class="change_order_sign" value="&#x25AD;"
+									onclick="orderedBy(3)"></th>
+								<sec:authorize access="isAuthenticated()">
+									<th id="col5">Bookmark<input type="button"
+										id="buttonOrderBy4" class="change_order_sign" value="&#x25AD;"
+										onclick="orderedBy(4)"></th>
+								</sec:authorize>
+							</tr>
+						</thead>
 
-				<tbody id="tableBody">
-				</tbody>
-			</table>
-			<!--  	<div id="questionsList"
+						<tbody id="tableBody">
+						</tbody>
+					</table></td>
+				<!--  	<div id="questionsList"
 				class="divTable col-lg-10 col-md-10 col-sm-10 justified">
 				<div class="row">
 					<div id="headRow" class="headRow">
@@ -113,7 +118,8 @@
 					</div>
 				</div>
 			</div> -->
-		</div>
+			</tr>
+		</table>
 		<div class="row">
 			<div id="pagingRow"
 				class="pagingRow col-lg-offset-2 col-lg-10 col-md-offset-2 col-md-10 col-sm-offset-2 col-sm-10">
