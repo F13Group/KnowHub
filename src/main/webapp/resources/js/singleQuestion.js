@@ -87,18 +87,43 @@ function showQuestion() {
 function addComment() {
 	console.log(tinymce.get('mytextarea').getContent());
 	//todo add post function with textArea text for creation of new comment
-	$.post(globalPageUrl+"/comments", {text: tinymce.get('mytextarea').getContent()}).done(function (isSuccess) {
+	$.post(globalPageUrl+"/comments", {text: tinymce.get('mytextarea').getContent()}).done(function (data) {
 		
 		//TODO
-//		tinymce.get('mytextarea').getContent().empty();
+		tinymce.get('mytextarea').setContent("");
 //		
-//		$("#userComments").append(
-//				$.getJSON(globalPageUrl+"/comments/"+, function (data) {})+
-//				'<div class="col-lg-10 col-md-10 col-sm-10"><div class="row">\
-//				<br>\
-//				</div></div>'
-//		);
-//		
+		$("#userComments").append(
+				$.getJSON(globalPageUrl + "/comments/" + data, function (data) {
+					
+		            var html =
+		                '<div id="comment ' + data.id + '" class=" col-lg-10 col-md-10 col-sm-10">\
+							<div class="row">\
+							  <div class="col-lg-2 col-md-2 col-sm-2 divCell_Left">\
+							    <img src="' + globalAppUrl + '/resources/img/account.png" width="20" height="20" /> <a href="#">' + getCorrectUserLoginName(data.authorLogin) + '</a><br>\
+							    Added ' + parseDate(data.date) + '<br>\
+							    at ' + parseTime(data.date) + '\
+						      </div>\
+							    \
+							  <div class="col-lg-10 col-md-10 col-sm-10 justified">' + data.value + 
+							  '\
+							 <div id="tools' + lastCommentId + 1 + '" style="overflow: auto; border-bottom:dotted 1px" >\
+						</div></div>\
+			                  </div>\
+							</div>\
+						</div>';
+		            var divider = '<div class="col-lg-10 col-md-10 col-sm-10"><div class="row">\
+							<br>\
+							</div></div>';
+		            $("#footer").before(html + divider);
+		            var rating = data.positiveRate-data.negativeRate;
+		            $(('#tools' + lastCommentId +1)).append('<div id="right"><a href="#">Reply<img src="' + globalAppUrl + '/resources/img/reply.png" width="20" height="20"></a></div>');
+		            $(('#tools' + lastCommentId +1)).append(dislikeButton(data.id, data.currentUserPositivelyRatedComment, data.currentUserNegativelyRatedComment,data.thisCommentsLikeIdIfUserLikedIt));
+		            $(('#tools' + lastCommentId +1)).append(likeButton(data.id, data.currentUserPositivelyRatedComment, data.currentUserNegativelyRatedComment,data.thisCommentsLikeIdIfUserLikedIt));
+		            $(('#tools' + lastCommentId +1)).append('<div id="right">' + rating + '</div>');
+		            lastCommentId = data.id;
+				})
+		);
+		
 		
 		//		console.log("addComment function finished");
 //		showQuestion();
@@ -158,7 +183,7 @@ function loadComments() {
         if (noMoreItemsAvailable) {
             var footerHeight = $("footer").height();
             console.log(footerHeight);
-            $("#userComments").append('<div class="col-lg-10 col-md-10 col-sm-10"><div class="row" style="height: ' + footerHeight + 'px;"></div></div>');
+            $("#userComments").append('<div id="footer" class="col-lg-10 col-md-10 col-sm-10"><div class="row" style="height: ' + footerHeight + 'px;"></div></div>');
         }
 
     });

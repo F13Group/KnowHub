@@ -81,7 +81,7 @@ public class SingleQuestionPageController {
 	}
 	
 	@RequestMapping(value = "/comments", method = RequestMethod.POST)
-	public boolean addComments(@PathVariable("questionId") Long questionId,
+	public Long addComments(@PathVariable("questionId") Long questionId,
 			Principal principal,
 			@RequestParam(value = "text") String commentText) {
 		
@@ -98,12 +98,11 @@ public class SingleQuestionPageController {
             curComment.setQuestion(curQuestion);
             curComment.setRating(0);
             
-            commentService.saveComment(curComment);
+            return commentService.saveComment(curComment);
             
-            return true;
         }
 		
-		return false;
+		return null;
 	}
 	
 	
