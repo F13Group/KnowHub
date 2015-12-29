@@ -77,7 +77,9 @@ function outputQuestions(pC, cPN, rOPN) {
 										+ value.rating
 										+ "</div><div class='col-lg-1 col-md-1 col-sm-1 divCell_Center'><a id='remove"
 										+ value.id
-										+ "' onclick='removeBookmark("
+										+ "' onmouseover='mouseOverRemove("
+										+ value.id
+										+ ")' onclick='removeBookmark("
 										+ value.id
 										+ ")'>Remove"
 										+ "</a></div></div>").insertAfter("#headRow");

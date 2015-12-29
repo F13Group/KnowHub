@@ -34,11 +34,13 @@ public class JpaQuestionServiceTest {
 	@Mock
 	Question questionMock;
 	
+	Question exampleQuestion;
+	
 	@Mock
     QuestionRepository questionRepositoryMock;
     
     @InjectMocks
-    JpaQuestionService jpaQuestionServiceMock;
+    JpaQuestionService jpaQuestionServiceMock;    
     
     public JpaQuestionServiceTest() {
     }
@@ -55,13 +57,14 @@ public class JpaQuestionServiceTest {
     public void setUp() {
     	MockitoAnnotations.initMocks(this);
     	
-    	Question exampleQuestion1 = new Question();
-    	exampleQuestion1.setCategory(new Category());
-    	exampleQuestion1.setValue("question1");
-    	exampleQuestion1.setLoadDate(new Timestamp(0));
-    	exampleQuestion1.setTags(new ArrayList<Tag>());
+    	exampleQuestion = new Question();
+    	exampleQuestion.setCategory(new Category());
+    	exampleQuestion.setValue("question1");
+    	exampleQuestion.setLoadDate(new Timestamp(0));
+    	exampleQuestion.setTags(new ArrayList<Tag>());
+    	exampleQuestion.setViews((long) 0);
     	
-    	Object[] objectArray = {exampleQuestion1, 
+    	Object[] objectArray = {exampleQuestion, 
     			BigInteger.ONE, 
     			new Boolean(false), 
     			new Boolean(false)};
@@ -89,10 +92,22 @@ public class JpaQuestionServiceTest {
     			.findById((long) 1)).thenReturn(null);
     	
     	when(questionRepositoryMock
-    			.findById((long) 2)).thenReturn(exampleQuestion1);
+    			.findById((long) 2)).thenReturn(exampleQuestion);
     	
     	when(questionRepositoryMock
     			.save(questionMock)).thenReturn((long) 10);
+    	
+    	when(questionRepositoryMock
+    			.save(exampleQuestion)).thenReturn((long) 20);
+    	
+    	when(questionRepositoryMock
+    			.getRecordsCountBookmarked((long) 1)).thenReturn(20);
+    	
+    	when(questionRepositoryMock
+    			.findBookmarkedByUserPaginatedAndOrdered(1, 1, 1, 
+    					QuestionSortConfig.DATE, false))
+    					.thenReturn(singleResultList);
+    	
     }
     
     @After
@@ -117,8 +132,8 @@ public class JpaQuestionServiceTest {
         assertEquals(expResult, result.size());
         
         verify(questionRepositoryMock, times(1))
-        	.findForPageWithRatingIsAskedAndIsBookmarked(1, null, 1, 1, 
-				QuestionSortConfig.DATE, false);
+        	.findForPageWithRatingIsAskedAndIsBookmarked(userId, null, rowsOnPage, pageNumber, 
+        			cfg, ascending);
     }
     
     @Test
@@ -136,8 +151,8 @@ public class JpaQuestionServiceTest {
         assertEquals(expResult, result.size());
         
         verify(questionRepositoryMock, times(1))
-        	.findForPageWithRatingIsAskedAndIsBookmarked(1, categoryMock, 1, 1, 
-				QuestionSortConfig.DATE, false);
+        	.findForPageWithRatingIsAskedAndIsBookmarked(userId, categoryMock, rowsOnPage, 
+        		pageNumber,	cfg, ascending);
     }
 
 
@@ -220,20 +235,76 @@ public class JpaQuestionServiceTest {
         assertEquals(10, jpaQuestionServiceMock.save(questionMock).intValue());        
         verify(questionRepositoryMock, times(1)).save(questionMock);
     }
+    
+    
+    /**
+     * Test of addView method, of class JpaQuestionService.
+     */
+    @Test
+    public void testAddViewQuestionNotExists() {       
+        jpaQuestionServiceMock.addView((long) 1);
+        
+        verify(questionRepositoryMock, times(0)).save(null);
+    }
+    
+    @Test
+    public void testAddViewQuestionExists() {       
+    	jpaQuestionServiceMock.addView((long) 2);
+    	
+    	assertEquals(1, exampleQuestion.getViews().intValue());
+        verify(questionRepositoryMock, times(1)).save(exampleQuestion);
+    }
+    
+    
+    /**
+     * Test of getRecordsCountBookmarked method, of class JpaQuestionService.
+     */
+    @Test
+    public void testGetRecordsCountBookmarkedNoRowsOnPage() {       
+        assertEquals(20, jpaQuestionServiceMock.getRecordsCountBookmarked((long) 1));
+        
+        verify(questionRepositoryMock, times(1)).getRecordsCountBookmarked((long) 1);
+    }
+    
+    
+    /**
+     * Test of getPagesCountBookmarked method, of class JpaQuestionService.
+     */
+    @Test
+    public void testGetPagesCountBookmarkedWithRowsOnPageRemainderZero() {       
+    	assertEquals(1, jpaQuestionServiceMock.getPagesCountBookmarked((long) 1, 20));
+        
+        verify(questionRepositoryMock, times(1)).getRecordsCountBookmarked((long) 1);
+    }
+    
+    @Test
+    public void testGetPagesCountBookmarkedWithRowsOnPageRemainderNonZero() {       
+    	assertEquals(2, jpaQuestionServiceMock.getPagesCountBookmarked((long) 1, 11));
+        
+        verify(questionRepositoryMock, times(1)).getRecordsCountBookmarked((long) 1);
+    }
 
-//    /**
-//     * Test of getRecordsCount method, of class JpaQuestionService.
-//     */
-//    @Test
-//    public void testGetRecordsCount_Category() {
-//        System.out.println("getRecordsCount");
-//        Category category = null;
-//        JpaQuestionService instance = new JpaQuestionService();
-//        int expResult = 0;
-//        int result = instance.getRecordsCount(category);
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
-//    }
-//    
+    
+    /**
+     * Test of getQuestionsBookmarked method, of class JpaQuestionService.
+     */
+    @Test
+    public void testGetQuestionsBookmarked() {
+    	long userId = 1;
+        int rowsOnPage = 1;
+        int pageNumber = 1;
+        QuestionSortConfig cfg = QuestionSortConfig.DATE;
+        boolean ascending = false;        
+        int expResult = 1;
+        
+        List<QuestionFrequentAskedDTO> result = 
+        		jpaQuestionServiceMock.getQuestionsBookmarked(
+        				userId, rowsOnPage, pageNumber, cfg, ascending);
+        
+        assertEquals(expResult, result.size());
+        
+        verify(questionRepositoryMock, times(1))
+        	.findBookmarkedByUserPaginatedAndOrdered(userId, rowsOnPage, pageNumber, 
+        			cfg, ascending);
+    }
 }
