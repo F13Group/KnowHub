@@ -140,14 +140,21 @@ function showTags(listOfTags) {
 
 function loadComments() {
     //Sends index from where to start load comments and quantity.
-    $.getJSON(commentUrl + '?lastCommentId=' + lastCommentId + '&numberOfComments=' + commentsQuantityToLoad, function (data) {
+	
+	//uncomment when Ajax scrolling will be ready
+    //$.getJSON(commentUrl + '?lastCommentId=' + lastCommentId + '&numberOfComments=' + commentsQuantityToLoad, function (data) {
+    
+	//temporal function which collects all comments
+	$.getJSON(globalPageUrl + "/allcomments", function (data) {
         /*
          * JSON lengths we get, is shorter than quantity we requested for - it means
          * that we've loaded last set of comments and we must not send any more request.
          * */
-        if (data.length < commentsQuantityToLoad) {
+		
+    	//uncomment when Ajax scrolling will be ready
+        //if (data.length < commentsQuantityToLoad) {
             noMoreItemsAvailable = true;
-        }
+       // }
         for (var i = 0; i < data.length; i++) {
             var html =
                 '<div id="comment ' + data[i].id + '" class=" col-lg-10 col-md-10 col-sm-10">\

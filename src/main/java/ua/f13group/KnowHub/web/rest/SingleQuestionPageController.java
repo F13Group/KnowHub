@@ -125,7 +125,7 @@ public class SingleQuestionPageController {
 //		return commentServive.getFixedNumberOfComments(curQuestion, curComment, offset);
 	}
 	
-/*	@RequestMapping(value = "/comments", method = RequestMethod.GET)
+	@RequestMapping(value = "/allcomments", method = RequestMethod.GET)
 	public List<CommentDTO> getAllComment(@PathVariable("questionId") Long questionId,
 			Principal principal) {
 		
@@ -136,7 +136,7 @@ public class SingleQuestionPageController {
 		}
 		
 		return commentService.getAllQuestionCommentDTOs(curQuestion, curUser);
-	}*/
+	}
 	
 	@RequestMapping(value = "/like", method = RequestMethod.POST)
 	@Transactional
